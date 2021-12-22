@@ -1,0 +1,28 @@
+version: '2'
+services:
+  mariadb:
+    image: 'mariadb:10.5.8-focal'
+    volumes:
+      - 'mariadb_data:/var/lib/mysql'
+    environment:
+      - MYSQL_ROOT_PASSWORD=theVeryp@ssw0rd
+      - MYSQL_DATABASE=pushdeer
+    ports:
+      - '3306:3306'  
+  app:
+    #image: 'webdevops/php-apache:8.0-alpine'
+    build: './docker/web/'
+    ports:
+      - '8800:80'
+    volumes:
+      - './:/app'
+    depends_on:
+      - mariadb
+    environment:
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_USERNAME=root
+      - DB_DATABASE=pushdeer
+      - DB_PASSWORD=theVeryp@ssw0rd
+volumes:
+  mariadb_data:

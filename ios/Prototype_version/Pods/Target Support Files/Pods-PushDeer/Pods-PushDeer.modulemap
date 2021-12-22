@@ -1,0 +1,6 @@
+framework module Pods_PushDeer {
+  umbrella header "Pods-PushDeer-umbrella.h"
+
+  export *
+  module * { export * }
+}

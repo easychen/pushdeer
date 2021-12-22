@@ -1,0 +1,21 @@
+FROM webdevops/php-apache:8.0
+
+# 首先配置 vhost
+COPY vhost.conf /opt/docker/etc/httpd/vhost.conf
+# COPY web.vhost.conf /opt/docker/etc/httpd/vhost.common.d/
+
+# 然后运行初始化脚本
+# https://dockerfile.readthedocs.io/en/latest/content/Customization/provisioning.html
+COPY init.sh /opt/docker/provision/entrypoint.d/
+#CMD chmod +x /opt/docker/provision/entrypoint.d/init.sh
+
+# ADD supervisord-proxy.conf /opt/docker/etc/supervisor.d/prism-proxy.conf
+RUN mkdir /data
+COPY gorush /data/gorush
+RUN chmod +x /data/gorush 
+
+ADD supervisord-ios.conf /opt/docker/etc/supervisor.d/push-ios.conf
+ADD supervisord-clip.conf /opt/docker/etc/supervisor.d/push-clip.conf
+
+EXPOSE 80 
+

@@ -1,0 +1,15 @@
+{
+    "applinks": {
+        "details": [
+             {
+               "appIDs": [ "HUJ6HAE4VU.com.pushdeer.app.ios.Clip"]
+             }
+         ]
+     },
+     "webcredentials": {
+        "apps": [ "HUJ6HAE4VU.com.pushdeer.app.ios.Clip" ]
+     },
+    "appclips": {
+        "apps": ["HUJ6HAE4VU.com.pushdeer.app.ios.Clip"]
+    }
+}

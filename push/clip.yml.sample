@@ -1,0 +1,48 @@
+core:
+  enabled: true # enable httpd server
+  address: "127.0.0.1" # ip address to bind (default: any)
+  shutdown_timeout: 30 # default is 30 second
+  port: "8889" # ignore this port number if auto_tls is enabled (listen 443).
+  sync: false
+  max_notification: 1
+  cert_path: "cc.p12"
+  key_path: ""
+  cert_base64: ""
+  key_base64: ""
+  http_proxy: ""
+  pid:
+    enabled: false
+    path: "gorush.pid"
+    override: true
+ 
+api:
+  push_uri: "/api/push"
+  stat_go_uri: "/api/stat/go"
+  stat_app_uri: "/api/stat/app"
+  config_uri: "/api/config"
+  sys_stat_uri: "/sys/stats"
+  metric_uri: "/metrics"
+  health_uri: "/healthz"
+
+ios:
+  enabled: true
+  key_path: "cc.p12"
+  key_base64: "" # load iOS key from base64 input
+  key_type: "p12" # could be pem, p12 or p8 type
+  password: "" # certificate password, default as empty string.
+  production: false
+  max_concurrent_pushes: 100 # just for push ios notification
+  max_retry: 0 # resend fail notification, default value zero is disabled
+  key_id: "66M7BD2GCV" # KeyID from developer account (Certificates, Identifiers & Profiles -> Keys)
+  team_id: "HUJ6HAE4VU" # TeamID from developer account (View Account -> Membership)
+
+log:
+  format: "string" # string or json
+  access_log: "stdout" # stdout: output to console, or define log path like "log/access_log"
+  access_level: "debug"
+  error_log: "stderr" # stderr: output to console, or define log path like "log/error_log"
+  error_level: "error"
+  hide_token: true
+
+stat:
+  engine: "memory" # support memory, redis, boltdb, buntdb or leveldb
