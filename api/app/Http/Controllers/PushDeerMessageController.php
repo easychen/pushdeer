@@ -73,7 +73,7 @@ class PushDeerMessageController extends Controller
             }
         }
 
-        return ['result'=>$result];
+        return http_result(['result'=>$result]);
     }
 
 
