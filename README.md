@@ -104,7 +104,7 @@ PushDeer主要面向以下三类用户
 
 ### 下载代码
 
-```git clone https://github.com/easychen/pushdeer```
+```git clone https://github.com/easychen/pushdeer.git```
 
 ### 配置推送证书
 
