@@ -261,3 +261,7 @@ API_BASE=http://127.0.0.1:8800
 ## 授权
 
 本项目禁止商用（包括但不限于搭建后挂广告或售卖会员、打包后上架商店销售等），对非商业用途采用 GPLV2 授权
+
+## 相关项目
+
+- [Go SDK](https://github.com/Luoxin/go-pushdeer-sdk) by [Luoxin](https://github.com/Luoxin)
