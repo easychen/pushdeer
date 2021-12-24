@@ -8,7 +8,7 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，当前项目
 |-|-|-|-|-|
 |![](doc/design_and_resource/登入.png)|![](doc/design_and_resource/设备.png)|![](doc/design_and_resource/key.png)|![](doc/design_and_resource/消息.png)|![](doc/design_and_resource/设置.png)
 
-[📼 项目视频说明](https://www.bilibili.com/video/BV1Ar4y1S7em/) [📼 项目架构和模块说明](https://www.bilibili.com/video/BV1ZS4y1T7Bf/)
+[📼 无App推送使用演示视频](https://weibo.com/tv/show/1034:4714616840978534?from=old_pc_videoshow) [📼 项目视频说明](https://www.bilibili.com/video/BV1Ar4y1S7em/) [📼 项目架构和模块说明](https://www.bilibili.com/video/BV1ZS4y1T7Bf/)
 
 ## 一期核心功能领取
 
