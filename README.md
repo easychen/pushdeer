@@ -2,6 +2,8 @@
 
 PushDeer开源版，可以自行架设的无APP推送服务（WIP，当前项目只实现了后端API，其他部分正在施工🚧）
 
+[🐙🐱 GitHub仓库](https://github.com/easychen/pushdeer) [🔮 中国大陆镜像仓库](https://gitee.com/easychen/pushdeer)
+
 |登入|设备|Key|消息|设置|
 |-|-|-|-|-|
 |![](doc/design_and_resource/登入.png)|![](doc/design_and_resource/设备.png)|![](doc/design_and_resource/key.png)|![](doc/design_and_resource/消息.png)|![](doc/design_and_resource/设置.png)
@@ -10,11 +12,13 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，当前项目
 
 ## 一期核心功能领取
 
-|功能|领取人|预期完成时间|协作开发|
-|-|-|-|-|
-|iOS/MacApp+Clip开发|[Hext123](https://github.com/Hext123)|2022年1月20日|如有意参与可与当前领取人联系|
-|Android客户端|尚未领取|-|-|
-|快应用|尚未领取|-|-|
+|功能|领取人|预期完成时间|协作开发|最低版本兼容
+|-|-|-|-|-|
+|iOS/MacApp+Clip开发|[Hext123](https://github.com/Hext123)|2022年1月20日|如有意参与可与当前领取人联系|iOS14|
+|Android客户端|[WolfHugo](https://github.com/alone-wolf)|2022年2月24日|如有意参与可与当前领取人联系|5.1|
+|快应用|尚未领取|-|-|-|
+
+领取表格 https://docs.qq.com/form/page/DWm1lS0FCR1p0bWlI 
 
 
 
