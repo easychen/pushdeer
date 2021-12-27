@@ -17,8 +17,8 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，当前项目
 |iOS/MacApp+Clip开发|[Hext123](https://github.com/Hext123)|2022年1月20日|iOS14|界面绘制|
 |Android客户端|[WolfHugo](https://github.com/alone-wolf)|2022年2月24日|5.1|推送DSK测试·MiPUSH|
 |快应用|[7YHong](https://github.com/7YHong)|2022年2月27日|-|-|
+|API完善和更新|[古俊杰](https://github.com/ilovintit)|配合客户端同步更新|-|-|
 
-领取表格 https://docs.qq.com/form/page/DWm1lS0FCR1p0bWlI 
 
 
 
