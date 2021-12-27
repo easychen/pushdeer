@@ -1,0 +1,528 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "PushDeerOS",
+    "description": "This document was generated from the branch master.\n\nIf you are a contributor to this project, you may access it here: https://paw.cloud/account/teams/68874/projects/93784",
+    "version": "v0.0.0",
+    "contact": {
+      "name": "easychen",
+      "url": "https://paw.cloud/account/teams/68874"
+    }
+  },
+  "host": "127.0.0.1:8800",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/login/fake": {
+      "get": {
+        "summary": "① 模拟登入",
+        "description": "",
+        "operationId": "f683f576-feeb-4fe9-aa1d-b6475dcb766b",
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/user/info": {
+      "post": {
+        "summary": "② 获取当前用户数据",
+        "description": "",
+        "operationId": "b1f341b4-6d22-4d24-bfa5-3e49e4f0cc96",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/device/reg": {
+      "post": {
+        "summary": "③ 注册设备",
+        "description": "",
+        "operationId": "379f4336-f61a-4d13-b5e3-509377e76bf0",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "Easy的iPad",
+            "name": "name",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "device-token",
+            "name": "device_id",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "0",
+            "name": "is_clip",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/device/list": {
+      "post": {
+        "summary": "④ 设备列表",
+        "description": "",
+        "operationId": "0ae9bdc1-cb0f-4638-b23b-291b8da147ff",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/device/remove": {
+      "post": {
+        "summary": "⑤ 删除已注册的设备",
+        "description": "",
+        "operationId": "1ba892c0-a0cd-4d37-b2fc-535f183c8a95",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "2",
+            "name": "id",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/device/rename": {
+      "post": {
+        "summary": "⑤ 重命名设备",
+        "description": "",
+        "operationId": "30d5ba13-a659-4c5b-b9f8-6dd22419ba85",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "2",
+            "name": "id",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "修改后的设备名称",
+            "name": "name",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/key/gen": {
+      "post": {
+        "summary": "⑥ 生成一个新key",
+        "description": "",
+        "operationId": "587a9253-0307-4fc4-840e-80e1a33174cc",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/key/regen": {
+      "post": {
+        "summary": "⑦ 重置一个key ",
+        "description": "",
+        "operationId": "4e2198d8-8882-4bec-b340-53569f85147c",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "1",
+            "name": "id",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/key/rename": {
+      "post": {
+        "summary": "⑦ 重命名key",
+        "description": "",
+        "operationId": "b65efcd2-2617-4922-bb25-c14449a96d70",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "1",
+            "name": "id",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "新key",
+            "name": "name",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/key/list": {
+      "post": {
+        "summary": "⑧ key 列表",
+        "description": "",
+        "operationId": "f3edecf8-f032-445e-82bb-0f9be9be5537",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/key/remove": {
+      "post": {
+        "summary": "⑨ 删除一个key",
+        "description": "",
+        "operationId": "e73b75ef-2817-4c64-a88f-86a2d4332506",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "1",
+            "name": "id",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/message/push": {
+      "post": {
+        "summary": "⑩推送消息",
+        "description": "",
+        "operationId": "ad7666c1-6f53-4af8-a093-d8def50feb88",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "PDU1TU6klE1gx6oJU9DE7wWr5nWD7aizcicHX",
+            "name": "pushkey",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "这是什么呀1111",
+            "name": "text",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/message/list": {
+      "post": {
+        "summary": "⑩① 消息列表",
+        "description": "",
+        "operationId": "9ec18878-1974-4cc5-8e70-b612359f84cf",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    },
+    "/message/remove": {
+      "post": {
+        "summary": "⑩② 删除消息",
+        "description": "",
+        "operationId": "f4f868ed-621f-4500-b71e-55aa78226c93",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "default": "",
+            "name": "Cookie",
+            "required": false,
+            "in": "header"
+          },
+          {
+            "type": "string",
+            "default": "8d57dae1ca8502c784697bb4177bbdcd",
+            "name": "token",
+            "required": false,
+            "in": "formData"
+          },
+          {
+            "type": "string",
+            "default": "1",
+            "name": "id",
+            "required": false,
+            "in": "formData"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "no response description was provided for this operation"
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}

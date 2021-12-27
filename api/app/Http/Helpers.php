@@ -7,14 +7,14 @@ function getUserDataFromIdentityToken($idToken)
     return [ 'email' => $appleSignInPayload->getEmail() , 'uid' => $appleSignInPayload->getUser() ];
 }
 
-function http_result($content, $code=0)
+function http_result($content, $code=0, $error='')
 {
-    return ['code'=>$code, 'content'=>$content];
+    return ['code'=>$code, 'content'=>$content,'error'=>$error];
 }
 
 function send_error($msg, $code = '9999')
 {
-    return response()->json(http_result($msg, $code));
+    return response()->json(http_result($msg, $code, $msg));
 }
 
 function uid()
@@ -74,6 +74,8 @@ function ios_send($is_clip, $device_token, $text, $desp = '', $dev = true)
     $response = $client->post('http://127.0.0.1:'. $port .'/api/push', [
     GuzzleHttp\RequestOptions::JSON => $json
     ]);
-    return $response->getBody()->getContents();
+    $ret = $response->getBody()->getContents();
+    error_log('push error'. $ret);
+    return $ret;
     ;
 }

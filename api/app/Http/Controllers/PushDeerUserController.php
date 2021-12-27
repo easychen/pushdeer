@@ -46,8 +46,7 @@ class PushDeerUserController extends Controller
             return http_result(['token'=>$token]);
         }
 
-
-        return http_result(['error'=>'id_token解析错误'], -1);
+        return send_error('id_token解析错误', ErrorCode('ARGS'));
     }
 
     //
@@ -90,6 +89,6 @@ class PushDeerUserController extends Controller
         }
 
 
-        return http_result(['error'=>'id_token解析错误'], -1);
+        return send_error('id_token解析错误', ErrorCode('ARGS'));
     }
 }

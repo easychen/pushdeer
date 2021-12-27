@@ -30,7 +30,7 @@ class PushDeerDeviceController extends Controller
 
         $uid = $_SESSION['uid'];
         if (strlen($uid) < 1) {
-            return http_result(['error'=>'uid错误'], -1);
+            return send_error('uid错误', ErrorCode('ARGS'));
         }
 
         $the_device = [];
@@ -54,15 +54,15 @@ class PushDeerDeviceController extends Controller
             ]
         );
 
-        $pd_device = PushDeerDevice::where('id', $validated['id'])->get(['id', 'uid', 'name', 'type', 'device_id', 'is_clip'])->first();
-
-        if ($pd_device->uid == $_SESSION['uid']) {
-            $pd_device->name = $validated['name'];
-            $pd_device->save();
-            return http_result(['message'=>'done']);
+        if ($pd_device = PushDeerDevice::where('id', $validated['id'])->get(['id', 'uid', 'name', 'type', 'device_id', 'is_clip'])->first()) {
+            if ($pd_device->uid == $_SESSION['uid']) {
+                $pd_device->name = $validated['name'];
+                $pd_device->save();
+                return http_result(['message'=>'done']);
+            }
         }
 
-        return http_result(['message'=>'error']);
+        return send_error('设备不存在或已注销', ErrorCode('ARGS'));
     }
 
     public function remove(Request $request)
@@ -73,13 +73,13 @@ class PushDeerDeviceController extends Controller
             ]
         );
 
-        $pd_device = PushDeerDevice::where('id', $validated['id'])->get(['id', 'uid', 'name', 'type', 'device_id', 'is_clip'])->first();
-
-        if ($pd_device->uid == $_SESSION['uid']) {
-            $pd_device->delete();
-            return http_result(['message'=>'done']);
+        if ($pd_device = PushDeerDevice::where('id', $validated['id'])->get(['id', 'uid', 'name', 'type', 'device_id', 'is_clip'])->first()) {
+            if ($pd_device->uid == $_SESSION['uid']) {
+                $pd_device->delete();
+                return http_result(['message'=>'done']);
+            }
         }
 
-        return http_result(['message'=>'error']);
+        return send_error('设备不存在或已注销', ErrorCode('ARGS'));
     }
 }

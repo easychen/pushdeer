@@ -86,13 +86,13 @@ class PushDeerMessageController extends Controller
             ]
         );
 
-        $pd_message = PushDeerMessage::where('id', $validated['id'])->get(['id', 'uid', 'text', 'desp', 'type','created_at'])->first();
-
-        if ($pd_message->uid == $_SESSION['uid']) {
-            $pd_message->delete();
-            return http_result(['message'=>'done']);
+        if ($pd_message = PushDeerMessage::where('id', $validated['id'])->get(['id', 'uid', 'text', 'desp', 'type','created_at'])->first()) {
+            if ($pd_message->uid == $_SESSION['uid']) {
+                $pd_message->delete();
+                return http_result(['message'=>'done']);
+            }
         }
 
-        return http_result(['message'=>'error']);
+        return send_error('消息不存在或已删除', ErrorCode('ARGS'));
     }
 }

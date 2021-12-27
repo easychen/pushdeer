@@ -23,7 +23,7 @@ class PushDeerKeyController extends Controller
     {
         $uid = $_SESSION['uid'];
         if (strlen($uid) < 1) {
-            return http_result(['error'=>'uid错误'], -1);
+            return send_error('uid错误', ErrorCode('ARGS'));
         }
 
         $the_key = [];
@@ -45,15 +45,15 @@ class PushDeerKeyController extends Controller
             ]
         );
 
-        $pd_key = PushDeerKey::where('id', $validated['id'])->get(['id', 'name','uid', 'key','created_at'])->first();
-
-        if ($pd_key->uid == $_SESSION['uid']) {
-            $pd_key->name = $validated['name'];
-            $pd_key->save();
-            return http_result(['message'=>'done']);
+        if ($pd_key = PushDeerKey::where('id', $validated['id'])->get(['id', 'name','uid', 'key','created_at'])->first()) {
+            if ($pd_key->uid == $_SESSION['uid']) {
+                $pd_key->name = $validated['name'];
+                $pd_key->save();
+                return http_result(['message'=>'done']);
+            }
         }
 
-        return http_result(['message'=>'error']);
+        send_error('Key不存在或已删除', ErrorCode('ARGS'));
     }
 
     public function regen(Request $request)
@@ -64,15 +64,15 @@ class PushDeerKeyController extends Controller
             ]
         );
 
-        $pd_key = PushDeerKey::where('id', $validated['id'])->get(['id', 'name','uid', 'key','created_at'])->first();
-
-        if ($pd_key->uid == $_SESSION['uid']) {
-            $pd_key->key = 'PDU'.$pd_key->uid.'T'.Str::random(32);
-            $pd_key->save();
-            return http_result(['message'=>'done']);
+        if ($pd_key = PushDeerKey::where('id', $validated['id'])->get(['id', 'name','uid', 'key','created_at'])->first()) {
+            if ($pd_key->uid == $_SESSION['uid']) {
+                $pd_key->key = 'PDU'.$pd_key->uid.'T'.Str::random(32);
+                $pd_key->save();
+                return http_result(['message'=>'done']);
+            }
         }
 
-        return http_result(['message'=>'error']);
+        send_error('Key不存在或已删除', ErrorCode('ARGS'));
     }
 
     public function remove(Request $request)
@@ -83,13 +83,13 @@ class PushDeerKeyController extends Controller
             ]
         );
 
-        $pd_key = PushDeerKey::where('id', $validated['id'])->get(['id','name', 'uid', 'key','created_at'])->first();
-
-        if ($pd_key->uid == $_SESSION['uid']) {
-            $pd_key->delete();
-            return http_result(['message'=>'done']);
+        if ($pd_key = PushDeerKey::where('id', $validated['id'])->get(['id','name', 'uid', 'key','created_at'])->first()) {
+            if ($pd_key->uid == $_SESSION['uid']) {
+                $pd_key->delete();
+                return http_result(['message'=>'done']);
+            }
         }
 
-        return http_result(['message'=>'error']);
+        send_error('Key不存在或已删除', ErrorCode('ARGS'));
     }
 }
