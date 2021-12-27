@@ -7,14 +7,15 @@ function getUserDataFromIdentityToken($idToken)
     return [ 'email' => $appleSignInPayload->getEmail() , 'uid' => $appleSignInPayload->getUser() ];
 }
 
-function http_result($content, $code=0, $error='')
+function http_result($content, $code=0)
 {
-    return ['code'=>$code, 'content'=>$content,'error'=>$error];
+    return ['code'=>$code, 'content'=>$content];
 }
 
-function send_error($msg, $code = '9999')
+function send_error($error, $code = '9999')
 {
-    return response()->json(http_result($msg, $code, $msg));
+    return response()->json(['code'=>$code, 'error'=>$error]);
+    // return response()->json(http_result($msg, $code, $msg));
 }
 
 function uid()
