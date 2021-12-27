@@ -39,7 +39,7 @@ class Handler extends ExceptionHandler
             //
         });
         $this->renderable(function (ValidationException $e) {
-            return send_error($e->errors()[0] ?? $e->getMessage(), ErrorCode('ARGS'));
+            return send_error($e->errors()[array_key_first($e->errors())][0] ?? $e->getMessage(), ErrorCode('ARGS'));
         });
     }
 }
