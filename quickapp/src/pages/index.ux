@@ -1,18 +1,16 @@
-
+<!-- <import name="button" src="apex-ui/components/button/index"></import> -->
 <template>
   <!-- template里只能有一个根节点 -->
-  <div class="container">
-    <div style="height: 50%">
-      <img class="logo" src="/assets/images/launch-logo.png" />
+  <div class="wrapper">
+    <div class="logo">
+      <img src="/assets/images/index-logo.png" />
     </div>
     <div class="btn-group">
-      <input
-        class="btn-wx"
-        type="button"
-        title="mn"
+      <text class="btn-wx" @click="onWxSignBtnClick">Sign in with WeChat</text>
+        <!-- class="btn-wx"
         value="Sign in with WeChat"
-        onclick="onSignWxBtnClick"
-      />
+        onclick="onWxSignBtnClick"
+      /> -->
     </div>
   </div>
 </template>
@@ -23,11 +21,10 @@ import router from '@system.router'
 export default {
   // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
   private: {
-    title: '欢迎体验快应用开发',
   },
 
-  onSignWxBtnClick() {
-    router.push({
+  onWxSignBtnClick() {
+    router.replace({
       uri: '/pages/Home',
     })
   },
@@ -37,32 +34,36 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.container {
+<style lang="less">
+.wrapper {
   flex-direction: column;
+  align-items: center;
   height: 100%;
-}
 
-.logo {
-  margin: 0 auto;
-}
-
-.btn-group {
-  flex-direction: column;
-  width: 50%;
-  margin: 0 auto;
-
-  input {
-    margin: 16px 0;
-    padding: 24px;
-    border-width: 3px;
-    border-radius: 8px;
-    background-color: transparent;
-    font-size: 32px;
+  .logo {
+    flex-direction: column;
+    justify-content: center;
+    height: 60%;
+    width: 50%;
   }
-  .btn-wx {
-    color: #296c05;
-    border-color: #296c05;
+
+  .btn-group {
+    flex-direction: column;
+    width: 50%;
+    /* margin: 0 auto; */
+
+    text {
+      margin: 16px 0;
+      padding: 24px;
+      border-width: 3px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 32px;
+    }
+    .btn-wx {
+      color: #296c05;
+      border-color: #296c05;
+    }
   }
 }
 </style>

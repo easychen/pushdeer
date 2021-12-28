@@ -1,0 +1,91 @@
+<template>
+  <div class="{{tabbar.length !== 0 ? 'wrap' : ''}}">
+    <slot content="content"></slot>
+    <div class="tab-bar" if="{{tabbar.length !== 0}}">
+      <div class="shadow"></div>
+      <div class="tab tab-recommend">
+        <div for="{{tab in tabbar}}">
+          <image
+            @click="changePage($idx)"
+            src="{{tab.active?tab.selectedIconPath:tab.iconPath}}"
+            if="{{tab.iconPath}}"
+          ></image>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+
+export default {
+  props: {
+    tabbar: { default: [] }
+  },
+  changePage(idx) {
+    console.log('tabbar', 'changePage', idx)
+    this.$emit('emitEvt', {
+      idx
+    });
+    // router.push({
+    //   uri: e.target.dataset.path,
+    //   params: {
+    //     ___PARAM_LAUNCH_FLAG___: "clearTask"
+    //   }
+    // });
+  }
+};
+</script>
+
+
+<style lang="less">
+.wrap {
+  padding-bottom: 108px;
+}
+
+.tab-bar {
+  .shadow {
+    position: fixed;
+    bottom: 108px;
+    height: 9px;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.09));
+  }
+
+  .tab {
+    background-color: rgba(255, 255, 255, 0.98);
+    position: fixed;
+    bottom: 0;
+    flex-direction: row;
+    height: 108px;
+    width: 100%;
+    justify-content: space-around;
+
+    div {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    image {
+      width: 58px;
+      height: 80px;
+    }
+
+    text {
+      font-size: 30px;
+    }
+  }
+
+  .selected {
+    color: #0091ff;
+  }
+
+  .tab-recommend {
+    left: 0;
+  }
+
+  .tab-mine {
+    right: 0;
+  }
+}
+</style>

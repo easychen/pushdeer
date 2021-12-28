@@ -1,0 +1,29 @@
+<template>
+  <div class="wrapper">
+    <text class="title">{{ title }}</text>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    title: "Hello World. Quickapp Component."
+  },
+  
+  props: [],
+  
+  onInit() {}
+}
+</script>
+
+<style>
+.wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  text-align: center;
+  color: #212121;
+}
+</style>

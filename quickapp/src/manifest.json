@@ -35,7 +35,8 @@
         "component": "index"
       },
       "pages/Home": {
-        "component": "index"
+        "component": "index",
+        "launchMode":"singleTask"
       }
     }
   },
@@ -43,11 +44,8 @@
     "titleBarBackgroundColor": "#f2f2f2",
     "titleBarTextColor": "#414141",
     "pages": {
-      "pages/Demo": {
-        "titleBarText": "PushDeer"
-      },
-      "pages/DemoDetail": {
-        "titleBarText": "详情页"
+      "pages": {
+        "titleBar": false
       }
     }
   }
