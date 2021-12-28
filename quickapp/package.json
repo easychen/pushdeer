@@ -1,0 +1,58 @@
+{
+  "name": "pushdeer",
+  "version": "2.0.0",
+  "description": "PushDeer开源版，可以自行架设的无APP推送服务",
+  "scripts": {
+    "start": "hap server --watch",
+    "server": "hap server",
+    "build": "hap build",
+    "release": "hap release",
+    "watch": "hap watch",
+    "debug": "hap debug",
+    "gen": "node ./scripts/gen/index.js",
+    "precommit-msg": "echo '🚧 start pre-commit checks ...' && exit 0",
+    "prettier": "node ./scripts/selfCloseInputTag.js && prettier --write \"src/**/*.{ux,js,json,less,scss,css,pcss,md,vue}\"",
+    "prettier-watcher": "onchange '**/*.md' \"src/**/**/*.{ux,js,json,less,scss,css,pcss,md,vue}\" -- prettier --write {{changed}}"
+  },
+  "dependencies": {
+    "apex-ui": "^1.9.2"
+  },
+  "devDependencies": {
+    "@babel/runtime": "^7.12.5",
+    "@types/quickapp": "npm:quickapp-interface@^1.0.0",
+    "colors": "^1.4.0",
+    "husky": "^7.0.1",
+    "less": "^4.1.1",
+    "less-loader": "^10.0.1",
+    "lint-staged": "^11.0.1",
+    "onchange": "^5.2.0",
+    "prettier": "^2.3.2",
+    "prettier-plugin-ux": "^0.3.0"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "semi": false,
+    "printWidth": 80,
+    "proseWrap": "never",
+    "tabWidth": 2
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run precommit-msg && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/**.{ux,js,json,less,scss,css,pcss,md,vue}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "快应用",
+    "快应用示例",
+    "快应用模版"
+  ],
+  "browserslist": [
+    "chrome 65"
+  ]
+}
