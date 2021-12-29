@@ -16,11 +16,12 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
+
+@import './../../assets/styles/style.less';
+
 .wrapper {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  .flex-box-mixins(column, flex-start, center);
   width: 100%;
 }
 .title {

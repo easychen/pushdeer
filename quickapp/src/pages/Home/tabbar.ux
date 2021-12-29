@@ -1,5 +1,5 @@
 <template>
-  <div if="{{tabbar.length !== 0 }}" class="tabbar">
+  <div class="tabbar">
     <div class="shadow"></div>
     <div class="tab">
       <div for="{{tab in tabbar}}">
@@ -53,7 +53,7 @@ export default {
     }
 
     image {
-      width: 58px;
+      /* width: 58px; */
       height: 80px;
     }
 

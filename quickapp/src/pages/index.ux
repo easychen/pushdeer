@@ -3,7 +3,7 @@
   <!-- template里只能有一个根节点 -->
   <div class="wrapper">
     <div class="logo">
-      <img src="/assets/images/index-logo.png" />
+      <img src="/assets/images/index-logo.svg" />
     </div>
     <div class="btn-group">
       <text class="btn-wx" @click="onWxSignBtnClick">Sign in with WeChat</text>

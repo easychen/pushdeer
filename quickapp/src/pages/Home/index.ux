@@ -1,18 +1,13 @@
 <import name="my-tabbar" src="./tabbar"></import>
-<import name="device" src="./device"></import>
-<import name="key" src="./key"></import>
+<import name="device" src="../Device"></import>
+<import name="key" src="./device"></import>
 <import name="message" src="./device"></import>
 <import name="settings" src="./device"></import>
 <template>
   <div class="wrapper">
     <stack class="stack">
-      <image class="deer-background" src="/assets/images/home-background.png" />
-      <!-- <text
-      >stack容器排列方式为层叠，每个子组件按照先后顺序依次堆叠，覆盖前面的组件</text
-    > -->
-      <div class="container">
-        <component is="{{ tabbarData[currentPageIndex].compName }}"></component>
-      </div>
+      <image class="deer-background" src="/assets/images/home-background.svg" />
+      <component is="{{ tabbarData[currentPageIndex].compName }}"></component>
     </stack>
     <my-tabbar tabbar="{{tabbarData}}" onemit-evt="emitEvt"></my-tabbar>
   </div>
@@ -24,29 +19,29 @@ export default {
     currentPageIndex: 0,
     tabbarData: [
       {
-        iconPath: '/assets/images/tabbar-device.png',
-        selectedIconPath: '/assets/images/tabbar-device-active.png',
+        iconPath: '/assets/images/tabbar-device.svg',
+        selectedIconPath: '/assets/images/tabbar-device-active.svg',
         active: true,
         compName: 'device',
         title: '设备'
       },
       {
-        iconPath: '/assets/images/tabbar-device.png',
-        selectedIconPath: '/assets/images/tabbar-device-active.png',
+        iconPath: '/assets/images/tabbar-key.svg',
+        selectedIconPath: '/assets/images/tabbar-key-active.svg',
         active: false,
         compName: 'key',
         title: 'Key'
       },
       {
-        iconPath: '/assets/images/tabbar-device.png',
-        selectedIconPath: '/assets/images/tabbar-device-active.png',
+        iconPath: '/assets/images/tabbar-message.svg',
+        selectedIconPath: '/assets/images/tabbar-message-active.svg',
         active: false,
         compName: 'message',
         title: '消息'
       },
       {
-        iconPath: '/assets/images/tabbar-device.png',
-        selectedIconPath: '/assets/images/tabbar-device-active.png',
+        iconPath: '/assets/images/tabbar-settings.svg',
+        selectedIconPath: '/assets/images/tabbar-settings-active.svg',
         active: false,
         compName: 'settings',
         title: '设置'
@@ -80,11 +75,6 @@ export default {
     /* width: 100%; */
     flex-grow: 1;
     align-items: flex-end;
-
-    .container {
-      width: 100%;
-      height: 100%;
-    }
 
     .deer-background {
       /* position: fixed; */

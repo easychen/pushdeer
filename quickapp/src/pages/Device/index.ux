@@ -1,0 +1,28 @@
+<import name="card" src="./card"></import>
+<template>
+  <div class="wrapper">
+    <!-- <text class="title">device</text>
+    <text class="title">device</text> -->
+    <card></card>
+    <card dev-obj="{{ dev }}"></card>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    dev: { icon: "/assets/images/device-iphone.png", name: "备用机iPhone13" },
+  },
+
+  onInit() { }
+}
+</script>
+
+<style lang="less">
+@import './../../assets/styles/style.less';
+
+.wrapper {
+  .flex-box-mixins(column, flex-start, center);
+  width: 100%;
+}
+</style>

@@ -1,0 +1,57 @@
+<template>
+  <div class="card">
+    <div class="icon">
+      <image src="{{ devObj.icon}}" />
+    </div>
+    <text class="label">{{ devObj.name }}</text>
+  </div>
+</template>
+
+<script>
+export default {
+
+  props: {
+    devObj: { default: { icon: "/assets/images/device-ipad.png", name: "Easy’s iPad(当前设备)" } },
+  },
+
+  onInit() {
+    console.log('card', this.devObj, this.devObj.name)
+  }
+}
+</script>
+
+<style lang="less">
+@color: #3b4789;
+
+.card {
+  width: 80%;
+  border-color: @color;
+  border-radius: 16px;
+  border-width: 3px;
+  padding: 32px;
+  margin: 24px 0;
+  /* justify-content: center;
+  align-items: center; */
+
+  .icon {
+    width: 130px;
+    height: 80px;
+    margin-right: 16px;
+    justify-content: center;
+  }
+
+  .label {
+    color: @color;
+    font-size: 36px;
+  }
+}
+/* .wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  text-align: center;
+  color: #212121;
+} */
+</style>
