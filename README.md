@@ -19,7 +19,10 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，当前项目
 |快应用|[7YHong](https://github.com/7YHong)|2022年2月27日|-|-|
 |API完善和更新|[古俊杰](https://github.com/ilovintit)|配合客户端同步更新|-|-|
 
+## 相关项目
 
+- [API的Go实现](https://github.com/iepngs/pushdeer-backend-go) by [iepngs](https://github.com/iepngs)
+- [Go SDK](https://github.com/Luoxin/go-pushdeer-sdk) by [Luoxin](https://github.com/Luoxin)
 
 
 ## 产品定义
@@ -277,6 +280,4 @@ API_BASE=http://127.0.0.1:8800
 
 本项目禁止商用（包括但不限于搭建后挂广告或售卖会员、打包后上架商店销售等），对非商业用途采用 GPLV2 授权
 
-## 相关项目
 
-- [Go SDK](https://github.com/Luoxin/go-pushdeer-sdk) by [Luoxin](https://github.com/Luoxin)
