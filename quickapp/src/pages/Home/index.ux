@@ -1,13 +1,19 @@
 <import name="my-tabbar" src="./tabbar"></import>
 <import name="device" src="./device"></import>
-<import name="key" src="./device"></import>
+<import name="key" src="./key"></import>
 <import name="message" src="./device"></import>
 <import name="settings" src="./device"></import>
 <template>
   <div class="wrapper">
-    <div>
-      <component is="{{ tabbarData[currentPageIndex].compName }}"></component>
-    </div>
+    <stack class="stack">
+      <image class="deer-background" src="/assets/images/home-background.png" />
+      <!-- <text
+      >stack容器排列方式为层叠，每个子组件按照先后顺序依次堆叠，覆盖前面的组件</text
+    > -->
+      <div class="container">
+        <component is="{{ tabbarData[currentPageIndex].compName }}"></component>
+      </div>
+    </stack>
     <my-tabbar tabbar="{{tabbarData}}" onemit-evt="emitEvt"></my-tabbar>
   </div>
 </template>
@@ -70,8 +76,22 @@ export default {
 .wrapper {
   .flex-box-mixins(column, center, center);
 
-  .container {
-    height: 100%;
+  .stack {
+    /* width: 100%; */
+    flex-grow: 1;
+    align-items: flex-end;
+
+    .container {
+      width: 100%;
+      height: 100%;
+    }
+
+    .deer-background {
+      /* position: fixed; */
+      width: 100%;
+      margin-bottom: 20px;
+      /* bottom: 200px; */
+    }
   }
 }
 </style>
