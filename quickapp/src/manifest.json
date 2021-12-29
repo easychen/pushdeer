@@ -1,0 +1,55 @@
+{
+  "package": "com.pushdeer.app",
+  "name": "pushdeer",
+  "versionName": "1.0.0",
+  "versionCode": 1,
+  "minPlatformVersion": 1070,
+  "icon": "/assets/images/logo.svg",
+  "features": [
+    {
+      "name": "system.prompt"
+    },
+    {
+      "name": "system.router"
+    },
+    {
+      "name": "system.shortcut"
+    },
+    {
+      "name": "system.fetch"
+    }
+  ],
+  "permissions": [
+    {
+      "origin": "*"
+    }
+  ],
+  "template/official": "demo-template",
+  "config": {
+    "logLevel": "debug"
+  },
+  "router": {
+    "entry": "pages",
+    "pages": {
+      "pages": {
+        "component": "index"
+      },
+      "pages/Home": {
+        "component": "index",
+        "launchMode": "singleTask"
+      }
+    }
+  },
+  "display": {
+    "titleBarBackgroundColor": "#f2f2f2",
+    "titleBarTextColor": "#414141",
+    "pages": {
+      "pages": {
+        "titleBar": false
+      },
+      "pages/Home": {
+        "titleBar": false
+      }
+    }
+  }
+}
