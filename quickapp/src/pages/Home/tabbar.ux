@@ -50,10 +50,10 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      width: 60px;
     }
 
     image {
-      /* width: 58px; */
       height: 80px;
     }
 
@@ -61,17 +61,5 @@ export default {
       font-size: 30px;
     }
   }
-
-  /* .selected {
-    color: #0091ff;
-  }
-
-  .tab-recommend {
-    left: 0;
-  }
-
-  .tab-mine {
-    right: 0;
-  } */
 }
 </style>

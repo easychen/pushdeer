@@ -4,7 +4,7 @@
   "versionName": "1.0.0",
   "versionCode": 1,
   "minPlatformVersion": 1070,
-  "icon": "/assets/images/logo.png",
+  "icon": "/assets/images/logo.svg",
   "features": [
     {
       "name": "system.prompt"
@@ -36,7 +36,7 @@
       },
       "pages/Home": {
         "component": "index",
-        "launchMode":"singleTask"
+        "launchMode": "singleTask"
       }
     }
   },
@@ -45,6 +45,9 @@
     "titleBarTextColor": "#414141",
     "pages": {
       "pages": {
+        "titleBar": false
+      },
+      "pages/Home": {
         "titleBar": false
       }
     }

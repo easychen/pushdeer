@@ -23,28 +23,24 @@ export default {
         selectedIconPath: '/assets/images/tabbar-device-active.svg',
         active: true,
         compName: 'device',
-        title: '设备'
       },
       {
         iconPath: '/assets/images/tabbar-key.svg',
         selectedIconPath: '/assets/images/tabbar-key-active.svg',
         active: false,
         compName: 'key',
-        title: 'Key'
       },
       {
         iconPath: '/assets/images/tabbar-message.svg',
         selectedIconPath: '/assets/images/tabbar-message-active.svg',
         active: false,
         compName: 'message',
-        title: '消息'
       },
       {
         iconPath: '/assets/images/tabbar-settings.svg',
         selectedIconPath: '/assets/images/tabbar-settings-active.svg',
         active: false,
         compName: 'settings',
-        title: '设置'
       }
     ]
   },
@@ -58,10 +54,10 @@ export default {
   emitEvt({ detail: { idx: newIdx } } = evt) {
     // console.log('home', 'emitEvt', 'newIdx', newIdx)
     // console.log('home', 'emitEvt', 'tabbarData', this.tabbarData)
-    this.tabbarData[this.currentPageIndex].active = false;
-    this.tabbarData[newIdx].active = true;
+    // 解构交换变量
+    [this.tabbarData[this.currentPageIndex].active, this.tabbarData[newIdx].active]
+      = [this.tabbarData[newIdx].active, this.tabbarData[this.currentPageIndex].active]
     this.currentPageIndex = newIdx
-    this.$page.setTitleBar({ text: this.tabbarData[newIdx].title })
   },
 }
 </script>
@@ -72,15 +68,12 @@ export default {
   .flex-box-mixins(column, center, center);
 
   .stack {
-    /* width: 100%; */
     flex-grow: 1;
     align-items: flex-end;
 
     .deer-background {
-      /* position: fixed; */
       width: 100%;
       margin-bottom: 20px;
-      /* bottom: 200px; */
     }
   }
 }

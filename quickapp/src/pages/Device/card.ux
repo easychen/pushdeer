@@ -1,21 +1,25 @@
 <template>
-  <div class="card">
+  <list-item type="device" class="card">
     <div class="icon">
       <image src="{{ devObj.icon}}" />
     </div>
     <text class="label">{{ devObj.name }}</text>
-  </div>
+  </list-item>
 </template>
 
 <script>
 export default {
 
-  props: {
-    devObj: { default: { icon: "/assets/images/device-ipad.png", name: "Easy’s iPad(当前设备)" } },
+  props: ['devObj'],
+
+  data: {
+    defaultDevObj: { icon: "/assets/images/device-ipad.svg", name: "Easy’s iPad(当前设备)" },
   },
 
   onInit() {
-    console.log('card', this.devObj, this.devObj.name)
+    if (!this.devObj) this.devObj = this.defaultDevObj
+    // console.log('card', this.devObj)
+    // console.log('card', 'name', this.devObj.name)
   }
 }
 </script>
@@ -24,17 +28,17 @@ export default {
 @color: #3b4789;
 
 .card {
-  width: 80%;
   border-color: @color;
   border-radius: 16px;
   border-width: 3px;
   padding: 32px;
   margin: 24px 0;
+  background-color: #FFFFFF;
   /* justify-content: center;
   align-items: center; */
 
   .icon {
-    width: 130px;
+    width: 120px;
     height: 80px;
     margin-right: 16px;
     justify-content: center;
