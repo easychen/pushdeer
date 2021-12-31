@@ -1,0 +1,57 @@
+<import name="dev-card" src="./card"></import>
+<template>
+  <div class="wrapper">
+    <!-- <text class="title">device</text>
+    <text class="title">device</text> -->
+    <div class="header">
+      <text>设备</text>
+      <image @click="onPlusBtnClick" src="/assets/images/plus.svg" />
+    </div>
+    <list style="width: 80%">
+      <list-item type="devitem" for="{{ dev in devs}}">
+        <dev-card dev-obj="{{ dev }}" idx="{{ $idx }}"></dev-card>
+      </list-item>
+    </list>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    devs: [
+      { icon: "/assets/images/device-ipad.svg", name: "Easy’s iPad(当前设备)" },
+      { icon: "/assets/images/device-ipad.svg", name: "备用机iPhone2" },
+    ],
+  },
+
+  onPlusBtnClick() {
+    // $utils.showToast('aaaaa')
+    this.devs.push({ icon: "/assets/images/device-iphone.svg", name: "备用机iPhone" + (this.devs.length + 1) })
+  },
+
+  onInit() {
+    console.log('device', 'init')
+  }
+}
+</script>
+
+<style lang="less">
+@import '../../../assets/styles/style.less';
+
+.wrapper {
+  .flex-box-mixins(column, flex-start, center);
+  width: 100%;
+  padding-top: 84px;
+
+  .header {
+    margin-bottom: 24px;
+    width: 80%;
+    justify-content: space-between;
+
+    text {
+      font-size: 48px;
+      color: #000000;
+    }
+  }
+}
+</style>
