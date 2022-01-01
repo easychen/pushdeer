@@ -23,7 +23,13 @@ function showToast(message = '', duration = 0) {
   })
 }
 
+function showDialog(args) {
+  if (!args) return;
+  prompt.showDialog(args)
+}
+
 export default {
   showToast,
+  showDialog,
   queryString
 }
