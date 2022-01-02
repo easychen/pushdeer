@@ -1,0 +1,130 @@
+<import name="msg-text" src="./msg-text"></import>
+<import name="msg-markdown" src="./msg-text"></import>
+<template>
+  <div class="wrapper">
+    <div class="header">
+      <text>消息</text>
+      <image
+        @click="onArrowBtnClick"
+        src="{{collapsed?'/assets/images/arrow-down.png':'/assets/images/arrow-up.png'}}"
+      />
+    </div>
+    <div if="{{!collapsed}}" class="pushmsg-region">
+      <textarea class="textarea" @change="onTextAreaChange">{{
+        input
+      }}</textarea>
+      <text class="pushbtn" @click="onPushBtnClick">推送测试</text>
+    </div>
+    <list>
+      <list-item
+        type="{{msg.type+'item'}}"
+        if="{{supportType.includes(msg.type)}}"
+        for="{{ msg in msgs}}"
+      >
+        <component is="{{ 'msg-'+msg.type}}" msg="{{ msg}}"></component>
+      </list-item>
+    </list>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    collapsed: false,
+    supportType: ['text', 'markdown'],
+    input: '',
+    msgs: [
+      {
+        name: "Default", created_at: "5分钟前", type: "text",
+        text: `纯文本的效果。长文字需要自动换行。
+长文字需要自动换行。行间距24。
+长按可以复制文本内容。左滑显示删除。`
+      },
+      {
+        name: "Default", created_at: "5分钟前", type: "text",
+        text: `纯文本的效果。长文字需要自动换行。
+长文字需要自动换行。行间距24。
+长按可以复制文本内容。左滑显示删除。`
+      },
+      {
+        name: "推送Key的名字", created_at: "5分钟前", type: "markdown",
+        text: `支持Markdown语法。比如可以插入链接 ，
+点击后使用系统浏览器直接打开。`
+      },
+    ],
+  },
+
+  onArrowBtnClick() {
+    this.collapsed = !this.collapsed
+  },
+  onTextAreaChange(e) {
+    // 只能在change事件里取值，不知道作者怎么想的。。。
+    this.input = e.text
+  },
+  onPushBtnClick() {
+    if (this.input.length == 0) {
+      $utils.showToast("消息内容为空")
+      return
+    }
+    console.log('message', 'onPushBtnClick', this.input)
+    this.msgs.unshift({ name: "本设备", created_at: "刚刚", type: "text", text: this.input })
+    this.input = ""
+  },
+
+  onInit() {
+    console.log('message', 'init')
+  }
+}
+</script>
+
+<style lang="less">
+@import '../../../assets/styles/style.less';
+
+.wrapper {
+  .flex-box-mixins(column, flex-start, center);
+  width: 100%;
+  height: 100%;
+  padding-top: 84px;
+
+  .header {
+    margin-bottom: 24px;
+    width: 80%;
+    justify-content: space-between;
+    flex-shrink: 0;
+
+    text {
+      font-size: 48px;
+      color: #000000;
+    }
+  }
+
+  .pushmsg-region {
+    margin: 24px 0;
+    width: 80%;
+    height: 30%;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: flex-start;
+
+    .textarea {
+      width: 100%;
+      flex-grow: 1;
+      padding: 24px;
+      font-size: 32px;
+      border-color: @primary-color;
+      border-width: 3px;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+
+    .pushbtn {
+      color: #ffffff;
+      font-size: 30px;
+      margin-top: 48px;
+      padding: 24px;
+      border-radius: 16px;
+      background-color: @primary-color;
+    }
+  }
+}
+</style>
