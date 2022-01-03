@@ -1,0 +1,49 @@
+<template>
+  <div class="card">
+    <text style="font-size: 30px">{{ label }}</text>
+    <text
+      class="opt"
+      @click="{{btnHandler}}"
+      >{{ optName }}</text
+    >
+  </div>
+</template>
+
+<script>
+import clipboard from '@system.clipboard'
+export default {
+
+  props: ['idx', 'label', 'optName'],
+
+  btnHandler() {
+    this.$dispatch('SettingsItemClick', this.idx)
+  },
+
+  onInit() {
+    // console.log('settings-card',this.label,this.optName,this.btnHandler)
+  }
+}
+</script>
+
+<style lang="less">
+@import '../../../assets/styles/style.less';
+
+.card {
+  .flex-box-mixins(row, space-between, center);
+  border-color: @primary-color;
+  border-radius: 8px;
+  border-width: 3px;
+  padding: 24px;
+  margin: 24px 0;
+  background-color: #ffffff;
+  width: 100%;
+
+  .opt {
+    color: #ffffff;
+    font-size: 30px;
+    padding: 16px 32px;
+    border-radius: 16px;
+    background-color: @primary-color;
+  }
+}
+</style>

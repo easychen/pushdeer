@@ -40,7 +40,7 @@ export default {
   },
 
   onInit() {
-    console.log('key', this.key, this.idx)
+    // console.log('key', this.key, this.idx)
     // console.log('card', 'name', this.devObj.name)
   }
 }

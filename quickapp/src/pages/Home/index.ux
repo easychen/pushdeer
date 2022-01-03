@@ -1,8 +1,8 @@
 <import name="my-tabbar" src="./tabbar"></import>
 <import name="device" src="../component/Device"></import>
 <import name="key" src="../component/Key"></import>
-<import name="message" src="./device"></import>
-<import name="settings" src="./device"></import>
+<import name="message" src="../component/Message"></import>
+<import name="settings" src="../component/Settings"></import>
 <template>
   <div class="wrapper">
     <stack class="stack">
@@ -66,6 +66,7 @@ export default {
 
 .wrapper {
   .flex-box-mixins(column, center, center);
+  height: 100%;
 
   .stack {
     flex-grow: 1;

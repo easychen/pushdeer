@@ -1,0 +1,52 @@
+<template>
+  <div class="header">
+    <div class="line1"></div>
+    <image class="avatar" src="/assets/images/avatar.svg"></image>
+    <text class="title">{{ title }}</text>
+    <div class="line2"></div>
+  </div>
+</template>
+
+<script>
+import clipboard from '@system.clipboard'
+export default {
+
+  props: ['title'],
+
+  onInit() {
+    // console.log('settings-card',this.label,this.optName,this.btnHandler)
+  }
+}
+</script>
+
+<style lang="less">
+@import '../../../assets/styles/style.less';
+
+.header {
+  .flex-box-mixins(row, flex-start, center);
+  width: 100%;
+
+  div {
+    height: 2px;
+    border-color: @secondry-color;
+    border-width: 1px;
+  }
+
+  .line1 {
+    width: 8%;
+  }
+  .line2 {
+    flex-grow: 1;
+  }
+
+  .avatar {
+    height: 80px;
+    margin: 0 24px;
+  }
+
+  .title {
+    margin-right: 24px;
+    font-size: 24px;
+  }
+}
+</style>
