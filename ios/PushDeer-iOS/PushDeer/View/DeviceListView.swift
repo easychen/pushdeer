@@ -9,31 +9,35 @@ import SwiftUI
 
 /// 设备界面
 struct DeviceListView: View {
-  @State var devices = Array(0..<10)
+  @EnvironmentObject private var store: AppState
   var body: some View {
     BaseNavigationView(title: "设备") {
       ScrollView {
         LazyVStack(alignment: .center) {
-          ForEach(devices, id: \.self) { name in
+          ForEach(store.devices, id: \.id) { deviceItem in
             DeletableView(contentView: {
-              DeviceItemView(name: "设备 \(name)")
+              DeviceItemView(name: deviceItem.name)
             }, deleteAction: {
-              devices.removeAll { _name in
-                _name == name
+              store.devices.removeAll { _deviceItem in
+                _deviceItem.id == deviceItem.id
               }
             })
               .padding(EdgeInsets(top: 18, leading: 26, bottom: 0, trailing: 24))
           }
+          Spacer(minLength: 30)
         }
       }
       .navigationBarItems(trailing: Button(action: {
         withAnimation(.easeOut) {
-          devices.insert(Int(arc4random_uniform(1000)), at: 0)
+//          store.devices.insert(DeviceItem(), at: 0)
         }
       }, label: {
         Image(systemName: "plus")
           .foregroundColor(Color(UIColor.lightGray))
       }))
+    }
+    .onAppear {
+      HttpRequest.getDevices()
     }
   }
 }
