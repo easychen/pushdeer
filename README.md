@@ -135,6 +135,8 @@ PushDeer主要面向以下三类用户
 
 ### API 说明
 
+[在线文档（Swagger）](https://ilovintit.github.io/pushdeer-api-doc/#/) 
+
 API_BASE=http://127.0.0.1:8800
 
 认证方式：通过登入接口获得`token`，通过`post`和`get`方式附带`token`参数即可自动登入。
