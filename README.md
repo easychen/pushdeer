@@ -1,4 +1,4 @@
-# PushDeerOS
+# PushDeer
 
 PushDeer开源版，可以自行架设的无APP推送服务（WIP，当前项目只实现了后端API，其他部分正在施工🚧）
 
