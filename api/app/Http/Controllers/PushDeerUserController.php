@@ -10,7 +10,7 @@ class PushDeerUserController extends Controller
     public function info(Request $request)
     {
         //return $_SESSION;
-        return http_result(PushDeerUser::where('id', $_SESSION['uid'])->get());
+        return http_result(PushDeerUser::where('id', $_SESSION['uid'])->get()->first());
     }
 
     public function fakeLogin(Request $request)

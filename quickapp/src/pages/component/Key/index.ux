@@ -1,0 +1,60 @@
+<import name="key-card" src="./card"></import>
+<template>
+  <div class="wrapper">
+    <!-- <text class="title">device</text>
+    <text class="title">device</text> -->
+    <div class="header">
+      <text>Key</text>
+      <image @click="onPlusBtnClick" src="/assets/images/plus.svg" />
+    </div>
+    <list style="width: 80%">
+      <list-item type="keyitem" for="{{ key in keys}}">
+        <key-card key="{{ key }}" idx="{{ $idx }}"></key-card>
+      </list-item>
+    </list>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    keys: [
+      { name: "Default", value: "PDU1DSE543JDZpq8Lx2gsSE543JD…", date: "2021/12/01" },
+      { name: "点击改Key名", value: "PDU1DSE543JDZpq8Lx2gsSE543JD…", date: "2021/12/01" },
+    ],
+  },
+
+  onPlusBtnClick() {
+    // $utils.showToast('aaaaa')
+    this.keys.push(
+      { name: "Default", value: "PDU1DSE543JDZpq8Lx2gsSE543JD…", date: "2021/12/01" },
+    )
+  },
+
+  onInit() {
+    console.log('key', 'init', this.keys)
+  }
+}
+</script>
+
+<style lang="less">
+@import '../../../assets/styles/style.less';
+
+.wrapper {
+  .flex-box-mixins(column, flex-start, center);
+  width: 100%;
+  height: 100%;
+  padding-top: 84px;
+
+  .header {
+    margin-bottom: 24px;
+    width: 80%;
+    justify-content: space-between;
+
+    text {
+      font-size: 48px;
+      color: #000000;
+    }
+  }
+}
+</style>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4812F19BB0BFEFE089BC253E /* Pods_PushDeerClip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E03C2088F4CD9F4C0848E1A5 /* Pods_PushDeerClip.framework */; };
 		52163EB327773F8400594190 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB227773F8400594190 /* MainView.swift */; };
 		52163EB52777413B00594190 /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB42777413B00594190 /* MessageListView.swift */; };
 		52163EB72777415F00594190 /* DeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB62777415F00594190 /* DeviceListView.swift */; };
@@ -14,17 +15,75 @@
 		52163EBB277741AC00594190 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EBA277741AC00594190 /* SettingsView.swift */; };
 		523150D9277875FB00941EDC /* DeletableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523150D8277875FB00941EDC /* DeletableView.swift */; };
 		523150DC2778762B00941EDC /* DeviceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523150DB2778762B00941EDC /* DeviceItemView.swift */; };
+		52450F3827848243003652D8 /* PushDeerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F3727848243003652D8 /* PushDeerApi.swift */; };
+		52450F3927848243003652D8 /* PushDeerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F3727848243003652D8 /* PushDeerApi.swift */; };
+		52450F3B278491F8003652D8 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F3A278491F8003652D8 /* AppState.swift */; };
+		52450F3C278491F8003652D8 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F3A278491F8003652D8 /* AppState.swift */; };
+		52450F3F2784923D003652D8 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F3E2784923D003652D8 /* Result.swift */; };
+		52450F402784923D003652D8 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F3E2784923D003652D8 /* Result.swift */; };
+		52450F422784943F003652D8 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F412784943F003652D8 /* HttpRequest.swift */; };
+		52450F432784943F003652D8 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F412784943F003652D8 /* HttpRequest.swift */; };
+		52483FC2277ED6D5003A100E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52483FC1277ED6D5003A100E /* AppDelegate.swift */; };
+		52483FC3277ED6D5003A100E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52483FC1277ED6D5003A100E /* AppDelegate.swift */; };
 		5292F4F92776BC7900B9A7BB /* PushDeerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5292F4F82776BC7900B9A7BB /* PushDeerApp.swift */; };
 		5292F4FB2776BC7900B9A7BB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5292F4FA2776BC7900B9A7BB /* ContentView.swift */; };
 		5292F4FD2776BC7A00B9A7BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292F4FC2776BC7A00B9A7BB /* Assets.xcassets */; };
 		5292F5002776BC7A00B9A7BB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292F4FF2776BC7A00B9A7BB /* Preview Assets.xcassets */; };
+		52B8CF5F277DE660004CB680 /* AppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */; };
+		52B8CF67277E0B44004CB680 /* PushDeerClipApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8CF66277E0B44004CB680 /* PushDeerClipApp.swift */; };
+		52B8CF69277E0B44004CB680 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8CF68277E0B44004CB680 /* ContentView.swift */; };
+		52B8CF6B277E0B46004CB680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52B8CF6A277E0B46004CB680 /* Assets.xcassets */; };
+		52B8CF6E277E0B46004CB680 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52B8CF6D277E0B46004CB680 /* Preview Assets.xcassets */; };
+		52B8CF73277E0B46004CB680 /* PushDeerClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 52B8CF64277E0B44004CB680 /* PushDeerClip.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		52B8CF78277E0BF1004CB680 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB227773F8400594190 /* MainView.swift */; };
+		52B8CF79277E0BFB004CB680 /* DeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB62777415F00594190 /* DeviceListView.swift */; };
+		52B8CF7A277E0BFB004CB680 /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB42777413B00594190 /* MessageListView.swift */; };
+		52B8CF7B277E0BFB004CB680 /* DeviceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523150DB2778762B00941EDC /* DeviceItemView.swift */; };
+		52B8CF7C277E0BFB004CB680 /* KeyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB82777417900594190 /* KeyListView.swift */; };
+		52B8CF7D277E0BFB004CB680 /* KeyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AF2778D67F0048E0ED /* KeyItemView.swift */; };
+		52B8CF7E277E0BFB004CB680 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EBA277741AC00594190 /* SettingsView.swift */; };
+		52B8CF7F277E0BFB004CB680 /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2C222277961D7006F08DC /* SettingsItemView.swift */; };
+		52B8CF80277E0BFB004CB680 /* MessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40D2E277CA05600766C24 /* MessageItemView.swift */; };
+		52B8CF81277E0BFB004CB680 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0243E277737470071D861 /* LoginView.swift */; };
+		52B8CF82277E0C06004CB680 /* AppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */; };
+		52B8CF83277E0C12004CB680 /* DeletableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523150D8277875FB00941EDC /* DeletableView.swift */; };
+		52B8CF84277E0C12004CB680 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AB2778ADF80048E0ED /* CardView.swift */; };
+		52B8CF85277E0C12004CB680 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90B22778DA4E0048E0ED /* Line.swift */; };
+		52B8CF86277E0C12004CB680 /* BaseNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AD2778AFD60048E0ED /* BaseNavigationView.swift */; };
+		52B8CF87277E0C5C004CB680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292F4FC2776BC7A00B9A7BB /* Assets.xcassets */; };
 		52EB90AC2778ADF80048E0ED /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AB2778ADF80048E0ED /* CardView.swift */; };
 		52EB90AE2778AFD60048E0ED /* BaseNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AD2778AFD60048E0ED /* BaseNavigationView.swift */; };
 		52EB90B02778D67F0048E0ED /* KeyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AF2778D67F0048E0ED /* KeyItemView.swift */; };
 		52EB90B32778DA4E0048E0ED /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90B22778DA4E0048E0ED /* Line.swift */; };
 		52F0243F277737470071D861 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0243E277737470071D861 /* LoginView.swift */; };
 		52F2C223277961D7006F08DC /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2C222277961D7006F08DC /* SettingsItemView.swift */; };
+		52F40D2F277CA05600766C24 /* MessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40D2E277CA05600766C24 /* MessageItemView.swift */; };
+		64B0C15E70CCC382B480F76E /* Pods_PushDeer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E380A18349DE4D26071E913E /* Pods_PushDeer.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		52B8CF71277E0B46004CB680 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5292F4ED2776BC7900B9A7BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52B8CF63277E0B44004CB680;
+			remoteInfo = PushDeerClip;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		52B8CF77277E0B46004CB680 /* Embed App Clips */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/AppClips";
+			dstSubfolderSpec = 16;
+			files = (
+				52B8CF73277E0B46004CB680 /* PushDeerClip.app in Embed App Clips */,
+			);
+			name = "Embed App Clips";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		52163EB227773F8400594190 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -34,11 +93,25 @@
 		52163EBA277741AC00594190 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		523150D8277875FB00941EDC /* DeletableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletableView.swift; sourceTree = "<group>"; };
 		523150DB2778762B00941EDC /* DeviceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceItemView.swift; sourceTree = "<group>"; };
+		52450F3727848243003652D8 /* PushDeerApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeerApi.swift; sourceTree = "<group>"; };
+		52450F3A278491F8003652D8 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		52450F3E2784923D003652D8 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		52450F412784943F003652D8 /* HttpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		52450F442784A95D003652D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		52483FC1277ED6D5003A100E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5292F4F52776BC7900B9A7BB /* PushDeer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushDeer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5292F4F82776BC7900B9A7BB /* PushDeerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeerApp.swift; sourceTree = "<group>"; };
 		5292F4FA2776BC7900B9A7BB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		5292F4FC2776BC7A00B9A7BB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5292F4FF2776BC7A00B9A7BB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInButton.swift; sourceTree = "<group>"; };
+		52B8CF64277E0B44004CB680 /* PushDeerClip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushDeerClip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		52B8CF66277E0B44004CB680 /* PushDeerClipApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeerClipApp.swift; sourceTree = "<group>"; };
+		52B8CF68277E0B44004CB680 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		52B8CF6A277E0B46004CB680 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		52B8CF6D277E0B46004CB680 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		52B8CF6F277E0B46004CB680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52B8CF70277E0B46004CB680 /* PushDeerClip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushDeerClip.entitlements; sourceTree = "<group>"; };
 		52EB90AB2778ADF80048E0ED /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		52EB90AD2778AFD60048E0ED /* BaseNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationView.swift; sourceTree = "<group>"; };
 		52EB90AF2778D67F0048E0ED /* KeyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyItemView.swift; sourceTree = "<group>"; };
@@ -46,6 +119,13 @@
 		52F0243C277733CE0071D861 /* PushDeer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushDeer.entitlements; sourceTree = "<group>"; };
 		52F0243E277737470071D861 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		52F2C222277961D7006F08DC /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
+		52F40D2E277CA05600766C24 /* MessageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemView.swift; sourceTree = "<group>"; };
+		69F56B2711ED98819D474BE3 /* Pods-PushDeerClip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerClip.debug.xcconfig"; path = "Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip.debug.xcconfig"; sourceTree = "<group>"; };
+		9CC775BE0326BF31C6FACF06 /* Pods-PushDeerClip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerClip.release.xcconfig"; path = "Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip.release.xcconfig"; sourceTree = "<group>"; };
+		CCCE1F6E56B157872E2C755F /* Pods-PushDeer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeer.release.xcconfig"; path = "Target Support Files/Pods-PushDeer/Pods-PushDeer.release.xcconfig"; sourceTree = "<group>"; };
+		CE3005BD875FC9819A92466C /* Pods-PushDeer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeer.debug.xcconfig"; path = "Target Support Files/Pods-PushDeer/Pods-PushDeer.debug.xcconfig"; sourceTree = "<group>"; };
+		E03C2088F4CD9F4C0848E1A5 /* Pods_PushDeerClip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushDeerClip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E380A18349DE4D26071E913E /* Pods_PushDeer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushDeer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,17 +133,58 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64B0C15E70CCC382B480F76E /* Pods_PushDeer.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52B8CF61277E0B44004CB680 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4812F19BB0BFEFE089BC253E /* Pods_PushDeerClip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		17D35B157765D96FC4DA6C39 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CE3005BD875FC9819A92466C /* Pods-PushDeer.debug.xcconfig */,
+				CCCE1F6E56B157872E2C755F /* Pods-PushDeer.release.xcconfig */,
+				69F56B2711ED98819D474BE3 /* Pods-PushDeerClip.debug.xcconfig */,
+				9CC775BE0326BF31C6FACF06 /* Pods-PushDeerClip.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		52450F362784822C003652D8 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				52450F3727848243003652D8 /* PushDeerApi.swift */,
+				52450F3A278491F8003652D8 /* AppState.swift */,
+				52450F412784943F003652D8 /* HttpRequest.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		52450F3D27849228003652D8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				52450F3E2784923D003652D8 /* Result.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		5292F4EC2776BC7900B9A7BB = {
 			isa = PBXGroup;
 			children = (
 				5292F4F72776BC7900B9A7BB /* PushDeer */,
+				52B8CF65277E0B44004CB680 /* PushDeerClip */,
 				5292F4F62776BC7900B9A7BB /* Products */,
+				17D35B157765D96FC4DA6C39 /* Pods */,
+				78FEAD2568FB92808C44E85A /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -72,6 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				5292F4F52776BC7900B9A7BB /* PushDeer.app */,
+				52B8CF64277E0B44004CB680 /* PushDeerClip.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -79,8 +201,13 @@
 		5292F4F72776BC7900B9A7BB /* PushDeer */ = {
 			isa = PBXGroup;
 			children = (
+				52450F442784A95D003652D8 /* Info.plist */,
+				52450F362784822C003652D8 /* Service */,
+				52B8CF5D277DE5FF004CB680 /* Common */,
+				52450F3D27849228003652D8 /* Model */,
 				52F0243D2777370F0071D861 /* View */,
 				52F0243C277733CE0071D861 /* PushDeer.entitlements */,
+				52483FC1277ED6D5003A100E /* AppDelegate.swift */,
 				5292F4F82776BC7900B9A7BB /* PushDeerApp.swift */,
 				5292F4FA2776BC7900B9A7BB /* ContentView.swift */,
 				5292F4FC2776BC7A00B9A7BB /* Assets.xcassets */,
@@ -93,6 +220,35 @@
 			isa = PBXGroup;
 			children = (
 				5292F4FF2776BC7A00B9A7BB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		52B8CF5D277DE5FF004CB680 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		52B8CF65277E0B44004CB680 /* PushDeerClip */ = {
+			isa = PBXGroup;
+			children = (
+				52B8CF66277E0B44004CB680 /* PushDeerClipApp.swift */,
+				52B8CF68277E0B44004CB680 /* ContentView.swift */,
+				52B8CF6A277E0B46004CB680 /* Assets.xcassets */,
+				52B8CF6F277E0B46004CB680 /* Info.plist */,
+				52B8CF70277E0B46004CB680 /* PushDeerClip.entitlements */,
+				52B8CF6C277E0B46004CB680 /* Preview Content */,
+			);
+			path = PushDeerClip;
+			sourceTree = "<group>";
+		};
+		52B8CF6C277E0B46004CB680 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				52B8CF6D277E0B46004CB680 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
 			sourceTree = "<group>";
@@ -120,9 +276,19 @@
 				52163EBA277741AC00594190 /* SettingsView.swift */,
 				523150DB2778762B00941EDC /* DeviceItemView.swift */,
 				52EB90AF2778D67F0048E0ED /* KeyItemView.swift */,
+				52F40D2E277CA05600766C24 /* MessageItemView.swift */,
 				52F2C222277961D7006F08DC /* SettingsItemView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		78FEAD2568FB92808C44E85A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E380A18349DE4D26071E913E /* Pods_PushDeer.framework */,
+				E03C2088F4CD9F4C0848E1A5 /* Pods_PushDeerClip.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,18 +298,41 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5292F5032776BC7A00B9A7BB /* Build configuration list for PBXNativeTarget "PushDeer" */;
 			buildPhases = (
+				D7C2D4C0049487EE64D69530 /* [CP] Check Pods Manifest.lock */,
 				5292F4F12776BC7900B9A7BB /* Sources */,
 				5292F4F22776BC7900B9A7BB /* Frameworks */,
 				5292F4F32776BC7900B9A7BB /* Resources */,
+				52B8CF77277E0B46004CB680 /* Embed App Clips */,
+				D5C7FAC44EC37CBCD945E0F2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				52B8CF72277E0B46004CB680 /* PBXTargetDependency */,
 			);
 			name = PushDeer;
 			productName = PushDeer;
 			productReference = 5292F4F52776BC7900B9A7BB /* PushDeer.app */;
 			productType = "com.apple.product-type.application";
+		};
+		52B8CF63277E0B44004CB680 /* PushDeerClip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52B8CF74277E0B46004CB680 /* Build configuration list for PBXNativeTarget "PushDeerClip" */;
+			buildPhases = (
+				2478CBF24D0E46561F75C65B /* [CP] Check Pods Manifest.lock */,
+				52B8CF60277E0B44004CB680 /* Sources */,
+				52B8CF61277E0B44004CB680 /* Frameworks */,
+				52B8CF62277E0B44004CB680 /* Resources */,
+				2E496999EBC4004366E8DE5E /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushDeerClip;
+			productName = PushDeerClip;
+			productReference = 52B8CF64277E0B44004CB680 /* PushDeerClip.app */;
+			productType = "com.apple.product-type.application.on-demand-install-capable";
 		};
 /* End PBXNativeTarget section */
 
@@ -156,6 +345,9 @@
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
 					5292F4F42776BC7900B9A7BB = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					52B8CF63277E0B44004CB680 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
 				};
@@ -174,6 +366,7 @@
 			projectRoot = "";
 			targets = (
 				5292F4F42776BC7900B9A7BB /* PushDeer */,
+				52B8CF63277E0B44004CB680 /* PushDeerClip */,
 			);
 		};
 /* End PBXProject section */
@@ -188,7 +381,98 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		52B8CF62277E0B44004CB680 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52B8CF6E277E0B46004CB680 /* Preview Assets.xcassets in Resources */,
+				52B8CF87277E0C5C004CB680 /* Assets.xcassets in Resources */,
+				52B8CF6B277E0B46004CB680 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2478CBF24D0E46561F75C65B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PushDeerClip-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E496999EBC4004366E8DE5E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D5C7FAC44EC37CBCD945E0F2 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PushDeer/Pods-PushDeer-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PushDeer/Pods-PushDeer-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PushDeer/Pods-PushDeer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7C2D4C0049487EE64D69530 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PushDeer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5292F4F12776BC7900B9A7BB /* Sources */ = {
@@ -203,17 +487,62 @@
 				52EB90B32778DA4E0048E0ED /* Line.swift in Sources */,
 				52F2C223277961D7006F08DC /* SettingsItemView.swift in Sources */,
 				52163EB72777415F00594190 /* DeviceListView.swift in Sources */,
+				52B8CF5F277DE660004CB680 /* AppleSignInButton.swift in Sources */,
 				52163EB92777417900594190 /* KeyListView.swift in Sources */,
 				5292F4FB2776BC7900B9A7BB /* ContentView.swift in Sources */,
+				52450F3B278491F8003652D8 /* AppState.swift in Sources */,
 				5292F4F92776BC7900B9A7BB /* PushDeerApp.swift in Sources */,
+				52483FC2277ED6D5003A100E /* AppDelegate.swift in Sources */,
+				52450F3827848243003652D8 /* PushDeerApi.swift in Sources */,
 				52EB90AE2778AFD60048E0ED /* BaseNavigationView.swift in Sources */,
 				52EB90AC2778ADF80048E0ED /* CardView.swift in Sources */,
 				52EB90B02778D67F0048E0ED /* KeyItemView.swift in Sources */,
+				52450F3F2784923D003652D8 /* Result.swift in Sources */,
+				52450F422784943F003652D8 /* HttpRequest.swift in Sources */,
 				52163EB52777413B00594190 /* MessageListView.swift in Sources */,
+				52F40D2F277CA05600766C24 /* MessageItemView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52B8CF60277E0B44004CB680 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52B8CF82277E0C06004CB680 /* AppleSignInButton.swift in Sources */,
+				52B8CF69277E0B44004CB680 /* ContentView.swift in Sources */,
+				52B8CF78277E0BF1004CB680 /* MainView.swift in Sources */,
+				52B8CF79277E0BFB004CB680 /* DeviceListView.swift in Sources */,
+				52B8CF84277E0C12004CB680 /* CardView.swift in Sources */,
+				52B8CF7E277E0BFB004CB680 /* SettingsView.swift in Sources */,
+				52B8CF7C277E0BFB004CB680 /* KeyListView.swift in Sources */,
+				52B8CF7A277E0BFB004CB680 /* MessageListView.swift in Sources */,
+				52B8CF83277E0C12004CB680 /* DeletableView.swift in Sources */,
+				52B8CF81277E0BFB004CB680 /* LoginView.swift in Sources */,
+				52B8CF7F277E0BFB004CB680 /* SettingsItemView.swift in Sources */,
+				52450F3C278491F8003652D8 /* AppState.swift in Sources */,
+				52B8CF80277E0BFB004CB680 /* MessageItemView.swift in Sources */,
+				52483FC3277ED6D5003A100E /* AppDelegate.swift in Sources */,
+				52450F3927848243003652D8 /* PushDeerApi.swift in Sources */,
+				52B8CF86277E0C12004CB680 /* BaseNavigationView.swift in Sources */,
+				52B8CF67277E0B44004CB680 /* PushDeerClipApp.swift in Sources */,
+				52B8CF85277E0C12004CB680 /* Line.swift in Sources */,
+				52450F402784923D003652D8 /* Result.swift in Sources */,
+				52450F432784943F003652D8 /* HttpRequest.swift in Sources */,
+				52B8CF7B277E0BFB004CB680 /* DeviceItemView.swift in Sources */,
+				52B8CF7D277E0BFB004CB680 /* KeyItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		52B8CF72277E0B46004CB680 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 52B8CF63277E0B44004CB680 /* PushDeerClip */;
+			targetProxy = 52B8CF71277E0B46004CB680 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5292F5012776BC7A00B9A7BB /* Debug */ = {
@@ -334,6 +663,7 @@
 		};
 		5292F5042776BC7A00B9A7BB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CE3005BD875FC9819A92466C /* Pods-PushDeer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -344,6 +674,7 @@
 				DEVELOPMENT_TEAM = Y47WTLML2S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PushDeer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -365,6 +696,7 @@
 		};
 		5292F5052776BC7A00B9A7BB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCCE1F6E56B157872E2C755F /* Pods-PushDeer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -375,6 +707,7 @@
 				DEVELOPMENT_TEAM = Y47WTLML2S;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PushDeer/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -388,6 +721,74 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wskfz.pushdeer.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		52B8CF75277E0B46004CB680 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69F56B2711ED98819D474BE3 /* Pods-PushDeerClip.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PushDeerClip/PushDeerClip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PushDeerClip/Preview Content\"";
+				DEVELOPMENT_TEAM = Y47WTLML2S;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PushDeerClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeer;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wskfz.pushdeer.ios.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		52B8CF76277E0B46004CB680 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CC775BE0326BF31C6FACF06 /* Pods-PushDeerClip.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PushDeerClip/PushDeerClip.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PushDeerClip/Preview Content\"";
+				DEVELOPMENT_TEAM = Y47WTLML2S;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PushDeerClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeer;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wskfz.pushdeer.ios.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -411,6 +812,15 @@
 			buildConfigurations = (
 				5292F5042776BC7A00B9A7BB /* Debug */,
 				5292F5052776BC7A00B9A7BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		52B8CF74277E0B46004CB680 /* Build configuration list for PBXNativeTarget "PushDeerClip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52B8CF75277E0B46004CB680 /* Debug */,
+				52B8CF76277E0B46004CB680 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

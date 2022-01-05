@@ -1,0 +1,65 @@
+<template>
+  <div class="tabbar">
+    <div class="shadow"></div>
+    <div class="tab">
+      <div for="{{tab in tabbar}}">
+        <image
+          @click="changePage($idx)"
+          src="{{tab.active?tab.selectedIconPath:tab.iconPath}}"
+        ></image>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+
+export default {
+  props: {
+    tabbar: { default: [] }
+  },
+  changePage(idx) {
+    console.log('tabbar', 'changePage', idx)
+    this.$emit('emitEvt', {
+      idx
+    });
+  }
+};
+</script>
+
+
+<style lang="less">
+.tabbar {
+  .shadow {
+    position: fixed;
+    bottom: 108px;
+    height: 12px;
+    width: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.09));
+  }
+
+  .tab {
+    background-color: rgba(255, 255, 255, 0.98);
+    /* position: fixed; */
+    /* bottom: 0; */
+    /* flex-direction: row; */
+    height: 108px;
+    width: 100%;
+    justify-content: space-around;
+
+    div {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+    }
+
+    image {
+      height: 80px;
+    }
+
+    text {
+      font-size: 30px;
+    }
+  }
+}
+</style>

@@ -1,0 +1,117 @@
+<template>
+  <div class="card">
+    <div class="header">
+      <image style="height: 80px" src="/assets/images/avatar.svg" />
+      <text class="name" @click="onKeyNameClick">{{ key.name }}</text>
+      <image style="height: 36px" src="/assets/images/calander.svg" />
+      <text class="date">{{ key.date }}</text>
+    </div>
+    <text class="value">{{ key.value }} </text>
+    <!-- <div class="divider"></div> -->
+    <image class="divider" src="/assets/images/divider.png"></image>
+    <div class="footer">
+      <text style="color: #3b4789; border-color: #3b4789">重置</text>
+      <text
+        style="color: #ffffff; background-color: #3b4789"
+        @click="onCopyBtnClick"
+        >复制</text
+      >
+    </div>
+  </div>
+</template>
+
+<script>
+import clipboard from '@system.clipboard'
+export default {
+
+  props: ['key', 'idx'],
+
+  onKeyNameClick() {
+    $utils.showToast('改名功能待实现')
+  },
+
+  onCopyBtnClick() {
+    clipboard.set({
+      text: this.key.value,
+      success: () => {
+        $utils.showToast('key已经复制到剪贴板')
+      }
+    })
+  },
+
+  onInit() {
+    // console.log('key', this.key, this.idx)
+    // console.log('card', 'name', this.devObj.name)
+  }
+}
+</script>
+
+<style lang="less">
+@primary-color: #3b4789;
+@secondry-color: #d6d6d6;
+@font-color: #a7a7a7;
+
+.card {
+  flex-direction: column;
+  border-color: @primary-color;
+  border-radius: 16px;
+  border-width: 3px;
+  padding: 32px;
+  margin: 24px 0;
+  background-color: #ffffff;
+  width: 100%;
+  /* justify-content: center;
+  align-items: center; */
+
+  .header {
+    align-items: flex-end;
+
+    .date {
+      font-size: 24px;
+      color: @font-color;
+    }
+
+    .name {
+      color: @primary-color;
+      font-size: 36px;
+      flex-grow: 1;
+    }
+  }
+
+  .value {
+    margin: 48px 0;
+    padding: 16px;
+    font-size: 24px;
+    border-width: 2px;
+    border-radius: 8px;
+    border-color: @secondry-color;
+    color: @font-color;
+    lines: 1;
+  }
+
+  .divider {
+    width: 100%;
+    margin-bottom: 48px;
+  }
+
+  .footer {
+    justify-content: space-between;
+
+    text {
+      font-size: 30px;
+      padding: 16px 48px;
+      border-width: 2px;
+      border-radius: 16px;
+    }
+  }
+}
+/* .wrapper {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.title {
+  text-align: center;
+  color: #212121;
+} */
+</style>

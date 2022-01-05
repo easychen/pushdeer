@@ -1,0 +1,81 @@
+<import name="my-tabbar" src="./tabbar"></import>
+<import name="device" src="../component/Device"></import>
+<import name="key" src="../component/Key"></import>
+<import name="message" src="../component/Message"></import>
+<import name="settings" src="../component/Settings"></import>
+<template>
+  <div class="wrapper">
+    <stack class="stack">
+      <image class="deer-background" src="/assets/images/home-background.svg" />
+      <component is="{{ tabbarData[currentPageIndex].compName }}"></component>
+    </stack>
+    <my-tabbar tabbar="{{tabbarData}}" onemit-evt="emitEvt"></my-tabbar>
+  </div>
+</template>
+
+<script>
+export default {
+  private: {
+    currentPageIndex: 0,
+    tabbarData: [
+      {
+        iconPath: '/assets/images/tabbar-device.svg',
+        selectedIconPath: '/assets/images/tabbar-device-active.svg',
+        active: true,
+        compName: 'device',
+      },
+      {
+        iconPath: '/assets/images/tabbar-key.svg',
+        selectedIconPath: '/assets/images/tabbar-key-active.svg',
+        active: false,
+        compName: 'key',
+      },
+      {
+        iconPath: '/assets/images/tabbar-message.svg',
+        selectedIconPath: '/assets/images/tabbar-message-active.svg',
+        active: false,
+        compName: 'message',
+      },
+      {
+        iconPath: '/assets/images/tabbar-settings.svg',
+        selectedIconPath: '/assets/images/tabbar-settings-active.svg',
+        active: false,
+        compName: 'settings',
+      }
+    ]
+  },
+  onRefresh() {
+    console.log('home page refreshed!!!')
+  },
+  onShow() {
+    console.log('home page shown!!!')
+    this.$page.setTitleBar({ text: this.tabbarData[this.currentPageIndex].title })
+  },
+  emitEvt({ detail: { idx: newIdx } } = evt) {
+    // console.log('home', 'emitEvt', 'newIdx', newIdx)
+    // console.log('home', 'emitEvt', 'tabbarData', this.tabbarData)
+    // 解构交换变量
+    [this.tabbarData[this.currentPageIndex].active, this.tabbarData[newIdx].active]
+      = [this.tabbarData[newIdx].active, this.tabbarData[this.currentPageIndex].active]
+    this.currentPageIndex = newIdx
+  },
+}
+</script>
+<style lang="less">
+@import './../../assets/styles/style.less';
+
+.wrapper {
+  .flex-box-mixins(column, center, center);
+  height: 100%;
+
+  .stack {
+    flex-grow: 1;
+    align-items: flex-end;
+
+    .deer-background {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
+}
+</style>

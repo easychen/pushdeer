@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct PushDeerApp: App {
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+  
   var body: some Scene {
     WindowGroup {
-      ContentView()
+      ContentView().environmentObject(AppState.shared)
     }
   }
 }

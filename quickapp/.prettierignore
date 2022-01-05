@@ -1,0 +1,6 @@
+package.json
+manifest.json
+README.md
+
+# assets/js
+src/assets/js/*.js
