@@ -1,14 +1,14 @@
 //
-//  PushDeerApp.swift
-//  PushDeer
+//  PushDeerClipApp.swift
+//  PushDeerClip
 //
-//  Created by HEXT on 2021/12/25.
+//  Created by HEXT on 2021/12/30.
 //
 
 import SwiftUI
 
 @main
-struct PushDeerApp: App {
+struct PushDeerClipApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
   
   var body: some Scene {

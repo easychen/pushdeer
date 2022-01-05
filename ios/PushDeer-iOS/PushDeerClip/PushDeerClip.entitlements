@@ -8,9 +8,9 @@
 	<array>
 		<string>Default</string>
 	</array>
-	<key>com.apple.security.app-sandbox</key>
-	<true/>
-	<key>com.apple.security.network.client</key>
-	<true/>
+	<key>com.apple.developer.parent-application-identifiers</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.wskfz.pushdeer.ios</string>
+	</array>
 </dict>
 </plist>
