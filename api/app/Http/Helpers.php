@@ -1,9 +1,8 @@
 <?php
-use AppleSignIn\ASDecoder;
 
 function getUserDataFromIdentityToken($idToken)
 {
-    $appleSignInPayload = ASDecoder::getAppleSignInPayload($idToken);
+    $appleSignInPayload = \AppleSignIn\ASDecoder::getAppleSignInPayload($idToken);
     return [ 'email' => $appleSignInPayload->getEmail() , 'uid' => $appleSignInPayload->getUser() ];
 }
 
