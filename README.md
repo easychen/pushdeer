@@ -21,6 +21,7 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，当前项目
 
 ## 相关项目
 
+- [Android客户端临时仓库](https://github.com/alone-wolf/pushdeer_for_android)
 - [API的Go实现](https://github.com/iepngs/pushdeer-backend-go) by [iepngs](https://github.com/iepngs)
 - [Go SDK](https://github.com/Luoxin/go-pushdeer-sdk) by [Luoxin](https://github.com/Luoxin)
 
