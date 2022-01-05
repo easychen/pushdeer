@@ -30,4 +30,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'go_push' => [
+        'address' => env('GO_PUSH_ADDRESS', '127.0.0.1'),
+        'ios_port' => env('GO_PUSH_IOS_PORT', 8888),
+        'ios_topic' => env('GO_PUSH_IOS_TOPIC', 'com.pushdeer.app.ios'),
+        'ios_clip_port' => env('GO_PUSH_IOS_CLIP_PORT', 8889),
+        'ios_clip_topic' => env('GO_PUSH_IOS_CLIP_TOPIC', 'com.pushdeer.app.ios.Clip')
+    ]
+
 ];
