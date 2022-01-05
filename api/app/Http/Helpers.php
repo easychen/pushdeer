@@ -64,18 +64,17 @@ function ios_send($is_clip, $device_token, $text, $desp = '', $dev = true)
         $notification->production = true;
     }
 
-    $port = intval($is_clip) == 1 ? 8889 : 8888;
-    $topic = intval($is_clip) == 1 ? 'com.pushdeer.app.ios.Clip' : 'com.pushdeer.app.ios';
+    $port = intval($is_clip) == 1 ? config('services.go_push.ios_clip_port') : config('services.go_push.ios_port');
+    $topic = intval($is_clip) == 1 ? config('services.go_push.ios_clip_topic') : config('services.go_push.ios_topic');
     $notification->topic = $topic;
     $notification->sound = ['volume'=>2.0];
 
     $json = ['notifications'=>[$notification]];
     $client = new GuzzleHttp\Client();
-    $response = $client->post('http://127.0.0.1:'. $port .'/api/push', [
+    $response = $client->post('http://'.config('services.go_push.address').':'. $port .'/api/push', [
     GuzzleHttp\RequestOptions::JSON => $json
     ]);
     $ret = $response->getBody()->getContents();
     error_log('push error'. $ret);
     return $ret;
-    ;
 }
