@@ -26,7 +26,7 @@ class PushDeerMessageController extends Controller
             $limit = 100;
         }
 
-        $pd_messages = Message::where('uid', $_SESSION['uid'])->orderBy('id', 'DESC')->offset(0)->limit($limit)->get(['id', 'uid', 'text', 'desp', 'type','created_at']);
+        $pd_messages = Message::where('uid', $_SESSION['uid'])->orderBy('id', 'DESC')->offset(0)->limit($limit)->get(['id', 'uid', 'text', 'desp', 'type','pushkey_name','created_at']);
 
         return http_result(['messages' => $pd_messages]);
     }
@@ -63,6 +63,7 @@ class PushDeerMessageController extends Controller
             $the_message['desp'] = $validated['desp'];
             $the_message['type'] = $validated['type'];
             $the_message['readkey'] = $readkey;
+            $the_message['pushkey_name'] = $key->name;
             $pd_message = Message::create($the_message);
 
             $devices = PushDeerDevice::where('uid', $key->uid)->get();

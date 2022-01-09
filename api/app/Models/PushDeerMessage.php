@@ -11,7 +11,7 @@ class PushDeerMessage extends Model
 
     protected $fillable = [
         'readkey',
-        'pushkey',
+        'pushkey_name',
         'text',
         'desp',
         'uid',
