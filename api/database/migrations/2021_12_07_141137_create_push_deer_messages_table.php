@@ -16,7 +16,7 @@ class CreatePushDeerMessagesTable extends Migration
         Schema::create('push_deer_messages', function (Blueprint $table) {
             $table->id();
             $table->string('uid');
-            $table->string('text');
+            $table->mediumText('text');
             $table->string('desp')->nullable();
             $table->string('type')->default('markdown');
             $table->string('readkey');
