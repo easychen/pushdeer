@@ -56,17 +56,18 @@ class PushDeerMessageController extends Controller
         $result = false;
 
         if ($key) {
+            $readkey = Str::random(32);
+            $the_message = [];
+            $the_message['uid'] = $key->uid;
+            $the_message['text'] = $validated['text'];
+            $the_message['desp'] = $validated['desp'];
+            $the_message['type'] = $validated['type'];
+            $the_message['readkey'] = $readkey;
+            $pd_message = Message::create($the_message);
+
             $devices = PushDeerDevice::where('uid', $key->uid)->get();
 
             foreach ($devices as $device) {
-                $readkey = Str::random(32);
-                $the_message = [];
-                $the_message['uid'] = $key->uid;
-                $the_message['text'] = $validated['text'];
-                $the_message['desp'] = $validated['desp'];
-                $the_message['readkey'] = $readkey;
-                $pd_message = Message::create($the_message);
-
                 if ($device) {
                     $result[] = ios_send($device->is_clip, $device->device_id, $validated['text']);
                 }

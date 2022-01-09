@@ -15,5 +15,6 @@ class PushDeerMessage extends Model
         'text',
         'desp',
         'uid',
+        'type',
     ];
 }
