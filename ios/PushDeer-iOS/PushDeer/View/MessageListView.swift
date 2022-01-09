@@ -9,21 +9,27 @@ import SwiftUI
 
 /// 消息界面
 struct MessageListView: View {
-  
-  @State private var messages = Array(0..<10)
-  @State private var isShowTest = true
+  @EnvironmentObject private var store: AppState
   
   var body: some View {
     BaseNavigationView(title: "消息") {
       ScrollView {
         LazyVStack(alignment: .leading) {
-          if isShowTest {
+          if store.isShowTestPush {
             TestPushView()
           }
-          ForEach(messages, id: \.self) { msg in
-            MessageItemView {
-              messages.removeAll { _msg in
-                _msg == msg
+          ForEach(store.messages) { messageItem in
+            MessageItemView(messageItem: messageItem) {
+              store.messages.removeAll { _messageItem in
+                _messageItem.id == messageItem.id
+              }
+              HToast.showSuccess("已删除")
+              Task {
+                do {
+                  _ = try await HttpRequest.rmMessage(id: messageItem.id)
+                } catch {
+                  
+                }
               }
             }
           }
@@ -32,17 +38,23 @@ struct MessageListView: View {
       }
       .navigationBarItems(trailing: Button(action: {
         withAnimation(.easeOut) {
-          isShowTest = !isShowTest
+          store.isShowTestPush = !store.isShowTestPush
         }
       }, label: {
-        Image(systemName: isShowTest ? "chevron.up" : "chevron.down")
+        Image(systemName: store.isShowTestPush ? "chevron.up" : "chevron.down")
           .foregroundColor(Color(UIColor.lightGray))
       }))
+    }
+    .onAppear {
+      Task {
+        store.messages = try await HttpRequest.getMessages().messages
+      }
     }
   }
 }
 
 struct TestPushView: View {
+  @EnvironmentObject private var store: AppState
   @State private var testText = ""
   var body: some View {
     TextEditor(text: $testText)
@@ -52,6 +64,26 @@ struct TestPushView: View {
     
     Button("推送测试") {
       print("点击推送测试")
+      if testText.isEmpty {
+        HToast.showError("推送失败, 请先输入推送内容")
+        return
+      }
+      Task {
+        if store.keys.isEmpty {
+          store.keys = try await HttpRequest.getKeys().keys
+        }
+        if let keyItem = store.keys.first {
+          _ = try await HttpRequest.push(pushkey: keyItem.key, text: testText, desp: "", type: "")
+          testText = ""
+          HToast.showSuccess("推送成功")
+          let messages = try await HttpRequest.getMessages().messages
+          withAnimation(.easeOut) {
+            store.messages = messages
+          }
+        } else {
+          HToast.showError("推送失败, 请先添加一个Key")
+        }
+      }
     }
     .font(.system(size: 20))
     .frame(width: 104, height: 42)

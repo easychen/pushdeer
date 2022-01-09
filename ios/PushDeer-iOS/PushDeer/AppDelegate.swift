@@ -9,9 +9,7 @@ import UIKit
 import UserNotifications
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-  
-  static var deviceToken: String = ""
-  
+    
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     
     let center = UNUserNotificationCenter.current()
@@ -23,9 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     
     Task {
       // APP启动后要先调一个无用接口, 用于触发国行手机的网络授权弹框, 未授权前调的接口会直接失败. (提前触发网络授权弹窗)
-      let result = try await HttpRequest.fake()
-      AppState.shared.token = result.token
-      HttpRequest.getDevices()
+      _ = try await HttpRequest.fake()
     }
     
     return true
@@ -34,7 +30,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
   func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
     let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
     print("deviceToken: ", deviceTokenString)
-    AppDelegate.deviceToken = deviceTokenString;
+    AppState.shared.deviceToken = deviceTokenString
   }
   
   func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {

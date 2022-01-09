@@ -18,8 +18,8 @@ struct SettingsItemView: View {
         Text(title)
           .font(.system(size: 18))
           .foregroundColor(Color(UIColor.darkGray))
-          .padding()
-        Spacer()
+          .padding(.leading, 16)
+        Spacer(minLength: 0)
         Button(button) {
           print("点击\(button)")
           action()

@@ -12,6 +12,7 @@ enum PushDeerApi {
   
   case fake
   case login(idToken: String)
+  case getUserInfo(token: String)
   
   case regDevice(token: String, name: String, device_id: String, is_clip: Int)
   case getDevices(token: String)
@@ -39,6 +40,8 @@ extension PushDeerApi: TargetType {
       return "/login/fake"
     case .login:
       return "/login/idtoken"
+    case .getUserInfo:
+      return "/user/info"
       
     case .regDevice:
       return "/device/reg"
@@ -79,6 +82,8 @@ extension PushDeerApi: TargetType {
       return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
     case let .login(idToken):
       return .requestParameters(parameters: ["idToken": idToken], encoding: URLEncoding.queryString)
+    case let .getUserInfo(token):
+      return .requestParameters(parameters: ["token": token], encoding: URLEncoding.queryString)
       
     case let .regDevice(token, name, device_id, is_clip):
       return .requestParameters(parameters: ["token": token,"name": name, "device_id": device_id,"is_clip": is_clip], encoding: URLEncoding.queryString)
