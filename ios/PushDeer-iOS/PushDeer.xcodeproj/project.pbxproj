@@ -25,13 +25,16 @@
 		52450F432784943F003652D8 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F412784943F003652D8 /* HttpRequest.swift */; };
 		52483FC2277ED6D5003A100E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52483FC1277ED6D5003A100E /* AppDelegate.swift */; };
 		52483FC3277ED6D5003A100E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52483FC1277ED6D5003A100E /* AppDelegate.swift */; };
+		5287FF52278ADC8C00249A0E /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5287FF51278ADC8C00249A0E /* MarkdownUI */; };
+		5287FF54278AEA5B00249A0E /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = 5287FF53278AEA5B00249A0E /* MarkdownUI */; };
+		5287FF59278B3AAE00249A0E /* HToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287FF58278B3AAE00249A0E /* HToast.swift */; };
+		5287FF5A278B3AAE00249A0E /* HToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5287FF58278B3AAE00249A0E /* HToast.swift */; };
 		5292F4F92776BC7900B9A7BB /* PushDeerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5292F4F82776BC7900B9A7BB /* PushDeerApp.swift */; };
 		5292F4FB2776BC7900B9A7BB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5292F4FA2776BC7900B9A7BB /* ContentView.swift */; };
 		5292F4FD2776BC7A00B9A7BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292F4FC2776BC7A00B9A7BB /* Assets.xcassets */; };
 		5292F5002776BC7A00B9A7BB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292F4FF2776BC7A00B9A7BB /* Preview Assets.xcassets */; };
 		52B8CF5F277DE660004CB680 /* AppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */; };
 		52B8CF67277E0B44004CB680 /* PushDeerClipApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8CF66277E0B44004CB680 /* PushDeerClipApp.swift */; };
-		52B8CF69277E0B44004CB680 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8CF68277E0B44004CB680 /* ContentView.swift */; };
 		52B8CF6B277E0B46004CB680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52B8CF6A277E0B46004CB680 /* Assets.xcassets */; };
 		52B8CF6E277E0B46004CB680 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52B8CF6D277E0B46004CB680 /* Preview Assets.xcassets */; };
 		52B8CF73277E0B46004CB680 /* PushDeerClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 52B8CF64277E0B44004CB680 /* PushDeerClip.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -58,6 +61,7 @@
 		52F0243F277737470071D861 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0243E277737470071D861 /* LoginView.swift */; };
 		52F2C223277961D7006F08DC /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2C222277961D7006F08DC /* SettingsItemView.swift */; };
 		52F40D2F277CA05600766C24 /* MessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40D2E277CA05600766C24 /* MessageItemView.swift */; };
+		52FBA09427874879003308C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5292F4FA2776BC7900B9A7BB /* ContentView.swift */; };
 		64B0C15E70CCC382B480F76E /* Pods_PushDeer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E380A18349DE4D26071E913E /* Pods_PushDeer.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +103,7 @@
 		52450F412784943F003652D8 /* HttpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
 		52450F442784A95D003652D8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		52483FC1277ED6D5003A100E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		5287FF58278B3AAE00249A0E /* HToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HToast.swift; sourceTree = "<group>"; };
 		5292F4F52776BC7900B9A7BB /* PushDeer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushDeer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5292F4F82776BC7900B9A7BB /* PushDeerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeerApp.swift; sourceTree = "<group>"; };
 		5292F4FA2776BC7900B9A7BB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -107,7 +112,6 @@
 		52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInButton.swift; sourceTree = "<group>"; };
 		52B8CF64277E0B44004CB680 /* PushDeerClip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushDeerClip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52B8CF66277E0B44004CB680 /* PushDeerClipApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeerClipApp.swift; sourceTree = "<group>"; };
-		52B8CF68277E0B44004CB680 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		52B8CF6A277E0B46004CB680 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52B8CF6D277E0B46004CB680 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52B8CF6F277E0B46004CB680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64B0C15E70CCC382B480F76E /* Pods_PushDeer.framework in Frameworks */,
+				5287FF52278ADC8C00249A0E /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -142,6 +147,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4812F19BB0BFEFE089BC253E /* Pods_PushDeerClip.framework in Frameworks */,
+				5287FF54278AEA5B00249A0E /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +233,7 @@
 		52B8CF5D277DE5FF004CB680 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				5287FF58278B3AAE00249A0E /* HToast.swift */,
 				52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */,
 			);
 			path = Common;
@@ -236,7 +243,6 @@
 			isa = PBXGroup;
 			children = (
 				52B8CF66277E0B44004CB680 /* PushDeerClipApp.swift */,
-				52B8CF68277E0B44004CB680 /* ContentView.swift */,
 				52B8CF6A277E0B46004CB680 /* Assets.xcassets */,
 				52B8CF6F277E0B46004CB680 /* Info.plist */,
 				52B8CF70277E0B46004CB680 /* PushDeerClip.entitlements */,
@@ -311,6 +317,9 @@
 				52B8CF72277E0B46004CB680 /* PBXTargetDependency */,
 			);
 			name = PushDeer;
+			packageProductDependencies = (
+				5287FF51278ADC8C00249A0E /* MarkdownUI */,
+			);
 			productName = PushDeer;
 			productReference = 5292F4F52776BC7900B9A7BB /* PushDeer.app */;
 			productType = "com.apple.product-type.application";
@@ -330,6 +339,9 @@
 			dependencies = (
 			);
 			name = PushDeerClip;
+			packageProductDependencies = (
+				5287FF53278AEA5B00249A0E /* MarkdownUI */,
+			);
 			productName = PushDeerClip;
 			productReference = 52B8CF64277E0B44004CB680 /* PushDeerClip.app */;
 			productType = "com.apple.product-type.application.on-demand-install-capable";
@@ -361,6 +373,9 @@
 				Base,
 			);
 			mainGroup = 5292F4EC2776BC7900B9A7BB;
+			packageReferences = (
+				5287FF50278ADC8C00249A0E /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+			);
 			productRefGroup = 5292F4F62776BC7900B9A7BB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -490,6 +505,7 @@
 				52B8CF5F277DE660004CB680 /* AppleSignInButton.swift in Sources */,
 				52163EB92777417900594190 /* KeyListView.swift in Sources */,
 				5292F4FB2776BC7900B9A7BB /* ContentView.swift in Sources */,
+				5287FF59278B3AAE00249A0E /* HToast.swift in Sources */,
 				52450F3B278491F8003652D8 /* AppState.swift in Sources */,
 				5292F4F92776BC7900B9A7BB /* PushDeerApp.swift in Sources */,
 				52483FC2277ED6D5003A100E /* AppDelegate.swift in Sources */,
@@ -509,7 +525,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				52B8CF82277E0C06004CB680 /* AppleSignInButton.swift in Sources */,
-				52B8CF69277E0B44004CB680 /* ContentView.swift in Sources */,
 				52B8CF78277E0BF1004CB680 /* MainView.swift in Sources */,
 				52B8CF79277E0BFB004CB680 /* DeviceListView.swift in Sources */,
 				52B8CF84277E0C12004CB680 /* CardView.swift in Sources */,
@@ -520,11 +535,13 @@
 				52B8CF81277E0BFB004CB680 /* LoginView.swift in Sources */,
 				52B8CF7F277E0BFB004CB680 /* SettingsItemView.swift in Sources */,
 				52450F3C278491F8003652D8 /* AppState.swift in Sources */,
+				5287FF5A278B3AAE00249A0E /* HToast.swift in Sources */,
 				52B8CF80277E0BFB004CB680 /* MessageItemView.swift in Sources */,
 				52483FC3277ED6D5003A100E /* AppDelegate.swift in Sources */,
 				52450F3927848243003652D8 /* PushDeerApi.swift in Sources */,
 				52B8CF86277E0C12004CB680 /* BaseNavigationView.swift in Sources */,
 				52B8CF67277E0B44004CB680 /* PushDeerClipApp.swift in Sources */,
+				52FBA09427874879003308C2 /* ContentView.swift in Sources */,
 				52B8CF85277E0C12004CB680 /* Line.swift in Sources */,
 				52450F402784923D003652D8 /* Result.swift in Sources */,
 				52450F432784943F003652D8 /* HttpRequest.swift in Sources */,
@@ -739,6 +756,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PushDeerClip/Preview Content\"";
 				DEVELOPMENT_TEAM = Y47WTLML2S;
 				ENABLE_PREVIEWS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"APPCLIP=1",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PushDeerClip/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PushDeer;
@@ -753,6 +774,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D APPCLIP";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wskfz.pushdeer.ios.Clip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -773,6 +795,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"PushDeerClip/Preview Content\"";
 				DEVELOPMENT_TEAM = Y47WTLML2S;
 				ENABLE_PREVIEWS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"APPCLIP=1",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PushDeerClip/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = PushDeer;
@@ -787,6 +813,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D APPCLIP";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wskfz.pushdeer.ios.Clip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -826,6 +853,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5287FF50278ADC8C00249A0E /* XCRemoteSwiftPackageReference "MarkdownUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5287FF51278ADC8C00249A0E /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5287FF50278ADC8C00249A0E /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
+		};
+		5287FF53278AEA5B00249A0E /* MarkdownUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5287FF50278ADC8C00249A0E /* XCRemoteSwiftPackageReference "MarkdownUI" */;
+			productName = MarkdownUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 5292F4ED2776BC7900B9A7BB /* Project object */;
 }

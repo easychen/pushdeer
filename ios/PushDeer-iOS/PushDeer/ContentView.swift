@@ -8,9 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
+  
+  @EnvironmentObject private var store: AppState
+  
   var body: some View {
-//    LoginView()
-    MainView()
+    if store.token.isEmpty {
+      LoginView()
+    } else {
+      MainView()
+    }
   }
 }
 

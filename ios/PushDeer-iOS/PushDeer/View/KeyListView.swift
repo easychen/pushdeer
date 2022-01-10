@@ -9,25 +9,28 @@ import SwiftUI
 
 /// Key 界面
 struct KeyListView: View {
-  @State private var keyItems = [
-    KeyItem(id: 1, key: UUID().uuidString),
-    KeyItem(id: 2, key: UUID().uuidString),
-    KeyItem(id: 3, key: UUID().uuidString),
-    KeyItem(id: 4, key: UUID().uuidString),
-  ]
+  @EnvironmentObject private var store: AppState
   var body: some View {
     BaseNavigationView(title: "Key") {
       ScrollView {
         LazyVStack(alignment: .center) {
-          ForEach(keyItems) { keyItem in
+          ForEach(store.keys.reversed()) { keyItem in
             DeletableView(contentView: {
               CardView {
                 KeyItemView(keyItem: keyItem)
               }
               
             }, deleteAction: {
-              keyItems.removeAll { _keyItem in
+              store.keys.removeAll { _keyItem in
                 keyItem.id == _keyItem.id
+              }
+              HToast.showSuccess("已删除")
+              Task {
+                do {
+                  _ = try await HttpRequest.rmKey(id: keyItem.id)
+                } catch {
+                  
+                }
               }
             })
               .padding(EdgeInsets(top: 18, leading: 26, bottom: 0, trailing: 24))
@@ -36,20 +39,26 @@ struct KeyListView: View {
         }
       }
       .navigationBarItems(trailing: Button(action: {
-        let keyItem = KeyItem(id: Int(arc4random_uniform(1000)), key: UUID().uuidString)
-        withAnimation(.easeOut) {
-          keyItems.insert(keyItem, at: 0)
+        Task {
+          let keys = try await HttpRequest.genKey().keys
+          withAnimation(.easeOut) {
+            store.keys = keys
+          }
+          HToast.showSuccess("已添加新Key")
         }
       }, label: {
         Image(systemName: "plus")
           .foregroundColor(Color(UIColor.lightGray))
       }))
     }
+    .onAppear {
+      HttpRequest.loadKeys()
+    }
   }
 }
 
 struct KeyView_Previews: PreviewProvider {
   static var previews: some View {
-    KeyListView()
+    KeyListView().environmentObject(AppState.shared)
   }
 }
