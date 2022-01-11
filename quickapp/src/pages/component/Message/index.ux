@@ -1,5 +1,6 @@
 <import name="msg-text" src="./msg-text"></import>
-<import name="msg-markdown" src="./msg-text"></import>
+<import name="msg-image" src="./msg-image"></import>
+<import name="msg-markdown" src="./msg-markdown"></import>
 <template>
   <div class="wrapper">
     <div class="header">
@@ -31,7 +32,7 @@
 export default {
   data: {
     collapsed: false,
-    supportType: ['text', 'markdown'],
+    supportType: ['text', 'image', 'markdown'],
     input: '',
     msgs: [
       {
@@ -41,15 +42,13 @@ export default {
 长按可以复制文本内容。左滑显示删除。`
       },
       {
-        name: "Default", created_at: "5分钟前", type: "text",
-        text: `纯文本的效果。长文字需要自动换行。
-长文字需要自动换行。行间距24。
-长按可以复制文本内容。左滑显示删除。`
+        name: "推送Key的名字", created_at: "5分钟前", type: "markdown",
+        text: `<p>支持Markdown语法。比如可以插入<a href="https://www.baidu.com/">链接</a> ，
+点击后使用系统浏览器直接打开。</p>`
       },
       {
-        name: "推送Key的名字", created_at: "5分钟前", type: "markdown",
-        text: `支持Markdown语法。比如可以插入链接 ，
-点击后使用系统浏览器直接打开。`
+        name: "Default", created_at: "5分钟前", type: "image",
+        text: `https://wikipic.ftqq.com/wp-content/uploads/2021/08/jessy-smith-zFOm6KzA-7g-unsplash.jpg`
       },
     ],
   },
