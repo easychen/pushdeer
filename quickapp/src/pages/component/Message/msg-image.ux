@@ -1,0 +1,34 @@
+<import name="msg-header" src="./msg-header"></import>
+<template>
+  <div class="card">
+    <msg-header title="{{msg.name +' · '+ msg.created_at}}"></msg-header>
+    <image class="image" src="{{msg.text}}"></image>
+  </div>
+</template>
+
+<script>
+import clipboard from '@system.clipboard'
+export default {
+
+  props: ['msg'],
+
+  onInit() {
+    // console.log('msg-text',this.msg)
+  }
+}
+</script>
+
+<style lang="less">
+@import '../../../assets/styles/style.less';
+
+.card {
+  .flex-box-mixins(column, flex-start, center);
+  margin: 24px 0;
+  width: 100%;
+
+  .image {
+    width: 100%;
+    margin-top: 32px;
+  }
+}
+</style>
