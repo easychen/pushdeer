@@ -17,6 +17,7 @@ class PushDeerMessageController extends Controller
         $validated = $request->validate(
             [
                 'limit' => 'integer|nullable',
+                'since_id' => 'integer|nullable',
             ]
         );
 
@@ -26,7 +27,15 @@ class PushDeerMessageController extends Controller
             $limit = 100;
         }
 
-        $pd_messages = Message::where('uid', $_SESSION['uid'])->orderBy('id', 'DESC')->offset(0)->limit($limit)->get(['id', 'uid', 'text', 'desp', 'type','pushkey_name','created_at']);
+        if (isset($validated['since_id']) && intval($validated['since_id']) > 0) {
+            $pd_sql = Message::where('uid', $_SESSION['uid'])->where('id', '>', intval($validated['since_id']));
+        } else {
+            $pd_sql = Message::where('uid', $_SESSION['uid']);
+        }
+
+        $pd_messages = $pd_sql->orderBy('id', 'DESC')->offset(0)->limit($limit)->get(['id', 'uid', 'text', 'desp', 'type','pushkey_name','created_at']);
+
+
 
         return http_result(['messages' => $pd_messages]);
     }
