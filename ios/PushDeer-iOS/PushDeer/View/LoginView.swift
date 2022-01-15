@@ -40,6 +40,7 @@ struct LoginView: View {
             }
           }
         )
+          .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.white))
           .frame(maxWidth: 375, minHeight: 64, maxHeight: 64)
           .padding()
       }

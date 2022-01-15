@@ -93,7 +93,7 @@ struct TestPushView: View {
     .font(.system(size: 20))
     .frame(width: 104, height: 42)
     .foregroundColor(Color.white)
-    .background(Color.accentColor)
+    .background(Color("BtnBgColor"))
     .cornerRadius(8)
     .padding(EdgeInsets(top: 12, leading: 26, bottom: 0, trailing: 24))
   }
