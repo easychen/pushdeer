@@ -10,10 +10,14 @@ import SwiftUI
 @main
 struct PushDeerApp: App {
   @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+  let store = AppState.shared
+  let persistenceController = PersistenceController.shared
   
   var body: some Scene {
     WindowGroup {
-      ContentView().environmentObject(AppState.shared)
+      ContentView()
+        .environmentObject(store)
+        .environment(\.managedObjectContext, persistenceController.container.viewContext)
     }
   }
 }

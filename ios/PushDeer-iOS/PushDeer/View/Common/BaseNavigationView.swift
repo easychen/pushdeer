@@ -10,15 +10,20 @@ import SwiftUI
 /// 具有导航栏结构的基础容器View, APP内的页面基本上都可以使用它包装
 struct BaseNavigationView<Content : View> : View {
   /// 导航栏标题
-  let title: String
+  let title: LocalizedStringKey
   /// 页面主体View
   @ViewBuilder let contentView: Content
   
   var body: some View {
     NavigationView {
       ZStack {
-        Spacer()
-          .frame(width: .infinity, height: .infinity)
+        // VStack HStack Spacer 组合起来撑到最大
+        VStack {
+          HStack {
+            Spacer()
+          }
+          Spacer()
+        }
         contentView
       }
       .background(

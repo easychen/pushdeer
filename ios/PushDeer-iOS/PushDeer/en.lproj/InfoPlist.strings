@@ -1,0 +1,6 @@
+/* Privacy - Local Network Usage Description */
+"NSLocalNetworkUsageDescription" = "APP needs access to the local network for debugging (only when developing)";
+
+/* Privacy - Photo Library Additions Usage Description */
+"NSPhotoLibraryAddUsageDescription" = "APP provides you with the function of saving pictures to albums";
+

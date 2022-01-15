@@ -24,7 +24,7 @@ struct KeyListView: View {
               store.keys.removeAll { _keyItem in
                 keyItem.id == _keyItem.id
               }
-              HToast.showSuccess("已删除")
+              HToast.showSuccess(NSLocalizedString("已删除", comment: "删除设备/Key/消息时提示"))
               Task {
                 do {
                   _ = try await HttpRequest.rmKey(id: keyItem.id)
@@ -44,7 +44,7 @@ struct KeyListView: View {
           withAnimation(.easeOut) {
             store.keys = keys
           }
-          HToast.showSuccess("已添加新Key")
+          HToast.showSuccess(NSLocalizedString("已添加新Key", comment: ""))
         }
       }, label: {
         Image(systemName: "plus")

@@ -15,6 +15,7 @@ enum PushDeerApi {
   case getUserInfo(token: String)
   
   case regDevice(token: String, name: String, device_id: String, is_clip: Int)
+  case renameDevice(token: String, id: Int, name: String)
   case getDevices(token: String)
   case rmDevice(token: String, id: Int)
   
@@ -45,6 +46,8 @@ extension PushDeerApi: TargetType {
       
     case .regDevice:
       return "/device/reg"
+    case .renameDevice:
+      return "/device/rename"
     case .getDevices:
       return "/device/list"
     case .rmDevice:
@@ -87,6 +90,8 @@ extension PushDeerApi: TargetType {
       
     case let .regDevice(token, name, device_id, is_clip):
       return .requestParameters(parameters: ["token": token,"name": name, "device_id": device_id,"is_clip": is_clip], encoding: URLEncoding.queryString)
+    case let .renameDevice(token, id, name):
+      return .requestParameters(parameters: ["token": token,"id": id,"name": name], encoding: URLEncoding.queryString)
     case let .getDevices(token):
       return .requestParameters(parameters: ["token": token], encoding: URLEncoding.queryString)
     case let .rmDevice(token, id):
