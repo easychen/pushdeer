@@ -1,0 +1,111 @@
+/* 在设备列表中标识当前设备 */
+"(当前设备)" = "(current device)";
+
+/* No comment provided by engineer. */
+"保存成功" = "Saved successfully";
+
+/* No comment provided by engineer. */
+"保存失败" = "Saved failed";
+
+/* No comment provided by engineer. */
+"保存图片" = "Save picture";
+
+/* No comment provided by engineer. */
+"标题" = "Title";
+
+/* token失效时提示 */
+"登录过期" = "Login expired";
+
+/* AppleId登录失败时提示 */
+"登录失败" = "Login failed";
+
+/* No comment provided by engineer. */
+"登录为" = "Login as";
+
+/* 复制按钮的标题 */
+"复制" = "Copy";
+
+/* 接口报错时提示 */
+"接口报错" = "Interface error";
+
+/* No comment provided by engineer. */
+"拷贝图片" = "Copy image";
+
+/* No comment provided by engineer. */
+"内容" = "Content";
+
+/* No comment provided by engineer. */
+"评分" = "Score";
+
+/* No comment provided by engineer. */
+"扫码" = "Scan";
+
+/* No comment provided by engineer. */
+"设备" = "Devices";
+
+/* No comment provided by engineer. */
+"设置" = "Settings";
+
+/* No comment provided by engineer. */
+"输入设备名称" = "Enter device name";
+
+/* No comment provided by engineer. */
+"输入key名称" = "Enter key name";
+
+/* No comment provided by engineer. */
+"图片未加载成功" = "Image did not load successfully";
+
+/* No comment provided by engineer. */
+"推送测试" = "Push Test";
+
+/* No comment provided by engineer. */
+"推送成功" = "Push successfully";
+
+/* No comment provided by engineer. */
+"推送失败, 请先输入推送内容" = "Push failed, please enter push content first";
+
+/* No comment provided by engineer. */
+"推送失败, 请先添加一个Key" = "Push failed, please add a Key first";
+
+/* 退出登录按钮上的文字 */
+"退出" = "Logout";
+
+/* No comment provided by engineer. */
+"喜欢PushDeer?" = "Like PushDeer?";
+
+/* No comment provided by engineer. */
+"消息" = "Messages";
+
+/* No comment provided by engineer. */
+"已复制" = "Copied successfully";
+
+/* No comment provided by engineer. */
+"已拷贝" = "Copied successfully";
+
+/* 删除设备/Key/消息时提示 */
+"已删除" = "Deleted successfully";
+
+/* No comment provided by engineer. */
+"已添加当前设备" = "Current device added";
+
+/* No comment provided by engineer. */
+"已添加过当前设备" = "The current device has been added";
+
+/* No comment provided by engineer. */
+"已添加新Key" = "A new key has been added";
+
+/* No comment provided by engineer. */
+"已修改设备名称" = "Device name modified";
+
+/* No comment provided by engineer. */
+"已修改key名称" = "The key name has been modified";
+
+/* 已重置key的提示 */
+"已重置" = "Reset successfully";
+
+/* 重置key的按钮标题 */
+"重置" = "Reset";
+
+/* No comment provided by engineer. */
+"自定义服务器" = "Custom server";
+

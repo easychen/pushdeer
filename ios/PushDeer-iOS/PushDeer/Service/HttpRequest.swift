@@ -26,9 +26,9 @@ struct HttpRequest {
               continuation.resume(returning: content)
             } else if result.code == 80403 {
               AppState.shared.token = ""
-              continuation.resume(throwing: NSError(domain: result.error ?? "接口报错", code: result.code, userInfo: nil))
+              continuation.resume(throwing: NSError(domain: result.error ?? NSLocalizedString("登录过期", comment: "token失效时提示"), code: result.code, userInfo: nil))
             } else {
-              continuation.resume(throwing: NSError(domain: result.error ?? "接口报错", code: result.code, userInfo: nil))
+              continuation.resume(throwing: NSError(domain: result.error ?? NSLocalizedString("接口报错", comment: "接口报错时提示"), code: result.code, userInfo: nil))
             }
           } catch {
             print(error)
@@ -66,7 +66,9 @@ struct HttpRequest {
   static func rmDevice(id: Int) async throws -> ActionContent {
     return try await request(.rmDevice(token: AppState.shared.token, id: id), resultType: ActionContent.self)
   }
-  
+  static func renameDevice(id: Int, name: String) async throws -> ActionContent {
+    return try await request(.renameDevice(token: AppState.shared.token, id: id, name: name), resultType: ActionContent.self)
+  }
   static func getDevices() async throws -> DeviceContent {
     return try await request(.getDevices(token: AppState.shared.token), resultType: DeviceContent.self)
   }

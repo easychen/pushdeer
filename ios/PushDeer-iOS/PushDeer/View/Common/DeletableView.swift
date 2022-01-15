@@ -71,7 +71,7 @@ struct DeletableView<Content : View> : View {
 struct DeletableView_Previews: PreviewProvider {
   static var previews: some View {
     DeletableView(contentView: {
-      DeviceItemView(name: "未知设备")
+      DeviceItemView(deviceItem: DeviceItem(id: 0, uid: "", name: "Hext's iPhone 11", type: "", device_id: "", is_clip: 0))
     }, deleteAction: {
       
     })

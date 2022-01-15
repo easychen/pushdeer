@@ -35,6 +35,11 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
   
   func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
     print("willPresent:", notification.request.content.userInfo)
+    Task {
+      // 收到推送后, 刷新本地消息列表
+      let messageItems = try await HttpRequest.getMessages().messages
+      try MessageModel.saveAndUpdate(messageItems: messageItems)
+    }
     return [.sound, .list, .banner]
   }
   

@@ -16,6 +16,12 @@ struct HToast {
     static func showSuccess(_ msg: String?) {
         KRProgressHUD.showSuccess(withMessage: msg)
     }
+    static func showInfo(_ msg: String?) {
+        KRProgressHUD.showInfo(withMessage: msg)
+    }
+    static func showWarning(_ msg: String?) {
+        KRProgressHUD.showWarning(withMessage: msg)
+    }
     static func showError(_ msg: String?) {
         KRProgressHUD.showError(withMessage: msg)
     }

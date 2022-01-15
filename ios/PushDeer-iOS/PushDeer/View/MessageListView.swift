@@ -10,7 +10,11 @@ import SwiftUI
 /// 消息界面
 struct MessageListView: View {
   @EnvironmentObject private var store: AppState
+  @Environment(\.managedObjectContext) private var viewContext
   
+  @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MessageModel.created_at, ascending: false)], animation: .default)
+  private var messages: FetchedResults<MessageModel>
+
   var body: some View {
     BaseNavigationView(title: "消息") {
       ScrollView {
@@ -18,15 +22,15 @@ struct MessageListView: View {
           if store.isShowTestPush {
             TestPushView()
           }
-          ForEach(store.messages) { messageItem in
+          ForEach(messages) { messageItem in
             MessageItemView(messageItem: messageItem) {
-              store.messages.removeAll { _messageItem in
-                _messageItem.id == messageItem.id
-              }
-              HToast.showSuccess("已删除")
+              let id = messageItem.id
+              viewContext.delete(messageItem)
+              try? viewContext.save()
+              HToast.showSuccess(NSLocalizedString("已删除", comment: "删除设备/Key/消息时提示"))
               Task {
                 do {
-                  _ = try await HttpRequest.rmMessage(id: messageItem.id)
+                  _ = try await HttpRequest.rmMessage(id: Int(id))
                 } catch {
                   
                 }
@@ -47,7 +51,8 @@ struct MessageListView: View {
     }
     .onAppear {
       Task {
-        store.messages = try await HttpRequest.getMessages().messages
+        let messageItems = try await HttpRequest.getMessages().messages
+        try MessageModel.saveAndUpdate(messageItems: messageItems)
       }
     }
   }
@@ -65,7 +70,7 @@ struct TestPushView: View {
     Button("推送测试") {
       print("点击推送测试")
       if testText.isEmpty {
-        HToast.showError("推送失败, 请先输入推送内容")
+        HToast.showError(NSLocalizedString("推送失败, 请先输入推送内容", comment: ""))
         return
       }
       Task {
@@ -75,13 +80,13 @@ struct TestPushView: View {
         if let keyItem = store.keys.first {
           _ = try await HttpRequest.push(pushkey: keyItem.key, text: testText, desp: "", type: "")
           testText = ""
-          HToast.showSuccess("推送成功")
-          let messages = try await HttpRequest.getMessages().messages
+          HToast.showSuccess(NSLocalizedString("推送成功", comment: ""))
+          let messageItems = try await HttpRequest.getMessages().messages
           withAnimation(.easeOut) {
-            store.messages = messages
+            try? MessageModel.saveAndUpdate(messageItems: messageItems)
           }
         } else {
-          HToast.showError("推送失败, 请先添加一个Key")
+          HToast.showError(NSLocalizedString("推送失败, 请先添加一个Key", comment: ""))
         }
       }
     }
