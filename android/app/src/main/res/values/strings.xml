@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">PushDeer</string>
+    <string name="main_device">Device</string>
+    <string name="main_key">Key</string>
+    <string name="main_message">Message</string>
+    <string name="main_setting">Setting</string>
+    <string name="global_logdog">LogDog</string>
+</resources>
