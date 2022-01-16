@@ -26,10 +26,10 @@ struct MessageItemView: View {
           .frame(width: 38, height: 38)
         Text(messageItem.pushkey_name ?? "")
           .font(.system(size: 14))
-          .foregroundColor(Color(UIColor.darkGray))
+          .foregroundColor(Color("text2Color"))
         Text(messageItem.createdDateStr)
           .font(.system(size: 12))
-          .foregroundColor(Color(UIColor.darkGray))
+          .foregroundColor(Color("text2Color"))
         HLine().stroke(Color(UIColor.lightGray))
           .frame(height: 1)
       }
@@ -57,7 +57,7 @@ struct MessageContentView: View {
             .markdownStyle(
               DefaultMarkdownStyle(
                 font: .system(size: 14),
-                foregroundColor: UIColor.darkGray
+                foregroundColor: UIColor(named: "textColor") ?? UIColor.darkGray
               )
             )
           if !(messageItem.desp?.isEmpty ?? true) {
@@ -65,7 +65,7 @@ struct MessageContentView: View {
               .markdownStyle(
                 DefaultMarkdownStyle(
                   font: .system(size: 14),
-                  foregroundColor: UIColor.darkGray
+                  foregroundColor: UIColor(named: "textColor") ?? UIColor.darkGray
                 )
               )
           }
@@ -83,7 +83,7 @@ struct MessageContentView: View {
         .resizable()
         .placeholder(content: {
           ZStack {
-            Color.gray.opacity(0.5)
+            Color("background2Color")
             Image(systemName: "photo")
               .foregroundColor(.gray)
               .font(.system(size: 100))
@@ -93,7 +93,7 @@ struct MessageContentView: View {
         .indicator(.activity)
         .transition(.fade(duration: 0.5))
         .scaledToFill()
-        .background(Color.white)
+        .background(Color("backgroundColor"))
         .contextMenu {
           Button {
             guard let image = image else {
@@ -134,13 +134,13 @@ struct MessageContentView: View {
           HStack{
             Text(messageItem.text ?? "")
               .font(.system(size: 14))
-              .foregroundColor(Color(UIColor.darkGray))
+              .foregroundColor(Color("textColor"))
             Spacer(minLength: 0)
           }
           if !(messageItem.desp?.isEmpty ?? true) {
             Text(messageItem.desp ?? "")
               .font(.system(size: 14))
-              .foregroundColor(Color(UIColor.darkGray))
+              .foregroundColor(Color("textColor"))
           }
         }
         .padding()

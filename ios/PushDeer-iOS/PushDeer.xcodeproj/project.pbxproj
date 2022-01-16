@@ -43,7 +43,6 @@
 		5292F4FD2776BC7A00B9A7BB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292F4FC2776BC7A00B9A7BB /* Assets.xcassets */; };
 		5292F5002776BC7A00B9A7BB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292F4FF2776BC7A00B9A7BB /* Preview Assets.xcassets */; };
 		52B8CF5F277DE660004CB680 /* AppleSignInButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */; };
-		52B8CF6B277E0B46004CB680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52B8CF6A277E0B46004CB680 /* Assets.xcassets */; };
 		52B8CF6E277E0B46004CB680 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52B8CF6D277E0B46004CB680 /* Preview Assets.xcassets */; };
 		52B8CF73277E0B46004CB680 /* PushDeerClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 52B8CF64277E0B44004CB680 /* PushDeerClip.app */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		52B8CF78277E0BF1004CB680 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB227773F8400594190 /* MainView.swift */; };
@@ -127,7 +126,6 @@
 		5292F4FF2776BC7A00B9A7BB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleSignInButton.swift; sourceTree = "<group>"; };
 		52B8CF64277E0B44004CB680 /* PushDeerClip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushDeerClip.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		52B8CF6A277E0B46004CB680 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		52B8CF6D277E0B46004CB680 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52B8CF6F277E0B46004CB680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52B8CF70277E0B46004CB680 /* PushDeerClip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushDeerClip.entitlements; sourceTree = "<group>"; };
@@ -268,7 +266,6 @@
 		52B8CF65277E0B44004CB680 /* PushDeerClip */ = {
 			isa = PBXGroup;
 			children = (
-				52B8CF6A277E0B46004CB680 /* Assets.xcassets */,
 				52B8CF6F277E0B46004CB680 /* Info.plist */,
 				52E317DD279305BB000B8BB1 /* InfoPlist.strings */,
 				52B8CF70277E0B46004CB680 /* PushDeerClip.entitlements */,
@@ -434,7 +431,6 @@
 				52B8CF6E277E0B46004CB680 /* Preview Assets.xcassets in Resources */,
 				52E317DF279305BB000B8BB1 /* InfoPlist.strings in Resources */,
 				52B8CF87277E0C5C004CB680 /* Assets.xcassets in Resources */,
-				52B8CF6B277E0B46004CB680 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

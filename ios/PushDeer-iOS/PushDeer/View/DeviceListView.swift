@@ -61,6 +61,8 @@ struct DeviceListView: View {
 
 struct DeviceView_Previews: PreviewProvider {
   static var previews: some View {
-    DeviceListView().environmentObject(AppState.shared)
+    DeviceListView()
+      .environmentObject(AppState.shared)
+      .environment(\.colorScheme, .dark)
   }
 }

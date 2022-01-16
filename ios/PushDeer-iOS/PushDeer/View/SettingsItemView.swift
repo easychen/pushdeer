@@ -17,7 +17,7 @@ struct SettingsItemView: View {
       HStack{
         Text(title)
           .font(.system(size: 18))
-          .foregroundColor(Color(UIColor.darkGray))
+          .foregroundColor(Color("textColor"))
           .padding(.leading, 16)
         Spacer(minLength: 0)
         Button(button) {
@@ -27,7 +27,7 @@ struct SettingsItemView: View {
         .font(.system(size: 20))
         .frame(width: 80, height: 42)
         .foregroundColor(Color.white)
-        .background(Color.accentColor)
+        .background(Color("BtnBgColor"))
         .cornerRadius(8)
         .padding()
       }

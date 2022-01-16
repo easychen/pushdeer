@@ -45,7 +45,7 @@ struct KeyItemView: View {
         .font(.system(size: 14))
         .disabled(true)
         .padding(12)
-        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color(UIColor.lightGray)))
+        .overlay(RoundedRectangle(cornerRadius: 4).stroke(Color("borderColor")))
         .foregroundColor(Color.gray)
       
       HLine().stroke(Color.gray, style: StrokeStyle(lineWidth: 1, dash: [5]))
@@ -78,7 +78,7 @@ struct KeyItemView: View {
         .font(.system(size: 20))
         .frame(width: 90, height: 42)
         .foregroundColor(Color.white)
-        .background(Color.accentColor)
+        .background(Color("BtnBgColor"))
         .cornerRadius(8)
       }
     }
