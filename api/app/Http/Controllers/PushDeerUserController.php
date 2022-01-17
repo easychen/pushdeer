@@ -15,6 +15,10 @@ class PushDeerUserController extends Controller
 
     public function fakeLogin(Request $request)
     {
+        if (!env('APP_DEBUG')) {
+            return send_error('Debug only', ErrorCode('ARGS'));
+        }
+
         $info = [
             'uid' => 'theid999',
             'email' => 'easychen+new@gmail.com',
