@@ -79,7 +79,7 @@ class PushDeerMessageController extends Controller
 
             foreach ($devices as $device) {
                 if ($device) {
-                    $result[] = ios_send($device->is_clip, $device->device_id, $validated['text']);
+                    $result[] = ios_send($device->is_clip, $device->device_id, $validated['text'], '', env('APP_DEBUG'));
                 }
             }
         }
