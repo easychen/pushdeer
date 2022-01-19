@@ -17,7 +17,7 @@ class CreatePushDeerMessagesTable extends Migration
             $table->id();
             $table->string('uid');
             $table->mediumText('text');
-            $table->string('desp')->nullable();
+            $table->longText('desp');
             $table->string('type')->default('markdown');
             $table->string('readkey');
             $table->string('url')->nullable();
