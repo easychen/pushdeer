@@ -8,7 +8,11 @@ services:
       - MYSQL_ROOT_PASSWORD=theVeryp@ssw0rd
       - MYSQL_DATABASE=pushdeer
     ports:
-      - '3306:3306'  
+      - '3306:3306' 
+  redis: 
+    image: 'bitnami/redis:6.0.16'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes 
   app:
     #image: 'webdevops/php-apache:8.0-alpine'
     build: './docker/web/'
@@ -18,6 +22,7 @@ services:
       - './:/app'
     depends_on:
       - mariadb
+      - redis
     environment:
       - DB_HOST=mariadb
       - DB_PORT=3306
