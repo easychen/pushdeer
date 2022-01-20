@@ -10,18 +10,68 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，API和iOS第
 
 [📼 无App推送使用演示视频](https://weibo.com/tv/show/1034:4714616840978534?from=old_pc_videoshow) [📼 项目视频说明](https://www.bilibili.com/video/BV1Ar4y1S7em/) [📼 项目架构和模块说明](https://www.bilibili.com/video/BV1ZS4y1T7Bf/)
 
-## 一期核心功能领取
 
-|功能|领取人|预期完成时间|最低版本兼容|本周进度|
+
+## 一期功能核心贡献者
+
+|功能|核心贡献人|预期完成时间|最低版本兼容|本周进度|
 |-|-|-|-|-|
 |iOS/MacApp+Clip开发|[Hext123](https://github.com/Hext123)|2022年1月20日|iOS14|第一版完成，代码在iOS目录下|
 |Android客户端|[WolfHugo](https://github.com/alone-wolf)|2022年2月24日|5.1|接入mipush，device/key/message列表，markdown，pushtest，device自动注册|
 |快应用|[7YHong](https://github.com/7YHong)|2022年2月27日|-|完成快应用界面展示部分，下周对接API|
 |API完善和更新|[古俊杰](https://github.com/ilovintit)|配合客户端同步更新|-|添加自动生成swgger文档功能中|
 
+## 试用
+
+使用方法：
+
+![](doc/image/clipcode.png)
+
+1. 用苹果系统（iOS 15+）摄像头扫描上边的码
+1. 通过apple账号登录
+1. 切换到「设备」标签页，点击右上角的加号，注册当前设备
+1. 切换到「Key」标签页，点击右上角的加号，创建一个Key
+1. 通过访问后边的URL即可推送内容：https://api2.pushdeer.com/message/push?pushkey=key&text=要发送的内容
+
+iOS APP和Mac APP可以在苹果商店搜索安装。注意iOS APP、Mac APP和轻应用都被认为是不同的设备，都需要进行注册才能接收推送。
+
+PS：系统设计最低支持版本为iOS14，但目前存在兼容性问题，有iOS14真机和苹果开发者证书的同学可以下载源码并编译（参考[这个文档](ios/PushDeer-iOS/README.md)），将报错信息提交到issue可以加速我们的修复时间。
+
+
+## FAQ
+
+> 这个程序有什么用？
+
+请参考本页面应用场景一节。
+
+> 应用闪退怎么办？
+
+iOS14 闪退问题正在定位，可参照上一段文字帮我们加快修复进度。
+
+> 推送可以支持Mark和图片吗？
+
+支持，请参考本页API说明一节中 message 部分.
+
+> PushDeer 提供推送证书吗？
+
+出于内容和安全考虑，官方APP不提供推送证书。待功能稳定后，我们会单独发布一个自架版APP/Clip并提供独立的推送证书，以免因为证书被滥用而影响到普通用户的使用。
+
+> 轻APP找不到了怎么办？
+
+在搜索框搜索pushdeer就能找到。
+
+> 轻应用怎么清理掉?占空间么?
+
+系统设置里边有一个轻应用管理，在里边可以清理。30天不用会自动清理掉。注意重新安装后设备id会变动，需要再手动注册一遍。
+
+> 推送返回 code 0 result false ，但收不到推送
+
+需要先注册当前设备。
+
 ## 安装文档
 
 - 𐂂 [点此查看](doc/安装文档.md)
+
 
 ## 相关项目
 
