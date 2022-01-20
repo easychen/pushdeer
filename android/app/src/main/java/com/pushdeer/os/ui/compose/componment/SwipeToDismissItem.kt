@@ -7,7 +7,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -20,13 +19,13 @@ import com.pushdeer.os.values.ConstValues
 @ExperimentalMaterialApi
 @Composable
 fun SwipeToDismissItem(
-    onDismiss: () -> Unit,
+    onAction: () -> Unit,
     sidePadding: Boolean = false,
     content: @Composable RowScope.() -> Unit
 ) {
     val dismissState = rememberDismissState()
     if (dismissState.isDismissed(DismissDirection.EndToStart)) {
-        onDismiss()
+        onAction()
     }
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -34,7 +33,7 @@ fun SwipeToDismissItem(
         SwipeToDismiss(
             state = dismissState,
             background = {
-                val direction = dismissState.dismissDirection ?: return@SwipeToDismiss
+//                val direction = dismissState.dismissDirection ?: return@SwipeToDismiss
 
                 val color by animateColorAsState(
                     when (dismissState.targetValue) {
@@ -44,15 +43,18 @@ fun SwipeToDismissItem(
                     }
                 )
 
-                val alignment = when (direction) {
-                    DismissDirection.StartToEnd -> Alignment.CenterStart
-                    DismissDirection.EndToStart -> Alignment.CenterEnd
-                }
+//                val alignment = when (direction) {
+//                    DismissDirection.StartToEnd -> Alignment.CenterStart
+//                    DismissDirection.EndToStart -> Alignment.CenterEnd
+//                }
+//
+//                val icon = when (direction) {
+//                    DismissDirection.StartToEnd -> Icons.Default.Done
+//                    DismissDirection.EndToStart -> Icons.Default.Delete
+//                }
 
-                val icon = when (direction) {
-                    DismissDirection.StartToEnd -> Icons.Default.Done
-                    DismissDirection.EndToStart -> Icons.Default.Delete
-                }
+                val alignment = Alignment.CenterEnd
+                val icon = Icons.Default.Delete
 
                 Box(
                     contentAlignment = alignment,
@@ -69,7 +71,7 @@ fun SwipeToDismissItem(
                     )
                 }
             },
-            directions = setOf(DismissDirection.EndToStart, DismissDirection.EndToStart),
+            directions = setOf(DismissDirection.EndToStart),
             dismissThresholds = { direction ->
                 FractionalThreshold(if (direction == DismissDirection.EndToStart) 0.45f else 0.57f)
             },

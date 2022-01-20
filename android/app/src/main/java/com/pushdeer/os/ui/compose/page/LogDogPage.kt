@@ -25,7 +25,7 @@ import com.pushdeer.os.ui.compose.page.main.MainPageFrame
 
 @ExperimentalMaterialApi
 @Composable
-fun LogDaoPage(requestHolder: RequestHolder) {
+fun LogDogPage(requestHolder: RequestHolder) {
     MainPageFrame(
         titleStringId = R.string.global_logdog,
         sideIcon = Icons.Default.Delete,

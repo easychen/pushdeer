@@ -10,6 +10,7 @@ class Message : MessageEntity() {
             this.text = this@Message.text
             this.desp = this@Message.desp
             this.type = this@Message.type
+            this.pushkey_name = this@Message.pushkey_name
             this.created_at = this@Message.created_at
         }
     }

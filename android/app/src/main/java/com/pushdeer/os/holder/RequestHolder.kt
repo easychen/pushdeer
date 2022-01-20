@@ -6,6 +6,11 @@ import android.content.Intent
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavHostController
 import coil.ImageLoader
 import com.pushdeer.os.activity.QrScanActivity
@@ -26,7 +31,7 @@ interface RequestHolder {
     val uiViewModel: UiViewModel
     val pushDeerViewModel: PushDeerViewModel
     val logDogViewModel: LogDogViewModel
-    val messageViewModel:MessageViewModel
+    val messageViewModel: MessageViewModel
     val settingStore: SettingStore
     val globalNavController: NavHostController
     val coroutineScope: CoroutineScope
@@ -34,6 +39,10 @@ interface RequestHolder {
     val markdown: Markwon
     val activityOpener: ActivityResultLauncher<Intent>
     val coilImageLoader: ImageLoader
+
+    val fragmentManager:FragmentManager
+
+    val alert: AlertRequest
 
     val clipboardManager: ClipboardManager
 
@@ -64,7 +73,7 @@ interface RequestHolder {
         }
     }
 
-    fun deviceReg(deviceInfo: DeviceInfo){
+    fun deviceReg(deviceInfo: DeviceInfo) {
         coroutineScope.launch {
             pushDeerViewModel.deviceReg(deviceInfo)
         }
@@ -83,18 +92,20 @@ interface RequestHolder {
         }
     }
 
-    fun messagePushTest(desp: String) {
+    fun messagePushTest(text: String) {
         if (pushDeerViewModel.keyList.isNotEmpty()) {
-            messagePush("pushtest", desp, "markdown", pushDeerViewModel.keyList[0].key)
+            messagePush(text, "pushtest", "markdown", pushDeerViewModel.keyList[0].key)
             coroutineScope.launch {
                 delay(1000)
                 pushDeerViewModel.messageList()
             }
-        } else
+        } else {
+            alert.alert("Alert", "You Should Add One PushKey", onOk = {})
             Log.d("WH_", "messagePushTest: keylist is empty")
+        }
     }
 
-    fun messageRemove(message: Message,onDone:()->Unit={}) {
+    fun messageRemove(message: Message, onDone: () -> Unit = {}) {
         coroutineScope.launch {
 //            pushDeerViewModel.messageList.remove(message)
             pushDeerViewModel.messageRemove(message.id)
@@ -110,6 +121,35 @@ interface RequestHolder {
     fun clearLogDog() {
         coroutineScope.launch {
             logDogViewModel.clear()
+        }
+    }
+
+    abstract class AlertRequest {
+        val show: MutableState<Boolean> = mutableStateOf(false)
+        var title: String = ""
+
+        var content: @Composable () -> Unit = {}
+        var onOKAction: () -> Unit = {}
+        var onCancelAction: () -> Unit = {}
+        fun alert(
+            title: String,
+            content: @Composable () -> Unit,
+            onOk: () -> Unit,
+            onCancel: () -> Unit = {}
+        ) {
+            this.title = title
+            this.content = content
+            this.onOKAction = onOk
+            this.onCancelAction = onCancel
+            this.show.value = true
+        }
+
+        fun alert(title: String, content: String, onOk: () -> Unit, onCancel: () -> Unit = {}) {
+            this.title = title
+            this.content = { Text(text = content) }
+            this.onOKAction = onOk
+            this.onCancelAction = onCancel
+            this.show.value = true
         }
     }
 }

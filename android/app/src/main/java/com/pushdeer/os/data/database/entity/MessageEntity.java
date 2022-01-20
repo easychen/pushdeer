@@ -13,6 +13,7 @@ public class MessageEntity {
     public String text;
     public String desp;
     public String type;
+    public String pushkey_name;
     public String created_at;
 
 
@@ -20,10 +21,11 @@ public class MessageEntity {
         Message m = new Message();
         m.id = id;
         m.uid = uid;
-        m.created_at = created_at;
-        m.desp = desp;
         m.text = text;
+        m.desp = desp;
         m.type = type;
+        m.pushkey_name = pushkey_name;
+        m.created_at = created_at;
         return m;
     }
 }

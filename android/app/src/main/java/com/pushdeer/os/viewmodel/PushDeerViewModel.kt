@@ -19,7 +19,7 @@ import kotlinx.coroutines.withContext
 class PushDeerViewModel(
     private val settingStore: SettingStore,
     private val logDogRepository: LogDogRepository,
-    private val pushDeerService:PushDeerApi,
+    private val pushDeerService: PushDeerApi,
     private val messageRepository: MessageRepository
 ) : ViewModel() {
     private val TAG = "WH_"
@@ -30,14 +30,18 @@ class PushDeerViewModel(
     val keyList = mutableStateListOf<PushKey>()
 //    var messageList = mutableStateListOf<Message>()
 
-    suspend fun login(onReturn: (String) -> Unit = {}) {
+    suspend fun login(idToken: String = "", onReturn: (String) -> Unit = {}) {
         withContext(Dispatchers.IO) {
-            if (token == "") {
+            if (token == "" && idToken != "") {
                 try {
-                    pushDeerService.fakeLogin().let {
+                    pushDeerService.loginIdToken(idToken).let {
                         it.content?.let { tokenOnly ->
                             settingStore.userToken = tokenOnly.token
                             token = tokenOnly.token
+                            Log.d(TAG, "login: $token")
+                            withContext(Dispatchers.Main) {
+                                onReturn.invoke(token)
+                            }
                         }
                     }
                 } catch (e: Exception) {
@@ -45,18 +49,26 @@ class PushDeerViewModel(
                     logDogRepository.loge("login", "", e.toString())
                     return@withContext
                 }
-                logDogRepository.logi("login","normally","nothing happened")
+                logDogRepository.logi("login", "normally", "nothing happened")
+            } else if (token == "" && idToken == "") {
+                return@withContext
+            } else if (token != "") {
+                withContext(Dispatchers.Main) {
+                    onReturn.invoke(token)
+                }
             }
-//            Log.d(TAG, "login: token $token")
         }
     }
 
-    suspend fun userInfo(onReturn: (UserInfo) -> Unit = {}) {
+    suspend fun userInfo(onOk: (UserInfo) -> Unit = {}, onFailed: () -> Unit = {}) {
         withContext(Dispatchers.IO) {
             try {
                 pushDeerService.userInfo(token).let {
                     it.content?.let { ita ->
                         userInfo = ita
+                        withContext(Dispatchers.Main) {
+                            onOk(userInfo)
+                        }
                     }
                 }
             } catch (e: Exception) {
@@ -107,7 +119,6 @@ class PushDeerViewModel(
     }
 
     fun shouldRegDevice(): Boolean {
-//        Log.d(TAG, "isDeviceReged: current device id ${settingStore.thisDeviceId}")
         return deviceList.none { it.device_id == settingStore.thisDeviceId }
     }
 

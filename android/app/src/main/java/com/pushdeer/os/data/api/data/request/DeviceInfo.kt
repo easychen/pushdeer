@@ -13,7 +13,8 @@ class DeviceInfo {
             "token" to token,
             "name" to name,
             "device_id" to device_id,
-            "is_clip" to is_clip.toString()
+            "is_clip" to is_clip.toString(),
+            "type" to "android"
         )
     }
 
