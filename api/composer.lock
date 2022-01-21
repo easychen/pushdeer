@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08199d4bca4a00de977a73bdcd9ea318",
+    "content-hash": "0f637f60000aed6893b5527dc426032b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2896,6 +2896,49 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "rookiejin/mipush",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rookiejin/mipush.git",
+                "reference": "90c7b856fbff73fca3e88040972a3f57ce7acc3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rookiejin/mipush/zipball/90c7b856fbff73fca3e88040972a3f57ce7acc3d",
+                "reference": "90c7b856fbff73fca3e88040972a3f57ce7acc3d",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Rookiejin\\Xmpush\\": "src/xmpush"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mj",
+                    "email": "Mj@mj.com"
+                }
+            ],
+            "description": "小米推送官方包,https://dev.mi.com/console/doc/detail?pId=230,PHP 2.2.20版 于2017.06.13更新",
+            "support": {
+                "issues": "https://github.com/rookiejin/mipush/issues",
+                "source": "https://github.com/rookiejin/mipush/tree/master"
+            },
+            "time": "2018-01-22T08:21:53+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -7952,5 +7995,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }

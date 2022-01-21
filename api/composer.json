@@ -11,7 +11,8 @@
         "guzzlehttp/guzzle": "^7.4",
         "laravel/framework": "^8.65",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "rookiejin/mipush": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
