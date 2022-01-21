@@ -87,15 +87,13 @@ fun MessageListPage(requestHolder: RequestHolder) {
                 items = messageList,
                 key = { item: MessageEntity -> item.id }) { message: MessageEntity ->
                 SwipeToDismissItem(
-                    onDismiss = {
+                    onAction = {
                         requestHolder.messageRemove(message.toMessage(), onDone = {
                             requestHolder.messageViewModel.delete(message)
                         })
                     },
-//                    sidePadding = false
                     sidePadding = message.type != "image"
                 ) {
-//                    ImageMessageItem(message)
                     when (message.type) {
                         "markdown" -> MarkdownMessageItem(message, requestHolder)
                         "text" -> PlainTextMessageItem(message)

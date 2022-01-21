@@ -4,6 +4,14 @@ import com.pushdeer.os.data.api.data.response.*
 import retrofit2.http.*
 
 interface PushDeerApi {
+    companion object {
+        val baseUrl = "https://api2.pushdeer.com"
+    }
+
+    @FormUrlEncoded
+    @POST("/login/idtoken")
+    suspend fun loginIdToken(@Field("idToken") idToken: String): ReturnData<TokenOnly>
+
     @GET("/login/fake")
     suspend fun fakeLogin(): ReturnData<TokenOnly>
 
@@ -21,7 +29,7 @@ interface PushDeerApi {
 
     @FormUrlEncoded
     @POST("/device/remove")
-    suspend fun deviceRemove(@Field("token") token: String,@Field("id") id:Int): String
+    suspend fun deviceRemove(@Field("token") token: String, @Field("id") id: Int): String
 
     @FormUrlEncoded
     @POST("/key/gen")
@@ -49,5 +57,5 @@ interface PushDeerApi {
 
     @FormUrlEncoded
     @POST("/message/remove")
-    suspend fun messageRemove(@Field("token")token:String,@Field("id")id:Int): String
+    suspend fun messageRemove(@Field("token") token: String, @Field("id") id: Int): String
 }

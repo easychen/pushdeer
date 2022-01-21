@@ -4,7 +4,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,7 +21,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.pushdeer.os.R
 import com.pushdeer.os.data.database.entity.MessageEntity
 import com.pushdeer.os.holder.RequestHolder
-import com.pushdeer.os.ui.theme.MBlue
 import com.pushdeer.os.util.CurrentTimeUtil
 import com.pushdeer.os.values.ConstValues
 
@@ -129,18 +131,18 @@ fun MarkdownMessageItem(message: MessageEntity, requestHolder: RequestHolder) {
                     contentDescription = "",
                     modifier = Modifier.size(40.dp)
                 )
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_markdown),
-                    contentDescription = "",
-                    tint = MaterialTheme.colors.MBlue,
-                    modifier = Modifier
-                        .size(20.dp)
-                        .align(alignment = Alignment.BottomCenter)
-                )
+//                Icon(
+//                    painter = painterResource(id = R.drawable.ic_markdown),
+//                    contentDescription = "",
+//                    tint = MaterialTheme.colors.MBlue,
+//                    modifier = Modifier
+//                        .size(20.dp)
+//                        .align(alignment = Alignment.BottomCenter)
+//                )
             }
 
             Text(
-                text = "${message.text}·${
+                text = "${message.pushkey_name}·${
                     CurrentTimeUtil.resolveUTCTimeAndNow(
                         message.created_at,
                         System.currentTimeMillis()
@@ -155,7 +157,7 @@ fun MarkdownMessageItem(message: MessageEntity, requestHolder: RequestHolder) {
                     android.widget.TextView(ctx).apply {
                         this.post {
 //                            requestHolder.markdown.configuration().theme().
-                            requestHolder.markdown.setMarkdown(this, message.desp)
+                            requestHolder.markdown.setMarkdown(this, message.text)
                         }
                     }
 
