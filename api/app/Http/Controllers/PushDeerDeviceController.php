@@ -25,6 +25,7 @@ class PushDeerDeviceController extends Controller
                 'name' => 'string',
                 'device_id' => 'string',
                 'is_clip' => 'integer',
+                'type' => 'string|nullable',
             ]
         );
 
@@ -33,10 +34,15 @@ class PushDeerDeviceController extends Controller
             return send_error('uid错误', ErrorCode('ARGS'));
         }
 
+        $type = 'ios';
+        if (strlen($validated['type']) > 0) {
+            $type = trim($validated['type']);
+        }
+
         $the_device = [];
         $the_device['uid'] = $uid;
         $the_device['name'] = $validated['name'];
-        $the_device['type'] = 'all';
+        $the_device['type'] = $type;
         $the_device['is_clip'] = intval($validated['is_clip']);
         $the_device['device_id'] = $validated['device_id'];
 
