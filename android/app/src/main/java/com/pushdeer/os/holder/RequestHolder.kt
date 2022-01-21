@@ -3,9 +3,10 @@ package com.pushdeer.os.holder
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
-import android.util.Log
+import android.content.res.Resources
 import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
+import androidx.annotation.StringRes
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -13,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavHostController
 import coil.ImageLoader
+import com.pushdeer.os.R
 import com.pushdeer.os.activity.QrScanActivity
 import com.pushdeer.os.data.api.data.request.DeviceInfo
 import com.pushdeer.os.data.api.data.response.Message
@@ -40,7 +42,9 @@ interface RequestHolder {
     val activityOpener: ActivityResultLauncher<Intent>
     val coilImageLoader: ImageLoader
 
-    val fragmentManager:FragmentManager
+//    val resource:Resources
+
+    val fragmentManager: FragmentManager
 
     val alert: AlertRequest
 
@@ -73,6 +77,16 @@ interface RequestHolder {
         }
     }
 
+    fun keyRename(pushKey: PushKey){
+        coroutineScope.launch {
+            pushDeerViewModel.keyRename(pushKey){
+                coroutineScope.launch {
+                    pushDeerViewModel.keyList()
+                }
+            }
+        }
+    }
+
     fun deviceReg(deviceInfo: DeviceInfo) {
         coroutineScope.launch {
             pushDeerViewModel.deviceReg(deviceInfo)
@@ -83,6 +97,16 @@ interface RequestHolder {
         coroutineScope.launch {
             pushDeerViewModel.deviceList.remove(deviceInfo)
             pushDeerViewModel.deviceRemove(deviceInfo.id)
+        }
+    }
+
+    fun deviceRename(deviceInfo: DeviceInfo) {
+        coroutineScope.launch {
+            pushDeerViewModel.deviceRename(deviceInfo) {
+                coroutineScope.launch {
+                    pushDeerViewModel.deviceList()
+                }
+            }
         }
     }
 
@@ -100,8 +124,10 @@ interface RequestHolder {
                 pushDeerViewModel.messageList()
             }
         } else {
-            alert.alert("Alert", "You Should Add One PushKey", onOk = {})
-            Log.d("WH_", "messagePushTest: keylist is empty")
+            alert.alert(
+                R.string.global_alert_title_alert,
+                R.string.main_message_send_alert,
+                onOk = {})
         }
     }
 
@@ -124,13 +150,14 @@ interface RequestHolder {
         }
     }
 
-    abstract class AlertRequest {
+    abstract class AlertRequest(private val resources: Resources) {
         val show: MutableState<Boolean> = mutableStateOf(false)
         var title: String = ""
-
         var content: @Composable () -> Unit = {}
         var onOKAction: () -> Unit = {}
         var onCancelAction: () -> Unit = {}
+
+
         fun alert(
             title: String,
             content: @Composable () -> Unit,
@@ -145,11 +172,25 @@ interface RequestHolder {
         }
 
         fun alert(title: String, content: String, onOk: () -> Unit, onCancel: () -> Unit = {}) {
-            this.title = title
-            this.content = { Text(text = content) }
-            this.onOKAction = onOk
-            this.onCancelAction = onCancel
-            this.show.value = true
+            alert(title, { Text(text = content) }, onOk, onCancel)
+        }
+
+        fun alert(
+            @StringRes title: Int,
+            @StringRes content: Int,
+            onOk: () -> Unit,
+            onCancel: () -> Unit = {}
+        ) {
+            alert(resources.getString(title), resources.getString(content), onOk, onCancel)
+        }
+
+        fun alert(
+            @StringRes title: Int,
+            content: @Composable () -> Unit,
+            onOk: () -> Unit,
+            onCancel: () -> Unit={}
+        ) {
+            alert(resources.getString(title), content, onOk, onCancel)
         }
     }
 }

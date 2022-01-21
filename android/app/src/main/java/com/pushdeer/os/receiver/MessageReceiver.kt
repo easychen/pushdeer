@@ -33,7 +33,6 @@ class MessageReceiver : PushMessageReceiver() {
 
     override fun onReceivePassThroughMessage(context: Context, message: MiPushMessage) {
         init(context)
-//        Log.d("WH_", "onReceivePassThroughMessage: $message")
         mMessage = message.content
         if (!TextUtils.isEmpty(message.topic)) {
             mTopic = message.topic
@@ -46,7 +45,6 @@ class MessageReceiver : PushMessageReceiver() {
 
     override fun onNotificationMessageClicked(context: Context, message: MiPushMessage) {
         init(context)
-//        Log.d("WH_", "onNotificationMessageClicked: $message")
         mMessage = message.content
         if (!TextUtils.isEmpty(message.topic)) {
             mTopic = message.topic
@@ -59,7 +57,6 @@ class MessageReceiver : PushMessageReceiver() {
 
     override fun onNotificationMessageArrived(context: Context, message: MiPushMessage) {
         init(context)
-//        Log.d("WH_", "onNotificationMessageArrived: $message")
         mMessage = message.content
         if (!TextUtils.isEmpty(message.topic)) {
             mTopic = message.topic
@@ -72,7 +69,6 @@ class MessageReceiver : PushMessageReceiver() {
 
     override fun onCommandResult(context: Context, message: MiPushCommandMessage) {
         init(context)
-//        Log.d("WH_", "onCommandResult: $message")
         val command = message.command
         val arguments = message.commandArguments
         val cmdArg1 = if (arguments != null && arguments.size > 0) arguments[0] else null
@@ -108,7 +104,6 @@ class MessageReceiver : PushMessageReceiver() {
 
     override fun onReceiveRegisterResult(context: Context, message: MiPushCommandMessage) {
         init(context)
-//        Log.d("WH_", "onReceiveRegisterResult: $message")
         val command = message.command
         val arguments = message.commandArguments
         val cmdArg1 = if (arguments != null && arguments.size > 0) arguments[0] else null

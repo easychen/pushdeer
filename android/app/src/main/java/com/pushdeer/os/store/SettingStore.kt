@@ -7,13 +7,13 @@ class SettingStore(context:Context) {
     val store = Store.create(context,"setting")
 
     var userToken by store.string("user-token","")
-    var deviceName by store.string("device-name","My Dear Deer")
-    var useRecv by store.boolean("use-recv",false) // 启用接收
-    var useSend by store.boolean("use-send",false)
-    var useSendNotification by store.boolean("use-send-notification",false)
-    var notificationPackages by store.stringSet("notification-packages", emptySet())
-    var useSendMissedCall by store.boolean("use-send=missed-call",false)
-    var useSendSMS by store.boolean("use-send-sms",false)
+//    var deviceName by store.string("device-name","My Dear Deer")
+//    var useRecv by store.boolean("use-recv",false) // 启用接收
+//    var useSend by store.boolean("use-send",false)
+//    var useSendNotification by store.boolean("use-send-notification",false)
+//    var notificationPackages by store.stringSet("notification-packages", emptySet())
+//    var useSendMissedCall by store.boolean("use-send=missed-call",false)
+//    var useSendSMS by store.boolean("use-send-sms",false)
 
     var showMessageSender by store.boolean("show-message-sender",true)
     var thisPushSdk by store.string("this-push-sdk","mi-push")

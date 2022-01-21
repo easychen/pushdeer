@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity(), RequestHolder {
     override val messageViewModel: MessageViewModel by viewModels { viewModelFactory }
     override val settingStore: SettingStore by lazy { (application as App).storeKeeper.settingStore }
     override val fragmentManager: FragmentManager by lazy { this.supportFragmentManager }
+//    override val resource: Resources by lazy { this.resource }
 
     override val coilImageLoader: ImageLoader by lazy {
         ImageLoader.Builder(this)
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity(), RequestHolder {
             }
             .build()
     }
-    override val alert: RequestHolder.AlertRequest = object : RequestHolder.AlertRequest() {}
+    override val alert: RequestHolder.AlertRequest by lazy {  object : RequestHolder.AlertRequest(resources) {} }
 
     override val markdown: Markwon by lazy {
         Markwon.builder(this)

@@ -5,4 +5,24 @@
     <string name="main_message">Message</string>
     <string name="main_setting">Setting</string>
     <string name="global_logdog">LogDog</string>
+    <string name="main_key_reset">Reset</string>
+    <string name="main_key_copy">Copy</string>
+    <string name="main_setting_logdog_open">Open</string>
+    <string name="main_setting_user_hi">Hi</string>
+    <string name="main_setting_user_logout">Logout</string>
+    <string name="main_setting_logdog">LogDog</string>
+    <string name="main_device_list_placeholder">It\'s Empty, Click \'+\' to Add New Device.</string>
+    <string name="main_device_this_device">this device</string>
+    <string name="global_alert_title_confirm">Confirm</string>
+    <string name="alert_device_register_failed_push_sdk">This Device Registered Failed in PushSDK</string>
+    <string name="main_message_send">Send</string>
+    <string name="global_alert_title_alert">Alert</string>
+    <string name="main_message_send_alert">You Should Add One PushKey</string>
+    <string name="global_alert_ok">OK</string>
+    <string name="global_alert_cancel">Cancel</string>
+    <string name="main_key_list_placeholder">It\'s Empty, Click \'+\' to Add New Key.</string>
+    <string name="main_device_alert_changedevicename">Change Device Name</string>
+    <string name="main_device_alert_devicename">name</string>
+    <string name="main_key_alert_changekeyname">Change Key Name</string>
+    <string name="main_key_alert_keyname">name</string>
 </resources>
