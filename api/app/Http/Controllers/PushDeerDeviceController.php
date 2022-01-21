@@ -35,7 +35,7 @@ class PushDeerDeviceController extends Controller
         }
 
         $type = 'ios';
-        if (strlen($validated['type']) > 0) {
+        if (isset($validated['type']) && strlen($validated['type']) > 0) {
             $type = trim($validated['type']);
         }
 
