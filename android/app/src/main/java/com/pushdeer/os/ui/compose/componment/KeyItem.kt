@@ -8,11 +8,12 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,8 +25,37 @@ import com.wh.common.util.TimeUtils
 
 @ExperimentalMaterialApi
 @Composable
-fun KeyItem(key: PushKey, requestHolder: RequestHolder) {
-    CardItemWithContent {
+fun KeyItem(key: PushKey,requestHolder: RequestHolder) {
+    var name by remember {
+        mutableStateOf(key.name)
+    }
+    CardItemWithContent(onClick = {
+        requestHolder.alert.alert(
+            title = R.string.main_key_alert_changekeyname,
+            content = {
+                Column {
+                    TextField(
+                        value = name,
+                        onValueChange = { name = it },
+                        shape = RoundedCornerShape(6.dp),
+                        singleLine = true,
+                        maxLines = 1,
+                        label = { Text(text = stringResource(id = R.string.main_key_alert_keyname)) },
+                        colors = TextFieldDefaults.textFieldColors(
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent,
+                            disabledIndicatorColor = Color.Transparent,
+                            errorIndicatorColor = Color.Transparent,
+                        )
+                    )
+                }
+            },
+            onOk = {
+                key.name = name
+                requestHolder.keyRename(key)
+            }
+        )
+    }) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -113,7 +143,7 @@ fun KeyItem(key: PushKey, requestHolder: RequestHolder) {
                     border = BorderStroke(1.dp, MaterialTheme.colors.MBlue),
                     shape = RoundedCornerShape(6.dp)
                 ) {
-                    Text(text = "Reset")
+                    Text(text = stringResource(id = R.string.main_key_reset))
                 }
                 Button(
                     onClick = {
@@ -125,7 +155,7 @@ fun KeyItem(key: PushKey, requestHolder: RequestHolder) {
                     ),
                     shape = RoundedCornerShape(6.dp)
                 ) {
-                    Text(text = "Copy")
+                    Text(text = stringResource(id = R.string.main_key_copy))
                 }
             }
         }

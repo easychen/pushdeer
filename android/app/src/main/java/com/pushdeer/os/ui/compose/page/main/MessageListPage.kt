@@ -14,7 +14,9 @@ import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.pushdeer.os.R
 import com.pushdeer.os.data.database.entity.MessageEntity
 import com.pushdeer.os.holder.RequestHolder
 import com.pushdeer.os.ui.compose.componment.*
@@ -78,7 +80,7 @@ fun MessageListPage(requestHolder: RequestHolder) {
                                 contentColor = Color.White
                             ),
                         ) {
-                            Text(text = "Send")
+                            Text(text = stringResource(id = R.string.main_message_send))
                         }
                     }
                 }
@@ -87,15 +89,13 @@ fun MessageListPage(requestHolder: RequestHolder) {
                 items = messageList,
                 key = { item: MessageEntity -> item.id }) { message: MessageEntity ->
                 SwipeToDismissItem(
-                    onDismiss = {
+                    onAction = {
                         requestHolder.messageRemove(message.toMessage(), onDone = {
                             requestHolder.messageViewModel.delete(message)
                         })
                     },
-//                    sidePadding = false
                     sidePadding = message.type != "image"
                 ) {
-//                    ImageMessageItem(message)
                     when (message.type) {
                         "markdown" -> MarkdownMessageItem(message, requestHolder)
                         "text" -> PlainTextMessageItem(message)

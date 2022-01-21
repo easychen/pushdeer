@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
@@ -19,6 +20,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -28,10 +30,10 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.pushdeer.os.activity.QrScanActivity
-import com.pushdeer.os.data.api.data.request.DeviceInfo
 import com.pushdeer.os.holder.RequestHolder
 import com.pushdeer.os.store.SettingStore
-import com.pushdeer.os.ui.compose.page.LogDaoPage
+import com.pushdeer.os.ui.compose.componment.MyAlertDialog
+import com.pushdeer.os.ui.compose.page.LogDogPage
 import com.pushdeer.os.ui.compose.page.LoginPage
 import com.pushdeer.os.ui.compose.page.main.MainPage
 import com.pushdeer.os.ui.theme.PushDeerTheme
@@ -49,7 +51,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 
-class MainActivity : ComponentActivity(), RequestHolder {
+class MainActivity : AppCompatActivity(), RequestHolder {
 
     private val viewModelFactory by lazy { (application as App).viewModelFactory }
     private val repositoryKeeper by lazy { (application as App).repositoryKeeper }
@@ -59,6 +61,8 @@ class MainActivity : ComponentActivity(), RequestHolder {
     override val logDogViewModel: LogDogViewModel by viewModels { viewModelFactory }
     override val messageViewModel: MessageViewModel by viewModels { viewModelFactory }
     override val settingStore: SettingStore by lazy { (application as App).storeKeeper.settingStore }
+    override val fragmentManager: FragmentManager by lazy { this.supportFragmentManager }
+//    override val resource: Resources by lazy { this.resource }
 
     override val coilImageLoader: ImageLoader by lazy {
         ImageLoader.Builder(this)
@@ -69,6 +73,7 @@ class MainActivity : ComponentActivity(), RequestHolder {
             }
             .build()
     }
+    override val alert: RequestHolder.AlertRequest by lazy {  object : RequestHolder.AlertRequest(resources) {} }
 
     override val markdown: Markwon by lazy {
         Markwon.builder(this)
@@ -106,40 +111,22 @@ class MainActivity : ComponentActivity(), RequestHolder {
             val useDarkIcons = MaterialTheme.colors.isLight
             val systemUiController = rememberSystemUiController()
             when {
-                SystemUtil.isMiui() -> {
-                    systemUiController.setStatusBarColor(Color.Transparent, useDarkIcons)
-                }
-                else -> {
-                    systemUiController.setSystemBarsColor(Color.Transparent, useDarkIcons)
-                }
+                SystemUtil.isMiui() -> systemUiController.setStatusBarColor(Color.Transparent, useDarkIcons)
+                else -> systemUiController.setSystemBarsColor(Color.Transparent, useDarkIcons)
             }
             WindowCompat.setDecorFitsSystemWindows(window, true)
             miPushRepository.regId.observe(this) {
                 // 这个操作放到注册成功后进行
                 settingStore.thisDeviceId = it
-                coroutineScope.launch {
-                    if (pushDeerViewModel.shouldRegDevice()) {
-                        pushDeerViewModel.deviceReg(DeviceInfo().apply {
-                            this.name = SystemUtil.getDeviceModel()
-                            this.device_id = it
-                            this.is_clip = 0
-                        })
-                    }
-                }
             }
 
             SideEffect {
                 coroutineScope.launch {
-                    pushDeerViewModel.login().also {
-                        pushDeerViewModel.userInfo()
-                        pushDeerViewModel.keyList()
-                        pushDeerViewModel.deviceList()
-                        pushDeerViewModel.messageList()
-
+                    pushDeerViewModel.login(onReturn = {
                         globalNavController.navigate("main") {
                             globalNavController.popBackStack()
                         }
-                    }
+                    })
                 }
             }
 
@@ -155,13 +142,14 @@ class MainActivity : ComponentActivity(), RequestHolder {
                                 LoginPage(requestHolder = this@MainActivity)
                             }
                             composable("logdog") {
-                                LogDaoPage(requestHolder = this@MainActivity)
+                                LogDogPage(requestHolder = this@MainActivity)
                             }
                             composable("main") {
                                 MainPage(requestHolder = this@MainActivity)
                             }
                         }
                     }
+                    MyAlertDialog(alertRequest = alert)
                 }
             }
         }

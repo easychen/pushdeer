@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PushDeer</string>
+    <string name="main_device">设备</string>
+    <string name="main_key">密钥</string>
+    <string name="main_message">消息</string>
+    <string name="main_setting">设置</string>
+    <string name="global_logdog">LogDog-罗格狗</string>
+    <string name="main_key_reset">重置</string>
+    <string name="main_key_copy">复制</string>
+    <string name="main_setting_logdog_open">打开</string>
+    <string name="main_setting_user_hi">你好</string>
+    <string name="main_setting_user_logout">注销</string>
+    <string name="main_setting_logdog">LogDog-罗格狗</string>
+    <string name="main_device_list_placeholder">点击\"+\"创建新设备</string>
+    <string name="main_device_this_device">本设备</string>
+    <string name="global_alert_title_confirm">确认</string>
+    <string name="alert_device_register_failed_push_sdk">本设备在厂商推送服务注册失败</string>
+    <string name="main_message_send">发送</string>
+    <string name="global_alert_title_alert">警告</string>
+    <string name="main_message_send_alert">发送消息前请创建新的密钥</string>
+    <string name="global_alert_ok">确认</string>
+    <string name="global_alert_cancel">取消</string>
+    <string name="main_key_list_placeholder">点击\"+\"创建新密钥</string>
+    <string name="main_device_alert_changedevicename">修改设备名称</string>
+    <string name="main_device_alert_devicename">设备名称</string>
+    <string name="main_key_alert_changekeyname">修改密钥名称</string>
+    <string name="main_key_alert_keyname">密钥名称</string>
+</resources>

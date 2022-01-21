@@ -24,7 +24,7 @@ class App : Application() {
     val repositoryKeeper by lazy { RepositoryKeeper(database) }
     val pushDeerService by lazy {
         Retrofit.Builder()
-            .baseUrl("http://0.0.0.0:8800")
+            .baseUrl(PushDeerApi.baseUrl)
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
@@ -45,7 +45,7 @@ class App : Application() {
             MiPushClient.registerPush(this, AppKeys.MiPush_Id, AppKeys.MiPush_Key)
         }
         //打开Log
-        val newLogger: LoggerInterface = object : LoggerInterface {
+        Logger.setLogger(this, object : LoggerInterface {
             override fun setTag(tag: String) {
                 // ignore
             }
@@ -57,8 +57,7 @@ class App : Application() {
             override fun log(content: String) {
                 Log.d(TAG, content)
             }
-        }
-        Logger.setLogger(this, newLogger)
+        })
     }
 
     private fun shouldInit(): Boolean {
