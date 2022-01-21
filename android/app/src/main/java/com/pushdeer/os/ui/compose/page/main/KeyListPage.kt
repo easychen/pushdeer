@@ -11,6 +11,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.pushdeer.os.R
 import com.pushdeer.os.data.api.data.response.PushKey
 import com.pushdeer.os.holder.RequestHolder
 import com.pushdeer.os.ui.compose.componment.KeyItem
@@ -32,7 +34,7 @@ fun KeyListPage(requestHolder: RequestHolder) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "It's Empty, Click '+' to Add New Key"
+                    text = stringResource(id = R.string.main_key_list_placeholder)
                 )
             }
         }else{

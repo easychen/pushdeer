@@ -1,7 +1,10 @@
 package com.pushdeer.os.data.api
 
 import com.pushdeer.os.data.api.data.response.*
-import retrofit2.http.*
+import retrofit2.http.Field
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.POST
 
 interface PushDeerApi {
     companion object {
@@ -12,8 +15,8 @@ interface PushDeerApi {
     @POST("/login/idtoken")
     suspend fun loginIdToken(@Field("idToken") idToken: String): ReturnData<TokenOnly>
 
-    @GET("/login/fake")
-    suspend fun fakeLogin(): ReturnData<TokenOnly>
+//    @GET("/login/fake")
+//    suspend fun fakeLogin(): ReturnData<TokenOnly>
 
     @FormUrlEncoded
     @POST("/user/info")
@@ -32,6 +35,14 @@ interface PushDeerApi {
     suspend fun deviceRemove(@Field("token") token: String, @Field("id") id: Int): String
 
     @FormUrlEncoded
+    @POST("/device/rename")
+    suspend fun deviceRename(
+        @Field("token") token: String,
+        @Field("id") id: Int,
+        @Field("name") newName: String
+    ): String
+
+    @FormUrlEncoded
     @POST("/key/gen")
     suspend fun keyGen(@Field("token") token: String): ReturnData<PushKeyList>
 
@@ -46,6 +57,14 @@ interface PushDeerApi {
     @FormUrlEncoded
     @POST("/key/remove")
     suspend fun keyRemove(@FieldMap data: Map<String, String>): String
+
+    @FormUrlEncoded
+    @POST("/key/rename")
+    suspend fun keyRename(
+        @Field("token") token: String,
+        @Field("id") id: String,
+        @Field("name") newName: String
+    ): String
 
     @FormUrlEncoded
     @POST("/message/push")

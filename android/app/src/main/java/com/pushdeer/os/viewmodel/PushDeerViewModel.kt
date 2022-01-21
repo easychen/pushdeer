@@ -109,11 +109,12 @@ class PushDeerViewModel(
                 pushDeerService.deviceList(token).let {
                     it.content?.let {
                         deviceList.clear()
-                        deviceList.addAll(it.devices)
+                        deviceList.addAll(it.devices.reversed())
                     }
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "deviceList: ${e.localizedMessage}")
+                logDogRepository.loge("deviceList", "", e.toString())
             }
         }
     }
@@ -131,6 +132,19 @@ class PushDeerViewModel(
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "deviceRemove: ${e.localizedMessage}")
+                logDogRepository.loge("deviceRemove", "", e.toString())
+            }
+        }
+    }
+
+    suspend fun deviceRename(deviceInfo: DeviceInfo,onReturn: () -> Unit={}){
+        withContext(Dispatchers.IO){
+            try {
+                pushDeerService.deviceRename(token,deviceInfo.id,deviceInfo.name)
+                onReturn()
+            }catch (e:Exception){
+                Log.d(TAG, "deviceRename: ${e.localizedMessage}")
+                logDogRepository.loge("deviceRename", "", e.toString())
             }
         }
     }
@@ -146,6 +160,7 @@ class PushDeerViewModel(
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "keyGen: ${e.localizedMessage}")
+                logDogRepository.loge("keyGen", "", e.toString())
             }
         }
     }
@@ -163,6 +178,23 @@ class PushDeerViewModel(
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "keyRegen: ${e.localizedMessage}")
+                logDogRepository.loge("keyRegen", "", e.toString())
+            }
+        }
+    }
+
+    suspend fun keyRename(key: PushKey,onReturn: () -> Unit={}){
+        withContext(Dispatchers.IO){
+            try {
+                pushDeerService.keyRename(
+                    token,
+                    key.id,
+                    key.name
+                )
+                onReturn()
+            }catch (e: Exception) {
+                Log.d(TAG, "keyRename: ${e.localizedMessage}")
+                logDogRepository.loge("keyRename", "", e.toString())
             }
         }
     }
@@ -178,6 +210,7 @@ class PushDeerViewModel(
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "keyList: ${e.localizedMessage}")
+                logDogRepository.loge("keyList", "", e.toString())
             }
         }
     }
@@ -190,6 +223,7 @@ class PushDeerViewModel(
                 }
             } catch (e: Exception) {
                 Log.d(TAG, "keyRemove: ${e.localizedMessage}")
+                logDogRepository.loge("keyRemove", "", e.toString())
             }
         }
 
