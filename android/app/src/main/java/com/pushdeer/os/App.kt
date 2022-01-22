@@ -22,7 +22,7 @@ class App : Application() {
     val storeKeeper by lazy { StoreKeeper(this) }
     val database by lazy { AppDatabase.getDatabase(this) }
     val repositoryKeeper by lazy { RepositoryKeeper(database) }
-    val pushDeerService by lazy {
+    private val pushDeerService: PushDeerApi by lazy {
         Retrofit.Builder()
             .baseUrl(PushDeerApi.baseUrl)
             .addConverterFactory(ScalarsConverterFactory.create())

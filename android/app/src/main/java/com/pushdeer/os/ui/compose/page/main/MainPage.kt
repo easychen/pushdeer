@@ -36,9 +36,6 @@ fun MainPage(requestHolder: RequestHolder) {
     SideEffect {
         requestHolder.coroutineScope.launch {
             requestHolder.pushDeerViewModel.userInfo()
-            requestHolder.pushDeerViewModel.keyList()
-            requestHolder.pushDeerViewModel.deviceList()
-            requestHolder.pushDeerViewModel.messageList()
         }
     }
 

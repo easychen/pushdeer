@@ -11,4 +11,5 @@ rootProject.name = "PushDeer"
 include ':app'
 include ':common'
 include ':compose'
+include ':pushdeerclient'
 include ':pushdeercommon'

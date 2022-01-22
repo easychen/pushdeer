@@ -62,11 +62,15 @@ interface RequestHolder {
 
     fun clearLogDog() {
         alert.alert(R.string.global_alert_title_confirm,"Clear?",onOk = {
-            coroutineScope.launch {
                 logDogViewModel.clear()
-            }
         })
     }
+
+    fun userRename(newName:String){
+
+    }
+
+//    abstract class LogDogRequest(private val )
 
     abstract class ClipRequest(private val clipboardManager: ClipboardManager) {
         fun copyMessagePlainText(str: String) {

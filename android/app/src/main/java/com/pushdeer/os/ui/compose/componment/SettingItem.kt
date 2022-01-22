@@ -14,13 +14,13 @@ import com.pushdeer.os.ui.theme.MBlue
 
 @ExperimentalMaterialApi
 @Composable
-fun SettingItem(text: String, buttonString: String, onClick: () -> Unit) {
+fun SettingItem(text: String, buttonString: String, onItemClick:()->Unit={},onButtonClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 16.dp)
     ) {
-        CardItemWithContent() {
+        CardItemWithContent(onClick = onItemClick) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -36,7 +36,7 @@ fun SettingItem(text: String, buttonString: String, onClick: () -> Unit) {
                     maxLines = 1,
                 )
                 Button(
-                    onClick = onClick,
+                    onClick = onButtonClick,
                     shape = RoundedCornerShape(8.dp),
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = MaterialTheme.colors.MBlue,

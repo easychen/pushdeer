@@ -25,4 +25,7 @@
     <string name="main_device_alert_devicename">name</string>
     <string name="main_key_alert_changekeyname">Change Key Name</string>
     <string name="main_key_alert_keyname">name</string>
+    <string name="main_setting_douyoulike">Do you line PushDeer?</string>
+    <string name="main_setting_btn_like">Like</string>
+    <string name="main_setting_alert_logout">Due to the limitations of the vendor\'s push device service, it is not supported to change to the self-built PushDeer server for the time being, but only changing the login account will not affect your use.</string>
 </resources>
