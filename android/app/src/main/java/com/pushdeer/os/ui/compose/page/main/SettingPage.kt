@@ -26,10 +26,18 @@ fun SettingPage(requestHolder: RequestHolder) {
                     text = "${stringResource(id = R.string.main_setting_user_hi)} ${requestHolder.pushDeerViewModel.userInfo.name} !",
                     buttonString = stringResource(id = R.string.main_setting_user_logout)
                 ) {
+                    requestHolder.pushDeerViewModel.deviceList.filter { it.device_id == requestHolder.settingStore.thisDeviceId }.forEach {
+                        requestHolder.device.deviceRemove(it)
+                    }
                     requestHolder.settingStore.userToken = ""
-                    // logout 操作：
-                    // 从服务器删除本设备
-                    // 删除保存的 token
+                    requestHolder.globalNavController.navigate("login") {
+                        requestHolder.globalNavController.popBackStack()
+                    }
+                    requestHolder.alert.alert(
+                        "提示",
+                        "由于厂商推送设备服务限制，暂时不支持更换为自建 PushDeer 服务器，但仅更换登陆账号并不会影响您的使用",
+                        {}
+                    )
                 }
             }
 //            item {

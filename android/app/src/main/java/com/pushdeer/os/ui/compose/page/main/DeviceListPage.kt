@@ -1,6 +1,5 @@
 package com.pushdeer.os.ui.compose.page.main
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,7 +40,7 @@ fun DeviceListPage(requestHolder: RequestHolder) {
                     onOk = {})
                 // device regid got failed
             } else {
-                requestHolder.deviceReg(
+                requestHolder.device.deviceReg(
                     deviceInfo = DeviceInfo().apply {
                         name = SystemUtil.getDeviceModel()
                         device_id = requestHolder.settingStore.thisDeviceId
@@ -72,7 +71,7 @@ fun DeviceListPage(requestHolder: RequestHolder) {
                         mutableStateOf(deviceInfo.name)
                     }
                     SwipeToDismissItem(
-                        onAction = { requestHolder.deviceRemove(deviceInfo) }
+                        onAction = { requestHolder.device.deviceRemove(deviceInfo) }
                     ) {
                         CardItemSingleLineWithIcon(
                             onClick = {
@@ -99,7 +98,7 @@ fun DeviceListPage(requestHolder: RequestHolder) {
                                     },
                                     onOk = {
                                         deviceInfo.name = name
-                                        requestHolder.deviceRename(deviceInfo)
+                                        requestHolder.device.deviceRename(deviceInfo)
                                     }
                                 )
                             },
@@ -110,7 +109,7 @@ fun DeviceListPage(requestHolder: RequestHolder) {
                                 )
                             }) " else deviceInfo.name
                         )
-                        Log.d("WH_", "DeviceListPage: $deviceInfo")
+//                        Log.d("WH_", "DeviceListPage: $deviceInfo")
                     }
                 }
                 item {

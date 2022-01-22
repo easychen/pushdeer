@@ -4,12 +4,13 @@
     package="com.pushdeer.os">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
+<!--    <uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
+<!--    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"-->
+<!--        tools:ignore="ScopedStorage" />-->
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -18,8 +19,9 @@
         android:protectionLevel="signature" />
     <uses-permission android:name="com.pushdeer.os.permission.MIPUSH_RECEIVE" />
 
-    <uses-permission android:name="android.permission.CAMERA" />
 
+    <!-- for QR -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera" />
 
@@ -49,11 +51,11 @@
 
         <activity
             android:screenOrientation="portrait"
-            android:name=".activity.QrScanActivity"
+            android:name="com.wh.common.activity.QrScanActivity"
             android:theme="@style/Theme.PushDeer.NoActionBar"
             />
 
-        <!--  start  -->
+        <!-- miPush components start  -->
 
         <service
             android:name="com.xiaomi.push.service.XMPushService"
@@ -86,7 +88,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
-        <!--  end  -->
+        <!--  miPush components end  -->
 
         <receiver
             android:name="com.xiaomi.push.service.receivers.PingReceiver"
@@ -101,7 +103,6 @@
         <receiver
             android:name="com.pushdeer.os.receiver.MessageReceiver"
             android:exported="true">
-            <!--这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名-->
             <intent-filter>
                 <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
             </intent-filter>

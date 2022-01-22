@@ -1,8 +1,10 @@
 package com.pushdeer.os.ui.compose.componment
 
+import android.widget.ImageView
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -17,15 +19,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.pushdeer.os.R
 import com.pushdeer.os.data.api.data.response.PushKey
 import com.pushdeer.os.holder.RequestHolder
 import com.pushdeer.os.ui.theme.MBlue
+import com.wh.common.util.QRCodeGenerator
 import com.wh.common.util.TimeUtils
 
 @ExperimentalMaterialApi
 @Composable
-fun KeyItem(key: PushKey,requestHolder: RequestHolder) {
+fun KeyItem(key: PushKey, requestHolder: RequestHolder) {
     var name by remember {
         mutableStateOf(key.name)
     }
@@ -52,7 +56,7 @@ fun KeyItem(key: PushKey,requestHolder: RequestHolder) {
             },
             onOk = {
                 key.name = name
-                requestHolder.keyRename(key)
+                requestHolder.key.rename(key)
             }
         )
     }) {
@@ -118,24 +122,36 @@ fun KeyItem(key: PushKey,requestHolder: RequestHolder) {
                         color = Color.Gray,
                         shape = RoundedCornerShape(4.dp)
                     )
+                    .clickable {
+                        requestHolder.alert.alert("QrCode For ${key.name}", {
+                            Box(
+                                modifier = Modifier.width(400.dp)
+                            ) {
+                                AndroidView(
+                                    factory = {
+                                        ImageView(it).apply {
+                                            this.setImageBitmap(
+                                                QRCodeGenerator(
+                                                    key.key,
+                                                    400.dp.value.toInt(),
+                                                    400.dp.value.toInt()
+                                                ).qrCode
+                                            )
+                                        }
+                                    },
+                                    modifier = Modifier.align(alignment = Alignment.Center)
+                                )
+                            }
+                        }, onOk = {})
+                    }
                     .padding(horizontal = 14.dp, vertical = 8.dp)
             )
-//            Canvas(modifier = Modifier
-//                .fillMaxWidth()
-//                .height(16.dp), onDraw = {
-//                val linePath = Path()
-//                val linePaint = Paint()
-//                linePaint.pathEffect = PathEffect.dashPathEffect(FloatArray(10),10F)
-//                drawIntoCanvas {
-//                    it.drawPath(linePath, linePaint)
-//                }
-//            })
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 OutlinedButton(
-                    onClick = { requestHolder.keyRegen(key.id) },
+                    onClick = { requestHolder.key.regen(key.id) },
                     colors = ButtonDefaults.outlinedButtonColors(
                         backgroundColor = Color.Transparent,
                         contentColor = MaterialTheme.colors.MBlue
@@ -147,7 +163,7 @@ fun KeyItem(key: PushKey,requestHolder: RequestHolder) {
                 }
                 Button(
                     onClick = {
-                        requestHolder.copyPlainString(key.key)
+                        requestHolder.clip.copyPushKey(key.key)
                     },
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = MaterialTheme.colors.MBlue,

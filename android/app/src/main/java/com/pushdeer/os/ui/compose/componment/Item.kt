@@ -108,9 +108,25 @@ fun CardItemMultiLine(
 
 @ExperimentalMaterialApi
 @Composable
-fun CardItemWithContent(onClick: () -> Unit = {}, content: @Composable () -> Unit = {}) {
+fun CardItemWithContent(onClick: () -> Unit, content: @Composable () -> Unit = {}) {
     Card(
         onClick = onClick,
+        shape = RoundedCornerShape(4.dp),
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = MainBlue,
+                shape = RoundedCornerShape(4.dp)
+            ),
+        content = content,
+        elevation = 5.dp
+    )
+}
+
+@ExperimentalMaterialApi
+@Composable
+fun CardItemWithContent(content: @Composable () -> Unit = {}) {
+    Card(
         shape = RoundedCornerShape(4.dp),
         modifier = Modifier
             .border(

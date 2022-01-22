@@ -43,7 +43,7 @@ fun MainPage(requestHolder: RequestHolder) {
     }
 
     var titleStringId by remember {
-        mutableStateOf(Page.Devices.labelStringId)
+        mutableStateOf(Page.Messages.labelStringId)
     }
     val navController = rememberNavController()
     Scaffold(
@@ -98,7 +98,7 @@ fun MainPage(requestHolder: RequestHolder) {
                 )
                 NavHost(
                     navController = navController,
-                    startDestination = Page.Devices.route,
+                    startDestination = Page.Messages.route,
                 ) {
                     composable(Page.Devices.route) {
                         DeviceListPage(requestHolder = requestHolder)
