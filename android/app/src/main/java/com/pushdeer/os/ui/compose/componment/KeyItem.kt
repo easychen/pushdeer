@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -34,6 +35,7 @@ fun KeyItem(key: PushKey, requestHolder: RequestHolder) {
         mutableStateOf(key.name)
     }
     CardItemWithContent(onClick = {
+        name = key.name
         requestHolder.alert.alert(
             title = R.string.main_key_alert_changekeyname,
             content = {
@@ -50,7 +52,12 @@ fun KeyItem(key: PushKey, requestHolder: RequestHolder) {
                             unfocusedIndicatorColor = Color.Transparent,
                             disabledIndicatorColor = Color.Transparent,
                             errorIndicatorColor = Color.Transparent,
-                        )
+                        ),
+                        trailingIcon = {
+                            if (name != "") IconButton(onClick = { name = "" }) {
+                                Icon(imageVector = Icons.Default.Clear, contentDescription = "")
+                            }
+                        }
                     )
                 }
             },

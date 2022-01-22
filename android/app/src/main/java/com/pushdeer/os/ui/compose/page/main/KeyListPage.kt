@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -19,10 +20,18 @@ import com.pushdeer.os.ui.compose.componment.KeyItem
 import com.pushdeer.os.ui.compose.componment.ListBottomBlankItem
 import com.pushdeer.os.ui.compose.componment.SwipeToDismissItem
 import com.pushdeer.os.ui.navigation.Page
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
 fun KeyListPage(requestHolder: RequestHolder) {
+
+    SideEffect {
+        requestHolder.coroutineScope.launch {
+            requestHolder.pushDeerViewModel.keyList()
+        }
+    }
+
     MainPageFrame(
         titleStringId = Page.Keys.labelStringId,
         onSideIconClick = { requestHolder.key.gen() }

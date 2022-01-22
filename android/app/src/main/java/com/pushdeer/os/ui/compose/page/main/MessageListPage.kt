@@ -23,12 +23,20 @@ import com.pushdeer.os.ui.compose.componment.*
 import com.pushdeer.os.ui.navigation.Page
 import com.pushdeer.os.ui.theme.MBlue
 import com.pushdeer.os.values.ConstValues
+import kotlinx.coroutines.launch
 
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun MessageListPage(requestHolder: RequestHolder) {
+
+    SideEffect {
+        requestHolder.coroutineScope.launch {
+            requestHolder.pushDeerViewModel.messageList()
+        }
+    }
+
     MainPageFrame(
         titleStringId = Page.Messages.labelStringId,
         sideIcon = if (requestHolder.uiViewModel.showMessageSender) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,

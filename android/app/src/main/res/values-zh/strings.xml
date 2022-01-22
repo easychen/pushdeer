@@ -26,4 +26,7 @@
     <string name="main_device_alert_devicename">设备名称</string>
     <string name="main_key_alert_changekeyname">修改密钥名称</string>
     <string name="main_key_alert_keyname">密钥名称</string>
+    <string name="main_setting_douyoulike">喜欢 PushDeer 吗？</string>
+    <string name="main_setting_btn_like">喜欢</string>
+    <string name="main_setting_alert_logout">由于厂商推送设备服务限制，暂时不支持更换为自建 PushDeer 服务器，但仅更换登陆账号并不会影响您的使用。</string>
 </resources>
