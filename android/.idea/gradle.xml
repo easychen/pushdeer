@@ -13,6 +13,8 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/compose" />
+            <option value="$PROJECT_DIR$/pushdeerclient" />
+            <option value="$PROJECT_DIR$/pushdeercommon" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

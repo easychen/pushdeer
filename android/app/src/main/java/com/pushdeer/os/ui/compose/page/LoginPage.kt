@@ -59,7 +59,7 @@ fun LoginPage(requestHolder: RequestHolder) {
                                 }
                             }
                             is SignInWithAppleResult.Failure -> {
-                                requestHolder.alert.alert("Warning", {
+                                requestHolder.alert.alert("Warning Apple Id Login Failed", {
                                     result.error.message
                                 }, onOk = {})
                                 Log.d(
