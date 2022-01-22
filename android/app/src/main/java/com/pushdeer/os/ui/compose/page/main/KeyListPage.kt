@@ -25,7 +25,7 @@ import com.pushdeer.os.ui.navigation.Page
 fun KeyListPage(requestHolder: RequestHolder) {
     MainPageFrame(
         titleStringId = Page.Keys.labelStringId,
-        onSideIconClick = { requestHolder.keyGen() }
+        onSideIconClick = { requestHolder.key.gen() }
     ) {
         if(requestHolder.pushDeerViewModel.keyList.isEmpty()){
             Column(
@@ -42,7 +42,7 @@ fun KeyListPage(requestHolder: RequestHolder) {
                 items(
                     requestHolder.pushDeerViewModel.keyList,
                     key = { item: PushKey -> item.id }) { pushKey: PushKey ->
-                    SwipeToDismissItem(onAction = { requestHolder.keyRemove(pushKey) }
+                    SwipeToDismissItem(onAction = { requestHolder.key.remove(pushKey) }
                     ) {
                         KeyItem(key = pushKey, requestHolder = requestHolder)
                     }

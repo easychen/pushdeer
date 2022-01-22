@@ -5,11 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.util.Linkify
-import android.widget.Toast
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -29,7 +26,6 @@ import coil.ImageLoader
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.pushdeer.os.activity.QrScanActivity
 import com.pushdeer.os.holder.RequestHolder
 import com.pushdeer.os.store.SettingStore
 import com.pushdeer.os.ui.compose.componment.MyAlertDialog
@@ -37,12 +33,12 @@ import com.pushdeer.os.ui.compose.page.LogDogPage
 import com.pushdeer.os.ui.compose.page.LoginPage
 import com.pushdeer.os.ui.compose.page.main.MainPage
 import com.pushdeer.os.ui.theme.PushDeerTheme
+import com.pushdeer.os.util.ActivityOpener
 import com.pushdeer.os.util.SystemUtil
 import com.pushdeer.os.viewmodel.LogDogViewModel
 import com.pushdeer.os.viewmodel.MessageViewModel
 import com.pushdeer.os.viewmodel.PushDeerViewModel
 import com.pushdeer.os.viewmodel.UiViewModel
-import com.wh.common.util.UiUtils
 import io.noties.markwon.Markwon
 import io.noties.markwon.image.coil.CoilImagesPlugin
 import io.noties.markwon.linkify.LinkifyPlugin
@@ -62,18 +58,36 @@ class MainActivity : AppCompatActivity(), RequestHolder {
     override val messageViewModel: MessageViewModel by viewModels { viewModelFactory }
     override val settingStore: SettingStore by lazy { (application as App).storeKeeper.settingStore }
     override val fragmentManager: FragmentManager by lazy { this.supportFragmentManager }
-//    override val resource: Resources by lazy { this.resource }
 
     override val coilImageLoader: ImageLoader by lazy {
         ImageLoader.Builder(this)
             .apply {
                 availableMemoryPercentage(0.5)
                 bitmapPoolPercentage(0.5)
-                crossfade(true)
+                crossfade(750)
+                allowHardware(true)
             }
             .build()
     }
-    override val alert: RequestHolder.AlertRequest by lazy {  object : RequestHolder.AlertRequest(resources) {} }
+    override val alert: RequestHolder.AlertRequest by lazy {
+        object : RequestHolder.AlertRequest(resources) {}
+    }
+    override val key: RequestHolder.KeyRequest by lazy {
+        object : RequestHolder.KeyRequest(this) {}
+    }
+    override val device: RequestHolder.DeviceRequest by lazy {
+        object : RequestHolder.DeviceRequest(this) {}
+    }
+    override val message: RequestHolder.MessageRequest by lazy {
+        object : RequestHolder.MessageRequest(this) {}
+    }
+    override val clip: RequestHolder.ClipRequest by lazy {
+        object : RequestHolder.ClipRequest(
+            getSystemService(
+                Context.CLIPBOARD_SERVICE
+            ) as ClipboardManager
+        ) {}
+    }
 
     override val markdown: Markwon by lazy {
         Markwon.builder(this)
@@ -84,10 +98,9 @@ class MainActivity : AppCompatActivity(), RequestHolder {
 
     override lateinit var globalNavController: NavHostController
     override lateinit var coroutineScope: CoroutineScope
-    override lateinit var myActivity: ComponentActivity
-    override val clipboardManager by lazy { getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager }
-
-    override lateinit var activityOpener: ActivityResultLauncher<Intent>
+    override lateinit var myActivity: AppCompatActivity
+    override lateinit var qrScanActivityOpener: ActivityResultLauncher<Intent>
+    override lateinit var requestPermissionOpener: ActivityResultLauncher<Array<String>>
 
     @ExperimentalAnimationApi
     @ExperimentalMaterialApi
@@ -95,28 +108,23 @@ class MainActivity : AppCompatActivity(), RequestHolder {
         super.onCreate(savedInstanceState)
 
         myActivity = this
-        activityOpener =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                Toast.makeText(
-                    this,
-                    "${result.data?.getStringExtra(QrScanActivity.DataKey)}",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
+        qrScanActivityOpener = ActivityOpener.forResult(this)
+        requestPermissionOpener = ActivityOpener.forPermission(this)
 
-        UiUtils.keepScreenOn(window)
         setContent {
             globalNavController = rememberNavController()
             coroutineScope = rememberCoroutineScope()
             val useDarkIcons = MaterialTheme.colors.isLight
             val systemUiController = rememberSystemUiController()
             when {
-                SystemUtil.isMiui() -> systemUiController.setStatusBarColor(Color.Transparent, useDarkIcons)
+                SystemUtil.isMiui() -> systemUiController.setStatusBarColor(
+                    Color.Transparent,
+                    useDarkIcons
+                )
                 else -> systemUiController.setSystemBarsColor(Color.Transparent, useDarkIcons)
             }
             WindowCompat.setDecorFitsSystemWindows(window, true)
             miPushRepository.regId.observe(this) {
-                // 这个操作放到注册成功后进行
                 settingStore.thisDeviceId = it
             }
 

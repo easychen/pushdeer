@@ -4,9 +4,9 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Intent
 import android.content.res.Resources
-import androidx.activity.ComponentActivity
 import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -15,7 +15,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavHostController
 import coil.ImageLoader
 import com.pushdeer.os.R
-import com.pushdeer.os.activity.QrScanActivity
 import com.pushdeer.os.data.api.data.request.DeviceInfo
 import com.pushdeer.os.data.api.data.response.Message
 import com.pushdeer.os.data.api.data.response.PushKey
@@ -24,6 +23,7 @@ import com.pushdeer.os.viewmodel.LogDogViewModel
 import com.pushdeer.os.viewmodel.MessageViewModel
 import com.pushdeer.os.viewmodel.PushDeerViewModel
 import com.pushdeer.os.viewmodel.UiViewModel
+import com.wh.common.activity.QrScanActivity
 import io.noties.markwon.Markwon
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
@@ -37,106 +37,22 @@ interface RequestHolder {
     val settingStore: SettingStore
     val globalNavController: NavHostController
     val coroutineScope: CoroutineScope
-    val myActivity: ComponentActivity
+    val myActivity: AppCompatActivity
     val markdown: Markwon
-    val activityOpener: ActivityResultLauncher<Intent>
+    val qrScanActivityOpener: ActivityResultLauncher<Intent>
+    val requestPermissionOpener:ActivityResultLauncher<Array<String>>
     val coilImageLoader: ImageLoader
-
-//    val resource:Resources
 
     val fragmentManager: FragmentManager
 
     val alert: AlertRequest
-
-    val clipboardManager: ClipboardManager
-
-    fun copyPlainString(str: String) {
-        clipboardManager.setPrimaryClip(ClipData.newPlainText("pushdeer-pushkey", str))
-    }
+    val key:KeyRequest
+    val device:DeviceRequest
+    val message:MessageRequest
+    val clip:ClipRequest
 
     fun startQrScanActivity() {
-        activityOpener.launch(QrScanActivity.forScanResultIntent(myActivity))
-    }
-
-    fun keyGen() {
-        coroutineScope.launch {
-            pushDeerViewModel.keyGen()
-        }
-    }
-
-    fun keyRegen(keyId: String) {
-        coroutineScope.launch {
-            pushDeerViewModel.keyRegen(keyId)
-        }
-    }
-
-    fun keyRemove(pushKey: PushKey) {
-        coroutineScope.launch {
-            pushDeerViewModel.keyList.remove(pushKey)
-            pushDeerViewModel.keyRemove(pushKey.id)
-        }
-    }
-
-    fun keyRename(pushKey: PushKey){
-        coroutineScope.launch {
-            pushDeerViewModel.keyRename(pushKey){
-                coroutineScope.launch {
-                    pushDeerViewModel.keyList()
-                }
-            }
-        }
-    }
-
-    fun deviceReg(deviceInfo: DeviceInfo) {
-        coroutineScope.launch {
-            pushDeerViewModel.deviceReg(deviceInfo)
-        }
-    }
-
-    fun deviceRemove(deviceInfo: DeviceInfo) {
-        coroutineScope.launch {
-            pushDeerViewModel.deviceList.remove(deviceInfo)
-            pushDeerViewModel.deviceRemove(deviceInfo.id)
-        }
-    }
-
-    fun deviceRename(deviceInfo: DeviceInfo) {
-        coroutineScope.launch {
-            pushDeerViewModel.deviceRename(deviceInfo) {
-                coroutineScope.launch {
-                    pushDeerViewModel.deviceList()
-                }
-            }
-        }
-    }
-
-    fun messagePush(text: String, desp: String, type: String, pushkey: String) {
-        coroutineScope.launch {
-            pushDeerViewModel.messagePush(text, desp, type, pushkey)
-        }
-    }
-
-    fun messagePushTest(text: String) {
-        if (pushDeerViewModel.keyList.isNotEmpty()) {
-            messagePush(text, "pushtest", "markdown", pushDeerViewModel.keyList[0].key)
-            coroutineScope.launch {
-                delay(1000)
-                pushDeerViewModel.messageList()
-            }
-        } else {
-            alert.alert(
-                R.string.global_alert_title_alert,
-                R.string.main_message_send_alert,
-                onOk = {})
-        }
-    }
-
-    fun messageRemove(message: Message, onDone: () -> Unit = {}) {
-        coroutineScope.launch {
-//            pushDeerViewModel.messageList.remove(message)
-            pushDeerViewModel.messageRemove(message.id)
-            onDone()
-        }
+        qrScanActivityOpener.launch(QrScanActivity.forScanResultIntent(myActivity))
     }
 
     fun toggleMessageSender() {
@@ -145,8 +61,20 @@ interface RequestHolder {
     }
 
     fun clearLogDog() {
-        coroutineScope.launch {
-            logDogViewModel.clear()
+        alert.alert(R.string.global_alert_title_confirm,"Clear?",onOk = {
+            coroutineScope.launch {
+                logDogViewModel.clear()
+            }
+        })
+    }
+
+    abstract class ClipRequest(private val clipboardManager: ClipboardManager) {
+        fun copyMessagePlainText(str: String) {
+            clipboardManager.setPrimaryClip(ClipData.newPlainText("pushdeer-copy-plain-text", str))
+        }
+
+        fun copyPushKey(str: String){
+            clipboardManager.setPrimaryClip(ClipData.newPlainText("pushdeer-copy-pushkey", str))
         }
     }
 
@@ -188,9 +116,105 @@ interface RequestHolder {
             @StringRes title: Int,
             content: @Composable () -> Unit,
             onOk: () -> Unit,
-            onCancel: () -> Unit={}
+            onCancel: () -> Unit = {}
         ) {
             alert(resources.getString(title), content, onOk, onCancel)
+        }
+
+        fun alert(
+            @StringRes title: Int,
+            content: String,
+            onOk: () -> Unit,
+            onCancel: () -> Unit = {}
+        ) {
+            alert(resources.getString(title), content, onOk, onCancel)
+        }
+    }
+
+    abstract class KeyRequest(private val requestHolder: RequestHolder){
+        fun gen() {
+            requestHolder.coroutineScope.launch {
+                requestHolder.pushDeerViewModel.keyGen()
+            }
+        }
+
+        fun regen(keyId: String) {
+            requestHolder.coroutineScope.launch {
+                requestHolder.pushDeerViewModel.keyRegen(keyId)
+            }
+        }
+
+        fun remove(pushKey: PushKey) {
+            requestHolder.coroutineScope.launch {
+                requestHolder.pushDeerViewModel.keyList.remove(pushKey)
+                requestHolder.pushDeerViewModel.keyRemove(pushKey.id)
+            }
+        }
+
+        fun rename(pushKey: PushKey) {
+            requestHolder.coroutineScope.launch {
+                requestHolder.pushDeerViewModel.keyRename(pushKey) {
+                    requestHolder.coroutineScope.launch {
+                        requestHolder.pushDeerViewModel.keyList()
+                    }
+                }
+            }
+        }
+    }
+
+    abstract class DeviceRequest(private val requestHolder: RequestHolder){
+        fun deviceReg(deviceInfo: DeviceInfo) {
+            requestHolder.coroutineScope.launch {
+                requestHolder.pushDeerViewModel.deviceReg(deviceInfo)
+            }
+        }
+
+        fun deviceRemove(deviceInfo: DeviceInfo) {
+            requestHolder.coroutineScope.launch {
+                requestHolder.pushDeerViewModel.deviceList.remove(deviceInfo)
+                requestHolder.pushDeerViewModel.deviceRemove(deviceInfo.id)
+            }
+        }
+
+        fun deviceRename(deviceInfo: DeviceInfo) {
+            requestHolder.coroutineScope.launch {
+                requestHolder.pushDeerViewModel.deviceRename(deviceInfo) {
+                    requestHolder.coroutineScope.launch {
+                        requestHolder.pushDeerViewModel.deviceList()
+                    }
+                }
+            }
+        }
+    }
+
+    abstract class MessageRequest(private val requestHolder: RequestHolder){
+        fun messagePush(text: String, desp: String, type: String, pushkey: String) {
+            requestHolder.coroutineScope.launch {
+                requestHolder.pushDeerViewModel.messagePush(text, desp, type, pushkey)
+            }
+        }
+
+        fun messagePushTest(text: String) {
+            if (requestHolder.pushDeerViewModel.keyList.isNotEmpty()) {
+                messagePush(text, "pushtest", "markdown", requestHolder.pushDeerViewModel.keyList[0].key)
+                requestHolder.coroutineScope.launch {
+                    delay(1000)
+                    requestHolder.pushDeerViewModel.messageList()
+                }
+            } else {
+                requestHolder.alert.alert(
+                    R.string.global_alert_title_alert,
+                    R.string.main_message_send_alert,
+                    onOk = {})
+            }
+        }
+
+        fun messageRemove(message: Message, onDone: () -> Unit = {}) {
+            requestHolder.coroutineScope.launch {
+//            pushDeerViewModel.messageList.remove(message)
+                requestHolder.pushDeerViewModel.messageRemove(message.id)
+                onDone()
+            }
         }
     }
 }

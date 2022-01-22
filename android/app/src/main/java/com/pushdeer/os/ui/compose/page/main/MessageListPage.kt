@@ -73,7 +73,7 @@ fun MessageListPage(requestHolder: RequestHolder) {
                         )
                         Button(
                             onClick = {
-                                requestHolder.messagePushTest(s)
+                                requestHolder.message.messagePushTest(s)
                             },
                             colors = ButtonDefaults.buttonColors(
                                 backgroundColor = MaterialTheme.colors.MBlue,
@@ -90,7 +90,7 @@ fun MessageListPage(requestHolder: RequestHolder) {
                 key = { item: MessageEntity -> item.id }) { message: MessageEntity ->
                 SwipeToDismissItem(
                     onAction = {
-                        requestHolder.messageRemove(message.toMessage(), onDone = {
+                        requestHolder.message.messageRemove(message.toMessage(), onDone = {
                             requestHolder.messageViewModel.delete(message)
                         })
                     },
@@ -98,8 +98,8 @@ fun MessageListPage(requestHolder: RequestHolder) {
                 ) {
                     when (message.type) {
                         "markdown" -> MarkdownMessageItem(message, requestHolder)
-                        "text" -> PlainTextMessageItem(message)
-                        "image" -> ImageMessageItem(message)
+                        "text" -> PlainTextMessageItem(message, requestHolder)
+                        "image" -> ImageMessageItem(message, requestHolder)
                     }
                 }
             }

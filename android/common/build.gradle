@@ -48,4 +48,9 @@ dependencies {
 
     implementation("com.squareup.okhttp3:okhttp:4.9.2")
     implementation 'com.google.code.gson:gson:2.8.9'
+
+    // qr
+    implementation 'com.google.zxing:core:3.2.1'
+    implementation 'cn.bingoogolapple:bga-qrcodecore:1.1.7@aar'
+    implementation 'cn.bingoogolapple:bga-zxing:1.1.7@aar'
 }
