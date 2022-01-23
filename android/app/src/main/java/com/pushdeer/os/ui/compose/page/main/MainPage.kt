@@ -26,11 +26,17 @@ import com.pushdeer.os.holder.RequestHolder
 import com.pushdeer.os.ui.navigation.Page
 import com.pushdeer.os.ui.navigation.pageList
 import com.pushdeer.os.ui.theme.mainBottomBtn
+import kotlinx.coroutines.launch
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun MainPage(requestHolder: RequestHolder) {
+    LaunchedEffect(Unit) {
+        requestHolder.coroutineScope.launch {
+            requestHolder.pushDeerViewModel.userInfo()
+        }
+    }
 
     var titleStringId by remember {
         mutableStateOf(Page.Messages.labelStringId)
