@@ -1,5 +1,8 @@
 package com.pushdeer.os.ui.compose.page.main
 
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ExperimentalMaterialApi
@@ -22,20 +25,45 @@ fun SettingPage(requestHolder: RequestHolder) {
             modifier = Modifier.fillMaxSize()
         ) {
             item {
+//                var newName by remember {
+//                    mutableStateOf(requestHolder.pushDeerViewModel.userInfo.name)
+//                }
                 SettingItem(
                     text = "${stringResource(id = R.string.main_setting_user_hi)} ${requestHolder.pushDeerViewModel.userInfo.name} !",
-                    buttonString = stringResource(id = R.string.main_setting_user_logout)
-                ) {
-                    requestHolder.pushDeerViewModel.deviceList.filter { it.device_id == requestHolder.settingStore.thisDeviceId }.forEach {
-                        requestHolder.device.deviceRemove(it)
+                    buttonString = stringResource(id = R.string.main_setting_user_logout),
+                    onItemClick = {
+
+//                        requestHolder.alert.alert(
+//                            title = "修改用户名",
+//                            content = {
+//                                TextField(
+//                                    value = newName,
+//                                    onValueChange = { newName = it },
+//                                    colors = TextFieldDefaults.textFieldColors(
+//                                        focusedIndicatorColor = Color.Transparent,
+//                                        unfocusedIndicatorColor = Color.Transparent,
+//                                        disabledIndicatorColor = Color.Transparent,
+//                                        errorIndicatorColor = Color.Transparent,
+//                                    )
+//                                )
+//                            },
+//                            onOk = {
+//
+//                            }
+//                        )
                     }
+                ) {
+                    requestHolder.pushDeerViewModel.deviceList.filter { it.device_id == requestHolder.settingStore.thisDeviceId }
+                        .forEach {
+                            requestHolder.device.deviceRemove(it)
+                        }
                     requestHolder.settingStore.userToken = ""
                     requestHolder.globalNavController.navigate("login") {
                         requestHolder.globalNavController.popBackStack()
                     }
                     requestHolder.alert.alert(
-                        "提示",
-                        "由于厂商推送设备服务限制，暂时不支持更换为自建 PushDeer 服务器，但仅更换登陆账号并不会影响您的使用",
+                        R.string.global_alert_title_alert,
+                        R.string.main_setting_alert_logout,
                         {}
                     )
                 }
@@ -48,13 +76,24 @@ fun SettingPage(requestHolder: RequestHolder) {
 //                    requestHolder.startQrScanActivity()
 //                }
 //            }
-//            item {
-//                SettingItem(
-//                    text = "Do you like PushDeer ?",
-//                    buttonString = "Like"
-//                ) {
-//                }
-//            }
+            item {
+                SettingItem(
+                    text = stringResource(id = R.string.main_setting_douyoulike),
+                    buttonString = stringResource(id = R.string.main_setting_btn_like)
+                ) {
+                    val uri = Uri.parse("market://details?id=" + "com.pushdeer.os")
+                    Intent(Intent.ACTION_VIEW, uri).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }.let {
+                        try {
+                            requestHolder.myActivity.startActivity(it)
+                        } catch (e: Exception) {
+                            Log.d("WH_", "SettingPage: ${e.localizedMessage}")
+//                            requestHolder.logDogViewModel
+                        }
+                    }
+                }
+            }
 
             item {
                 SettingItem(

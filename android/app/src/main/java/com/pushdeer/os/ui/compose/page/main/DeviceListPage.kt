@@ -7,10 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,11 +24,19 @@ import com.pushdeer.os.ui.compose.componment.ListBottomBlankItem
 import com.pushdeer.os.ui.compose.componment.SwipeToDismissItem
 import com.pushdeer.os.ui.navigation.Page
 import com.pushdeer.os.util.SystemUtil
+import kotlinx.coroutines.launch
 
 
 @ExperimentalMaterialApi
 @Composable
 fun DeviceListPage(requestHolder: RequestHolder) {
+
+    SideEffect {
+        requestHolder.coroutineScope.launch {
+            requestHolder.pushDeerViewModel.deviceList()
+        }
+    }
+
     MainPageFrame(
         titleStringId = Page.Devices.labelStringId,
         onSideIconClick = {
@@ -75,11 +82,11 @@ fun DeviceListPage(requestHolder: RequestHolder) {
                     ) {
                         CardItemSingleLineWithIcon(
                             onClick = {
+                                name = deviceInfo.name
                                 requestHolder.alert.alert(
                                     title = R.string.main_device_alert_changedevicename,
                                     content = {
                                         Column {
-//                                            Text(text = "type:${deviceInfo.type}")
                                             TextField(
                                                 value = name,
                                                 onValueChange = { name = it },
@@ -92,7 +99,12 @@ fun DeviceListPage(requestHolder: RequestHolder) {
                                                     unfocusedIndicatorColor = Color.Transparent,
                                                     disabledIndicatorColor = Color.Transparent,
                                                     errorIndicatorColor = Color.Transparent,
-                                                )
+                                                ),
+                                                trailingIcon = {
+                                                    if (name != "") IconButton(onClick = { name = "" }) {
+                                                        Icon(imageVector = Icons.Default.Clear, contentDescription = "")
+                                                    }
+                                                }
                                             )
                                         }
                                     },
