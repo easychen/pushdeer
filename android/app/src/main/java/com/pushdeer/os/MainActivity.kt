@@ -1,11 +1,8 @@
 package com.pushdeer.os
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.text.util.Linkify
 import androidx.activity.compose.setContent
@@ -37,6 +34,7 @@ import com.pushdeer.os.ui.compose.page.LoginPage
 import com.pushdeer.os.ui.compose.page.main.MainPage
 import com.pushdeer.os.ui.theme.PushDeerTheme
 import com.pushdeer.os.util.ActivityOpener
+import com.pushdeer.os.util.NotificationUtil
 import com.pushdeer.os.util.SystemUtil
 import com.pushdeer.os.viewmodel.LogDogViewModel
 import com.pushdeer.os.viewmodel.MessageViewModel
@@ -110,17 +108,7 @@ class MainActivity : AppCompatActivity(), RequestHolder {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            notificationManager.createNotificationChannel(
-                NotificationChannel(
-                    "high_system",
-                    "服务提醒",
-                    NotificationManager.IMPORTANCE_HIGH
-                )
-            )
-        }
-
+        NotificationUtil.setupChannel(this)
 
         myActivity = this
         qrScanActivityOpener = ActivityOpener.forResult(this)
