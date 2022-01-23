@@ -44,12 +44,12 @@ class PushDeerViewModel(
                             }
                         }
                     }
+                    logDogRepository.logi("login", "normally", "nothing happened")
                 } catch (e: Exception) {
                     Log.d(TAG, "login: ${e.localizedMessage}")
                     logDogRepository.loge("login", "", e.toString())
                     return@withContext
                 }
-                logDogRepository.logi("login", "normally", "nothing happened")
             } else if (token == "" && idToken == "") {
                 return@withContext
             } else if (token != "") {
@@ -71,6 +71,7 @@ class PushDeerViewModel(
                         }
                     }
                 }
+                logDogRepository.logi("userInfo", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "userInfo: ${e.localizedMessage}")
                 logDogRepository.loge("userInfo", "", e.toString())
@@ -96,6 +97,7 @@ class PushDeerViewModel(
                         }
                     }
                 }
+                logDogRepository.logi("deviceReg", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "deviceReg: ${e.localizedMessage}")
                 logDogRepository.loge("deviceReg", "", e.toString())
@@ -112,6 +114,7 @@ class PushDeerViewModel(
                         deviceList.addAll(it.devices.reversed())
                     }
                 }
+                logDogRepository.logi("deviceList", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "deviceList: ${e.localizedMessage}")
                 logDogRepository.loge("deviceList", "", e.toString())
@@ -130,6 +133,7 @@ class PushDeerViewModel(
                     deviceList()
                     Log.d(TAG, "deviceRemove: $it")
                 }
+                logDogRepository.logi("deviceRemove", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "deviceRemove: ${e.localizedMessage}")
                 logDogRepository.loge("deviceRemove", "", e.toString())
@@ -137,12 +141,13 @@ class PushDeerViewModel(
         }
     }
 
-    suspend fun deviceRename(deviceInfo: DeviceInfo,onReturn: () -> Unit={}){
-        withContext(Dispatchers.IO){
+    suspend fun deviceRename(deviceInfo: DeviceInfo, onReturn: () -> Unit = {}) {
+        withContext(Dispatchers.IO) {
             try {
-                pushDeerService.deviceRename(token,deviceInfo.id,deviceInfo.name)
+                pushDeerService.deviceRename(token, deviceInfo.id, deviceInfo.name)
+                logDogRepository.logi("deviceRename", "normally", "nothing happened")
                 onReturn()
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 Log.d(TAG, "deviceRename: ${e.localizedMessage}")
                 logDogRepository.loge("deviceRename", "", e.toString())
             }
@@ -158,6 +163,7 @@ class PushDeerViewModel(
                         keyList.addAll(it.keys)
                     }
                 }
+                logDogRepository.logi("keyGen", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "keyGen: ${e.localizedMessage}")
                 logDogRepository.loge("keyGen", "", e.toString())
@@ -176,6 +182,7 @@ class PushDeerViewModel(
                 ).let {
                     keyList()
                 }
+                logDogRepository.logi("keyRegen", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "keyRegen: ${e.localizedMessage}")
                 logDogRepository.loge("keyRegen", "", e.toString())
@@ -183,16 +190,17 @@ class PushDeerViewModel(
         }
     }
 
-    suspend fun keyRename(key: PushKey,onReturn: () -> Unit={}){
-        withContext(Dispatchers.IO){
+    suspend fun keyRename(key: PushKey, onReturn: () -> Unit = {}) {
+        withContext(Dispatchers.IO) {
             try {
                 pushDeerService.keyRename(
                     token,
                     key.id,
                     key.name
                 )
+                logDogRepository.logi("keyRename", "normally", "nothing happened")
                 onReturn()
-            }catch (e: Exception) {
+            } catch (e: Exception) {
                 Log.d(TAG, "keyRename: ${e.localizedMessage}")
                 logDogRepository.loge("keyRename", "", e.toString())
             }
@@ -208,6 +216,7 @@ class PushDeerViewModel(
                         keyList.addAll(it.keys)
                     }
                 }
+                logDogRepository.logi("keyList", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "keyList: ${e.localizedMessage}")
                 logDogRepository.loge("keyList", "", e.toString())
@@ -221,6 +230,7 @@ class PushDeerViewModel(
                 pushDeerService.keyRemove(mapOf("token" to token, "id" to keyId)).let {
                     keyList()
                 }
+                logDogRepository.logi("keyRemove", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "keyRemove: ${e.localizedMessage}")
                 logDogRepository.loge("keyRemove", "", e.toString())
@@ -247,6 +257,7 @@ class PushDeerViewModel(
                 ).let {
                     messageList()
                 }
+                logDogRepository.logi("messagePush", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "messagePush: ${e.localizedMessage}")
             }
@@ -261,6 +272,7 @@ class PushDeerViewModel(
                         messageRepository.insert(*(it.messages.toTypedArray()))
                     }
                 }
+                logDogRepository.logi("messageList", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "messageList: ${e.localizedMessage}")
             }
@@ -273,6 +285,7 @@ class PushDeerViewModel(
                 pushDeerService.messageRemove(token, messageId).let {
                     messageList()
                 }
+                logDogRepository.logi("messageRemove", "normally", "nothing happened")
             } catch (e: Exception) {
                 Log.d(TAG, "keyRemove: ${e.localizedMessage}")
             }

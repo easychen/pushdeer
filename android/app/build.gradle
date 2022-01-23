@@ -11,8 +11,8 @@ android {
         applicationId "com.pushdeer.os"
         minSdk 22
         targetSdk 31
-        versionCode 1
-        versionName "1.0-dev-2"
+        versionCode 4
+        versionName "1.0-dev-4"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -84,6 +84,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
     implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
 //    implementation "com.google.accompanist:accompanist-insets-ui:$accompanist_version"
+//    implementation "com.google.accompanist:accompanist-swiperefresh:$accompanist_version"
 
     // room
     def room_version = "2.4.0"
@@ -109,6 +110,6 @@ dependencies {
     implementation "io.coil-kt:coil:1.4.0"
 
     implementation 'com.github.vishalkumarsinghvi:sign-in-with-apple-button-android:0.6'
-//    implementation 'com.github.bumptech.glide:glide:4.12.0'
-//    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 }

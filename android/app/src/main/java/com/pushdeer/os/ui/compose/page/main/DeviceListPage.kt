@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun DeviceListPage(requestHolder: RequestHolder) {
 
-    SideEffect {
+    LaunchedEffect(Unit) {
         requestHolder.coroutineScope.launch {
             requestHolder.pushDeerViewModel.deviceList()
         }

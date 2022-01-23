@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun KeyListPage(requestHolder: RequestHolder) {
 
-    SideEffect {
+    LaunchedEffect(Unit) {
         requestHolder.coroutineScope.launch {
             requestHolder.pushDeerViewModel.keyList()
         }

@@ -31,7 +31,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun MessageListPage(requestHolder: RequestHolder) {
 
-    SideEffect {
+    LaunchedEffect(Unit) {
         requestHolder.coroutineScope.launch {
             requestHolder.pushDeerViewModel.messageList()
         }
