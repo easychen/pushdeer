@@ -192,14 +192,19 @@ class PushDeerUserController extends Controller
             return send_error('错误的token 或者 code', ErrorCode('ARGS'));
         }
 
+        $user2delete = PushDeerUser::where($type_field, $identiy_string)->get()->first();
+
         // 更新对应的字段到当前用户
         $current_user = PushDeerUser::where('id', uid())->get()->first();
+
+        if ($user2delete && $user2delete['id'] == $current_user['id']) {
+            return send_error("不能合并当前账号本身", ErrorCode('ARGS'));
+        }
+
         $current_user[$type_field] = $identiy_string;
         $current_user->save();
 
         // 如果存在旧用户，合并并删除
-        $user2delete = PushDeerUser::where($type_field, $identiy_string)->get()->first();
-
         if ($user2delete) {
             // 删除Key
             PushDeerKey::where('uid', $user2delete['id'])->delete();
