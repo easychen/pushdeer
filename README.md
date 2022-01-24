@@ -200,9 +200,25 @@ API_BASE=http://127.0.0.1:8800
 
 认证方式：通过登入接口获得`token`，通过`post`和`get`方式附带`token`参数即可自动登入。
 
-#### 模拟登入
+#### 模拟登入(环境变量APP_DEBUG=true时可用)
 
 `GET /login/fake`
+
+#### 通过苹果 idToken 登入
+
+`POST /login/idtoken`
+
+|参数|说明|备注|
+|-|-|-|
+|idToken|Sign in with Apple 中得到的 idToken|
+
+#### 通过微信 oauth code 登入
+
+`POST /login/wecode`
+
+|参数|说明|备注|
+|-|-|-|
+|code|客户端微信授权得到的code|
 
 #### 获得当前用户的基本信息
 
