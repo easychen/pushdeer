@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PushDeerUser;
+use App\Models\PushDeerKey;
+use App\Models\PushDeerDevice;
+use App\Models\PushDeerMessage;
 
 class PushDeerUserController extends Controller
 {
@@ -73,19 +76,19 @@ class PushDeerUserController extends Controller
 
             $code_info = json_decode(file_get_contents($url), true);
 
-            if (!$code_info || !isset($code_info['access_token']) || !isset($code_info['openid'])) {
+            if (!$code_info || !isset($code_info['access_token']) || !isset($code_info['unionid'])) {
                 return send_error("错误的Code", ErrorCode('REMOTE'));
             }
 
-            // 现在拿到openid了
+            // 现在拿到unionid了
 
-            $pd_user = PushDeerUser::where('wechat_id', $code_info['openid'])->get()->first();
+            $pd_user = PushDeerUser::where('wechat_id', $code_info['unionid'])->get()->first();
             if (!$pd_user) {
                 // 用户不存在，创建用户
                 $the_user = [];
-                $the_user['wechat_id'] = $code_info['openid'];
-                $the_user['email'] = $code_info['openid'].'@'.'fake.pushdeer.com';
-                $the_user['name'] = '微信用户'.substr($code_info['openid'], 0, 6);
+                $the_user['wechat_id'] = $code_info['unionid'];
+                $the_user['email'] = $code_info['unionid'].'@'.'fake.pushdeer.com';
+                $the_user['name'] = '微信用户'.substr($code_info['unionid'], 0, 6);
                 $the_user['level'] = 1;
 
                 $pd_user = PushDeerUser::create($the_user);
@@ -148,5 +151,69 @@ class PushDeerUserController extends Controller
 
 
         return send_error('id_token解析错误', ErrorCode('ARGS'));
+    }
+
+    public function merge(Request $request)
+    {
+        $validated = $request->validate(
+            [
+                'tokenorcode' => 'string',
+                'type' => 'string', // apple or wechat
+            ]
+        );
+
+        $type_field = strtolower($validated['type']) == 'apple' ? 'apple_id' : 'wechat_id';
+
+        $identiy_string = false;
+        if ($type_field == 'apple_id') {
+            $info = getUserDataFromIdentityToken($validated['tokenorcode']);
+            if ($info && isset($info['uid'])) {
+                $identiy_string = $info['uid'];
+            }
+        } else {
+            // wechat
+            // 解码并进行验证
+            $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
+            .urlencode(env("WECHAT_APPID"))
+            ."&secret="
+            .urlencode(env("WECHAT_APPSECRET"))
+            ."&code="
+            .urlencode($validated['tokenorcode'])
+            ."&grant_type=authorization_code";
+
+            $info = json_decode(file_get_contents($url), true);
+
+            if ($info && $info['unionid']) {
+                $identiy_string = $info['unionid'];
+            }
+        }
+
+        if (!$identiy_string) {
+            return send_error('错误的token 或者 code', ErrorCode('ARGS'));
+        }
+
+        // 更新对应的字段到当前用户
+        $current_user = PushDeerUser::where('id', uid())->get()->first();
+        $current_user[$type_field] = $identiy_string;
+        $current_user->save();
+
+        // 如果存在旧用户，合并并删除
+        $user2delete = PushDeerUser::where($type_field, $identiy_string)->get()->first();
+
+        if ($user2delete) {
+            // 删除Key
+            PushDeerKey::where('uid', $user2delete['id'])->delete();
+
+            // message合并
+            PushDeerMessage::where('uid', $user2delete['id'])->update(['uid', uid()]);
+
+            // 设备合并
+            PushDeerDevice::where('uid', $user2delete['id'])->update(['uid', uid()]);
+
+            // 删除用户
+            $user2delete->delete();
+        }
+
+        return http_result(['result'=>'done']);
     }
 }

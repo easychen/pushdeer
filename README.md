@@ -220,6 +220,17 @@ API_BASE=http://127.0.0.1:8800
 |-|-|-|
 |code|客户端微信授权得到的code|
 
+
+#### 合并用户并将旧用户删除
+
+`POST /user/merge`
+
+|参数|说明|备注|
+|-|-|-|
+|token|认证token|
+|type|字符串，必须为 apple 或者 wechat|
+|tokenorcode|type 为 apple时此字段为 idToken，否则为 微信code |
+
 #### 获得当前用户的基本信息
 
 `POST /user/info`

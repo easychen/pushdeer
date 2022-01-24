@@ -63,5 +63,7 @@ Route::middleware('auto.login')->group(function () {
 
 
         Route::post('/user/info', 'App\Http\Controllers\PushDeerUserController@info');
+
+        Route::post('/user/merge', 'App\Http\Controllers\PushDeerUserController@merge');
     });
 });
