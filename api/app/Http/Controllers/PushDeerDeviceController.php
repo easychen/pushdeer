@@ -22,9 +22,9 @@ class PushDeerDeviceController extends Controller
     {
         $validated = $request->validate(
             [
-                'name' => 'string',
-                'device_id' => 'string',
-                'is_clip' => 'integer',
+                'name' => 'string|required',
+                'device_id' => 'string|required',
+                'is_clip' => 'integer|nullable',
                 'type' => 'string|nullable',
             ]
         );
@@ -55,8 +55,8 @@ class PushDeerDeviceController extends Controller
     {
         $validated = $request->validate(
             [
-                'id' => 'integer',
-                'name' =>'string'
+                'id' => 'integer|required',
+                'name' =>'string|required'
             ]
         );
 
@@ -75,7 +75,7 @@ class PushDeerDeviceController extends Controller
     {
         $validated = $request->validate(
             [
-                'id' => 'integer',
+                'id' => 'integer|required',
             ]
         );
 

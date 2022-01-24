@@ -60,7 +60,7 @@ class PushDeerUserController extends Controller
     {
         $validated = $request->validate(
             [
-                'code' => 'string',
+                'code' => 'string|required',
             ]
         );
 
@@ -115,7 +115,7 @@ class PushDeerUserController extends Controller
     {
         $validated = $request->validate(
             [
-                'idToken' => 'string',
+                'idToken' => 'string|required',
             ]
         );
 
@@ -157,10 +157,11 @@ class PushDeerUserController extends Controller
     {
         $validated = $request->validate(
             [
-                'tokenorcode' => 'string',
-                'type' => 'string', // apple or wechat
+                'tokenorcode' => 'string|required',
+                'type' => 'string|required', // apple or wechat
             ]
         );
+
 
         $type_field = strtolower($validated['type']) == 'apple' ? 'apple_id' : 'wechat_id';
 

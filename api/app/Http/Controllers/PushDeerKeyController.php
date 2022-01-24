@@ -40,8 +40,8 @@ class PushDeerKeyController extends Controller
     {
         $validated = $request->validate(
             [
-                'id' => 'integer',
-                'name' =>'string'
+                'id' => 'integer|required',
+                'name' =>'string|required'
             ]
         );
 
@@ -60,7 +60,7 @@ class PushDeerKeyController extends Controller
     {
         $validated = $request->validate(
             [
-                'id' => 'integer',
+                'id' => 'integer|required',
             ]
         );
 
@@ -79,7 +79,7 @@ class PushDeerKeyController extends Controller
     {
         $validated = $request->validate(
             [
-                'id' => 'integer',
+                'id' => 'integer|required',
             ]
         );
 

@@ -96,7 +96,7 @@ class PushDeerMessageController extends Controller
     {
         $validated = $request->validate(
             [
-                'id' => 'integer',
+                'id' => 'integer|required',
             ]
         );
 
