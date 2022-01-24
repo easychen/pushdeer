@@ -13,6 +13,7 @@ class PushDeerUser extends Model
         'name',
         'email',
         'apple_id',
+        'wechat_id',
         'level',
     ];
 }
