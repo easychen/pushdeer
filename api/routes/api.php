@@ -26,6 +26,9 @@ Route::any('/login/fake', 'App\Http\Controllers\PushDeerUserController@fakeLogin
 // 通过 apple 返回的 idtoken 登入
 Route::post('/login/idtoken', 'App\Http\Controllers\PushDeerUserController@login');
 
+// 通过 微信客户端返回的 code 登入
+Route::post('/login/wecode', 'App\Http\Controllers\PushDeerUserController@wechatLogin');
+
 // 推送消息
 Route::any('/message/push', 'App\Http\Controllers\PushDeerMessageController@push');
 

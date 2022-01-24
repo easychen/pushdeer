@@ -53,6 +53,60 @@ class PushDeerUserController extends Controller
         return send_error('id_token解析错误', ErrorCode('ARGS'));
     }
 
+    public function wechatLogin(Request $request)
+    {
+        $validated = $request->validate(
+            [
+                'code' => 'string',
+            ]
+        );
+
+        if (isset($validated['code'])) {
+            // 解码并进行验证
+            $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
+            .urlencode(env("WECHAT_APPID"))
+            ."&secret="
+            .urlencode(env("WECHAT_APPSECRET"))
+            ."&code="
+            .urlencode($validated['code'])
+            ."&grant_type=authorization_code";
+
+            $code_info = json_decode(file_get_contents($url), true);
+
+            if (!$code_info || !isset($code_info['access_token']) || !isset($code_info['openid'])) {
+                return send_error("错误的Code", ErrorCode('REMOTE'));
+            }
+
+            // 现在拿到openid了
+
+            $pd_user = PushDeerUser::where('wechat_id', $code_info['openid'])->get()->first();
+            if (!$pd_user) {
+                // 用户不存在，创建用户
+                $the_user = [];
+                $the_user['wechat_id'] = $code_info['openid'];
+                $the_user['email'] = $code_info['openid'].'@'.'fake.pushdeer.com';
+                $the_user['name'] = '微信用户'.substr($code_info['openid'], 0, 6);
+                $the_user['level'] = 1;
+
+                $pd_user = PushDeerUser::create($the_user);
+            }
+
+            // 将数据写到session
+            session_start();
+            $_SESSION['uid'] = $pd_user['id'];
+            $_SESSION['name'] = $pd_user['name'];
+            $_SESSION['email'] = $pd_user['email'];
+            $_SESSION['level'] = $pd_user['level'];
+
+            session_regenerate_id(true);
+            $token = session_id();
+            return http_result(['token'=>$token]);
+        }
+
+
+        return send_error('微信Code错误', ErrorCode('ARGS'));
+    }
+
     //
     public function login(Request $request)
     {
