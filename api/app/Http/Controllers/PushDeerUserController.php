@@ -60,7 +60,7 @@ class PushDeerUserController extends Controller
     {
         $validated = $request->validate(
             [
-                'code' => 'string|required',
+                'code' => 'string',
             ]
         );
 
@@ -115,7 +115,7 @@ class PushDeerUserController extends Controller
     {
         $validated = $request->validate(
             [
-                'idToken' => 'string|required',
+                'idToken' => 'string',
             ]
         );
 
@@ -163,7 +163,10 @@ class PushDeerUserController extends Controller
         );
 
 
+
         $type_field = strtolower($validated['type']) == 'apple' ? 'apple_id' : 'wechat_id';
+
+
 
         $identiy_string = false;
         if ($type_field == 'apple_id') {
@@ -194,31 +197,32 @@ class PushDeerUserController extends Controller
         }
 
         $user2delete = PushDeerUser::where($type_field, $identiy_string)->get()->first();
-
-        // 更新对应的字段到当前用户
         $current_user = PushDeerUser::where('id', uid())->get()->first();
 
-        if ($user2delete && $user2delete['id'] == $current_user['id']) {
-            return send_error("不能合并当前账号本身", ErrorCode('ARGS'));
-        }
 
-        $current_user[$type_field] = $identiy_string;
-        $current_user->save();
 
         // 如果存在旧用户，合并并删除
         if ($user2delete) {
+            if ($user2delete['id'] == $current_user['id']) {
+                return send_error("不能合并当前账号本身", ErrorCode('ARGS'));
+            }
+
+
             // 删除Key
             PushDeerKey::where('uid', $user2delete['id'])->delete();
 
             // message合并
-            PushDeerMessage::where('uid', $user2delete['id'])->update(['uid', uid()]);
+            PushDeerMessage::where('uid', $user2delete['id'])->update(['uid'=>uid()]);
 
             // 设备合并
-            PushDeerDevice::where('uid', $user2delete['id'])->update(['uid', uid()]);
+            PushDeerDevice::where('uid', $user2delete['id'])->update(['uid'=>uid()]);
 
             // 删除用户
             $user2delete->delete();
         }
+
+        $current_user[$type_field] = $identiy_string;
+        $current_user->save();
 
         return http_result(['result'=>'done']);
     }
