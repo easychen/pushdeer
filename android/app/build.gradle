@@ -5,14 +5,15 @@ plugins {
 }
 
 android {
+
     compileSdk 31
 
     defaultConfig {
         applicationId "com.pushdeer.os"
         minSdk 22
         targetSdk 31
-        versionCode 5
-        versionName "1.0-dev-5"
+        versionCode 8
+        versionName "1.0-dev-8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -111,5 +112,7 @@ dependencies {
 
     implementation 'com.github.vishalkumarsinghvi:sign-in-with-apple-button-android:0.6'
 
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
+    api 'com.tencent.mm.opensdk:wechat-sdk-android:6.8.0'
+
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.8.1'
 }

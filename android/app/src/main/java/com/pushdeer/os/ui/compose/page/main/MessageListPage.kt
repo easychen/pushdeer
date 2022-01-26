@@ -1,6 +1,7 @@
 package com.pushdeer.os.ui.compose.page.main
 
 import androidx.compose.animation.*
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,9 +11,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -37,9 +38,14 @@ fun MessageListPage(requestHolder: RequestHolder) {
         }
     }
 
+//    val a = rotat
+
+    val a by animateFloatAsState(targetValue = if (requestHolder.uiViewModel.showMessageSender) 0F else 180F)
+
     MainPageFrame(
         titleStringId = Page.Messages.labelStringId,
-        sideIcon = if (requestHolder.uiViewModel.showMessageSender) Icons.Default.KeyboardArrowUp else Icons.Default.KeyboardArrowDown,
+        sideIcon = Icons.Default.KeyboardArrowDown,
+        iconModifier = Modifier.rotate(a),
         onSideIconClick = { requestHolder.toggleMessageSender() },
         sidePadding = false
     ) {
@@ -58,7 +64,7 @@ fun MessageListPage(requestHolder: RequestHolder) {
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(bottom = 16.dp)
+                            .padding(bottom = 20.dp)
                             .padding(horizontal = ConstValues.MainPageSidePadding)
 
                     ) {
@@ -97,6 +103,7 @@ fun MessageListPage(requestHolder: RequestHolder) {
                 items = messageList,
                 key = { item: MessageEntity -> item.id }) { message: MessageEntity ->
                 SwipeToDismissItem(
+                    requestHolder = requestHolder,
                     onAction = {
                         requestHolder.message.messageRemove(message.toMessage(), onDone = {
                             requestHolder.messageViewModel.delete(message)

@@ -14,11 +14,17 @@ import com.pushdeer.os.ui.theme.MBlue
 
 @ExperimentalMaterialApi
 @Composable
-fun SettingItem(text: String, buttonString: String, onItemClick:()->Unit={},onButtonClick: () -> Unit) {
+fun SettingItem(
+    text: String,
+    buttonString: String,
+    onItemClick: () -> Unit = {},
+    paddingValues: PaddingValues = PaddingValues(bottom = 16.dp),
+    onButtonClick: () -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 16.dp)
+            .padding(paddingValues)
     ) {
         CardItemWithContent(onClick = onItemClick) {
             Row(
@@ -52,3 +58,20 @@ fun SettingItem(text: String, buttonString: String, onItemClick:()->Unit={},onBu
         }
     }
 }
+
+//@ExperimentalMaterialApi
+//@Composable
+//fun SettingItem(content: @Composable () -> Unit) {
+//    Card(
+//        onClick = onClick,
+//        shape = RoundedCornerShape(4.dp),
+//        modifier = Modifier
+//            .border(
+//                width = 1.dp,
+//                color = MainBlue,
+//                shape = RoundedCornerShape(4.dp)
+//            ),
+//        content = content,
+//        elevation = 5.dp
+//    )
+//}

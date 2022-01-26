@@ -13,7 +13,19 @@ interface PushDeerApi {
 
     @FormUrlEncoded
     @POST("/login/idtoken")
-    suspend fun loginIdToken(@Field("idToken") idToken: String): ReturnData<TokenOnly>
+    suspend fun loginWithAppleIdToken(@Field("idToken") idToken: String): ReturnData<TokenOnly>
+
+    @FormUrlEncoded
+    @POST("/login/wecode")
+    suspend fun loginWithWeXin(@Field("code") code: String): ReturnData<TokenOnly>
+
+    @FormUrlEncoded
+    @POST("/user/merge")
+    suspend fun userMerge(
+        @Field("token") token: String,
+        @Field("type") type: String, // apple wechat
+        @Field("tokenorcode") tokenorcode: String // input idToken / code
+    ): String
 
 //    @GET("/login/fake")
 //    suspend fun fakeLogin(): ReturnData<TokenOnly>

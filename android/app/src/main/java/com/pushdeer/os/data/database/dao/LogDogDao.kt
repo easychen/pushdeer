@@ -15,6 +15,9 @@ interface LogDogDao {
     @Insert
     suspend fun insert(vararg logDog: LogDog)
 
+    @Insert
+    fun insert1(vararg logDog: LogDog)
+
     @Query("delete from LogDog")
     suspend fun clear()
 }

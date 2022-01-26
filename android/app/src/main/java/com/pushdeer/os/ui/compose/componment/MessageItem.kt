@@ -33,7 +33,7 @@ fun PlainTextMessageItem(message: MessageEntity,requestHolder: RequestHolder) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(4.dp))
+            .clip(RoundedCornerShape(8.dp))
             .clickable {
                 requestHolder.clip.copyMessagePlainText(message.text)
             }
@@ -80,7 +80,7 @@ fun ImageMessageItem(message: MessageEntity, requestHolder: RequestHolder) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(4.dp))
+            .clip(RoundedCornerShape(8.dp))
             .clickable {
                 requestHolder.clip.copyMessagePlainText(message.text)
             }
@@ -125,7 +125,7 @@ fun MarkdownMessageItem(message: MessageEntity, requestHolder: RequestHolder) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(4.dp))
+            .clip(RoundedCornerShape(8.dp))
             .clickable {
                 requestHolder.clip.copyMessagePlainText(message.text)
             }

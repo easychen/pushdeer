@@ -49,9 +49,11 @@ fun KeyListPage(requestHolder: RequestHolder) {
         }else{
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
                 items(
-                    requestHolder.pushDeerViewModel.keyList,
+                    requestHolder.pushDeerViewModel.keyList.sortedBy { it.id },
                     key = { item: PushKey -> item.id }) { pushKey: PushKey ->
-                    SwipeToDismissItem(onAction = { requestHolder.key.remove(pushKey) }
+                    SwipeToDismissItem(
+                        requestHolder = requestHolder,
+                        onAction = { requestHolder.key.remove(pushKey) }
                     ) {
                         KeyItem(key = pushKey, requestHolder = requestHolder)
                     }

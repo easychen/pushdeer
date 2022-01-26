@@ -176,7 +176,7 @@ fun KeyItem(key: PushKey, requestHolder: RequestHolder) {
                         backgroundColor = MaterialTheme.colors.MBlue,
                         contentColor = Color.White
                     ),
-                    shape = RoundedCornerShape(6.dp)
+                    shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(text = stringResource(id = R.string.main_key_copy))
                 }

@@ -28,4 +28,5 @@
     <string name="main_setting_douyoulike">Do you line PushDeer?</string>
     <string name="main_setting_btn_like">Like</string>
     <string name="main_setting_alert_logout">Due to the limitations of the vendor\'s push device service, it is not supported to change to the self-built PushDeer server for the time being, but only changing the login account will not affect your use.</string>
+    <string name="global_swipetodismiss_alert_delete">Delete?</string>
 </resources>

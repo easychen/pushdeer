@@ -30,12 +30,12 @@ fun CardItemSingleLineWithIcon(
 ) {
     Card(
         onClick = onClick,
-        shape = RoundedCornerShape(4.dp),
+        shape = RoundedCornerShape(8.dp),
         modifier = Modifier
             .border(
                 width = 1.dp,
                 color = MainBlue,
-                shape = RoundedCornerShape(4.dp)
+                shape = RoundedCornerShape(8.dp)
             ),
         elevation = 5.dp
 
@@ -72,13 +72,13 @@ fun CardItemMultiLine(
 ) {
     Card(
         onClick = onClick,
-        shape = RoundedCornerShape(4.dp),
+        shape = RoundedCornerShape(8.dp),
         modifier = Modifier
 //            .padding(bottom = 16.dp)
             .border(
                 width = 1.dp,
                 color = MainBlue,
-                shape = RoundedCornerShape(4.dp)
+                shape = RoundedCornerShape(8.dp)
             ),
         elevation = 5.dp
 
@@ -111,12 +111,12 @@ fun CardItemMultiLine(
 fun CardItemWithContent(onClick: () -> Unit, content: @Composable () -> Unit = {}) {
     Card(
         onClick = onClick,
-        shape = RoundedCornerShape(4.dp),
+        shape = RoundedCornerShape(8.dp),
         modifier = Modifier
             .border(
                 width = 1.dp,
                 color = MainBlue,
-                shape = RoundedCornerShape(4.dp)
+                shape = RoundedCornerShape(8.dp)
             ),
         content = content,
         elevation = 5.dp
@@ -127,12 +127,12 @@ fun CardItemWithContent(onClick: () -> Unit, content: @Composable () -> Unit = {
 @Composable
 fun CardItemWithContent(content: @Composable () -> Unit = {}) {
     Card(
-        shape = RoundedCornerShape(4.dp),
+        shape = RoundedCornerShape(8.dp),
         modifier = Modifier
             .border(
                 width = 1.dp,
                 color = MainBlue,
-                shape = RoundedCornerShape(4.dp)
+                shape = RoundedCornerShape(8.dp)
             ),
         content = content,
         elevation = 5.dp

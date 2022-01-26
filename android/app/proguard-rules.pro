@@ -28,3 +28,17 @@
 -keep class com.pushdeer.os.receiver.MessageReceiver {*;}
 #可以防止一个误报的 warning 导致无法成功编译，如果编译使用的 Android 版本是 23。
 -dontwarn com.xiaomi.push.**
+
+
+# XiaoErMei
+-keep class com.tencent.mm.opensdk.** {
+    *;
+}
+
+-keep class com.tencent.wxop.** {
+    *;
+}
+
+-keep class com.tencent.mm.sdk.** {
+    *;
+}

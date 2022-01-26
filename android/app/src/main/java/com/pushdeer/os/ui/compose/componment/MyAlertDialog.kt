@@ -10,13 +10,13 @@ import com.pushdeer.os.holder.RequestHolder
 
 @Composable
 fun MyAlertDialog(alertRequest: RequestHolder.AlertRequest) {
-    if (alertRequest.show.value) {
+    if (alertRequest.show2BtnDialog.value) {
         AlertDialog(
-            onDismissRequest = { alertRequest.show.value = false },
+            onDismissRequest = { alertRequest.show2BtnDialog.value = false },
             confirmButton = {
                 TextButton(onClick = {
                     alertRequest.onOKAction.invoke()
-                    alertRequest.show.value = false
+                    alertRequest.show2BtnDialog.value = false
                 }) {
                     Text(text = stringResource(id = R.string.global_alert_ok))
                 }
@@ -25,9 +25,25 @@ fun MyAlertDialog(alertRequest: RequestHolder.AlertRequest) {
             dismissButton = {
                 TextButton(onClick = {
                     alertRequest.onCancelAction.invoke()
-                    alertRequest.show.value = false
+                    alertRequest.show2BtnDialog.value = false
                 }) {
                     Text(text = stringResource(id = R.string.global_alert_cancel))
+                }
+
+            },
+            title = { Text(text = alertRequest.title) },
+            text = alertRequest.content
+        )
+    }
+    if (alertRequest.show1BtnDialog.value){
+        AlertDialog(
+            onDismissRequest = { alertRequest.show1BtnDialog.value = false },
+            confirmButton = {
+                TextButton(onClick = {
+                    alertRequest.onOKAction.invoke()
+                    alertRequest.show1BtnDialog.value = false
+                }) {
+                    Text(text = stringResource(id = R.string.global_alert_ok))
                 }
 
             },

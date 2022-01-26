@@ -55,6 +55,15 @@
             android:theme="@style/Theme.PushDeer.NoActionBar"
             />
 
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:exported="true"
+            android:taskAffinity="com.pushdeer.os"
+            android:launchMode="singleTask">
+        </activity>
+
         <!-- miPush components start  -->
 
         <service
