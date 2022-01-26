@@ -1,10 +1,9 @@
 package com.pushdeer.os
 
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
+import android.content.*
 import android.os.Bundle
 import android.text.util.Linkify
+import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
@@ -17,7 +16,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
-import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -36,10 +35,13 @@ import com.pushdeer.os.ui.theme.PushDeerTheme
 import com.pushdeer.os.util.ActivityOpener
 import com.pushdeer.os.util.NotificationUtil
 import com.pushdeer.os.util.SystemUtil
+import com.pushdeer.os.values.AppKeys
 import com.pushdeer.os.viewmodel.LogDogViewModel
 import com.pushdeer.os.viewmodel.MessageViewModel
 import com.pushdeer.os.viewmodel.PushDeerViewModel
 import com.pushdeer.os.viewmodel.UiViewModel
+import com.pushdeer.os.wxapi.WXEntryActivity
+import com.tencent.mm.opensdk.constants.ConstantsAPI
 import io.noties.markwon.Markwon
 import io.noties.markwon.image.coil.CoilImagesPlugin
 import io.noties.markwon.linkify.LinkifyPlugin
@@ -58,7 +60,6 @@ class MainActivity : AppCompatActivity(), RequestHolder {
     override val logDogViewModel: LogDogViewModel by viewModels { viewModelFactory }
     override val messageViewModel: MessageViewModel by viewModels { viewModelFactory }
     override val settingStore: SettingStore by lazy { (application as App).storeKeeper.settingStore }
-    override val fragmentManager: FragmentManager by lazy { this.supportFragmentManager }
 
     override val coilImageLoader: ImageLoader by lazy {
         ImageLoader.Builder(this)
@@ -89,6 +90,13 @@ class MainActivity : AppCompatActivity(), RequestHolder {
             ) as ClipboardManager
         ) {}
     }
+    override val weChatLogin: RequestHolder.WeChatLoginRequest by lazy {
+        object : RequestHolder.WeChatLoginRequest((application as App).iwxapi) {}
+    }
+
+    override val appleLogin: RequestHolder.AppleLoginRequest by lazy {
+        object : RequestHolder.AppleLoginRequest(supportFragmentManager, this) {}
+    }
 
     override val markdown: Markwon by lazy {
         Markwon.builder(this)
@@ -103,10 +111,63 @@ class MainActivity : AppCompatActivity(), RequestHolder {
     override lateinit var qrScanActivityOpener: ActivityResultLauncher<Intent>
     override lateinit var requestPermissionOpener: ActivityResultLauncher<Array<String>>
 
+    val wxRegReceiver: BroadcastReceiver by lazy {
+        object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                intent?.let {
+                    when (it.action) {
+                        ConstantsAPI.ACTION_REFRESH_WXAPP -> {
+                            weChatLogin.iwxapi.registerApp(AppKeys.WX_Id)
+                        }
+                        WXEntryActivity.ACTION_RETURN_CODE -> {
+                            val code = intent.getStringExtra(WXEntryActivity.CODE_KEY)!!
+                            lifecycleScope.launch {
+                                if (pushDeerViewModel.userInfo.isAppleLogin) {
+                                    Log.d("WH_", "onReceive: isAppleLogin")
+                                    // if login, perform merge
+                                    coroutineScope.launch {
+                                        pushDeerViewModel.userMerge(
+                                            "wechat",
+                                            code
+                                        ) {
+                                            coroutineScope.launch {
+                                                pushDeerViewModel.userInfo()
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    Log.d("WH_", "onReceive: plainLogin")
+                                    // if not, plain login
+                                    coroutineScope.launch {
+                                        pushDeerViewModel.loginWithWeiXin(code) {
+                                            globalNavController.navigate("main") {
+                                                globalNavController.popBackStack()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else -> {
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+
     @ExperimentalAnimationApi
     @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        registerReceiver(wxRegReceiver,
+            IntentFilter().apply {
+                addAction(ConstantsAPI.ACTION_REFRESH_WXAPP)
+                addAction(WXEntryActivity.ACTION_RETURN_CODE)
+            })
+
 
         NotificationUtil.setupChannel(this)
 
@@ -124,7 +185,7 @@ class MainActivity : AppCompatActivity(), RequestHolder {
                     Color.Transparent,
                     useDarkIcons
                 )
-                else -> systemUiController.setSystemBarsColor(Color.Transparent, useDarkIcons)
+                else -> systemUiController.setSystemBarsColor(Color.Transparent, !useDarkIcons)
             }
             WindowCompat.setDecorFitsSystemWindows(window, true)
             miPushRepository.regId.observe(this) {
@@ -133,7 +194,7 @@ class MainActivity : AppCompatActivity(), RequestHolder {
 
             SideEffect {
                 coroutineScope.launch {
-                    pushDeerViewModel.login(onReturn = {
+                    pushDeerViewModel.loginWithApple(onReturn = {
                         globalNavController.navigate("main") {
                             globalNavController.popBackStack()
                         }
@@ -164,5 +225,10 @@ class MainActivity : AppCompatActivity(), RequestHolder {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        unregisterReceiver(wxRegReceiver)
     }
 }

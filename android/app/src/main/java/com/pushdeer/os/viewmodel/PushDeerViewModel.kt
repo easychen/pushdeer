@@ -30,25 +30,24 @@ class PushDeerViewModel(
     val keyList = mutableStateListOf<PushKey>()
 //    var messageList = mutableStateListOf<Message>()
 
-    suspend fun login(idToken: String = "", onReturn: (String) -> Unit = {}) {
+    suspend fun loginWithApple(idToken: String = "", onReturn: (String) -> Unit = {}) {
         withContext(Dispatchers.IO) {
             if (token == "" && idToken != "") {
                 try {
-                    pushDeerService.loginIdToken(idToken).let {
+                    pushDeerService.loginWithAppleIdToken(idToken).let {
                         it.content?.let { tokenOnly ->
                             settingStore.userToken = tokenOnly.token
                             token = tokenOnly.token
-                            Log.d(TAG, "login: $token")
+                            Log.d(TAG, "loginWithApple: $token")
                             withContext(Dispatchers.Main) {
                                 onReturn.invoke(token)
                             }
                         }
                     }
-                    logDogRepository.logi("login", "normally", "nothing happened")
+                    logDogRepository.logi("loginWithApple", "withAppleId", "nothing happened")
                 } catch (e: Exception) {
-                    Log.d(TAG, "login: ${e.localizedMessage}")
-                    logDogRepository.loge("login", "", e.toString())
-                    return@withContext
+                    Log.d(TAG, "loginWithApple: ${e.localizedMessage}")
+                    logDogRepository.loge("loginWithApple", "", e.toString())
                 }
             } else if (token == "" && idToken == "") {
                 return@withContext
@@ -60,10 +59,50 @@ class PushDeerViewModel(
         }
     }
 
+    suspend fun loginWithWeiXin(code:String,onReturn: (String) -> Unit){
+        withContext(Dispatchers.IO){
+            try {
+                pushDeerService.loginWithWeXin(code).let {
+                    it.content?.let { tokenOnly ->
+                        settingStore.userToken = tokenOnly.token
+                        token = tokenOnly.token
+                        Log.d(TAG, "loginWithWeiXin: $token")
+                        withContext(Dispatchers.Main) {
+                            onReturn.invoke(token)
+                        }
+                    }
+                }
+                logDogRepository.logi("loginWithWeiXin", "withWeiXin", "nothing happened")
+            }catch (e: Exception){
+                Log.e(TAG, "loginWithWeiXin: ${e.localizedMessage}")
+                logDogRepository.loge("loginWithWeiXin", "", e.toString())
+            }
+        }
+    }
+
+    suspend fun userMerge(type:String,tokenorcode:String,onReturn: (String) -> Unit={}){
+        Log.d("WH_", ": token:${token} type:${type} tokenorcode:${tokenorcode}")
+
+        withContext(Dispatchers.IO){
+            try {
+                pushDeerService.userMerge(token,type,tokenorcode).let {
+                    Log.d(TAG, "userMerge: $it")
+                    withContext(Dispatchers.Main){
+                        onReturn("")
+                    }
+                }
+            }catch (e: Exception) {
+                Log.e(TAG, "userMerge:e ${e.localizedMessage}")
+                logDogRepository.loge("userMerge", "", e.toString())
+            }
+        }
+    }
+
     suspend fun userInfo(onOk: (UserInfo) -> Unit = {}, onFailed: () -> Unit = {}) {
         withContext(Dispatchers.IO) {
             try {
                 pushDeerService.userInfo(token).let {
+                    Log.d(TAG, "userInfo: ${it.content}")
                     it.content?.let { ita ->
                         userInfo = ita
                         withContext(Dispatchers.Main) {

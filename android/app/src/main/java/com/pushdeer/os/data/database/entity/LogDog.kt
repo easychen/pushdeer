@@ -18,6 +18,7 @@ class LogDog {
         return "id:$id\n" +
                 "level:$level\n" +
                 "entity:$entity\n" +
+                "event:$event\n" +
                 "log:$log\n" +
                 "time:${timestamp.toTimestamp()}"
     }

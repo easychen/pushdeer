@@ -24,6 +24,7 @@ fun MainPageFrame(
     titleStringId: Int,
     showSideIcon: Boolean = true,
     sideIcon: ImageVector = Icons.Default.Add,
+    iconModifier: Modifier = Modifier,
     onSideIconClick: () -> Unit = {},
     sidePadding: Boolean = true,
     content: @Composable BoxScope.() -> Unit
@@ -53,7 +54,8 @@ fun MainPageFrame(
                         Icon(
                             imageVector = sideIcon,
                             contentDescription = "",
-                            tint = Color.LightGray
+                            tint = Color.LightGray,
+                            modifier = iconModifier
                         )
                     }
 //                }

@@ -72,12 +72,13 @@ fun DeviceListPage(requestHolder: RequestHolder) {
             val state = rememberLazyListState()
             LazyColumn(state = state) {
                 items(
-                    items = requestHolder.pushDeerViewModel.deviceList,
+                    items = requestHolder.pushDeerViewModel.deviceList.sortedByDescending { it.id },
                     key = { item: DeviceInfo -> item.id }) { deviceInfo: DeviceInfo ->
                     var name by remember {
                         mutableStateOf(deviceInfo.name)
                     }
                     SwipeToDismissItem(
+                        requestHolder = requestHolder,
                         onAction = { requestHolder.device.deviceRemove(deviceInfo) }
                     ) {
                         CardItemSingleLineWithIcon(

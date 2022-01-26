@@ -18,4 +18,6 @@ class SettingStore(context:Context) {
     var showMessageSender by store.boolean("show-message-sender",true)
     var thisPushSdk by store.string("this-push-sdk","mi-push")
     var thisDeviceId by store.string("this-device-id","")
+
+    var logLevel by store.string("log-level","i") // i w e - d
 }
