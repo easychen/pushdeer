@@ -16,8 +16,8 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，API、iOS和
 
 |功能|核心贡献人|预期完成时间|最低版本兼容|本周进度|
 |-|-|-|-|-|
-|iOS/MacApp+Clip开发|[Hext123](https://github.com/Hext123)|2022年1月20日|iOS15（14兼容修复中）|第一版完成，代码在iOS目录下|
-|Android客户端|[WolfHugo](https://github.com/alone-wolf)|2022年2月24日|5.1|界面细节调整中|
+|iOS/MacApp+Clip开发|[Hext123](https://github.com/Hext123)|已完成|iOS15（14兼容修复中）|第一版完成，代码在iOS目录下|
+|Android客户端|[WolfHugo](https://github.com/alone-wolf)|已完成|5.1|第一版开发完成，release页面可下载|
 |快应用|[7YHong](https://github.com/7YHong)|2022年2月27日|-|完成快应用界面展示部分，下周对接API|
 |API完善和更新|[古俊杰](https://github.com/ilovintit)|配合客户端同步更新|-|添加自动生成swgger文档功能中|
 
