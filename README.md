@@ -27,7 +27,7 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，API、iOS和
 
 ![](doc/image/clipcode.png)
 
-1. 用苹果系统（iOS 15+）摄像头扫描上边的码
+1. 苹果系统（iOS 15+）用摄像头扫描上边的码（ Android快应用未上架，可从右侧Release处下载APP用 ）
 1. 通过apple账号登录
 1. 切换到「设备」标签页，点击右上角的加号，注册当前设备
 1. 切换到「Key」标签页，点击右上角的加号，创建一个Key
