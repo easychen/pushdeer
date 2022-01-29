@@ -62,7 +62,7 @@ class PushDeerMessageController extends Controller
 
         $key = PushDeerKey::where('key', $validated['pushkey'])->get()->first();
 
-        $result = false;
+        $result = [];
 
         if ($key) {
             $readkey = Str::random(32);
@@ -75,15 +75,17 @@ class PushDeerMessageController extends Controller
             $the_message['pushkey_name'] = $key->name;
             $pd_message = Message::create($the_message);
 
-            $devices = PushDeerDevice::where('uid', $key->uid)->get();
-
-            foreach ($devices as $device) {
-                if ($device) {
-                    $func_name = $device['type'].'_send';
-                    if (function_exists($func_name)) {
-                        $result[] = $func_name($device->is_clip, $device->device_id, $validated['text'], '', env('APP_DEBUG'));
+            if ($devices = PushDeerDevice::where('uid', $key->uid)->get()) {
+                foreach ($devices as $device) {
+                    if ($device) {
+                        $func_name = $device['type'].'_send';
+                        if (function_exists($func_name)) {
+                            $result[] = $func_name($device->is_clip, $device->device_id, $validated['text'], '', env('APP_DEBUG'));
+                        }
                     }
                 }
+            } else {
+                return send_error('没有可用的设备，请先注册', ErrorCode('ARGS'));
             }
         }
 
