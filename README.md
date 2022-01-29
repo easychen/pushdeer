@@ -1,6 +1,6 @@
 # PushDeer
 
-PushDeer开源版，可以自行架设的无APP推送服务（WIP，API、iOS和Mac第一版本完成，Android即将完成，其他部分正在施工🚧）
+PushDeer开源版，可以自行架设的无APP推送服务（WIP，API、iOS、Android和Mac第一版本完成，轻应用正在施工🚧）
 
 [🐙🐱 GitHub仓库](https://github.com/easychen/pushdeer) [🔮 中国大陆镜像仓库](https://gitee.com/easychen/pushdeer)
 
@@ -53,14 +53,14 @@ PS：系统设计最低支持版本为iOS14，但目前存在兼容性问题，�
 {
 	"url":"https://api2.pushdeer.com/message/push?pushkey={{pushkey}}",
 	"values":[
-		{"text":"{{title}} "},
-                 {"desp":"{{desp}}"}
+		{"type":"markdown"},
+                 {"text":"{{title}} "},
+                 {"desp":"{{url}}"}
 	]
 }
 ```
 
 注意将 `{{pushkey}}` 换成你自己的 PushDeer 账号中的 key，保存即可。可点右侧的测试按钮测试效果。
-
 
 ## FAQ
 
