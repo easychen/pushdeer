@@ -23,7 +23,7 @@ struct TokenContent: Codable{
 struct UserInfoContent: Codable{
   let id: Int
   let name: String
-  let email: String
+  let email: String?
   let apple_id: String
   let wechat_id: String?
   let level: Int

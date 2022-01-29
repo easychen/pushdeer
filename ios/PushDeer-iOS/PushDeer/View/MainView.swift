@@ -15,7 +15,11 @@ struct MainView: View {
     TabView.init(selection: $store.tabSelectedIndex) {
       DeviceListView()
         .tabItem {
-          Label("设备",systemImage: "ipad.and.iphone")
+          if #available(iOS 15.0, *) {
+            Label("设备",systemImage: "ipad.and.iphone")
+          } else {
+            Label("设备",systemImage: "laptopcomputer.and.iphone")
+          }
         }
         .tag(0)
       

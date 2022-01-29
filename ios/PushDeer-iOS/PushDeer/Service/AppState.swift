@@ -20,7 +20,7 @@ class AppState: ObservableObject {
   /// key 列表
   @Published var keys: [KeyItem] = []
   /// 消息列表
-//  @Published var messages: [MessageItem] = []
+  //  @Published var messages: [MessageItem] = []
   /// 选中的 tab 下标
   @Published var tabSelectedIndex: Int {
     didSet {
@@ -79,13 +79,18 @@ class AppState: ObservableObject {
           
         } catch {
           print(error)
+          // 后端登录失败
+          throw NSError(domain: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示") + "\n\(error.localizedDescription)", code: -4, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示") + "(-4)\n\(error.localizedDescription)"])
         }
+      } else {
+        // 非 Apple 登录凭证
+        throw NSError(domain: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示"), code: -3, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示") + "(-3)"])
       }
     case let .failure(error):
       print(error)
+      // Apple 登录失败
+      throw NSError(domain: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示") + "\n\(error.localizedDescription)", code: -2, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示") + "(-2)\n\(error.localizedDescription)"])
     }
-    // 登录失败
-    throw NSError(domain: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示"), code: -1, userInfo: nil)
   }
   
 }

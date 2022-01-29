@@ -25,8 +25,14 @@ struct EditableText: View {
   
   var body: some View {
     if #available(iOS 15.0, *) {
-      textField()
-        .submitLabel(.done)
+      Group {
+        // https://stackoverflow.com/questions/70506330/swiftui-app-crashes-with-different-searchbar-viewmodifier-on-ios-14-15/70603710#70603710
+        // !!!: 用 Group 包起来, 并且再次检查, 是因为在 Xcode 13.2 上面有 bug, 造成老版本也会寻找 if 里面的新方法, 造成老版本奔溃.
+        if #available(iOS 15.0, *) {
+          textField()
+            .submitLabel(.done)
+        }
+      }
     } else {
       textField()
     }

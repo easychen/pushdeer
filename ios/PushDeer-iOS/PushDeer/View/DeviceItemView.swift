@@ -89,7 +89,10 @@ struct DeviceItemView: View {
     if deviceName.contains("mac") {
       return "macwindow"
     }
-    return "ipad.and.iphone"
+    if #available(iOS 15.0, *) {
+      return "ipad.and.iphone"
+    }
+    return "laptopcomputer.and.iphone"
   }
 }
 
