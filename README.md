@@ -37,6 +37,30 @@ iOS APP和Mac APP可以在苹果商店搜索安装。注意iOS APP、Mac APP和�
 
 PS：系统设计最低支持版本为iOS14，但目前存在兼容性问题，有iOS14真机和苹果开发者证书的同学可以下载源码并编译（参考[这个文档](ios/PushDeer-iOS/README.md)），将报错信息提交到issue可以加速我们的修复时间。
 
+## 将 PushDeer 接入 ServerChan 
+
+由于 PushDeer 刚开发，很多软件和平台都尚未整合其接口，你可以将 PushDeer 接入Server酱作为通道使用，效果是：
+
+1. 调用Server酱接口
+2. 在 PushDeer 客户端收到通知
+
+方式如下：
+
+1. 登入 sct.ftqq.com ，选择「消息通道」页面，选择「其他通道」中的「自定义」
+2. 在「自定义 WebHook 配置用 json」中填入以下内容:
+
+```json
+{
+	"url":"https://api2.pushdeer.com/message/push?pushkey={{pushkey}}",
+	"values":[
+		{"text":"{{title}} "},
+                 {"desp":"{{desp}}"}
+	]
+}
+```
+
+注意将 `{{pushkey}}` 换成你自己的 PushDeer 账号中的 key，保存即可。可点右侧的测试按钮测试效果。
+
 
 ## FAQ
 
