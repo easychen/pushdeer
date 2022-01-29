@@ -1,6 +1,6 @@
 # PushDeer
 
-PushDeer开源版，可以自行架设的无APP推送服务（WIP，API、iOS和Mac第一版本完成，Android即将完成，其他部分正在施工🚧）
+PushDeer开源版，可以自行架设的无APP推送服务（WIP，API、iOS、Android和Mac第一版本完成，轻应用正在施工🚧）
 
 [🐙🐱 GitHub仓库](https://github.com/easychen/pushdeer) [🔮 中国大陆镜像仓库](https://gitee.com/easychen/pushdeer)
 
@@ -16,8 +16,8 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，API、iOS和
 
 |功能|核心贡献人|预期完成时间|最低版本兼容|本周进度|
 |-|-|-|-|-|
-|iOS/MacApp+Clip开发|[Hext123](https://github.com/Hext123)|2022年1月20日|iOS15（14兼容修复中）|第一版完成，代码在iOS目录下|
-|Android客户端|[WolfHugo](https://github.com/alone-wolf)|2022年2月24日|5.1|界面细节调整中|
+|iOS/MacApp+Clip开发|[Hext123](https://github.com/Hext123)|已完成|iOS15（14兼容修复中）|第一版完成，代码在iOS目录下|
+|Android客户端|[WolfHugo](https://github.com/alone-wolf)|已完成|5.1|第一版开发完成，release页面可下载|
 |快应用|[7YHong](https://github.com/7YHong)|2022年2月27日|-|完成快应用界面展示部分，下周对接API|
 |API完善和更新|[古俊杰](https://github.com/ilovintit)|配合客户端同步更新|-|添加自动生成swgger文档功能中|
 
@@ -27,7 +27,7 @@ PushDeer开源版，可以自行架设的无APP推送服务（WIP，API、iOS和
 
 ![](doc/image/clipcode.png)
 
-1. 用苹果系统（iOS 15+）摄像头扫描上边的码
+1. 苹果系统（iOS 15+）用摄像头扫描上边的码（ Android快应用未上架，可从右侧Release处下载APP用 ）
 1. 通过apple账号登录
 1. 切换到「设备」标签页，点击右上角的加号，注册当前设备
 1. 切换到「Key」标签页，点击右上角的加号，创建一个Key
@@ -37,6 +37,30 @@ iOS APP和Mac APP可以在苹果商店搜索安装。注意iOS APP、Mac APP和�
 
 PS：系统设计最低支持版本为iOS14，但目前存在兼容性问题，有iOS14真机和苹果开发者证书的同学可以下载源码并编译（参考[这个文档](ios/PushDeer-iOS/README.md)），将报错信息提交到issue可以加速我们的修复时间。
 
+## 将 PushDeer 接入 ServerChan 
+
+由于 PushDeer 刚开发，很多软件和平台都尚未整合其接口，你可以将 PushDeer 接入Server酱作为通道使用，效果是：
+
+1. 调用Server酱接口
+2. 在 PushDeer 客户端收到通知
+
+方式如下：
+
+1. 登入 sct.ftqq.com ，选择「消息通道」页面，选择「其他通道」中的「自定义」
+2. 在「自定义 WebHook 配置用 json」中填入以下内容:
+
+```json
+{
+	"url":"https://api2.pushdeer.com/message/push?pushkey={{pushkey}}",
+	"values":[
+		{"type":"markdown"},
+                 {"text":"{{title}} "},
+                 {"desp":"{{desp}} [查看详情]({{url}})"}
+	]
+}
+```
+
+注意将 `{{pushkey}}` 换成你自己的 PushDeer 账号中的 key，保存即可。可点右侧的测试按钮测试效果。
 
 ## FAQ
 
