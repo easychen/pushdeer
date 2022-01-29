@@ -37,6 +37,7 @@ struct LoginView: View {
               // 获取成功去主页
             } catch {
               showLoading = false
+              HToast.showError(error.localizedDescription)
             }
           }
         )

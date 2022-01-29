@@ -14,7 +14,7 @@ struct MessageListView: View {
   
   @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MessageModel.created_at, ascending: false)], animation: .default)
   private var messages: FetchedResults<MessageModel>
-
+  
   var body: some View {
     BaseNavigationView(title: "消息") {
       ScrollView {
@@ -78,12 +78,16 @@ struct TestPushView: View {
           store.keys = try await HttpRequest.getKeys().keys
         }
         if let keyItem = store.keys.first {
-          _ = try await HttpRequest.push(pushkey: keyItem.key, text: testText, desp: "", type: "")
-          testText = ""
-          HToast.showSuccess(NSLocalizedString("推送成功", comment: ""))
-          let messageItems = try await HttpRequest.getMessages().messages
-          withAnimation(.easeOut) {
-            try? MessageModel.saveAndUpdate(messageItems: messageItems)
+          do {
+            _ = try await HttpRequest.push(pushkey: keyItem.key, text: testText, desp: "", type: "")
+            testText = ""
+            HToast.showSuccess(NSLocalizedString("推送成功", comment: ""))
+            let messageItems = try await HttpRequest.getMessages().messages
+            withAnimation(.easeOut) {
+              try? MessageModel.saveAndUpdate(messageItems: messageItems)
+            }
+          } catch {
+            HToast.showError(error.localizedDescription)
           }
         } else {
           HToast.showError(NSLocalizedString("推送失败, 请先添加一个Key", comment: ""))

@@ -15,7 +15,7 @@ struct SettingsView: View {
   var body: some View {
     BaseNavigationView(title: "设置") {
       VStack {
-        SettingsItemView(title: NSLocalizedString("登录为", comment: "") + " \(store.userInfo?.name ?? "--")", button: NSLocalizedString("退出", comment: "退出登录按钮上的文字")) {
+        SettingsItemView(title: NSLocalizedString("登录为", comment: "") + " " + userName(), button: NSLocalizedString("退出", comment: "退出登录按钮上的文字")) {
           store.token = ""
         }
         .padding(EdgeInsets(top: 18, leading: 20, bottom: 0, trailing: 20))
@@ -43,6 +43,18 @@ struct SettingsView: View {
       Task {
         store.userInfo = try await HttpRequest.getUserInfo()
       }
+    }
+  }
+  
+  func userName() -> String {
+    if let name = store.userInfo?.name {
+      if name.isEmpty {
+        return NSLocalizedString("苹果用户", comment: "")
+      } else {
+        return name
+      }
+    } else {
+      return "--"
     }
   }
 }

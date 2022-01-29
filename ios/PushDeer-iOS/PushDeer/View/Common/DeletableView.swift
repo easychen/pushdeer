@@ -42,7 +42,7 @@ struct DeletableView<Content : View> : View {
           DragGesture()
             .onChanged({ value in
               let width = value.translation.width
-              print("onChanged", width)
+//              print("onChanged", width)
               let endX = isShowDelete ? offsetMaxX : 0.0
               if width < endX {
                 offsetX = width - endX
