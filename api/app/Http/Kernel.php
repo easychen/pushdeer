@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'auto.login' => \App\Http\Middleware\TokenLogin::class,
         'auth.member' => \App\Http\Middleware\EnsureMember::class,
+        'json.request' => \App\Http\Middleware\JsonRequest::class,
     ];
 }

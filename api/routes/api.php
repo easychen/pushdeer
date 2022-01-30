@@ -30,7 +30,7 @@ Route::post('/login/idtoken', 'App\Http\Controllers\PushDeerUserController@login
 Route::post('/login/wecode', 'App\Http\Controllers\PushDeerUserController@wechatLogin');
 
 // 推送消息
-Route::any('/message/push', 'App\Http\Controllers\PushDeerMessageController@push');
+Route::middleware('json.request')->any('/message/push', 'App\Http\Controllers\PushDeerMessageController@push');
 
 
 // 自动登入，适用于通过 token 进行操作的接口
