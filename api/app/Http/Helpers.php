@@ -88,7 +88,9 @@ function android_send($is_clip, $device_token, $text, $desp = '', $dev = true)
     $message1->build();
 
     $sender = android_sender();
-    return $sender->send($message1, $device_token)->getRaw();
+    // return $sender->send($message1, $device_token)->getRaw();
+    // 返回和 gorush 类似的格式，
+    return json_encode(["counts"=>1,"logs"=>[$sender->send($message1, $device_token)->getRaw()]]);
 }
 
 function ios_send($is_clip, $device_token, $text, $desp = '', $dev = true)
