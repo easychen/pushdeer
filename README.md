@@ -357,6 +357,8 @@ API_BASE=http://127.0.0.1:8800
 |desp|消息内容第二部分，选填|
 |type|格式，选填|文本=text，markdown，图片=image，默认为markdown|
 
+type 为 image 时，text 中为要发送图片的URL。
+
 #### 获得当前用户的消息列表
 
 `POST /message/list`
