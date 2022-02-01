@@ -12,11 +12,18 @@ struct ContentView: View {
   @EnvironmentObject private var store: AppState
   
   var body: some View {
-    if store.token.isEmpty {
-      LoginView()
-    } else {
-      MainView()
+    
+    if store.api_endpoint.isEmpty || store.api_endpoint=="https://api2.pushdeer.com"
+    {
+      EndpointView()
+    }else{
+      if store.token.isEmpty {
+        LoginView()
+      } else {
+        MainView()
+      }
     }
+    
   }
 }
 

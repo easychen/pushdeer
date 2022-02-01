@@ -1,3 +1,4 @@
-*.yml
-*.p12
-*.p8
+ios.p12
+clip.p12
+ios.p8
+clip.p8

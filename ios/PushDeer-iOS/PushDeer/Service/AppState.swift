@@ -15,6 +15,14 @@ class AppState: ObservableObject {
       UserDefaults.standard.set(token, forKey: "PushDeer_token")
     }
   }
+  
+  /// API endpoint
+  @Published var api_endpoint : String {
+    didSet {
+      UserDefaults.standard.set(api_endpoint, forKey: "PushDeer_api_endpoint")
+    }
+  }
+  
   /// 设备列表
   @Published var devices: [DeviceItem] = []
   /// key 列表
@@ -50,9 +58,12 @@ class AppState: ObservableObject {
   static let shared = AppState()
   private init() {
     let _token = UserDefaults.standard.string(forKey: "PushDeer_token")
+    let _api_endpoint = UserDefaults.standard.string(forKey: "PushDeer_api_endpoint")
+    
     let _tabSelectedIndex = UserDefaults.standard.integer(forKey: "PushDeer_tabSelectedIndex")
     let _isShowTestPush = UserDefaults.standard.object(forKey: "PushDeer_isShowTestPush")
     token = _token ?? ""
+    api_endpoint = _api_endpoint ?? "https://api2.pushdeer.com"
     tabSelectedIndex = _tabSelectedIndex
     isShowTestPush = _isShowTestPush as? Bool ?? true
   }

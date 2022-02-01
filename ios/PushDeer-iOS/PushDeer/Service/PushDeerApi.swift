@@ -34,7 +34,7 @@ enum PushDeerApi {
 }
 
 extension PushDeerApi: TargetType {
-  var baseURL: URL { URL( string: "http://pushdeer.wskfz.com:8800" )! }
+  var baseURL: URL { URL( string: AppState.shared.api_endpoint )! }
   var path: String {
     switch self {
     case .fake:

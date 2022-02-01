@@ -20,9 +20,10 @@ struct SettingsView: View {
         }
         .padding(EdgeInsets(top: 18, leading: 20, bottom: 0, trailing: 20))
         
-        SettingsItemView(title: NSLocalizedString("自定义服务器", comment: ""), button: NSLocalizedString("扫码", comment: "")) {
+        SettingsItemView(title: NSLocalizedString("API endpoint", comment: ""), button: NSLocalizedString("重置", comment: "")) {
+          store.api_endpoint = "https://api2.pushdeer.com"
+          store.token = ""
         }
-        .disabled(true)
         .padding(EdgeInsets(top: 18, leading: 20, bottom: 0, trailing: 20))
         
         SettingsItemView(title: NSLocalizedString("喜欢PushDeer?", comment: ""), button: NSLocalizedString("评分", comment: "")) {

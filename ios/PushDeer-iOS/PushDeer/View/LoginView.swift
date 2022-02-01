@@ -20,6 +20,13 @@ struct LoginView: View {
       Image("logo.with.space")
         .resizable()
         .scaledToFit()
+//        .onLongPressGesture(minimumDuration: 0.3) {
+//          store.api_endpoint = ""
+//        }
+      Button("重置API endpoint")
+      {
+        store.api_endpoint = ""
+      }
       Spacer()
       if showLoading {
         ProgressView()
