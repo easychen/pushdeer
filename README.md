@@ -206,15 +206,12 @@ PushDeer主要面向以下三类用户
 
 ```git clone https://github.com/easychen/pushdeer.git```
 
-### 配置推送证书
-
-进入 `push` 目录，修改 `*.yml.sample` 为 `*.yml`。其中iOS应用和Clip使用两个分开的证书进行推送，`ios.yml` 是APP的配置、`clip.yml`是Clip的配置。注意根据开发和产品状态，修改`yml`中的值`production`。
-
-默认配置中，`c.p12` 是APP的推送证书、`cc.p12`是Clip的推送证书。
 
 ### 启动docker环境
 
 运行 `docker-compose up -d`，启动API。默认访问地址为`http://127.0.0.1:8800`。可修改`docker-compose.yml`调整端口。
+
+> 亦可运行 `docker-compose -f docker-compose.self-hosted.yml up --build -d` 启动已配置推送功能的版本
 
 ### API 说明
 
