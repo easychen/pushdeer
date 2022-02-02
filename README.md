@@ -44,7 +44,9 @@ PS：系统设计最低支持版本为iOS14，但目前存在兼容性问题，�
 1. 调用Server酱接口
 2. 在 PushDeer 客户端收到通知
 
-方式如下：
+⚠️ 更新：Server酱已经直接支持PushDeer通道，选中「PushDeer」后填写Pushkey即可。
+
+以下为自定义通道的配置方式：
 
 1. 登入 sct.ftqq.com ，选择「消息通道」页面，选择「其他通道」中的「自定义」
 2. 在「自定义 WebHook 配置用 json」中填入以下内容:
