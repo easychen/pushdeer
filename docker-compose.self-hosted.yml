@@ -31,5 +31,6 @@ services:
       - DB_PASSWORD=theVeryp@ssw0rd
       - GO_PUSH_IOS_TOPIC=com.pushdeer.self.ios
       - GO_PUSH_IOS_CLIP_TOPIC=com.pushdeer.self.ios.Clip
+      - APP_DEBUG=false
 volumes:
   mariadb_data:
