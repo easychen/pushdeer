@@ -144,6 +144,8 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 }
 ```
 
+> ⚠️ 自架服务器端需每年2月拉取一次更新推送证书
+
 ### 使用自架版客户端
 
 ![](doc/image/2022-02-02-21-45-29.png)
