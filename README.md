@@ -25,6 +25,8 @@ PushDeer是一个可以自行架设的无APP推送服务。
 
 ### iOS14+
 
+![](doc/image/clipcode.png)
+
 苹果手机（iOS 14+）用系统摄像头扫描上边的码即可拉起轻应用。亦可在苹果商店搜索「PushDeer」安装。
 
 > 注意：这里不要安装PushDeer自架版
@@ -148,15 +150,15 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 
 在苹果商店搜索「PushDeer·自架版」安装并启动。
 
-![](doc/image/2022-02-02-21-14-21.png | width=400)
+![](doc/image/2022-02-02-21-14-21.png)
 
 在启动界面输入 `$AAA(需替换为服务器端IP或域名):8800`，点保存。如果通信顺利，即可顺利完成「通过Apple登录」。如输入错误，可点击「重置API endpoint」重新输入。
 
-![](doc/image/2022-02-02-21-17-45.png | width=400)
+![](doc/image/2022-02-02-21-17-45.png)
 
 登入成功后，亦可随时在设置页面重置 API endpoint。
 
-![](doc/image/2022-02-02-21-18-49.png | width=400)
+![](doc/image/2022-02-02-21-18-49.png)
 
 
 ### 生产环境的配置强化/优化
