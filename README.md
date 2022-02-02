@@ -101,6 +101,8 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
 1. 登入 sct.ftqq.com ，选择「消息通道」页面，选择「推荐通道」中的「PushDeer」
 1. 将在PushDeer客户端中生成的Key填入即可
 
+![](doc/image/2022-02-02-21-39-16.png)
+
 你也可以通过「其他通道」中的「自定义」来修改转发格式和文案。具体操作是，在「自定义 WebHook 配置用 json」中填入以下内容:
 
 ```json
@@ -142,17 +144,19 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 
 ### 使用自架版客户端
 
+![](doc/image/2022-02-02-21-45-29.png)
+
 在苹果商店搜索「PushDeer·自架版」安装并启动。
 
-![](doc/image/2022-02-02-21-14-21.png)
+![](doc/image/2022-02-02-21-14-21.png | width=400)
 
 在启动界面输入 `$AAA(需替换为服务器端IP或域名):8800`，点保存。如果通信顺利，即可顺利完成「通过Apple登录」。如输入错误，可点击「重置API endpoint」重新输入。
 
-![](doc/image/2022-02-02-21-17-45.png)
+![](doc/image/2022-02-02-21-17-45.png | width=400)
 
 登入成功后，亦可随时在设置页面重置 API endpoint。
 
-![](doc/image/2022-02-02-21-18-49.png)
+![](doc/image/2022-02-02-21-18-49.png | width=400)
 
 
 ### 生产环境的配置强化/优化
