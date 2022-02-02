@@ -467,12 +467,12 @@ PushDeer主要面向以下三类用户
 1. 面向自己的用户推送通知、内容和营销信息（类似公众号，但不受微信限制）
 
 
-## 授权
+# 授权
 
 本项目禁止商用（包括但不限于搭建后挂广告或售卖会员、打包后上架商店销售等），对非商业用途采用 GPLV2 授权
 
 
-## 相关项目
+# 相关项目
 
 - [API的Go实现](https://github.com/iepngs/pushdeer-backend-go) by [iepngs](https://github.com/iepngs)
 
