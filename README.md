@@ -25,8 +25,6 @@ PushDeer是一个可以自行架设的无APP推送服务。
 
 ### iOS14+
 
-![](doc/image/clipcode.png)
-
 苹果手机（iOS 14+）用系统摄像头扫描上边的码即可拉起轻应用。亦可在苹果商店搜索「PushDeer」安装。
 
 > 注意：这里不要安装PushDeer自架版
