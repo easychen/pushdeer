@@ -130,11 +130,21 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
 
 然后运行以下代码：
 
+（大陆服务器使用）
 ```
-git clone https://github.com/easychen/pushdeer
+git clone https://gitee.com/easychen/pushdeer.git
 cd pushdeer
 docker-compose -f docker-compose.self-hosted.yml up --build -d
 ```
+
+（海外服务器使用）
+```
+git clone https://github.com/easychen/pushdeer.git
+cd pushdeer
+docker-compose -f docker-compose.self-hosted.yml up --build -d
+```
+
+> 如提示docker服务未安装/找不到/未启动，可在 docker-compose 前加 sudo 再试
 
 等待初始化完成后，访问 `$AAA(需替换为服务器端IP或域名):8800`，看到以下信息则表示服务器端已启动完毕。
 
