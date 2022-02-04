@@ -1,6 +1,6 @@
 PushDeer是一个可以自行架设的无APP推送服务。
 
-当前状态：API、iOS、Android和Mac第一版已完成，轻应用正在开发🚧
+当前状态：API、iOS、Android和Mac第一版已完成，快应用正在开发🚧
 
 [🐙🐱 GitHub仓库](https://github.com/easychen/pushdeer) [🔮 中国大陆镜像仓库@Gitee](https://gitee.com/easychen/pushdeer)
 
