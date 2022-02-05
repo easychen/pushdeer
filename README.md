@@ -126,6 +126,8 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
 
 除了使用官方架设的服务器端，你也可以架设自己的服务器端。本仓库支持通过docker部署服务器端。
 
+如果你没有云服务器，可以看看[腾讯云30~50元首单的特价服务器](https://curl.qcloud.com/VPjlS4gj)
+
 首先请确保服务器(假设其IP或域名为$AAA)上支持docker和docker-compose。
 
 然后运行以下代码：
