@@ -29,6 +29,9 @@ Route::post('/login/idtoken', 'App\Http\Controllers\PushDeerUserController@login
 // 通过 微信客户端返回的 code 登入
 Route::post('/login/wecode', 'App\Http\Controllers\PushDeerUserController@wechatLogin');
 
+// 通过 微信客户端返回的 code 换取 unionid 等信息
+Route::any('/login/unoinid', 'App\Http\Controllers\PushDeerUserController@wecode2unionid');
+
 // 推送消息
 Route::middleware('json.request')->any('/message/push', 'App\Http\Controllers\PushDeerMessageController@push');
 

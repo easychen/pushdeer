@@ -56,11 +56,11 @@ class PushDeerUserController extends Controller
         return send_error('id_token解析错误', ErrorCode('ARGS'));
     }
 
-    public function wechatLogin(Request $request)
+    public function wecode2unionid(Request $request)
     {
         $validated = $request->validate(
             [
-                'code' => 'string',
+                'code' => 'required|string',
             ]
         );
 
@@ -78,6 +78,47 @@ class PushDeerUserController extends Controller
 
             if (!$code_info || !isset($code_info['access_token']) || !isset($code_info['unionid'])) {
                 return send_error("错误的Code", ErrorCode('REMOTE'));
+            }
+
+            return http_result(['unionid'=>$code_info['unionid']]);
+        }
+
+        return send_error('微信Code错误', ErrorCode('ARGS'));
+    }
+
+    public function wechatLogin(Request $request)
+    {
+        $validated = $request->validate(
+            [
+                'code' => 'required|string',
+                'self_hosted' => 'integer|nullable',
+            ]
+        );
+
+        if (isset($validated['code'])) {
+            if (intval(@$validated['self_hosted']) != 1) {
+                // 解码并进行验证
+                $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="
+                .urlencode(env("WECHAT_APPID"))
+                ."&secret="
+                .urlencode(env("WECHAT_APPSECRET"))
+                ."&code="
+                .urlencode($validated['code'])
+                ."&grant_type=authorization_code";
+
+                $code_info = json_decode(file_get_contents($url), true);
+
+                if (!$code_info || !isset($code_info['access_token']) || !isset($code_info['unionid'])) {
+                    return send_error("错误的Code", ErrorCode('REMOTE'));
+                }
+            } else {
+                $url = "https://api2.pushdeer.com/login/unoinid?code=".urlencode($validated['code']);
+                $ret = json_decode(file_get_contents($url), true);
+                if (!$ret || !isset($ret['data']) || !isset($ret['data']['unionid'])) {
+                    return send_error("错误的Code", ErrorCode('REMOTE'));
+                }
+
+                $code_info = ['unionid'=>$ret['data']['unionid']];
             }
 
             // 现在拿到unionid了
@@ -115,7 +156,7 @@ class PushDeerUserController extends Controller
     {
         $validated = $request->validate(
             [
-                'idToken' => 'string',
+                'idToken' => 'required|string',
             ]
         );
 
@@ -157,8 +198,8 @@ class PushDeerUserController extends Controller
     {
         $validated = $request->validate(
             [
-                'tokenorcode' => 'string|required',
-                'type' => 'string|required', // apple or wechat
+                'tokenorcode' => 'required|string',
+                'type' => 'required|string', // apple or wechat
             ]
         );
 
