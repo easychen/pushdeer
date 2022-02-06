@@ -114,11 +114,11 @@ class PushDeerUserController extends Controller
             } else {
                 $url = "https://api2.pushdeer.com/login/unoinid?code=".urlencode($validated['code']);
                 $ret = json_decode(file_get_contents($url), true);
-                if (!$ret || !isset($ret['data']) || !isset($ret['data']['unionid'])) {
+                if (!$ret || !isset($ret['content']) || !isset($ret['content']['unionid'])) {
                     return send_error("错误的Code", ErrorCode('REMOTE'));
                 }
 
-                $code_info = ['unionid'=>$ret['data']['unionid']];
+                $code_info = ['unionid'=>$ret['content']['unionid']];
             }
 
             // 现在拿到unionid了
