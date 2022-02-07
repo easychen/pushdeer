@@ -266,7 +266,7 @@ func handleNotification(ctx context.Context, cfg *config.ConfYaml, req notify.Re
 			if !cfg.Huawei.Enabled {
 				continue
 			}
-		case core.PlaFormMI:
+		case core.PlatFormMI:
 			if !cfg.MI.Enabled {
 				continue
 			}

@@ -67,7 +67,7 @@ function android_sender()
     return $GLOBALS['PD_ANDROID_SENDER'];
 }
 
-function android_send($is_clip, $device_token, $text, $desp = '', $dev = true)
+function android_send_no_queue($is_clip, $device_token, $text, $desp = '', $dev = true)
 {
     if (strlen($desp) < 1) {
         $desp = $text;
@@ -117,6 +117,32 @@ function ios_send($is_clip, $device_token, $text, $desp = '', $dev = true)
     $notification->sound = ['volume'=>2.0];
 
     $json = ['notifications'=>[$notification]];
+    $client = new GuzzleHttp\Client();
+    $response = $client->post('http://'.config('services.go_push.address').':'. $port .'/api/push', [
+    GuzzleHttp\RequestOptions::JSON => $json
+    ]);
+    $ret = $response->getBody()->getContents();
+    error_log('push error'. $ret);
+    return $ret;
+}
+
+function android_send($is_clip, $device_token, $text, $desp = '', $dev = true)
+{
+    $notification = new stdClass();
+    $notification->tokens = [ $device_token ];
+    $notification->platform = 4;
+    if (strlen($desp) > 1) {
+        $notification->title = $text;
+        $notification->message = $desp;
+    } else {
+        $notification->title = "PushDeer"; // title不能为空
+        $notification->message = $text;
+    }
+
+    $port = config('services.go_push.ios_port');
+
+    $json = ['notifications'=>[$notification]];
+
     $client = new GuzzleHttp\Client();
     $response = $client->post('http://'.config('services.go_push.address').':'. $port .'/api/push', [
     GuzzleHttp\RequestOptions::JSON => $json

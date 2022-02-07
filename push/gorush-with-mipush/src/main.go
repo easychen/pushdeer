@@ -249,6 +249,41 @@ func main() {
 		return
 	}
 
+	// send MI notification
+	if opts.MI.Enabled {
+		cfg.MI.Enabled = opts.MI.Enabled
+		req := &notify.PushNotification{
+			Platform: core.PlatFormMI,
+			Message:  message,
+			Title:    title,
+		}
+
+		// send message to single device
+		if token != "" {
+			req.Tokens = []string{token}
+		}
+
+		// send topic message
+		if topic != "" {
+			req.To = topic
+		}
+
+		err := notify.CheckMessage(req)
+		if err != nil {
+			logx.LogError.Fatal(err)
+		}
+
+		if err := status.InitAppStatus(cfg); err != nil {
+			return
+		}
+
+		if _, err := notify.PushToMI(req, cfg); err != nil {
+			return
+		}
+
+		return
+	}
+
 	// send ios notification
 	if opts.Ios.Enabled {
 		if opts.Ios.Production {
@@ -383,6 +418,12 @@ func main() {
 
 	if cfg.Huawei.Enabled {
 		if _, err = notify.InitHMSClient(cfg, cfg.Huawei.AppSecret, cfg.Huawei.AppID); err != nil {
+			logx.LogError.Fatal(err)
+		}
+	}
+
+	if cfg.MI.Enabled {
+		if _, err = notify.InitMIPUSHClient(cfg, cfg.MI.AppSecret, cfg.MI.Package ); err != nil {
 			logx.LogError.Fatal(err)
 		}
 	}

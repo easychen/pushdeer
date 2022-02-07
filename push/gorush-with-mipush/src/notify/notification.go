@@ -196,8 +196,8 @@ func SetProxy(proxy string) error {
 
 // CheckPushConf provide check your yml config.
 func CheckPushConf(cfg *config.ConfYaml) error {
-	if !cfg.Ios.Enabled && !cfg.Android.Enabled && !cfg.Huawei.Enabled {
-		return errors.New("please enable iOS, Android or Huawei config in yml config")
+	if !cfg.Ios.Enabled && !cfg.Android.Enabled && !cfg.Huawei.Enabled && !cfg.MI.Enabled {
+		return errors.New("please enable iOS, Android, Huawei or Mi config in yml config")
 	}
 
 	if cfg.Ios.Enabled {
@@ -248,7 +248,7 @@ func SendNotification(req queue.QueuedMessage, cfg *config.ConfYaml) (resp *Resp
 		resp, err = PushToAndroid(v, cfg)
 	case core.PlatFormHuawei:
 		resp, err = PushToHuawei(v, cfg)
-	case core.PlaFormMI:
+	case core.PlatFormMI:
 		resp, err = PushToMI(v, cfg)
 	}
 
@@ -267,6 +267,7 @@ func SendNotification(req queue.QueuedMessage, cfg *config.ConfYaml) (resp *Resp
 // Run send notification
 var Run = func(cfg *config.ConfYaml) func(ctx context.Context, msg queue.QueuedMessage) error {
 	return func(ctx context.Context, msg queue.QueuedMessage) error {
+		logx.LogAccess.Debug("in queue")
 		_, err := SendNotification(msg, cfg)
 		return err
 	}

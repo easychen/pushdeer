@@ -36,6 +36,12 @@ ios:
   key_id: "66M7BD2GCV" # KeyID from developer account (Certificates, Identifiers & Profiles -> Keys)
   team_id: "HUJ6HAE4VU" # TeamID from developer account (View Account -> Membership)
 
+mi:
+  enabled: true
+  appsecret: ""
+  package: ""
+  max_retry: 3 # resend fail notification, default value zero is disabled
+
 log:
   format: "string" # string or json
   access_log: "stdout" # stdout: output to console, or define log path like "log/access_log"
@@ -44,5 +50,18 @@ log:
   error_level: "error"
   hide_token: true
 
+queue:
+  engine: "local" # support memory, redis, boltdb, buntdb or leveldb
+  redis:
+    cluster: false
+    addr: "redis:6379" # if cluster is true, you may set this to "localhost:6379,localhost:6380,localhost:6381"
+    password: ""
+    db: 0
+
 stat:
-  engine: "memory" # support memory, redis, boltdb, buntdb or leveldb
+  engine: "redis" # support memory, redis, boltdb, buntdb or leveldb
+  redis:
+    cluster: false
+    addr: "redis:6379" # if cluster is true, you may set this to "localhost:6379,localhost:6380,localhost:6381"
+    password: ""
+    db: 0

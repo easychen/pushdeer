@@ -169,8 +169,12 @@ github.com/golang-queue/nsq v0.0.6 h1:GXk9Dx9ex3/rQDSaK78RK2B0CBNc0ym45hclEjNDNE
 github.com/golang-queue/nsq v0.0.6/go.mod h1:oKhZjEiAZ4scaQTePCSSnsmvyHb6ID0AsqE5rtKrAOE=
 github.com/golang-queue/queue v0.0.10 h1:cGqMgHMf2eamwdd3hmOzGcSQogGu9tMhhVYPQMrMC1g=
 github.com/golang-queue/queue v0.0.10/go.mod h1:ku8iyjYffqYY6Duts+xl+QYfN3/KDK4MEvXMZUkHyio=
+github.com/golang-queue/queue v0.0.11 h1:qaE7rOYUh+11NcO6U9zZ7NazglIwEp0j7Dn0sSoavcI=
+github.com/golang-queue/queue v0.0.11/go.mod h1:ku8iyjYffqYY6Duts+xl+QYfN3/KDK4MEvXMZUkHyio=
 github.com/golang-queue/redisdb v0.0.5 h1:kW+zXopFVtBmd0/19aD3fZCWc1OoRbOV+MpXo2OBp+s=
 github.com/golang-queue/redisdb v0.0.5/go.mod h1:3LzXV4ldTCNKT0LsZXiKEhbrOM5gGISLQjYuPip+geM=
+github.com/golang-queue/redisdb v0.0.6 h1:e2qmL41iSSHHQqOwrS/+sCU2z0EPbIf6suLS+CqHGmU=
+github.com/golang-queue/redisdb v0.0.6/go.mod h1:XHyGozqrYoxI96nFrrkYdx+HHV2K/zH10ZjojM183Mc=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=
 github.com/golang/glog v0.0.0-20210429001901-424d2337a529 h1:2voWjNECnrZRbfwXxHB1/j8wa6xdKn85B5NzgVL/pTU=
 github.com/golang/glog v0.0.0-20210429001901-424d2337a529/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=

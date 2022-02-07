@@ -4,6 +4,7 @@ core:
   shutdown_timeout: 30 # default is 30 second
   port: "8889" # ignore this port number if auto_tls is enabled (listen 443).
   sync: false
+  mode: "release"
   max_notification: 1
   cert_path: "cc.p12"
   key_path: ""
@@ -44,5 +45,18 @@ log:
   error_level: "error"
   hide_token: true
 
+queue:
+  engine: "local" # redis engine 没有实现
+  redis:
+    cluster: false
+    addr: "redis:6379" # if cluster is true, you may set this to "localhost:6379,localhost:6380,localhost:6381"
+    password: ""
+    db: 0
+
 stat:
-  engine: "memory" # support memory, redis, boltdb, buntdb or leveldb
+  engine: "redis" # support memory, redis, boltdb, buntdb or leveldb
+  redis:
+    cluster: false
+    addr: "redis:6379" # if cluster is true, you may set this to "localhost:6379,localhost:6380,localhost:6381"
+    password: ""
+    db: 0

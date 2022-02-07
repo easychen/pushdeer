@@ -19,6 +19,6 @@ class RoboFile extends \Robo\Tasks
 
     public function buildLinux()
     {
-        $this->_exec("cd src && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ../bin/gorush");
+        $this->_exec("cd src && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o ../../../docker/web/gorush");
     }
 }

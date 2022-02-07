@@ -17,8 +17,8 @@ require (
 	github.com/go-redis/redis/v8 v8.11.3
 	github.com/golang-queue/nats v0.0.4
 	github.com/golang-queue/nsq v0.0.6
-	github.com/golang-queue/queue v0.0.10
-	github.com/golang-queue/redisdb v0.0.5
+	github.com/golang-queue/queue v0.0.11
+	github.com/golang-queue/redisdb v0.0.6
 	github.com/golang/glog v0.0.0-20210429001901-424d2337a529 // indirect
 	github.com/golang/protobuf v1.5.2
 	github.com/google/flatbuffers v2.0.0+incompatible // indirect

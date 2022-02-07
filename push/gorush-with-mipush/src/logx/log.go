@@ -123,6 +123,8 @@ func colorForPlatForm(platform int) string {
 		return yellow
 	case core.PlatFormHuawei:
 		return green
+	case core.PlatFormMI:
+		return red
 	default:
 		return reset
 	}
@@ -136,6 +138,8 @@ func typeForPlatForm(platform int) string {
 		return "android"
 	case core.PlatFormHuawei:
 		return "huawei"
+	case core.PlatFormMI:
+		return "xiaomi"
 	default:
 		return ""
 	}
