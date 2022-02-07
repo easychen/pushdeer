@@ -12,6 +12,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"math/rand"
 )
 
 var (
@@ -80,9 +81,11 @@ func GetMINotification(req *PushNotification, pkg string) (*xmpush.Message, erro
 		Title:                 payload.PushTitle,
 		Description:           payload.PushBody,
 		PassThrough:           int32(passThrough),
-		NotifyType:            1,
+		NotifyType:            3,
+		NotifyID:							 rand.Int63n(1024),
 		RestrictedPackageName: pkg,
 		Extra: map[string]string{
+			"notify_effect": "1",
 			"notify_foreground": "1",
 			"channel_id":        "high_system",
 			"channel_name":      "服务提醒",
