@@ -84,6 +84,8 @@ func GetMINotification(req *PushNotification, pkg string) (*xmpush.Message, erro
 		RestrictedPackageName: pkg,
 		Extra: map[string]string{
 			"notify_foreground": "1",
+			"channel_id":        "high_system",
+			"channel_name":      "服务提醒",
 		},
 	}
 	if len(req.Tokens) > 0 {
