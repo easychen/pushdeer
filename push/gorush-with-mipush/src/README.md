@@ -1331,3 +1331,52 @@ Or you can deploy gorush to alternative solution like [netlify functions](https:
 Copyright 2019 Bo-Yi Wu [@appleboy](https://twitter.com/appleboy).
 
 Licensed under the MIT License.
+
+## gorush with MIPUSH 
+
+### RUN
+
+```bash
+./gorush -c ./config/testdata/config.yml 
+
+```
+
+```yaml
+#add section
+mi:
+  enabled: true
+  appsecret: "xxxxxxx"
+  package: "xxxxxxx"
+  max_retry: 3 # resend fail notification, default value zero is disabled
+```
+
+### API case
+
+```bash
+# 单推 or 群推
+curl --location --request POST '127.0.0.1:8088/api/push' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "notifications": [
+    {
+      "tokens": ["ufnjAD7ON0VfYUgZYNeFVId7Q9KXyGYIA2GrOTnE6JLlTmn+c7wR147AYJXcY7rv"],
+      "platform": 4,
+      "title":"Hello World MIPUSH!",
+      "message": "Hello World MIPUSH!"
+    }
+  ]
+}'
+# 全推
+curl --location --request POST '127.0.0.1:8088/api/push' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+  "notifications": [
+    {
+      "tokens": [],
+      "platform": 4,
+      "title":"Hello World MIPUSH!",
+      "message": "Hello World MIPUSH!"
+    }
+  ]
+}'
+```
