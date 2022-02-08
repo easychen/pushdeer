@@ -16,6 +16,7 @@ PushDeer是一个可以自行架设的无APP推送服务。
 |Android客户端|[WolfHugo](https://github.com/alone-wolf)|已完成|5.1|第一版开发完成，release页面可下载|
 |快应用|[7YHong](https://github.com/7YHong)|2022年2月27日|-|对接API中|
 |API|[Easy](https://ftqq.com) [古俊杰](https://github.com/ilovintit)|已完成|-|-|
+|gorush的mi push版本|[SinTod](https://www.sintod.cn/)|已完成|-|代码在[push/gorush-with-mipush目录下](push/gorush-with-mipush)|
 
 # 试用
 
@@ -487,5 +488,4 @@ PushDeer主要面向以下三类用户
 # 相关项目
 
 - [API的Go实现](https://github.com/iepngs/pushdeer-backend-go) by [iepngs](https://github.com/iepngs)
-
 
