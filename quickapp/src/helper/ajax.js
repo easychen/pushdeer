@@ -6,7 +6,7 @@ import $utils from './utils'
 
 const TIMEOUT = 20000
 
-Promise.prototype.finally = function(callback) {
+Promise.prototype.finally = function (callback) {
   const P = this.constructor
   return this.then(
     value => P.resolve(callback()).then(() => value),
@@ -25,24 +25,21 @@ function fetchPromise(params) {
   return new Promise((resolve, reject) => {
     $fetch
       .fetch({
-        url: params.url,
-        method: params.method,
-        data: params.data
+        ...params,
+        responseType: 'json',
       })
-      .then(response => {
-        const result = response.data
-        const content = JSON.parse(result.data)
-        /* @desc: 可跟具体不同业务接口数据，返回你所需要的部分，使得使用尽可能便捷 */
-        content.success ? resolve(content.value) : resolve(content.message)
+      .then(res => {
+        // console.log('ajax then', res)
+        const data = res.data.data
+        data.code === 0 ?
+          resolve(data.content)
+          : reject({ code: data.code, msg: data.error })
       })
-      .catch((error, code) => {
-        console.log(`🐛 request fail, code = ${code}`)
-        reject(error)
+      .catch(err => {
+        console.warn('ajax catch', err.data, err.code);
+        reject({ msg: err.data, code: err.code })
       })
-      .finally(() => {
-        console.log(`✔️ request @${params.url} has been completed.`)
-        resolve()
-      })
+
   })
 }
 
@@ -66,20 +63,20 @@ function requestHandle(params, timeout = TIMEOUT) {
 }
 
 export default {
-  post: function(url, params) {
+  post: function (url, params) {
     return requestHandle({
       method: 'post',
       url: url,
       data: params
     })
   },
-  get: function(url, params) {
+  get: function (url, params) {
     return requestHandle({
       method: 'get',
       url: $utils.queryString(url, params)
     })
   },
-  put: function(url, params) {
+  put: function (url, params) {
     return requestHandle({
       method: 'put',
       url: url,

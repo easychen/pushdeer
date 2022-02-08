@@ -12,15 +12,21 @@
     "gen": "node ./scripts/gen/index.js",
     "precommit-msg": "echo '🚧 start pre-commit checks ...' && exit 0",
     "prettier": "node ./scripts/selfCloseInputTag.js && prettier --write \"src/**/*.{ux,js,json,less,scss,css,pcss,md,vue}\"",
-    "prettier-watcher": "onchange '**/*.md' \"src/**/**/*.{ux,js,json,less,scss,css,pcss,md,vue}\" -- prettier --write {{changed}}"
+    "prettier-watcher": "onchange '**/*.md' \"src/**/**/*.{ux,js,json,less,scss,css,pcss,md,vue}\" -- prettier --write {{changed}}",
+    "fa-build": "node node_modules/webpack/bin/webpack.js --config ./node_modules/fa-toolkit/webpack.config.js",
+    "fa-watch": "node node_modules/webpack/bin/webpack.js --watch --config ./node_modules/fa-toolkit/webpack.config.js",
+    "fa-release": "node ./node_modules/cross-env/src/bin/cross-env.js uglifyjs=true sign=release node_modules/webpack/bin/webpack.js --config ./node_modules/fa-toolkit/webpack.config.js"
   },
   "dependencies": {
-    "apex-ui": "^1.9.2"
+    "apex-ui": "^1.9.2",
+    "dayjs": "^1.10.7"
   },
   "devDependencies": {
     "@babel/runtime": "^7.12.5",
     "@types/quickapp": "npm:quickapp-interface@^1.0.0",
     "colors": "^1.4.0",
+    "cross-env": "^7.0.2",
+    "fa-toolkit": "file:fa-toolkit-11.6.1-Stable.300.tgz",
     "husky": "^7.0.1",
     "less": "^4.1.1",
     "less-loader": "^10.0.1",

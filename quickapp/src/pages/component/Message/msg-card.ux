@@ -1,0 +1,58 @@
+<import name="msg-header" src="./msg-header"></import>
+<import name="swipe-item" src="../swipeItem"></import>
+<template>
+  <div class="card">
+    <msg-header title="{{msg.name +' · '+ msg.created_at}}"></msg-header>
+
+    <text if="{{msg.type === 'text'}}" class="text">{{ msg.text }}</text>
+
+    <div if="{{msg.type ==='markdown'}}" class="text">
+      <richtext type="html">{{msg.text}}</richtext>
+    </div>
+
+    <image if="{{msg.type ==='image'}}" class="image" src="{{msg.text}}"></image>
+  </div>
+</template>
+
+<script>
+  import clipboard from '@system.clipboard'
+  export default {
+
+    props: ['msg'],
+
+    onInit() {
+      // console.log('msg-text',this.msg)
+      if (this.msg.type !== 'image' && this.msg.desp.length > 0) {
+        this.msg.text += "\n" + this.msg.desp
+      }
+    }
+  }
+</script>
+
+<style lang="less">
+  @import '../../../assets/styles/style.less';
+
+  .card {
+    .flex-box-mixins(column, flex-start, center);
+    margin: 24px 0;
+    width: 100%;
+
+    .text {
+      width: 80%;
+      margin-top: 32px;
+      color: #535353;
+      font-size: 24px;
+      line-height: 48px;
+      padding: 24px;
+      border-width: 2px;
+      border-radius: 8px;
+      border-color: @primary-color;
+      background-color: #ffffff;
+    }
+
+    .image {
+      width: 100%;
+      margin-top: 32px;
+    }
+  }
+</style>
