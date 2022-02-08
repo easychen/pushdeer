@@ -1,5 +1,5 @@
 {
-  "package": "com.pushdeer.app",
+  "package": "dev.pushdeer.app",
   "name": "pushdeer",
   "versionName": "1.0.0",
   "versionCode": 1,
@@ -17,6 +17,12 @@
     },
     {
       "name": "system.fetch"
+    },
+    {
+      "name": "system.storage"
+    },
+    {
+      "name": "system.device"
     }
   ],
   "permissions": [
@@ -24,7 +30,6 @@
       "origin": "*"
     }
   ],
-  "template/official": "demo-template",
   "config": {
     "logLevel": "debug"
   },
@@ -37,6 +42,12 @@
       "pages/Home": {
         "component": "index",
         "launchMode": "singleTask"
+      },
+      "pages/component": {
+        "component": "devpage"
+      },
+      "pages/swipe":{
+        "component": "index"
       }
     }
   },

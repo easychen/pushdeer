@@ -1,0 +1,79 @@
+<import name="swipe_item" src="../component/swipeItem"></import>
+<template>
+  <div>
+    <swipe_item>
+      <text slot="content" class="main">text</text>
+      <div slot="right" class="right">
+        <image src="/assets/images/trash.png"></image>
+      </div>
+    </swipe_item>
+  </div>
+</template>
+<style>
+    .main {
+      width: 100%;
+      text-align: center;
+      background-color: blue;
+      height: 100px;
+    }
+    .right {
+      height: 60px;
+      width: 100px;
+      justify-content: center;
+    }
+</style>
+<script>
+    import prompt from '@system.prompt'
+    export default {
+        private: {
+            componentName: 'slide-view',
+            slideButton1: [
+                {
+                    id: "button1",
+                    buttonWidth: '200px',
+                    text: '删除',
+                    backgroundColor: "#cc0000",
+                    secondaryConfirm: {
+                        text: '二次确认'
+                    }
+                }
+            ],
+            slideButton2: [
+                {
+                    id: "button2",
+                    buttonWidth: '200px',
+                    icon: '../../../common/logo.png',
+                    backgroundColor: "#cc0000",
+                    secondaryConfirm: {
+                        text: '二次确认'
+                    }
+                }
+            ]
+        },
+        onInit() {
+            this.$page.setTitleBar({ text: 'slide-view' })
+        },
+        slideViewOpen() {
+            console.info(`### slide view is open ###`)
+        },
+        slideViewClose() {
+            console.info(`### slide view is close ###`)
+        },
+        slideViewSlide({ offset }) {
+            console.info(`### slide view is slide, offset is ${offset} ###`)
+        },
+        buttonClick(data) {
+            const { id, isSecondaryConfirm } = data
+            console.info(`### button:${id} is click, data is ${data} ###`)
+            if (isSecondaryConfirm) {
+                prompt.showToast({
+                    message: '第二次点击触发'
+                })
+            } else {
+                prompt.showToast({
+                    message: '第一次点击触发'
+                })
+            }
+        }
+    }
+</script>

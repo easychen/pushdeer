@@ -1,0 +1,108 @@
+<template>
+  <stack
+    class="swipe_item"
+    @touchstart="dealTouchStart"
+    @touchmove="dealTouchMove"
+    @touchend="dealTouchEnd"
+    @touchcancel="dealTouchEnd"
+  >
+    <div id="right">
+      <slot name="right"></slot>
+    </div>
+    <div id="content">
+      <slot name="content"></slot>
+    </div>
+  </stack>
+</template>
+<style lang="less">
+  .swipe_item {
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+  }
+</style>
+<script>
+let $animation = null
+  module.exports = {
+    data: {
+      movestartX: 0,
+      threshold: 30,
+      isOpened: false,
+      contentPosX: 0,
+      btnAreaWidth: 120,
+    },
+    computed: {
+
+    },
+    onInit() {
+      let that=this
+      setTimeout(() => {
+        this.$element('right').getBoundingClientRect({
+          success(res) {
+            that.btnAreaWidth=res.width
+            // console.log(`res=${JSON.stringify(res)}`);
+          }
+        })
+      }, 500);
+    },
+
+    dealTouchStart(e) {
+      this.movestartX = e.touches[0].clientX;
+      console.info("dealTouchStart movestartX=" + e.touches[0].clientX);
+    },
+
+    dealTouchMove(e) {
+      let [deltaX, contentX] = this.calX(e.touches[0].clientX)
+      // console.info(`dealTouchMove deltaX= ${deltaX},contentX= ${contentX}`);
+      if (Math.abs(deltaX) < this.threshold) {
+        return;
+      }
+      if (contentX > 0) {
+        return
+      }
+      this.animate(contentX, contentX, true)
+    },
+
+    dealTouchEnd(e) {
+      let [deltaX, contentX] = this.calX(e.changedTouches[0].clientX)
+      if (contentX > 0) {
+        contentX = 0
+      }
+      this.isOpened = contentX < -this.btnAreaWidth ? true : false
+      this.contentPosX = this.isOpened ? -this.btnAreaWidth : 0
+      console.info(`dealTouchEnd dis=${deltaX}, contentX=${contentX}, isOpened=${this.isOpened},contentPosX=${this.contentPosX}`);
+      this.animate(contentX, this.contentPosX)
+    },
+
+    calX(clientX) {
+      let deltaX = clientX - this.movestartX
+      let contentX = this.contentPosX + deltaX
+      return [deltaX, contentX]
+    },
+
+
+    animate(value1, value2, immediately = false) {
+      // console.log(`animate from ${value1} to ${value2}, immediately=${immediately}`)
+      let options = {
+        duration: immediately ? 0 : 300,
+        easing: 'linear',
+        delay: 0,
+        fill: 'forwards',
+        iterations: 1
+      }
+      let frames = [
+        {
+          transform: {
+            translateX: `${value1}px`,
+          }
+        },
+        {
+          transform: {
+            translateX: `${value2}px`,
+          }
+        }];
+      let $animation = this.$element('content').animate(frames, options);
+      $animation.play();
+    },
+  }
+</script>

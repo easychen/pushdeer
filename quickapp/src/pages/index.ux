@@ -3,11 +3,11 @@
   <!-- template里只能有一个根节点 -->
   <div class="wrapper">
     <div class="logo">
-      <img src="/assets/images/index-logo.svg" />
+      <image src="/assets/images/index-logo.svg" />
     </div>
     <div class="btn-group">
       <text class="btn-wx" @click="onWxSignBtnClick">Sign in with WeChat</text>
-        <!-- class="btn-wx"
+      <!-- class="btn-wx"
         value="Sign in with WeChat"
         onclick="onWxSignBtnClick"
       /> -->
@@ -16,54 +16,66 @@
 </template>
 
 <script>
-import router from '@system.router'
+  import router from '@system.router'
 
-export default {
-  // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
-  private: {
-  },
+  const appInitC = new BroadcastChannel('init')
+  appInitC.onmessage = ({ data }) => {
+    console.log(`index: received app init message:${data}`);
+    if (data === 1) {
+      appInitC.close()
+      router.replace({
+        uri: 'pages/Home'
+      })
+    }
+  }
 
-  onWxSignBtnClick() {
-    router.replace({
-      uri: '/pages/Home',
-    })
-  },
+  export default {
+    // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+    private: {
+    },
 
-  onInit() {
-  },
-}
+    async onWxSignBtnClick() {
+      API.login()
+        .then(token => {
+          appInitC.postMessage(token)
+        })
+    },
+
+    onInit() {
+    },
+  }
 </script>
 
 <style lang="less">
-.wrapper {
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-
-  .logo {
+  .wrapper {
     flex-direction: column;
-    justify-content: center;
-    height: 60%;
-    width: 50%;
-  }
+    align-items: center;
+    height: 100%;
 
-  .btn-group {
-    flex-direction: column;
-    width: 50%;
-    /* margin: 0 auto; */
-
-    text {
-      margin: 16px 0;
-      padding: 24px;
-      border-width: 3px;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 32px;
+    .logo {
+      flex-direction: column;
+      justify-content: center;
+      height: 60%;
+      width: 50%;
     }
-    .btn-wx {
-      color: #296c05;
-      border-color: #296c05;
+
+    .btn-group {
+      flex-direction: column;
+      width: 50%;
+      /* margin: 0 auto; */
+
+      text {
+        margin: 16px 0;
+        padding: 24px;
+        border-width: 3px;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 32px;
+      }
+      .btn-wx {
+        color: #296c05;
+        border-color: #296c05;
+      }
     }
   }
-}
 </style>

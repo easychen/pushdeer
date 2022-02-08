@@ -1,0 +1,163 @@
+<!-- <import name="button" src="apex-ui/components/button/index"></import> -->
+<template>
+  <!-- template里只能有一个根节点 -->
+  <div class="wrapper">
+    <list style="width: 50%">
+      <list-item type="devitem" for="{{ s in btns}}">
+        <text style="width: 100%;" @click="{{handleBtnClick($idx)}}">
+          {{s.label}}
+        </text>
+      </list-item>
+    </list>
+  </div>
+</template>
+
+<script>
+  import device from '@system.device'
+  export default {
+    // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+    private: {
+      btns: [
+        {
+          label: '获取userinfo', handle: async () => {
+            let userinfo = await API.userInfo()
+            console.log(`userinfo is `, userinfo)
+            // {"updated_at":"2022-01-30T15:48:56.000000Z","level":1,"name":"easychen+new","created_at":"2022-01-30T15:48:56.000000Z","id":1,"apple_id":"theid999","email":"easychen+new@gmail.com"}
+          }
+        },
+        {
+          label: '获取deviceID', handle: async () => {
+            let devId = await promiseFactory(device.getDeviceId, {})
+              .then(res => res.deviceId)
+            console.log(`deviceId is `, devId);
+          }
+        },
+        // Device
+        {
+          label: '注册设备', handle: async () => {
+            let devId = await promiseFactory(device.getDeviceId, {})
+              .then(res => res.deviceId)
+            let userinfo = await API.userInfo()
+            console.log(`获取到name=${userinfo.name} ,deviceId=${devId}`);
+            let result = await API.deviceReg(userinfo.name, devId)
+            console.log('注册结果：', JSON.stringify(result));
+            // [{"uid":"1","is_clip":0,"device_id":"f787bbf3-fffd-a2d7-fef9-716ff1bf1809","name":"新设备","id":1,"type":"ios"},{"uid":"1","is_clip":1,"device_id":"f787bbf3-fffd-a2d7-fef9-716ff1bf1809","name":"easychen+new","id":2,"type":"ios"}]
+          }
+        },
+        {
+          label: '设备列表', handle: async () => {
+            let devList = await API.deviceList()
+            console.log('devList: ', JSON.stringify(devList));
+            // [{"uid":"1","is_clip":0,"device_id":"f787bbf3-fffd-a2d7-fef9-716ff1bf1809","name":"新设备","id":1,"type":"ios"},{"uid":"1","is_clip":1,"device_id":"f787bbf3-fffd-a2d7-fef9-716ff1bf1809","name":"easychen+new","id":2,"type":"ios"}]
+          }
+        },
+        {
+          label: '重命名设备', handle: async () => {
+            let result = await API.deviceRename(1, '新设备')
+            console.log('重命名结果: ', JSON.stringify(result));
+            // {"message":"done"}
+          }
+        },
+        {
+          label: '移除设备', handle: async () => {
+            let result = await API.deviceRemove(2)
+            console.log('移除结果: ', JSON.stringify(result));
+            // {"message":"done"}
+          }
+        },
+        // Key
+        {
+          label: '生成Key', handle: async () => {
+            let result = await API.keyGen()
+            console.log('生成结果：', JSON.stringify(result));
+            //[{"uid":"1","name":"KeydjzKuP4v","created_at":"2022-02-05T05:05:44.000000Z","id":1,"key":"PDU1TEkEzYvahqzI9BVsPLojC86XQJWX6AcWW"},{"uid":"1","name":"KeyD56XoKTR","created_at":"2022-02-05T05:06:08.000000Z","id":2,"key":"PDU1TYHP2rEnVGUpGjJ4uwm59nBwLAraN3QwV"}]
+          }
+        },
+        {
+          label: 'Key列表', handle: async () => {
+            let keyList = await API.keyList()
+            console.log('keyList: ', JSON.stringify(keyList));
+            //[{"uid":"1","name":"KeydjzKuP4v","created_at":"2022-02-05T05:05:44.000000Z","id":1,"key":"PDU1TEkEzYvahqzI9BVsPLojC86XQJWX6AcWW"},{"uid":"1","name":"KeyD56XoKTR","created_at":"2022-02-05T05:06:08.000000Z","id":2,"key":"PDU1TYHP2rEnVGUpGjJ4uwm59nBwLAraN3QwV"}]
+          }
+        },
+        {
+          label: '重命名Key', handle: async () => {
+            let result = await API.keyRename(1, '新Key')
+            console.log('重命名结果: ', JSON.stringify(result));
+            // {"message":"done"}
+          }
+        },
+        {
+          label: '移除Key', handle: async () => {
+            let result = await API.keyRemove(4)
+            console.log('移除结果: ', JSON.stringify(result));
+            // {"message":"done"}
+          }
+        },
+        {
+          label: '消息列表', handle: async () => {
+            let messageList = await API.messageList()
+            console.log('messageList: ', JSON.stringify(messageList));
+
+          }
+        },
+        {
+          label: '发送消息', handle: async () => {
+            let result = await API.messagePush('text', 'desp', 'text')
+            console.log('发送结果: ', JSON.stringify(result));
+
+          }
+        },
+        {
+          label: '移除message', handle: async () => {
+            let result = await API.messageRemove(1)
+            console.log('移除结果: ', JSON.stringify(result));
+            // {"message":"done"}
+          }
+        },
+      ]
+    },
+
+    handleBtnClick(idx) {
+      this.btns[idx].handle()
+    },
+
+    onInit() {
+
+    },
+  }
+</script>
+
+<style lang="less">
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+
+    .logo {
+      flex-direction: column;
+      justify-content: center;
+      height: 60%;
+      width: 50%;
+    }
+
+    /* .btn-group {
+                                flex-direction: column;
+                                width: 50%; */
+    /* margin: 0 auto; */
+
+    text {
+      margin: 16px 0;
+      padding: 24px;
+      border-width: 3px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 32px;
+    }
+    .btn-wx {
+      color: #296c05;
+      border-color: #296c05;
+    }
+  }
+  /* } */
+</style>
