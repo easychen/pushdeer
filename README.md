@@ -45,28 +45,31 @@ PushDeer有Mac客户端，亦支持推送。可在Mac应用商店中搜索「Pus
 1. 通过apple账号（或微信账号·仅Android版支持）登录
 1. 切换到「设备」标签页，点击右上角的加号，注册当前设备
 1. 切换到「Key」标签页，点击右上角的加号，创建一个Key
-1. 通过访问后边的URL即可推送内容：https://api2.pushdeer.com/message/push?pushkey=key&text=要发送的内容
+1. 通过访问后边的URL即可推送内容：http://api2.pushdeer.com/message/push?pushkey=key&text=要发送的内容
 
 > 注意注册设备用到了device token，应用一旦重装，device token会变，所以需要重新注册一次。
 
+
 ### 发送实例
+
+> 接口**都支持https**，但[比http要慢](https://weibo.com/1088413295/LeuYfDyfi)，建议在推送敏感信息时使用。
 
 发送文字：
 
 ```
-https://api2.pushdeer.com/message/push?pushkey=key&text=要发送的内容
+http://api2.pushdeer.com/message/push?pushkey=key&text=要发送的内容
 ```
 
 发送图片：
 
 ```
-https://api2.pushdeer.com/message/push?pushkey=<key>&text=<图片URL>&type=image
+http://api2.pushdeer.com/message/push?pushkey=<key>&text=<图片URL>&type=image
 ```
 
 发送Markdown：
 
 ```
-https://api2.pushdeer.com/message/push?pushkey=<key>&text=标题&desp=<markdown>&type=markdown
+http://api2.pushdeer.com/message/push?pushkey=<key>&text=标题&desp=<markdown>&type=markdown
 ```
 
 在URL中可以用`%0A`换行，当参数中有特殊字符时，需要进行urlencode，因此更建议通过函数或者SDK发送。
@@ -87,7 +90,7 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
         'content' => $postdata));
     
     $context  = stream_context_create($opts);
-    return $result = file_get_contents('https://api2.pushdeer.com/message/push', false, $context);
+    return $result = file_get_contents('http://api2.pushdeer.com/message/push', false, $context);
 }
 ```
 
@@ -109,7 +112,7 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
 
 ```json
 {
-	"url":"https://api2.pushdeer.com/message/push?pushkey={{pushkey}}",
+	"url":"http://api2.pushdeer.com/message/push?pushkey={{pushkey}}",
 	"values":[
 		{"type":"markdown"},
                  {"text":"{{title}} "},
