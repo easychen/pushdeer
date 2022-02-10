@@ -37,7 +37,7 @@ ios:
   team_id: "HUJ6HAE4VU" # TeamID from developer account (View Account -> Membership)
 
 mi:
-  enabled: true
+  enabled: false
   appsecret: ""
   package: ""
   max_retry: 3 # resend fail notification, default value zero is disabled
