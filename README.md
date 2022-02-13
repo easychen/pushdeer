@@ -131,6 +131,8 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
 
 如果你没有云服务器，可以看看[腾讯云30~50元首单的特价服务器](https://curl.qcloud.com/VPjlS4gj)
 
+#### Docker-compose
+
 首先请确保服务器(假设其IP或域名为$AAA)上支持docker和docker-compose。
 
 然后运行以下代码：
@@ -151,15 +153,19 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 
 > 如提示docker服务未安装/找不到/未启动，可在 docker-compose 前加 sudo 再试
 
-等待初始化完成后，访问 `$AAA(需替换为服务器端IP或域名):8800`，看到以下信息则表示服务器端已启动完毕。
-
-```json
-{
-    "PushDeer": "On"
-}
-```
+等待初始化完成后，访问 `$AAA(需替换为服务器端IP或域名):8800`，看到扫码提示和图片则说明容器已经启动。
 
 > ⚠️ 自架服务器端需每年2月拉取一次更新推送证书
+
+#### 单一容器部署方案
+
+对于很多不能运行docker-compose的容器环境，可以直接使用 pushdeer 镜像。该镜像中已经包含了 redis 服务，但需要通过环境变量指定数据库等信息：
+
+```
+docker run -e DB_DATABASE=* -e DB_HOST=* -e DB_PORT=*28740* -e DB_USERNAME=* -e DB_PASSWORD=* -e DB_TIMEZONE=+08:00  -e WEB_PHP_SOCKET=127.0.0.1:8000 -p 9000:9000 ccr.ccs.tencentyun.com/ftqq/pushdeercore
+```
+
+请将上诉命令中的`*`替换为对应的数据库信息。
 
 ### 使用自架版客户端
 
