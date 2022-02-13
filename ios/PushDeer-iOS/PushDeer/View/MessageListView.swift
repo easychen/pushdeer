@@ -73,9 +73,21 @@ struct TestPushView: View {
         HToast.showError(NSLocalizedString("推送失败, 请先输入推送内容", comment: ""))
         return
       }
+      // 收键盘
+      UIApplication.shared.sendAction(
+        #selector(UIResponder.resignFirstResponder),
+        to: nil,
+        from: nil,
+        for: nil
+      )
       Task {
         if store.keys.isEmpty {
+          // 查keys列表
           store.keys = try await HttpRequest.getKeys().keys
+        }
+        if store.keys.isEmpty {
+          // 没查到就自动生成一个key
+          store.keys = try await HttpRequest.genKey().keys
         }
         if let keyItem = store.keys.first {
           do {

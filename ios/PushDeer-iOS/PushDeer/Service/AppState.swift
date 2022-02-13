@@ -38,6 +38,13 @@ class AppState: ObservableObject {
     }
   }
   
+  /// API endpoint
+  @Published var api_endpoint : String {
+    didSet {
+      UserDefaults.standard.set(api_endpoint, forKey: "PushDeer_api_endpoint")
+    }
+  }
+  
   var isAppClip: Bool {
 #if APPCLIP
     return true
@@ -52,9 +59,11 @@ class AppState: ObservableObject {
     let _token = UserDefaults.standard.string(forKey: "PushDeer_token")
     let _tabSelectedIndex = UserDefaults.standard.integer(forKey: "PushDeer_tabSelectedIndex")
     let _isShowTestPush = UserDefaults.standard.object(forKey: "PushDeer_isShowTestPush")
+    let _api_endpoint = UserDefaults.standard.string(forKey: "PushDeer_api_endpoint")
     token = _token ?? ""
     tabSelectedIndex = _tabSelectedIndex
     isShowTestPush = _isShowTestPush as? Bool ?? true
+    api_endpoint = _api_endpoint ?? ""
   }
   
   func appleIdLogin(_ result: Result<ASAuthorization, Error>) async throws -> TokenContent {
