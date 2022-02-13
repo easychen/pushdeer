@@ -12,7 +12,9 @@ struct ContentView: View {
   @EnvironmentObject private var store: AppState
   
   var body: some View {
-    if store.token.isEmpty {
+    if Env.isSelfHosted && store.api_endpoint.isEmpty {
+      EndpointView()
+    } else if store.token.isEmpty {
       LoginView()
     } else {
       MainView()

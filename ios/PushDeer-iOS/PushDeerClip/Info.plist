@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleAllowMixedLocalizations</key>
+	<true/>
 	<key>NSAppClip</key>
 	<dict>
 		<key>NSAppClipRequestEphemeralUserNotification</key>
@@ -18,11 +20,5 @@
 	<array>
 		<string>_adhp._tcp</string>
 	</array>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>APP需要访问本地网络以供调试(仅在开发时)</string>
-	<key>CFBundleAllowMixedLocalizations</key>
-	<true/>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>APP为您提供保存图片到相册的功能</string>
 </dict>
 </plist>

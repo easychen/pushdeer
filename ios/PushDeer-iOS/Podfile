@@ -9,6 +9,7 @@ def commonPods
   pod 'Moya', '~> 15.0'
   pod 'SDWebImageSwiftUI', '~> 2.0.2'
   pod 'KRProgressHUD', '~> 3.4.7'
+  pod 'IQKeyboardManagerSwift', '~> 6.5.9'
   
 #  pod 'WoodPeckeriOS', :configurations => ['Debug']
 end

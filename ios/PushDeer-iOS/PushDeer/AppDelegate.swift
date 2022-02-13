@@ -7,11 +7,13 @@
 
 import UIKit
 import UserNotifications
+import IQKeyboardManagerSwift
 
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     
+    // 注册通知
     let center = UNUserNotificationCenter.current()
     center.delegate = self
     center.requestAuthorization(options: [.badge, .sound, .alert]) { granted, error in
@@ -19,6 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
     application.registerForRemoteNotifications()
     
+    // 首次网络请求提示
     Task {
       let notFirstStart = UserDefaults.standard.bool(forKey: "PushDeer_notFirstStart")
       if !notFirstStart {
@@ -27,6 +30,10 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         UserDefaults.standard.set(true, forKey: "PushDeer_notFirstStart")
       }
     }
+    
+    // IQ键盘管理
+    IQKeyboardManager.shared.enable = false // 键盘与输入框的距离管理 禁用
+    IQKeyboardManager.shared.enableAutoToolbar = true // 键盘上方添加的工具栏 启用
     
     return true
   }

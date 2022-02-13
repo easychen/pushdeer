@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.5.0)
+  - IQKeyboardManagerSwift (6.5.9)
   - KRActivityIndicatorView (3.0.7)
   - KRProgressHUD (3.4.7):
     - KRActivityIndicatorView (= 3.0.7)
@@ -14,6 +15,7 @@ PODS:
     - SDWebImage (~> 5.10)
 
 DEPENDENCIES:
+  - IQKeyboardManagerSwift (~> 6.5.9)
   - KRProgressHUD (~> 3.4.7)
   - Moya (~> 15.0)
   - SDWebImageSwiftUI (~> 2.0.2)
@@ -21,6 +23,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - IQKeyboardManagerSwift
     - KRActivityIndicatorView
     - KRProgressHUD
     - Moya
@@ -29,12 +32,13 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
+  IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   KRActivityIndicatorView: ad69e89c4ce40c986cf580595be4829dcad0e35a
   KRProgressHUD: a248f0bc6c9c2aed40a37b76e03ffecc7f85c887
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   SDWebImage: 4dc3e42d9ec0c1028b960a33ac6b637bb432207b
   SDWebImageSwiftUI: 8a3923c95108312b03a599ec1498754af55a6819
 
-PODFILE CHECKSUM: 06aae1de50f9c1a188e69787835ec8718dd7d543
+PODFILE CHECKSUM: 3c8d668f811e3c29bb70fc8a24d2ecd9c266ba45
 
 COCOAPODS: 1.11.2

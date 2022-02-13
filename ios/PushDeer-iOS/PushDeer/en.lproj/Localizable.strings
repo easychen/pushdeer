@@ -2,6 +2,9 @@
 "(当前设备)" = "(current device)";
 
 /* No comment provided by engineer. */
+"保存" = "Save";
+
+/* No comment provided by engineer. */
 "保存成功" = "Saved successfully";
 
 /* No comment provided by engineer. */
@@ -35,10 +38,40 @@
 "内容" = "Content";
 
 /* No comment provided by engineer. */
+"你还未添加过 Key, 发送推送需要使用 Key, 你可以点击右上角 %@ 生成一个 Key" = "You have not added a key yet, you need to use a key to send a push, you can click %@ in the upper right corner to generate a key";
+
+/* No comment provided by engineer. */
+"你还未注册当前设备, 注册后才能收到推送, 你可以点击右上角 %@ 添加当前设备" = "You have not registered the current device, you can receive push notifications after registration. You can click %@ in the upper right corner to add the current device";
+
+/* No comment provided by engineer. */
+"你还未注册当前设备, 注册后才能收到推送, 是否现在注册? (你还可以稍后点击右上角 + 符号添加当前设备)" = "You have not registered the current device, you can receive push notifications after registration, do you want to register now? (You can also click the + symbol in the upper right corner to add the current device later)";
+
+/* No comment provided by engineer. */
+"您在此应用中的数据都将发送到 endpoint 指向的服务器" = "Your data in this app will be sent to the server pointed to by endpoint";
+
+/* No comment provided by engineer. */
 "评分" = "Score";
 
 /* No comment provided by engineer. */
+"苹果用户" = "Apple User";
+
+/* No comment provided by engineer. */
+"请输入" = "Please enter";
+
+/* No comment provided by engineer. */
+"请输入协议前缀: http:// 或 https://" = "Please enter a protocol prefix: http:// or https://";
+
+/* No comment provided by engineer. */
+"请输入自架服务器的 Endpoint 或者使用非自架版PushDeer" = "Please enter the Endpoint of the self-hosted server or use the non-self-hosted version of PushDeer";
+
+/* No comment provided by engineer. */
+"请输入API服务的 endpoint url" = "Please enter the endpoint url of the API service";
+
+/* No comment provided by engineer. */
 "扫码" = "Scan";
+
+/* No comment provided by engineer. */
+"稍后" = "Later";
 
 /* No comment provided by engineer. */
 "设备" = "Devices";
@@ -51,6 +84,9 @@
 
 /* No comment provided by engineer. */
 "输入key名称" = "Enter key name";
+
+/* No comment provided by engineer. */
+"温馨提示" = "Tips";
 
 /* No comment provided by engineer. */
 "图片未加载成功" = "Image did not load successfully";
@@ -107,6 +143,17 @@
 "重置" = "Reset";
 
 /* No comment provided by engineer. */
+"重置API endpoint" = "Reset API endpoint";
+
+/* No comment provided by engineer. */
+"注册" = "Register";
+
+/* No comment provided by engineer. */
 "自定义服务器" = "Custom server";
 
-"苹果用户" = "Apple User";
+/* No comment provided by engineer. */
+"Endpoint 不能为空" = "Endpoint cannot be empty";
+
+/* No comment provided by engineer. */
+"Endpoint 格式不正确" = "Endpoint is malformed";
+

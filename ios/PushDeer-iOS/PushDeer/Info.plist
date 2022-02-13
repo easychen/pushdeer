@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>APP为您提供保存图片到相册的功能</string>
 	<key>CFBundleAllowMixedLocalizations</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -19,7 +17,5 @@
 	<array>
 		<string>remote-notification</string>
 	</array>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>APP需要访问本地网络以供调试(仅在开发时)</string>
 </dict>
 </plist>

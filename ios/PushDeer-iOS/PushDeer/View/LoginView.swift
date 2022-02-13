@@ -20,6 +20,11 @@ struct LoginView: View {
       Image("logo.with.space")
         .resizable()
         .scaledToFit()
+      if Env.isSelfHosted {
+        Button("重置API endpoint") {
+          store.api_endpoint = ""
+        }
+      }
       Spacer()
       if showLoading {
         ProgressView()
