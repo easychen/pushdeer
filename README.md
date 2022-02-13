@@ -20,6 +20,8 @@ PushDeer是一个可以自行架设的无APP推送服务。
 
 # 试用
 
+![](doc/image/video.gif)
+
 ## 使用官方在线版本
 
 官方在线版不用自行架设服务器端，只需启动客户端即可
@@ -106,11 +108,11 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
 
 ![](doc/image/2022-02-02-21-39-16.png)
 
-你也可以通过「其他通道」中的「自定义」来修改转发格式和文案。具体操作是，在「自定义 WebHook 配置用 json」中填入以下内容:
+如果你使用的是自架服务器，那么也可以通过「其他通道」中的「自定义」来修改转发格式和文案。具体操作是，在「自定义 WebHook 配置用 json」中填入以下内容:
 
 ```json
 {
-	"url":"https://api2.pushdeer.com/message/push?pushkey={{pushkey}}",
+	"url":"<endpoint>/message/push?pushkey=<pushkey>",
 	"values":[
 		{"type":"markdown"},
                  {"text":"{{title}} "},
@@ -119,7 +121,7 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
 }
 ```
 
-注意将 `{{pushkey}}` 换成你自己的 PushDeer 账号中的 key，保存即可。可点右侧的测试按钮测试效果。
+注意将 `<endpoint>` 换成你自架服务器的地址，将 `{{pushkey}}` 换成你自己的 PushDeer 账号中的 key，保存即可。可点右侧的测试按钮测试效果。
 
 ## 使用自架服务器端和自架版客户端
 
