@@ -1,13 +1,19 @@
 FROM webdevops/php-apache:8.0
 
+RUN apt-get update && apt-get install -y redis-server
 # 首先配置 vhost
 COPY vhost.conf /opt/docker/etc/httpd/vhost.conf
 # COPY web.vhost.conf /opt/docker/etc/httpd/vhost.common.d/
 
 # 然后运行初始化脚本
 # https://dockerfile.readthedocs.io/en/latest/content/Customization/provisioning.html
+COPY ports.conf /etc/apache2/ports.conf
+COPY application.conf /opt/docker/etc/php/fpm/pool.d/application.conf
 COPY init.sh /opt/docker/provision/entrypoint.d/
 #CMD chmod +x /opt/docker/provision/entrypoint.d/init.sh
+RUN echo "session.save_handler = redis\n" >> /opt/docker/etc/php/php.webdevops.ini
+RUN echo "session.save_path = 'tcp://127.0.0.1:6379'\n" >> /opt/docker/etc/php/php.webdevops.ini
+RUN echo "session.gc_maxlifetime = '259200'\n" >> /opt/docker/etc/php/php.webdevops.ini
 
 # ADD supervisord-proxy.conf /opt/docker/etc/supervisor.d/prism-proxy.conf
 RUN mkdir /data
@@ -16,10 +22,10 @@ RUN chmod +x /data/gorush
 
 COPY api /app/api
 COPY push /app/push
-# ADD ../../push /app/push
 
+ADD supervisord-redis.conf /opt/docker/etc/supervisor.d/redis.conf
 ADD supervisord-ios.conf /opt/docker/etc/supervisor.d/push-ios.conf
 ADD supervisord-clip.conf /opt/docker/etc/supervisor.d/push-clip.conf
 
-EXPOSE 80 
+EXPOSE 80 9000
 

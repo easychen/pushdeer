@@ -8,9 +8,3 @@ chmod -R 0777 /app/api/storage
 
 mkdir -p /app/api/bootstrap/cache/
 chmod -R 0777 /app/api/bootstrap/cache/
-
-
-
-# 启动 proxy
-# 已经设置为 deamon
-# cd /app/proxy && ./server-linux &
