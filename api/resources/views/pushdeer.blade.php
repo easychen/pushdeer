@@ -15,7 +15,7 @@
 <script>
     const hostname = window.location.hostname;
     let urlinfo = window.origin;
-    if( hostname == 'localhost' || hostname == '127.0.0.1' ) urlinfo = '您使用的是本机专用地址，请使用局域网或者外网地址测试';
+    if( hostname == 'localhost' || hostname == '127.0.0.1' ) urlinfo = '您使用的是本机专用地址，请使用局域网或者公网地址测试';
     window.document.querySelector("#url").innerHTML=urlinfo;
 </script>
 </body>
