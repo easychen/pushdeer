@@ -259,7 +259,7 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 如果你希望为智能设备架设单一的服务端，可以单独使用 `pushdeeresp` 镜像：
 
 ```bash
-docker run -e API_KEY=9LKo3 -e MQTT_PORT=1883 -e MQTT_USER=easy -e MQTT_PASSWORD=y0urp@ss - MQTT_BASE_TOPIC=default -p 1883:1883 -p 80:80 
+docker run -e API_KEY=9LKo3 -e MQTT_PORT=1883 -e MQTT_USER=easy -e MQTT_PASSWORD=y0urp@ss -e MQTT_BASE_TOPIC=default -p 1883:1883 -p 80:80 ccr.ccs.tencentyun.com/ftqq/pushdeeresp 
 ```
 
 启动后，支持`MQTT`和`HTTP`两种方式发送消息。
