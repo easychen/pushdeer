@@ -67,7 +67,7 @@ PushDeer自架版支持通过MQTT协议向兼容的设备（以下简称设备�
 docker-compose -f docker-compose.self-hosted.yml up --build -d
 ``` 
 
-## 连接示例
+## 连接参数实例
 
 这里以上边的设置为例，详细说明MQTT连接中用到的值，假设你的`Pushkey` 为 `PDU01234`，那么：
 
