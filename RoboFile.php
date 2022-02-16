@@ -6,7 +6,9 @@
  */
 class RoboFile extends \Robo\Tasks
 {
-    // define public methods as commands
+    /**
+     * 构建一个独立镜像，只包含api和redis
+     */
     public function buildDockerImage()
     {
         $tmp_dir = "/tmp/".md5(__DIR__);
