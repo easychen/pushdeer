@@ -141,7 +141,7 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
 ```
 git clone https://gitee.com/easychen/pushdeer.git
 cd pushdeer
-docker-compose -f docker-compose.self-hosted.yml up --build -d
+docker-compose -f docker-compose.self-hosted.yml up --build -d 
 ```
 
 （海外服务器使用）

@@ -79,6 +79,19 @@ class PushDeerMessageController extends Controller
             $the_message['pushkey_name'] = $key->name;
             $pd_message = Message::create($the_message);
 
+            $sent = false;
+            // 如果配置MQTT服务
+            // if (strtolower(env('MQTT_ON')) == 'true') {
+            if (env('MQTT_ON') > 0) {
+                // 给 mqtt/send 转发消息
+                $result[] = make_post('http://mqtt/send', [
+                    'key' => env('MQTT_API_KEY'),
+                    'content' => $validated['text'],
+                    'type' => $validated['type'] == 'image' ? 'bg_url' : 'text',
+                    'topic' => $validated['pushkey'],
+                ], 3);
+            }
+
             if ($devices = PushDeerDevice::where('uid', $key->uid)->get()) {
                 foreach ($devices as $device) {
                     if ($device) {
@@ -89,7 +102,9 @@ class PushDeerMessageController extends Controller
                     }
                 }
             } else {
-                return send_error('没有可用的设备，请先注册', ErrorCode('ARGS'));
+                if (!$sent) {
+                    return send_error('没有可用的设备，请先注册', ErrorCode('ARGS'));
+                }
             }
         }
 

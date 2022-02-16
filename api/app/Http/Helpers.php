@@ -151,3 +151,19 @@ function android_send($is_clip, $device_token, $text, $desp = '', $dev = true)
     error_log('push error'. $ret);
     return $ret;
 }
+
+function make_post($url, $data, $timeout = 3, $form=false)
+{
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    @curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+    if ($form) {
+        $data = http_build_query($data);
+    }
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    $response = curl_exec($ch);
+    return json_encode(["counts"=>1,"logs"=>[$response]]);
+}
