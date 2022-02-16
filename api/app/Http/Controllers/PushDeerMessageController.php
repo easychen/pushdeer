@@ -60,9 +60,9 @@ class PushDeerMessageController extends Controller
             $validated['type'] = 'markdown';
         }
 
-        if (strtolower($validated['type'])=='image') {
-            $validated['text'] = '[图片]';
-        }
+        // if (strtolower($validated['type'])=='image') {
+        //     $validated['text'] = '[图片]';
+        // }
 
         $key = PushDeerKey::where('key', $validated['pushkey'])->get()->first();
 
