@@ -1,0 +1,36 @@
+.dash-box
+{
+  width:256px;
+  height:256px!important;
+}
+
+.dash-box .dash-item
+{
+  max-width:100%!important;
+  max-height:100%!important;
+  width:calc( 100% - 10px );
+  height: calc( 100% - 10px );
+  justify-content: center;
+  background-color: hsla(0,0%,100%,.0);
+}
+
+.dash-box .dash-item .title
+{
+  font-size:24px;
+  font-family:"Cubic 11";
+  font-weight:bold;
+  position: absolute;
+  bottom: 10px;
+  right:10px;
+  color:white;
+  text-shadow:2px 2px black;
+}
+
+.dash-box .dash-item .value
+{
+  font-size:48px;
+  color:white;
+  text-shadow:2px 2px black;
+  padding-top:80px;
+  
+}

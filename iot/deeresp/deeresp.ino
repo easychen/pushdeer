@@ -23,7 +23,7 @@ EspMQTTClient mclient(
   MQTT_CLIENT_NAME, 
   MQTT_PORT           
 );
-
+#include "cubic_12.h"
 #include "SPI.h"
 #include <TFT_eSPI.h> 
 TFT_eSPI tft = TFT_eSPI(); 
@@ -74,10 +74,29 @@ void onConnectionEstablished()
     
     if(payload.indexOf("♪") >= 0) tone(BEEP_PIN, 1000, 100);
     
+    tft.loadFont(cubic_11);
+    
     if( payload.length() > 80 ) tft.setTextSize(1);
     else tft.setTextSize(2);
 
-    tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.println(payload);
+    char *found;
+    short line = 0;
+    int base = 5;
+    int now_base = 0;
+    char * payloads = const_cast<char*> ( payload.c_str() );
+    while( (found = strsep( &payloads , "\n" ) ) != NULL )
+    {
+      now_base = base + line*14;
+      tft.setTextColor(0x0000);tft.setCursor(base+1, now_base+1);tft.println(found);
+      tft.setTextColor(0x0000);tft.setCursor(base+2, now_base+2);tft.println(found);
+      tft.setTextColor(0xFFFF);tft.setCursor(base, now_base);tft.println(found);
+      line++;
+
+    }
+      
+    tft.unloadFont();
+    
+    
   });
   
   mclient.subscribe(String(MQTT_TOPIC)+"_bg_url", [] (const String &payload)  
