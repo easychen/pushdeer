@@ -256,8 +256,11 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 |type|格式，选填|文本=text，markdown，图片=image，默认为markdown|
 
 > ⚠️ 图片只能为256*256的JPG，否则显示会出问题
+
 > ⚠️ 中文字库字库只有2000字，部分文字会乱码
+
 > type 为 text 时，且 text 中包含 `♪` 字符时，蜂鸣器会发声
+
 > type 为 image 时，text 中为要发送图片的URL
 
 ## 独立架设服务端
