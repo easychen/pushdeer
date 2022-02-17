@@ -8,7 +8,7 @@ PushDeer是一个可以自行架设的无APP推送服务。
 
 ||||
 |-|-|-|
-|[👨🏻‍🏫 教程](iot/README.md)|[⌨️ 源码](iot/deeresp/)|[📼 演示视频，可以听到提示音♪](https://weibo.com/1088413295/LfJtvDx6K?type=comment)|
+|[👨🏻‍🏫 教程](iot/README.md)|[⌨️ 源码](iot/deeresp/)|[📼 演示视频，可以听到提示音♪](https://weibo.com/1088413295/LfUwivPoh)|
 
 ![](iot/image/deeresp.gif)
 

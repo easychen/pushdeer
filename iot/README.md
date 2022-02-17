@@ -1,12 +1,16 @@
 > PushDeer可以将消息推送到各种支持MQTT协议的智能设备。
 
+DeerESP 是 PushDeer 在 IOT 方向的扩展项目，它是一个基于 ESP8266 的消息设备方案。
+
+目前已经可以通过开发板自行组装使用。
+
 本文将以 `NodeMCU` 1.0开发板和 1.44寸的 Arduino Black TFT屏幕为例，讲解如何组建一个成本35元人民币左右的硬件设备，并通过PushDeer将消息推送给它。
 
 最终效果如下图：
 
 ![](image/deeresp.gif)
 
-[📼 点此查看视频版本，可以听到提示音♪](https://weibo.com/1088413295/LfJtvDx6K?type=comment)
+[📼 点此查看视频版本，可以听到提示音♪](https://weibo.com/1088413295/LfUwivPoh)
 
 PS：如果你有硬件量产的经验并有兴趣参与，可以在[微博](https://weibo.com/easy)私信或者评论@Easy。
 
