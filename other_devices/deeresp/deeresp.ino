@@ -63,7 +63,7 @@ void setup() {
 void onConnectionEstablished()
 {
   Serial.println("connected");
-  tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.println("Waiting for message ...");
+  tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.println("Waiting for messages ...");
   
   mclient.subscribe(String(MQTT_TOPIC)+"_text", [] (const String &payload)  
   {
