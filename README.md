@@ -2,16 +2,18 @@ PushDeer是一个可以自行架设的无APP推送服务。
 
 当前状态：API、iOS、Android和Mac第一版已完成，快应用正在开发🚧
 
-**🔥 PushDeer支持推送消息到智能设备了**
+**🔥 全新子项目 DeerESP 推送消息到自制设备**
 
-👉[点此查看如何将消息推送到成本35元左右的自制设备上](iot/README.md) 
+
 
 ||||
 |-|-|-|
 |[👨🏻‍🏫 教程](iot/README.md)|[⌨️ 源码](iot/deeresp/)|[📼 演示视频，可以听到提示音♪](https://weibo.com/1088413295/LfUwivPoh)|
 
 ![](iot/image/deeresp.gif)
+👉[点此查看如何将消息推送到成本35元左右的自制设备上](iot/README.md) 
 
+---
 
 [🐙🐱 GitHub仓库](https://github.com/easychen/pushdeer) [🔮 中国大陆镜像仓库@Gitee](https://gitee.com/easychen/pushdeer)
 
