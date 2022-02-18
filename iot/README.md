@@ -237,6 +237,22 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 
 这些操作完成后再编译就会发现屏幕正常显示了。如果显示不正常（比如图片颜色、大小不对等），这有可能是因为你用的屏幕硬件规格和我们这里的不同，可以参照注释尝试修改那些配置项。
 
+## 初始化SPIFFS文件系统
+
+如果遇到图片显示不出来），串口提示`SPIFFS: mount failed`，这是因为文件系统没有初始化。
+
+你可以下载一个arduino插件来解决这个问题：
+
+- [ESP8266](https://github.com/esp8266/arduino-esp8266fs-plugin)
+- [ESP32](https://github.com/me-no-dev/arduino-esp32fs-plugin) 
+
+下载后按项目页面提示放到对应的目录，重启arduino IDE就可以从下边菜单中看到多出来的选项：
+
+![](image/2022-02-18-19-18-55.png)
+
+点击它就会自动创建文件系统，以后就不会再遇到错误提示了。
+
+
 ## 通过 PushDeer 推送信息到设备
 
 当程序烧录完成，设备会初始化并自动连接服务器。如果没有初始化，可以按开发板上的reset进行重置。如果在烧录过程中串口无法连接开发板，也请按reset。

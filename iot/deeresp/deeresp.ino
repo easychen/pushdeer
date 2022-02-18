@@ -10,7 +10,7 @@
 // ====== 以下不用修改 ===============
 #define MQTT_CLIENT_NAME "DeerEsp"
 #define DOWNLOADED_IMG "/download.jpg"
-#define BEEP_PIN D8
+
 
 #include <EspMQTTClient.h>
 
@@ -30,8 +30,13 @@ TFT_eSPI tft = TFT_eSPI();
 
 #ifdef ESP8266
   #include <ESP8266HTTPClient.h>
+  #define BEEP_PIN D8
+  #define IMG_SCALE 2
+  #define TXT_SCALE 2
 #else
   #include "SPIFFS.h" // Required for ESP32 only
+  #define IMG_SCALE 1
+  #define TXT_SCALE 4
   #include <HTTPClient.h>
 #endif
 
@@ -43,7 +48,7 @@ void setup() {
 
   tft.begin();
   tft.fillScreen(TFT_BLACK);
-  tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.setTextSize(2);tft.println("Init ...");
+  tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.setTextSize(TXT_SCALE);tft.println("Init ...");
   Serial.println("tft init");
 
   if (!SPIFFS.begin()) {
@@ -52,7 +57,7 @@ void setup() {
   }
   Serial.println("SPIFFS init");
 
-  TJpgDec.setJpgScale(2);
+  TJpgDec.setJpgScale(IMG_SCALE);
   TJpgDec.setSwapBytes(true);
   TJpgDec.setCallback(tft_output);
 
@@ -72,12 +77,14 @@ void onConnectionEstablished()
     if (SPIFFS.exists(DOWNLOADED_IMG) == true) TJpgDec.drawFsJpg(0, 0, DOWNLOADED_IMG);
     else tft.fillScreen( TFT_BLACK );
     
+    #ifdef BEEP_PIN
     if(payload.indexOf("♪") >= 0) tone(BEEP_PIN, 1000, 100);
-    
+    #endif  
+
     tft.loadFont(cubic_11);
     
-    if( payload.length() > 80 ) tft.setTextSize(1);
-    else tft.setTextSize(2);
+    if( payload.length() > 80 ) tft.setTextSize(TXT_SCALE/2);
+    else tft.setTextSize(TXT_SCALE);
 
     char *found;
     short line = 0;
