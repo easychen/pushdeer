@@ -5,10 +5,10 @@
 #define MQTT_PASSWORD "MQTT密码"
 #define MQTT_TOPIC "PushDeer pushkey" // 这里填PushDeer的Key
 #define MQTT_PORT 1883
+#define MQTT_CLIENT_NAME "DeerEsp" // 多个同名设备连接同一台服务器会导致其他下线，所以起一个唯一的名字吧
 
 
 // ====== 以下不用修改 ===============
-#define MQTT_CLIENT_NAME "DeerEsp"
 #define DOWNLOADED_IMG "/download.jpg"
 
 
@@ -45,6 +45,7 @@ TFT_eSPI tft = TFT_eSPI();
 void setup() {
   Serial.begin(115200);
   mclient.enableDebuggingMessages();
+  
 
   tft.begin();
   tft.fillScreen(TFT_BLACK);
