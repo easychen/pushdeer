@@ -376,7 +376,7 @@ API_BASE=http://127.0.0.1:8800
 
 |参数|说明|备注|
 |-|-|-|
-|pushkey|PushKey|
+|pushkey|PushKey|多个key用`,`隔开，在线版最多10个，自架版默认最多100个|
 |text|推送消息内容|
 |desp|消息内容第二部分，选填|
 |type|格式，选填|文本=text，markdown，图片=image，默认为markdown|
