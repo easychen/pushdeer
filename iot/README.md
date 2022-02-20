@@ -58,6 +58,8 @@ PS：如果你有硬件量产的经验并有兴趣参与，可以在[微博](htt
 
 由于我们使用的8266并没有内置到 `ardunio IDE` 中，我们还需要进行一下配置，在设置界面填上附加开发板管理器网址：`https://arduino.esp8266.com/stable/package_esp8266com_index.json`
 
+> esp32 填写这个 https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
+
 ![](image/2022-02-16-22-02-36.png)
 
 然后选择 `工具`→`开发板`→`ESP8266 Boards`→`NodeMCU1.0`
