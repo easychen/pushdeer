@@ -9,7 +9,9 @@
       />
     </div>
     <div if="{{!collapsed}}" class="pushmsg-region">
-      <textarea class="textarea" @change="onTextAreaChange">{{input}}</textarea>
+      <textarea class="textarea" @change="onTextAreaChange">{{
+        input
+      }}</textarea>
       <text class="pushbtn" @click="onPushBtnClick">推送测试</text>
     </div>
     <list>
@@ -19,115 +21,127 @@
         for="{{ msg in msgs}}"
       >
         <msg-card msg="{{ msg}}"></msg-card>
-        
       </list-item>
     </list>
   </div>
 </template>
 
 <script>
-  import dayjs from 'dayjs'
-  var md = require('markdown-it')();
-  const handleMessageResult = (data) => data.map((item) => {
-    const created_at = dayjs(item.created_at)
-    const diffMinute = dayjs().diff(created_at, 'm')
-    return {
-      id: item.id,
-      name: item.pushkey_name,
-      type: item.type,
-      text: item.type === 'markdown' ? md.render(item.text) : item.text,
-      desp: item.desp,
-      created_at: diffMinute >= 0 && diffMinute <= 10 ? `${diffMinute}分钟前` : created_at.format('YYYY/MM/DD hh:mm:ss'),
-    }
-  }).reverse()
-
-  export default {
-    data: {
-      collapsed: false,
-      supportType: ['text', 'image', 'markdown'],
-      input: '',
-      msgs: [],
-    },
-
-    onArrowBtnClick() {
-      this.collapsed = !this.collapsed
-    },
-    onTextAreaChange(e) {
-      // 只能在change事件里取值，不知道作者怎么想的。。。
-      this.input = e.text
-    },
-    onPushBtnClick() {
-      if (this.input.length == 0) {
-        $utils.showToast("消息内容为空")
-        return
-      }
-      console.log('message', 'onPushBtnClick', this.input)
-      this.msgs.unshift({ name: "本设备", created_at: "刚刚", type: "text", text: this.input })
-      this.input = ""
-    },
-
-    onInit() {
-      console.log('message', 'init');
-      (async () => {
-        let messageList = await API.messageList()
-        console.log('messageList: ', JSON.stringify(messageList));
-        this.msgs = handleMessageResult(messageList)
-        console.log('msgs: ', JSON.stringify(this.msgs));
-      })().catch(e => {
-        console.log(e);
-      })
-    }
+import dayjs from 'dayjs'
+var md = require('markdown-it')();
+const handleMessageResult = (data) => data.reverse().map((item, idx) => {
+  const created_at = dayjs(item.created_at)
+  const diffMinute = dayjs().diff(created_at, 'm')
+  return {
+    idx,
+    id: item.id,
+    name: item.pushkey_name,
+    type: item.type,
+    text: item.type === 'markdown' ? md.render(item.text) : item.text,
+    desp: item.desp,
+    created_at: diffMinute >= 0 && diffMinute <= 10 ? `${diffMinute}分钟前` : created_at.format('YYYY/MM/DD hh:mm:ss'),
   }
+})
+
+export default {
+  data: {
+    collapsed: false,
+    supportType: ['text', 'image', 'markdown'],
+    input: '',
+    msgs: [],
+  },
+
+  onArrowBtnClick() {
+    this.collapsed = !this.collapsed
+  },
+  onTextAreaChange(e) {
+    // 只能在change事件里取值，不知道作者怎么想的。。。
+    this.input = e.text
+  },
+  async onPushBtnClick() {
+    if (this.input.length == 0) {
+      $utils.showToast("消息内容为空")
+      return
+    }
+    console.log('message', 'onPushBtnClick', this.input)
+    await API.messagePush(this.input, '', 'text')
+    this.msgs.unshift({ name: "本设备", created_at: "刚刚", type: "text", text: this.input })
+    this.input = ""
+  },
+
+  onInit() {
+    console.log('message', 'init');
+    (async () => {
+      let messageList = await API.messageList()
+      // console.log('messageList: ', JSON.stringify(messageList));
+      this.msgs = handleMessageResult(messageList)
+      // console.log('msgs: ', JSON.stringify(this.msgs));
+    })().catch(e => {
+      console.log(e);
+    })
+    this.$on('msgDel', async (evt) => {
+      evt.stop()
+      const idx = evt.detail
+      console.log('msg" on msgDel idx=' + idx);
+      await API.messageRemove(this.msgs[idx].id)
+        .then((res) => {
+          console.log(res);
+
+        })
+      this.msgs.splice(idx, 1)
+    })
+  }
+}
 </script>
 
 <style lang="less">
-  @import '../../../assets/styles/style.less';
+@import '../../../assets/styles/style.less';
 
-  .wrapper {
-    .flex-box-mixins(column, flex-start, center);
-    width: 100%;
-    height: 100%;
-    padding-top: 84px;
+.wrapper {
+  .flex-box-mixins(column, flex-start, center);
+  width: 100%;
+  height: 100%;
+  padding-top: 84px;
 
-    .header {
-      margin-bottom: 24px;
-      width: 80%;
-      justify-content: space-between;
-      flex-shrink: 0;
+  .header {
+    margin-bottom: 24px;
+    width: 80%;
+    justify-content: space-between;
+    flex-shrink: 0;
 
-      text {
-        font-size: 48px;
-        color: #000000;
-      }
-    }
-
-    .pushmsg-region {
-      margin: 24px 0;
-      width: 80%;
-      height: 30%;
-      flex-direction: column;
-      /* justify-content: space-between; */
-      align-items: flex-start;
-
-      .textarea {
-        width: 100%;
-        flex-grow: 1;
-        padding: 24px;
-        font-size: 32px;
-        border-color: @primary-color;
-        border-width: 3px;
-        border-radius: 8px;
-        background-color: #ffffff;
-      }
-
-      .pushbtn {
-        color: #ffffff;
-        font-size: 30px;
-        margin-top: 48px;
-        padding: 24px;
-        border-radius: 16px;
-        background-color: @primary-color;
-      }
+    text {
+      font-size: 48px;
+      color: #000000;
     }
   }
+
+  .pushmsg-region {
+    margin: 24px 0;
+    width: 80%;
+    height: 30%;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: flex-start;
+
+    .textarea {
+      width: 100%;
+      flex-grow: 1;
+      padding: 24px;
+      font-size: 32px;
+      border-color: @primary-color;
+      border-width: 3px;
+      border-radius: 8px;
+      background-color: #ffffff;
+    }
+
+    .pushbtn {
+      color: #ffffff;
+      font-size: 30px;
+      margin-top: 48px;
+      padding: 24px;
+      border-radius: 16px;
+      background-color: @primary-color;
+    }
+  }
+}
 </style>

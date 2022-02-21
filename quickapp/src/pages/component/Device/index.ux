@@ -1,5 +1,4 @@
 <import name="dev-card" src="./card"></import>
-<import name="swipe-item" src="../swipeItem"></import>
 <template>
   <div class="wrapper">
     <!-- <text class="title">device</text>
@@ -10,99 +9,114 @@
     </div>
     <list style="width: 80%">
       <list-item type="devitem" for="{{ dev in devs}}">
-        <swipe-item>
-          <dev-card
-            slot="content"
-            dev-obj="{{ dev }}"
-            idx="{{ $idx }}"
-          ></dev-card>
-          <div
-            slot="right"
-            style="height: 60px;width: 100px;padding: 0 20px;justify-content: center;"
-            @click="handleDeleteClick($idx)"
-          >
-            <image src="/assets/images/trash.png"></image>
-          </div>
-        </swipe-item>
+        <slide-view
+          id="sv{{$idx}}"
+          style="width: 100%"
+          buttons="{{slideButton}}"
+          layer="same"
+          isopen="false"
+          edge="right"
+          enableslide="true"
+          @ButtonClick="handleDeleteClick($idx)"
+        >
+          <dev-card dev-obj="{{ dev }}" idx="{{ $idx }}"></dev-card>
+        </slide-view>
       </list-item>
     </list>
   </div>
 </template>
 
 <script>
-  import device from '@system.device'
+import device from '@system.device'
 
-  const devIcon = {
-    "ios": "/assets/images/device-iphone.png",
-    "default": "/assets/images/device-iphone.png",
+const devIcon = {
+  "ios": "/assets/images/device-iphone.png",
+  "default": "/assets/images/device-iphone.png",
+}
+
+const handleDevResult = (data) => data.map((item) => {
+  return {
+    id: item.id,
+    name: item.name,
+    icon: item.type in devIcon ? devIcon[item.type] : devIcon["default"],
   }
+})
 
-  const handleDevResult = (data) => data.map((item) => {
-    return {
-      id: item.id,
-      name: item.name,
-      icon: item.type in devIcon ? devIcon[item.type] : devIcon["default"],
-    }
-  })
-
-  export default {
-    data: {
-      devs: [],
-    },
-
-    async onPlusBtnClick() {
-      try {
-        let devId = await promiseFactory(device.getDeviceId, {})
-          .then(res => res.deviceId)
-        let devList = await API.deviceReg($userinfo.name + '的手机', devId)
-        // console.log('devList: ', JSON.stringify(devList));
-        this.devs = handleDevResult(devList)
-      } catch (e) {
-        $utils.showToast(e.name + ':' + e.message)
+export default {
+  data: {
+    devs: [],
+    slideButton: [
+      {
+        id: "delBtn",
+        buttonWidth: '100px',
+        iconWidth: '38px',
+        iconHeight: '47px',
+        icon: '/assets/images/trash.png',
+        backgroundColor: "transparent",
       }
-    },
+    ]
+  },
 
-    async handleDeleteClick(idx) {
+  async onPlusBtnClick() {
+    try {
+      let devId = await promiseFactory(device.getDeviceId, {})
+        .then(res => res.deviceId)
+      let devList = await API.deviceReg(this.$app.$def.userinfo.name + '的手机', devId)
+      console.log('devList: ', JSON.stringify(devList));
+      this.devs = handleDevResult(devList)
+    } catch (e) {
+      $utils.showToast(e.name + ':' + e.message)
+    }
+  },
+
+  async handleDeleteClick(idx) {
+    this.$element('sv'+idx).close({animation:false})
+    try {
       const id = this.devs[idx].id
       console.log(`device: del item: idx=${idx}, id=${id}`);
-      this.devs.splice(idx)
+      console.log('devList: ', JSON.stringify(this.devs));
+      this.devs.splice(idx, 1)
       API.deviceRemove(id)
-    },
+    } catch (e) {
+      $utils.showToast(e.name + ':' + e.message)
+    }
+  },
 
-    onInit() {
-      console.log('device', 'init');
-      (async () => {
-        let devList = await API.deviceList()
-        // console.log('devList: ', JSON.stringify(devList));
-        this.devs = handleDevResult(devList)
-        // console.log('devs: ', JSON.stringify(this.devs));
-        // [{"uid":"1","is_clip":0,"device_id":"f787bbf3-fffd-a2d7-fef9-716ff1bf1809","name":"新设备","id":1,"type":"ios"},{"uid":"1","is_clip":1,"device_id":"f787bbf3-fffd-a2d7-fef9-716ff1bf1809","name":"easychen+new","id":2,"type":"ios"}]
-      })()
-    },
-    onReady() {
-      console.log('device', 'onready')
-    },
-  }
+  onInit() {
+    console.log('device', 'init');
+    console.log('device: regId=', this.$app.$def.pushRegId);
+    (async () => {
+      let devList = await API.deviceList()
+      console.log('devList: ', JSON.stringify(devList));
+      this.devs = handleDevResult(devList)
+      // console.log('devs: ', JSON.stringify(this.devs));
+      // [{"uid":"1","is_clip":0,"device_id":"f787bbf3-fffd-a2d7-fef9-716ff1bf1809","name":"新设备","id":1,"type":"ios"},{"uid":"1","is_clip":1,"device_id":"f787bbf3-fffd-a2d7-fef9-716ff1bf1809","name":"easychen+new","id":2,"type":"ios"}]
+    })()
+  },
+  onReady() {
+    console.log('device', 'onready')
+  },
+}
 </script>
 
 <style lang="less">
-  @import '../../../assets/styles/style.less';
+@import '../../../assets/styles/style.less';
 
-  .wrapper {
-    .flex-box-mixins(column, flex-start, center);
-    width: 100%;
-    height: 100%;
-    padding-top: 84px;
+.wrapper {
+  .flex-box-mixins(column, flex-start, center);
+  width: 100%;
+  height: 100%;
+  padding-top: 84px;
 
-    .header {
-      margin-bottom: 24px;
-      width: 80%;
-      justify-content: space-between;
+  .header {
+    margin-bottom: 24px;
+    width: 80%;
+    justify-content: space-between;
 
-      text {
-        font-size: 48px;
-        color: #000000;
-      }
+    text {
+      font-size: 48px;
+      color: #000000;
     }
   }
+}
 </style>

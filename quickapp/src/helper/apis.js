@@ -8,7 +8,7 @@ import $ajax from './ajax'
  *
  * 备注：如果您不需要发起请求，删除 apis 目录，以及 app.ux 中引用即可；
  */
-const baseUrl = 'https://pushdeer.qiyanghong.cn:5443/'
+const baseUrl = 'YOUR_API_ADDRESS'
 
 let token = ""
 
@@ -24,23 +24,26 @@ export default {
   login() {
     return to($ajax.get(`${baseUrl}login/fake`).then(res => res.token))
   },
+  wxLogin(code) {
+    return $ajax.post(`${baseUrl}login/wecode`, { code }).then(res => res.token)
+  },
   userInfo() {
-    return to($ajax.post(`${baseUrl}user/info`, { token }))
+    return $ajax.post(`${baseUrl}user/info`, { token })
   },
   // device
   deviceReg(name, device_id) {
-    return to($ajax.post(`${baseUrl}device/reg`, { token, is_clip: 1, name, device_id }))
+    return $ajax.post(`${baseUrl}device/reg`, { token, is_clip: 1, name, device_id })
       .then(res => res.devices)
   },
   deviceList() {
-    return to($ajax.post(`${baseUrl}device/list`, { token }))
+    return $ajax.post(`${baseUrl}device/list`, { token })
       .then(res => res.devices)
   },
   deviceRename(id, name) {
-    return to($ajax.post(`${baseUrl}device/rename`, { token, id, name }))
+    return $ajax.post(`${baseUrl}device/rename`, { token, id, name })
   },
   deviceRemove(id) {
-    return to($ajax.post(`${baseUrl}device/remove`, { token, id }))
+    return $ajax.post(`${baseUrl}device/remove`, { token, id })
   },
   // key
   keyGen() {

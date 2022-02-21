@@ -1,66 +1,75 @@
 {
-  "package": "dev.pushdeer.app",
-  "name": "pushdeer",
-  "versionName": "1.0.0",
-  "versionCode": 1,
-  "minPlatformVersion": 1070,
-  "icon": "/assets/images/logo.svg",
-  "features": [
-    {
-      "name": "system.prompt"
+    "package": "dev.pushdeer.app",
+    "name": "pushdeer",
+    "versionName": "1.0.0",
+    "versionCode": 1,
+    "minPlatformVersion": 1090,
+    "icon": "/assets/images/logo.png",
+    "features": [
+        {
+            "name": "system.prompt"
+        },
+        {
+            "name": "system.router"
+        },
+        {
+            "name": "system.clipboard"
+        },
+        {
+            "name": "system.fetch"
+        },
+        {
+            "name": "system.storage"
+        },
+        {
+            "name": "system.device"
+        },
+        {
+            "name": "service.push"
+        },
+        {
+            "name": "service.wxaccount",
+            "params": {
+                "appId": "YOUR_APPID"
+            }
+        }
+    ],
+    "permissions": [
+        {
+            "origin": "*"
+        }
+    ],
+    "config": {
+        "logLevel": "debug"
     },
-    {
-      "name": "system.router"
+    "router": {
+        "entry": "pages",
+        "pages": {
+            "pages": {
+                "component": "index"
+            },
+            "pages/Home": {
+                "component": "index",
+                "launchMode": "singleTask"
+            },
+            "pages/component": {
+                "component": "devpage"
+            },
+            "pages/swipe": {
+                "component": "index"
+            }
+        }
     },
-    {
-      "name": "system.clipboard"
-    },
-    {
-      "name": "system.fetch"
-    },
-    {
-      "name": "system.storage"
-    },
-    {
-      "name": "system.device"
+    "display": {
+        "titleBarBackgroundColor": "#f2f2f2",
+        "titleBarTextColor": "#414141",
+        "pages": {
+            "pages": {
+                "titleBar": false
+            },
+            "pages/Home": {
+                "titleBar": false
+            }
+        }
     }
-  ],
-  "permissions": [
-    {
-      "origin": "*"
-    }
-  ],
-  "config": {
-    "logLevel": "debug"
-  },
-  "router": {
-    "entry": "pages",
-    "pages": {
-      "pages": {
-        "component": "index"
-      },
-      "pages/Home": {
-        "component": "index",
-        "launchMode": "singleTask"
-      },
-      "pages/component": {
-        "component": "devpage"
-      },
-      "pages/swipe":{
-        "component": "index"
-      }
-    }
-  },
-  "display": {
-    "titleBarBackgroundColor": "#f2f2f2",
-    "titleBarTextColor": "#414141",
-    "pages": {
-      "pages": {
-        "titleBar": false
-      },
-      "pages/Home": {
-        "titleBar": false
-      }
-    }
-  }
 }
