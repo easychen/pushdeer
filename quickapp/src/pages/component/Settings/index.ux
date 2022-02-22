@@ -19,13 +19,25 @@
 </template>
 
 <script>
+import storage from '@system.storage'
+import router from '@system.router'
 export default {
   data: {
     settings: [
-      { label: "登录为 Easy", optName: "退出", handler: () => { $utils.showToast('点击了退出按钮') } },
-      { label: "自定义服务器", optName: "扫码", handler: () => { $utils.showToast('点击了扫码按钮') } },
+      {        label: "", optName: "退出", handler: () => {
+          promiseFactory(storage.clear)
+            .then(() => {
+              router.replace({
+                uri: 'pages'
+              })
+            })
+            .catch(e => {
+              $utils.showToast(e)
+            })
+        }      },
+      // { label: "自定义服务器", optName: "扫码", handler: () => { $utils.showToast('点击了扫码按钮') } },
       { label: "喜欢PushDeer？", optName: "评分", handler: () => { $utils.showToast('点击了评分按钮') } }
-    ]
+    ],
   },
 
   onLogoutBtnClick() {
@@ -38,6 +50,7 @@ export default {
       evt.stop()
       this.settings[evt.detail].handler();
     })
+    this.settings[0].label = "登录为 " + this.$app.$def.userinfo.name
   }
 }
 </script>

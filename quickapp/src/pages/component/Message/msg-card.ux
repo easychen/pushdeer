@@ -3,56 +3,131 @@
 <template>
   <div class="card">
     <msg-header title="{{msg.name +' · '+ msg.created_at}}"></msg-header>
+    <div style="{{slideStyle}}">
+      
+    <slide-view
+      buttons="{{slideButton}}"
+      style="width:100%;height:100%;"
+      layer="same"
+      isopen="false"
+      edge="right"
+      enableslide="true"
+      @ButtonClick="handleDeleteClick"
+    >
+      <div id="rt">
+        <!-- <text if="{{msg.type === 'text'}}" class="text">{{ msg.text }}</text> -->
 
-    <text if="{{msg.type === 'text'}}" class="text">{{ msg.text }}</text>
+        <div if="{{msg.type !=='image'}}" class="text">
+          <richtext type="html" @complete="richtextComplete">{{
+            msg.text
+          }}</richtext>
+        </div>
 
-    <div if="{{msg.type ==='markdown'}}" class="text">
-      <richtext type="html">{{msg.text}}</richtext>
+        <image
+          if="{{msg.type ==='image'}}"
+          class="image"
+          src="{{msg.text}}"
+        ></image>
+      </div>
+    </slide-view>
     </div>
-
-    <image if="{{msg.type ==='image'}}" class="image" src="{{msg.text}}"></image>
   </div>
 </template>
 
 <script>
-  import clipboard from '@system.clipboard'
-  export default {
+import clipboard from '@system.clipboard'
+export default {
 
-    props: ['msg'],
+  props: ['msg'],
 
-    onInit() {
-      // console.log('msg-text',this.msg)
-      if (this.msg.type !== 'image' && this.msg.desp.length > 0) {
-        this.msg.text += "\n" + this.msg.desp
+  data: {
+    contentHeight: '400px',
+    slideButton: [
+      {
+        id: "delBtn",
+        buttonWidth: '100px',
+        iconWidth: '38px',
+        iconHeight: '47px',
+        icon: '/assets/images/trash.png',
+        backgroundColor: "transparent",
       }
+    ]
+  },
+
+  computed: {
+    slideStyle() {
+      let width = this.msg.type === 'image' ? '100%' : '80%'
+      return `width: ${width};height:${this.contentHeight}`
     }
-  }
+  },
+
+  imgComplete({ height }) {
+    console.log('success', this.msg.type, height)
+    this.contentHeight = height + 'px'
+  },
+
+  handleDeleteClick(){
+    console.log('delete:',this.msg.idx);
+    this.$dispatch('msgDel',this.msg.idx)
+  },
+
+  richtextComplete() {
+    let that = this
+    setTimeout(() => {
+      that.$element('rt').getBoundingClientRect({
+        success: ({ height }) => {
+          console.log('success', this.msg.type, height)
+          this.contentHeight = height + 'px'
+        },
+        fail: (errorData, errorCode) => {
+          console.log('fail', errorData, errorCode)
+
+        },
+        complete: () => {
+          console.log('complete')
+
+        }
+      })
+    }, 100)
+    // this.
+  },
+
+  onInit() {
+    // console.log('msg-text',this.msg)
+    if (this.msg.type !== 'image' && this.msg.desp.length > 0) {
+      this.msg.text += "\n" + this.msg.desp
+    }
+  },
+  onReady() {
+    console.log('onready', this.msg.type);
+  },
+}
 </script>
 
 <style lang="less">
-  @import '../../../assets/styles/style.less';
+@import '../../../assets/styles/style.less';
 
-  .card {
-    .flex-box-mixins(column, flex-start, center);
-    margin: 24px 0;
-    width: 100%;
+.card {
+  .flex-box-mixins(column, flex-start, center);
+  margin: 24px 0;
+  width: 100%;
 
-    .text {
-      width: 80%;
-      margin-top: 32px;
-      color: #535353;
-      font-size: 24px;
-      line-height: 48px;
-      padding: 24px;
-      border-width: 2px;
-      border-radius: 8px;
-      border-color: @primary-color;
-      background-color: #ffffff;
-    }
-
-    .image {
-      width: 100%;
-      margin-top: 32px;
-    }
+  .text {
+    /* width: 80%; */
+    margin-top: 32px;
+    color: #535353;
+    font-size: 24px;
+    line-height: 48px;
+    padding: 24px;
+    border-width: 2px;
+    border-radius: 8px;
+    border-color: @primary-color;
+    background-color: #ffffff;
   }
+
+  .image {
+    /* width: 100%; */
+    margin-top: 32px;
+  }
+}
 </style>

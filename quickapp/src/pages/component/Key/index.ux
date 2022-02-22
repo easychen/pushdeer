@@ -1,5 +1,4 @@
 <import name="key-card" src="./card"></import>
-<import name="swipe-item" src="../swipeItem"></import>
 <template>
   <div class="wrapper">
     <!-- <text class="title">device</text>
@@ -10,107 +9,119 @@
     </div>
     <list style="width: 80%">
       <list-item type="keyitem" for="{{ key in keys}}">
-        <swipe-item>
+        <slide-view
+          id="sv{{$idx}}"
+          style="width: 100%"
+          buttons="{{slideButton}}"
+          layer="same"
+          isopen="false"
+          edge="right"
+          enableslide="true"
+          @ButtonClick="onDelBtnClick($idx)"
+        >
           <key-card
-            slot="content"
             key="{{ key }}"
             idx="{{ $idx }}"
             @key-reset="onKeyReset"
             @key-rename="onKeyRename"
           ></key-card>
-          <div
-            slot="right"
-            style="height: 60px;width: 100px;justify-content: center;"
-            @click="onDelBtnClick($idx)"
-          >
-            <image src="/assets/images/trash.png"></image>
-          </div>
-        </swipe-item>
+        </slide-view>
       </list-item>
     </list>
   </div>
 </template>
 
 <script>
- import dayjs from 'dayjs'
-  const handleKeyResult = (data) => data.map((item) => {
-    return {
-      id: item.id,
-      name: item.name,
-      value: item.key,
-      date: dayjs(item.created_at).format('YYYY/MM/DD'),
-    }
-  })
-  export default {
-    data: {
-      keys: [],
-    },
-
-    async onPlusBtnClick() {
-      let keyList = await API.keyGen()
-      this.keys = handleKeyResult(keyList)
-    },
-
-    async handleRename(e) {
-      console.log(JSON.stringify(e));
-    },
-
-    async onDelBtnClick(idx) {
-      const id = this.keys[idx].id
-      console.log(`key: del item: idx=${idx}, id=${id}`);
-      this.keys.splice(idx)
-      API.keyRemove(id)
-    },
-
-    async onKeyReset({ detail: { idx } }) {
-      console.log(`key: onKeyReset: idx=${idx}`);
-      const id = this.keys[idx].id
-      let result = await API.keyRegen(id)
-      if (!result) { return }
-      let keyList = await API.keyList()
-      this.keys = handleKeyResult(keyList)
-    },
-
-    async onKeyRename({ detail: { idx, newname } }) {
-      const id = this.keys[idx].id
-      console.log(`key: onKeyRename: idx=${idx}, newname=${newname}`);
-      let result = await API.keyRename(id, newname)
-      if (result) {
-        this.keys[idx].name = newname
-      }
-    },
-
-    onInit() {
-      (async () => {
-        let keyList = await API.keyList()
-        // console.log('devList: ', JSON.stringify(devList));
-        this.keys = handleKeyResult(keyList)
-        console.log('keys: ', JSON.stringify(this.keys));
-      })().catch(e => {
-        console.log(e);
-      })
-    }
+import dayjs from 'dayjs'
+const handleKeyResult = (data) => data.map((item) => {
+  return {
+    id: item.id,
+    name: item.name,
+    value: item.key,
+    date: dayjs(item.created_at).format('YYYY/MM/DD'),
   }
+})
+export default {
+  data: {
+    keys: [],
+    slideButton: [
+      {
+        id: "delBtn",
+        buttonWidth: '100px',
+        iconWidth: '38px',
+        iconHeight: '47px',
+        icon: '/assets/images/trash.png',
+        backgroundColor: "transparent",
+      }
+    ]
+  },
+
+  async onPlusBtnClick() {
+    let keyList = await API.keyGen()
+    this.keys = handleKeyResult(keyList)
+  },
+
+  async handleRename(e) {
+    console.log(JSON.stringify(e));
+  },
+
+  async onDelBtnClick(idx) {
+    this.$element('sv' + idx).close({ animation: false })
+    const id = this.keys[idx].id
+    console.log(`key: del item: idx=${idx}, id=${id}`);
+    this.keys.splice(idx,1)
+    API.keyRemove(id)
+  },
+
+  async onKeyReset({ detail: { idx } }) {
+    console.log(`key: onKeyReset: idx=${idx}`);
+    const id = this.keys[idx].id
+    let result = await API.keyRegen(id)
+    if (!result) { return }
+    let keyList = await API.keyList()
+    this.keys = handleKeyResult(keyList)
+  },
+
+  async onKeyRename({ detail: { idx, newname } }) {
+    const id = this.keys[idx].id
+    console.log(`key: onKeyRename: idx=${idx}, newname=${newname}`);
+    let result = await API.keyRename(id, newname)
+    if (result) {
+      this.keys[idx].name = newname
+    }
+  },
+
+  onInit() {
+    (async () => {
+      let keyList = await API.keyList()
+      // console.log('devList: ', JSON.stringify(devList));
+      this.keys = handleKeyResult(keyList)
+      console.log('keys: ', JSON.stringify(this.keys));
+    })().catch(e => {
+      console.log(e);
+    })
+  }
+}
 </script>
 
 <style lang="less">
-  @import '../../../assets/styles/style.less';
+@import '../../../assets/styles/style.less';
 
-  .wrapper {
-    .flex-box-mixins(column, flex-start, center);
-    width: 100%;
-    height: 100%;
-    padding-top: 84px;
+.wrapper {
+  .flex-box-mixins(column, flex-start, center);
+  width: 100%;
+  height: 100%;
+  padding-top: 84px;
 
-    .header {
-      margin-bottom: 24px;
-      width: 80%;
-      justify-content: space-between;
+  .header {
+    margin-bottom: 24px;
+    width: 80%;
+    justify-content: space-between;
 
-      text {
-        font-size: 48px;
-        color: #000000;
-      }
+    text {
+      font-size: 48px;
+      color: #000000;
     }
   }
+}
 </style>

@@ -19,7 +19,9 @@
   },
   "dependencies": {
     "apex-ui": "^1.9.2",
-    "dayjs": "^1.10.7"
+    "dayjs": "^1.10.7",
+    "markdown-it": "^12.3.2",
+    "punycode": "^2.1.1"
   },
   "devDependencies": {
     "@babel/runtime": "^7.12.5",

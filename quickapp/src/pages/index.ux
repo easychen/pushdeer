@@ -16,66 +16,135 @@
 </template>
 
 <script>
-  import router from '@system.router'
+import storage from '@system.storage'
+import router from '@system.router'
+// import push from '@service.push'
+import wxaccount from '@service.wxaccount'
 
-  const appInitC = new BroadcastChannel('init')
-  appInitC.onmessage = ({ data }) => {
-    console.log(`index: received app init message:${data}`);
-    if (data === 1) {
-      appInitC.close()
-      router.replace({
-        uri: 'pages/Home'
-      })
+export default {
+  // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
+  private: {
+  },
+
+  onWxSignBtnClick() {
+    var type = wxaccount.getType();
+    console.log('index:wxtype:' + type)
+    if (type == 'APP') {
+      const that = this
+      wxaccount.authorize({
+        scope: 'snsapi_userinfo',
+        state: 'randomString',
+        success: function (data) {
+          console.log("wxaccount authorize success:" + JSON.stringify(data));
+          that.onWxLoginSuccess(data).catch(e => {
+            $utils.showToast(e)
+          })
+        },
+        fail: function (data, code) {
+          console.log("wxaccount authorize fail:" + data + ", code:" + code);
+        },
+        cancel: function () {
+          console.log("wxaccount authorize cancelled.");
+        }
+      });
+    } else {
+      console.log("wxaccount not available.");
     }
-  }
+  },
 
-  export default {
-    // 页面级组件的数据模型，影响传入数据的覆盖机制：private内定义的属性不允许被覆盖
-    private: {
-    },
+  async onWxLoginSuccess(data) {
+    let token = await API.wxLogin(data.code)
+    console.log('wxaccount login success token=' + token);
+    await this.loginSuccess(token)
+  },
 
-    async onWxSignBtnClick() {
-      API.login()
-        .then(token => {
-          appInitC.postMessage(token)
-        })
-    },
+  async loginSuccess(token) {
+    let that = this
+    console.log('index: loginsuccess');
+    promiseFactory(storage.set, { key: 'token', value: token })
+    let regIdFromStorage = await promiseFactory(storage.get, { key: 'regId' })
+    API.setToken(token)
+    let userinfo = await API.userInfo()
+    userinfo.token = token
+    this.$app.$def.userinfo = userinfo
 
-    onInit() {
-    },
-  }
+    // push.subscribe({
+    //   success: function ({ regId }) {
+    //     console.log(`push.subscribe succeeded, regIdFromStorage=${regIdFromStorage}, regId=${regId}`);
+    //     // console.log('todo: 若regId发生改变，需要上报服务器');
+    //     that.$app.$def.pushRegId = regId
+    //     if (regIdFromStorage !== regId) {
+    //       // TODO 上报新的推送ID
+    //       promiseFactory(storage.set, { key: 'regId', value: regId })
+    //     }
+    //   },
+    //   fail: function (data, code) {
+    //     console.log("push.subscribe failed, result data=" + JSON.stringify(data) + ", code=" + code);
+    //   },
+    //   complete: function () {
+    //     console.log("push.subscribe completed");
+    //   }
+    // })
+    // push.on({
+    //   callback: function (ret) {
+    //     console.log('received pass through message, ret = ' + JSON.stringify(ret));
+    //   }
+    // })
+
+    router.replace({
+      uri: 'pages/Home'
+    })
+  },
+
+  onInit() {
+    (async () => {
+      let token = await promiseFactory(storage.get, { key: 'token' })
+      console.log(`index: get token = ${token} from storage success`)
+      if (token.length !== 0) {
+        await this.loginSuccess(token)
+      }
+    })()
+      .catch(e => {
+        console.log('catch:' + e);
+        $utils.showToast(e);
+      })
+      .finally(() => {
+        console.log('index: init complete');
+      })
+  },
+}
 </script>
 
 <style lang="less">
-  .wrapper {
+.wrapper {
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+
+  .logo {
     flex-direction: column;
-    align-items: center;
-    height: 100%;
+    justify-content: center;
+    height: 60%;
+    width: 50%;
+  }
 
-    .logo {
-      flex-direction: column;
-      justify-content: center;
-      height: 60%;
-      width: 50%;
+  .btn-group {
+    flex-direction: column;
+    width: 50%;
+    /* margin: 0 auto; */
+
+    text {
+      margin: 16px 0;
+      padding: 24px;
+      border-width: 3px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 32px;
     }
-
-    .btn-group {
-      flex-direction: column;
-      width: 50%;
-      /* margin: 0 auto; */
-
-      text {
-        margin: 16px 0;
-        padding: 24px;
-        border-width: 3px;
-        border-radius: 8px;
-        text-align: center;
-        font-size: 32px;
-      }
-      .btn-wx {
-        color: #296c05;
-        border-color: #296c05;
-      }
+    .btn-wx {
+      color: #296c05;
+      border-color: #296c05;
     }
   }
+}
 </style>

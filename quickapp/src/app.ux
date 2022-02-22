@@ -5,17 +5,13 @@
 
   const $utils = require('./helper/utils').default
   const $apis = require('./helper/apis').default
-  const $storage = require('@system.storage')
-
-  console.log('app: create channel');
-  const appInitC = new BroadcastChannel('init');
 
   /* @desc: 注入方法至全局 global,以便页面调用 */
   const hook2global = Object.getPrototypeOf(global) || global;
   hook2global.$utils = $utils
   hook2global.API = $apis
 
-  const _promiseFactory = (pointer, params = {}) => {
+  hook2global.promiseFactory = (pointer, params = {}) => {
     return new Promise((resolve, reject) => {
       params = Object.assign({
         success: (data) => { resolve(data); },
@@ -24,38 +20,9 @@
       pointer(params);
     });
   }
-  hook2global.promiseFactory = _promiseFactory;
-
-  const userinfoFromToken = async (token) => {
-    $apis.setToken(token)
-    let userinfo = await $apis.userInfo()
-    userinfo.token = token
-    hook2global.$userinfo = userinfo
-    _promiseFactory($storage.set, { key: 'token', value: token })
-    appInitC.postMessage(1)
-    appInitC.close()
-  }
 
   export default {
     onCreate() {
-      console.log('app: init oncreate');
-      appInitC.onmessage = ({ data: token }) => {
-        console.log('app: login success, data=', JSON.stringify(token));
-        userinfoFromToken(token)
-      }
-      (async () => {
-        let token = await _promiseFactory($storage.get, { key: 'token' })
-          .catch((data, code) => {
-            console.warn(`get token from storage fail, code = ${code}`)
-          })
-        console.log(`app: get token = ${token} from storage success`)
-        if (token.length === 0) {
-          console.log('app: init token.length==0, send init message');
-          appInitC.postMessage(0)
-          return
-        }
-        userinfoFromToken(token)
-      })()
 
     }
   }
