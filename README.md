@@ -26,11 +26,14 @@ PushDeer是一个可以自行架设的无APP推送服务。
 
 |功能|核心贡献人|预期完成时间|最低版本兼容|本周进度|
 |-|-|-|-|-|
-|iOS/Clip/Mac|[Hext123](https://github.com/Hext123)|已完成|iOS14|第一版完成，代码在iOS目录下|
-|Android客户端|[WolfHugo](https://github.com/alone-wolf)|已完成|5.1|第一版开发完成，release页面可下载|
+|iOS客户端/Mac客户端/轻APP|[Hext123](https://github.com/Hext123)|已完成|iOS14|第一版完成，代码在iOS目录下|
+|Android客户端|[WolfHugo](https://github.com/alone-wolf)|已完成|5.1|第一版开发完成，release页面可下载。Websocket方案准备中|
 |快应用|[7YHong](https://github.com/7YHong)|已完成|-|代码在[quickapp目录下](quickapp)，可自行上架|
+|物联网版本DeerESP|[Easy](https://ftqq.com) |已完成|-|代码在[iot目录下](iot)，专用设备PCB和外壳设计中|
 |API|[Easy](https://ftqq.com) [古俊杰](https://github.com/ilovintit)|已完成|-|-|
 |gorush的mi push版本|[SinTod](https://www.sintod.cn/)|已完成|-|代码在[push/gorush-with-mipush目录下](push/gorush-with-mipush)|
+
+
 
 # 试用
 
