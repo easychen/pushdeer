@@ -1,0 +1,17 @@
+version: '2'
+services:
+  api:
+    build: 
+      context: ./
+      dockerfile: ./Dockerfile.dev
+    volumes:
+      - './api:/api'
+    ports:
+      - '80:80'
+      - '1883:1883'
+    environment:
+      - API_KEY=aPiKe1
+      - MQTT_USER=easy
+      - MQTT_PASSWORD=y0urp@ss
+      - MQTT_PORT=1883
+      - MQTT_BASE_TOPIC=default
