@@ -9,7 +9,7 @@ import SwiftUI
 
 /// 每个 Key 项的 View
 struct KeyItemView: View {
-  let keyItem: KeyItem
+  @State var keyItem: KeyItem
   @EnvironmentObject private var store: AppState
   
   var body: some View {
@@ -20,10 +20,14 @@ struct KeyItemView: View {
           .scaledToFit()
           .frame(width: 38, height: 38)
         EditableText(placeholder: NSLocalizedString("输入key名称", comment: ""), value: keyItem.name) { value in
+          if keyItem.name == value {
+            return
+          }
           Task {
             // 调用接口修改
             _ = try await HttpRequest.renameKey(id: keyItem.id, name: value)
             HToast.showSuccess(NSLocalizedString("已修改key名称", comment: ""))
+            keyItem.name = value
             // 在此 keyItem 在列表中的下标
             let index = store.keys.firstIndex { $0.id == keyItem.id }
             if let index = index {

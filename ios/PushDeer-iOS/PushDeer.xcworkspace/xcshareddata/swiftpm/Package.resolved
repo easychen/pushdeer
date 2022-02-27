@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/AttributedText",
         "state": {
           "branch": null,
-          "revision": "c345033e22d5a1cd0e9fe0ec405cc809a8349586",
-          "version": "0.3.1"
+          "revision": "2dc2d7864e0fee4b524a5850d7d7cf9a7eeda0fc",
+          "version": "1.0.0"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/MarkdownUI",
         "state": {
           "branch": null,
-          "revision": "29d94710545952dd4c724cc2ca901848eef54ded",
-          "version": "0.5.2"
+          "revision": "94e07c111f1ef0a9c997d2fadac984e8bb7d7405",
+          "version": "1.0.0"
         }
       },
       {
@@ -33,17 +33,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/NetworkImage",
         "state": {
           "branch": null,
-          "revision": "04167e81ed89a14b5da9b856ead306b969bb5abd",
-          "version": "3.1.2"
-        }
-      },
-      {
-        "package": "cmark",
-        "repositoryURL": "https://github.com/SwiftDocOrg/swift-cmark.git",
-        "state": {
-          "branch": null,
-          "revision": "9c8096a23f44794bde297452d87c455fc4f76d42",
-          "version": "0.29.0+20210102.9c8096a"
+          "revision": "f8b8ed0be39d2f4aa00a6e8d3b18a62a94eff8d8",
+          "version": "4.0.0"
         }
       },
       {
@@ -51,8 +42,8 @@
         "repositoryURL": "https://github.com/gonzalezreal/SwiftCommonMark",
         "state": {
           "branch": null,
-          "revision": "ed60da54305c244d0f77bc8d08495e04161e96a4",
-          "version": "0.1.2"
+          "revision": "ed252beaddecce28ea6363f800c773d6169011b8",
+          "version": "1.0.0"
         }
       },
       {

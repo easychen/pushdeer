@@ -15,9 +15,16 @@ struct EditableText: View {
   }
   
   var body: some View {
-    TextField(placeholder, text: $value, onCommit: {
-      print("修改文本:", value)
-      self.onCommit(value)
+    TextField(placeholder, text: $value, onEditingChanged: { focus in
+      print("focus", focus, placeholder, value)
+      if !focus {
+        // 输入框失去焦点的时候也保存
+        self.onCommit(value)
+      }
+    }, onCommit: {
+      // enter回车键也会收键盘, 使其失去焦点
+      //      print("修改文本:", value)
+      //      self.onCommit(value)
     })
       .font(.system(size: 20))
       .foregroundColor(Color.accentColor)

@@ -9,8 +9,9 @@ import UIKit
 import UserNotifications
 import IQKeyboardManagerSwift
 
+@MainActor
 class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    
+  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
     
     // 注册通知
@@ -35,6 +36,12 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     IQKeyboardManager.shared.enable = false // 键盘与输入框的距离管理 禁用
     IQKeyboardManager.shared.enableAutoToolbar = true // 键盘上方添加的工具栏 启用
     
+#if !targetEnvironment(macCatalyst) && !APPCLIP && !SELFHOSTED
+    // 非Mac and 非AppClip and 非自架版
+    // 向微信注册
+    WXApi.registerApp(Env.wxAppid, universalLink: Env.wxUniversalLink)
+#endif
+
     return true
   }
   

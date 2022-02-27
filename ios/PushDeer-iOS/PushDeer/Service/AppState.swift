@@ -37,6 +37,12 @@ class AppState: ObservableObject {
       UserDefaults.standard.set(isShowTestPush, forKey: "PushDeer_isShowTestPush")
     }
   }
+  /// 是否使用内置浏览器打开链接
+  @Published var isUseBuiltInBrowser: Bool {
+    didSet {
+      UserDefaults.standard.set(isUseBuiltInBrowser, forKey: "PushDeer_isUseBuiltInBrowser")
+    }
+  }
   
   /// API endpoint
   @Published var api_endpoint : String {
@@ -59,10 +65,12 @@ class AppState: ObservableObject {
     let _token = UserDefaults.standard.string(forKey: "PushDeer_token")
     let _tabSelectedIndex = UserDefaults.standard.integer(forKey: "PushDeer_tabSelectedIndex")
     let _isShowTestPush = UserDefaults.standard.object(forKey: "PushDeer_isShowTestPush")
+    let _isUseBuiltInBrowser = UserDefaults.standard.object(forKey: "PushDeer_isUseBuiltInBrowser")
     let _api_endpoint = UserDefaults.standard.string(forKey: "PushDeer_api_endpoint")
     token = _token ?? ""
     tabSelectedIndex = _tabSelectedIndex
     isShowTestPush = _isShowTestPush as? Bool ?? true
+    isUseBuiltInBrowser = _isUseBuiltInBrowser as? Bool ?? true
     api_endpoint = _api_endpoint ?? ""
   }
   
@@ -97,6 +105,10 @@ class AppState: ObservableObject {
       }
     case let .failure(error):
       print(error)
+      if (error as NSError).code == 1001 {
+        // Apple 登录取消
+        throw NSError(domain: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示") + "\n\(error.localizedDescription)", code: 1001, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("你已取消授权", comment: "")])
+      }
       // Apple 登录失败
       throw NSError(domain: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示") + "\n\(error.localizedDescription)", code: -2, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("登录失败", comment: "AppleId登录失败时提示") + "(-2)\n\(error.localizedDescription)"])
     }

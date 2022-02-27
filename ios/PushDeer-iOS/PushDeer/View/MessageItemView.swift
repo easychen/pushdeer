@@ -44,33 +44,88 @@ struct MessageItemView: View {
   }
 }
 
+extension URL: Identifiable {
+  public var id: Self { self }
+}
+
 struct MessageContentView: View {
   let messageItem: MessageModel
+  @EnvironmentObject private var store: AppState
   @State private var image: PlatformImage? = nil
+  @State private var showUrl: URL?
+  @State private var showActionSheet = false
   
   var body: some View {
     switch messageItem.type {
     case "markdown":
       CardView {
         VStack(alignment: .leading, spacing: 5) {
-          Markdown(Document(messageItem.text ?? ""))
+          Markdown(messageItem.text ?? "")
             .markdownStyle(
-              DefaultMarkdownStyle(
+              MarkdownStyle(
                 font: .system(size: 14),
-                foregroundColor: UIColor(named: "textColor") ?? UIColor.darkGray
+                foregroundColor: .init("textColor")
               )
             )
+#if !targetEnvironment(macCatalyst)
+            .onOpenMarkdownLink { url in
+              if store.isUseBuiltInBrowser {
+                showUrl = url
+              } else {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+              }
+            }
+#endif
           if !(messageItem.desp?.isEmpty ?? true) {
-            Markdown(Document(messageItem.desp!))
+            Markdown(messageItem.desp ?? "")
               .markdownStyle(
-                DefaultMarkdownStyle(
+                MarkdownStyle(
                   font: .system(size: 14),
-                  foregroundColor: UIColor(named: "textColor") ?? UIColor.darkGray
+                  foregroundColor: .init("textColor")
                 )
               )
+#if !targetEnvironment(macCatalyst)
+              .onOpenMarkdownLink { url in
+                if store.isUseBuiltInBrowser {
+                  showUrl = url
+                } else {
+                  UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+              }
+#endif
           }
         }
         .padding()
+#if targetEnvironment(macCatalyst)
+        .contextMenu {
+          Button {
+            UIPasteboard.general.string = (messageItem.text ?? "") + "\n" + (messageItem.desp ?? "")
+            HToast.showSuccess(NSLocalizedString("已复制", comment: ""))
+          } label: {
+            Label("复制",systemImage: "doc.on.doc")
+          }
+        }
+#endif
+#if !targetEnvironment(macCatalyst)
+        .onLongPressGesture {
+          UIImpactFeedbackGenerator().impactOccurred()
+          showActionSheet = true
+        }
+        .actionSheet(isPresented: $showActionSheet) {
+          ActionSheet(title: Text("复制消息内容"), message: nil, buttons: [
+            .default(Text("复制"), action: {
+              UIPasteboard.general.string = (messageItem.text ?? "") + "\n" + (messageItem.desp ?? "")
+              HToast.showSuccess(NSLocalizedString("已复制", comment: ""))
+            }),
+            .cancel()
+          ])
+        }
+#endif
+      }
+      .fullScreenCover(item: $showUrl) {
+        
+      } content: { url in
+        SafariView(url: url)
       }
       
     case "image":
@@ -146,7 +201,7 @@ struct MessageContentView: View {
         .padding()
         .contextMenu {
           Button {
-            UIPasteboard.general.string = (messageItem.text ?? "") + (messageItem.desp ?? "")
+            UIPasteboard.general.string = (messageItem.text ?? "") + "\n" + (messageItem.desp ?? "")
             HToast.showSuccess(NSLocalizedString("已复制", comment: ""))
           } label: {
             Label("复制",systemImage: "doc.on.doc")

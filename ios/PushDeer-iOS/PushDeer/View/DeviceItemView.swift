@@ -9,7 +9,7 @@ import SwiftUI
 
 /// 每个设备项的 View
 struct DeviceItemView: View {
-  let deviceItem: DeviceItem
+  @State var deviceItem: DeviceItem
   @EnvironmentObject private var store: AppState
   
   var body: some View {
@@ -30,10 +30,14 @@ struct DeviceItemView: View {
         .padding(EdgeInsets(top: 0, leading: 18, bottom: 0, trailing: 8))
         
         EditableText(placeholder: NSLocalizedString("输入设备名称", comment: ""), value: deviceItem.name) { value in
+          if deviceItem.name == value {
+            return
+          }
           Task {
             // 调用接口修改
             _ = try await HttpRequest.renameDevice(id: deviceItem.id, name: value)
             HToast.showSuccess(NSLocalizedString("已修改设备名称", comment: ""))
+            deviceItem.name = value
             // 在此 Item 在列表中的下标
             let index = store.devices.firstIndex { $0.id == deviceItem.id }
             if let index = index {
@@ -44,7 +48,7 @@ struct DeviceItemView: View {
         }
         Text(getInfo(deviceItem: deviceItem))
           .font(.system(size: 20))
-        Spacer()
+        Spacer(minLength: 12)
       }
       .frame(height: 80)
     }
