@@ -20,6 +20,12 @@ struct HttpRequest {
         switch result {
         case let .success(response):
           do {
+            print(response)
+            if response.statusCode != 200 {
+              continuation.resume(throwing: NSError(domain: NSLocalizedString("接口报错", comment: "接口报错时提示"), code: response.statusCode, userInfo: [NSLocalizedDescriptionKey: NSLocalizedString("接口报错", comment: "接口报错时提示") + "(\(response.statusCode)"]))
+              return
+            }
+            print((try? response.mapJSON()) ?? "返回值解析失败")
             let result = try JSONDecoder().decode(ApiResult<T>.self, from: response.data)
             print(result)
             if let content = result.content, result.code == 0 {
@@ -48,6 +54,19 @@ struct HttpRequest {
   
   static func login(idToken: String) async throws -> TokenContent {
     return try await request(.login(idToken: idToken), resultType: TokenContent.self)
+  }
+  
+  static func wechatLogin(code: String) async throws -> TokenContent {
+    return try await request(.wechatLogin(code: code), resultType: TokenContent.self)
+  }
+  
+  /// 合并用户并将旧用户删除
+  /// | 参数 | 说明 |
+  /// | - | - |
+  /// | type | 字符串，必须为 apple 或者 wechat |
+  /// | tokenorcode | type 为 apple时此字段为 idToken，否则为 微信code |
+  static func mergeUser(type: String, tokenorcode: String) async throws -> ResultContent {
+    return try await request(.mergeUser(token: AppState.shared.token, type: type, tokenorcode: tokenorcode), resultType: ResultContent.self)
   }
   
   static func getUserInfo() async throws -> UserInfoContent {
@@ -105,8 +124,8 @@ struct HttpRequest {
     }
   }
   
-  static func push(pushkey: String, text: String, desp: String, type: String) async throws -> PushResultContent {
-    return try await request(.push(pushkey: pushkey, text: text, desp: desp, type: type), resultType: PushResultContent.self)
+  static func push(pushkey: String, text: String, desp: String, type: String) async throws -> ResultContent {
+    return try await request(.push(pushkey: pushkey, text: text, desp: desp, type: type), resultType: ResultContent.self)
   }
   
   static func getMessages() async throws -> MessageContent {

@@ -21,4 +21,9 @@ struct Env {
   static let onlineApiEndpoint = "https://api2.pushdeer.com"
   /// AppStore 的 appId, 自建版: 1608017631; 在线版: 1596771139
   static let appStoreId = isSelfHosted ? 1608017631 : 1596771139
+  /// 微信开发者ID
+  static let wxAppid = "wx3ae07931d0555a24"
+  /// 微信开发者Universal Link
+  static let wxUniversalLink = "https://vip.pushdeer.com/app/"
+  
 }

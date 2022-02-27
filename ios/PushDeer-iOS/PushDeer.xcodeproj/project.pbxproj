@@ -77,9 +77,13 @@
 		52EB90AE2778AFD60048E0ED /* BaseNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AD2778AFD60048E0ED /* BaseNavigationView.swift */; };
 		52EB90B02778D67F0048E0ED /* KeyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AF2778D67F0048E0ED /* KeyItemView.swift */; };
 		52EB90B32778DA4E0048E0ED /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90B22778DA4E0048E0ED /* Line.swift */; };
+		52EED71E27C9394D0086A804 /* WXDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EED71D27C9394D0086A804 /* WXDelegate.swift */; };
+		52EED71F27C93B960086A804 /* WXDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EED71D27C9394D0086A804 /* WXDelegate.swift */; };
 		52F0243F277737470071D861 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0243E277737470071D861 /* LoginView.swift */; };
 		52F2C223277961D7006F08DC /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2C222277961D7006F08DC /* SettingsItemView.swift */; };
 		52F40D2F277CA05600766C24 /* MessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40D2E277CA05600766C24 /* MessageItemView.swift */; };
+		52FB1FEC27CA9D7300367DE0 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB1FEB27CA9D7300367DE0 /* SafariView.swift */; };
+		52FB1FED27CA9D7300367DE0 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FB1FEB27CA9D7300367DE0 /* SafariView.swift */; };
 		52FBA09427874879003308C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5292F4FA2776BC7900B9A7BB /* ContentView.swift */; };
 		64B0C15E70CCC382B480F76E /* Pods_PushDeer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E380A18349DE4D26071E913E /* Pods_PushDeer.framework */; };
 /* End PBXBuildFile section */
@@ -143,6 +147,7 @@
 		52B8CF6D277E0B46004CB680 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		52B8CF6F277E0B46004CB680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52B8CF70277E0B46004CB680 /* PushDeerClip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushDeerClip.entitlements; sourceTree = "<group>"; };
+		52BE373227C236DD004AA630 /* PushDeer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushDeer-Bridging-Header.h"; sourceTree = "<group>"; };
 		52E317D8279305BB000B8BB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		52E317DB279305BB000B8BB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		52E317DE279305BB000B8BB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -153,10 +158,12 @@
 		52EB90AD2778AFD60048E0ED /* BaseNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationView.swift; sourceTree = "<group>"; };
 		52EB90AF2778D67F0048E0ED /* KeyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyItemView.swift; sourceTree = "<group>"; };
 		52EB90B22778DA4E0048E0ED /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
+		52EED71D27C9394D0086A804 /* WXDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXDelegate.swift; sourceTree = "<group>"; };
 		52F0243C277733CE0071D861 /* PushDeer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushDeer.entitlements; sourceTree = "<group>"; };
 		52F0243E277737470071D861 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		52F2C222277961D7006F08DC /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
 		52F40D2E277CA05600766C24 /* MessageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemView.swift; sourceTree = "<group>"; };
+		52FB1FEB27CA9D7300367DE0 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		69F56B2711ED98819D474BE3 /* Pods-PushDeerClip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerClip.debug.xcconfig"; path = "Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip.debug.xcconfig"; sourceTree = "<group>"; };
 		8B9D658D778AE868A0E052A8 /* Pods-PushDeer.debug-selfhosted.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeer.debug-selfhosted.xcconfig"; path = "Target Support Files/Pods-PushDeer/Pods-PushDeer.debug-selfhosted.xcconfig"; sourceTree = "<group>"; };
 		9CC775BE0326BF31C6FACF06 /* Pods-PushDeerClip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerClip.release.xcconfig"; path = "Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip.release.xcconfig"; sourceTree = "<group>"; };
@@ -213,6 +220,7 @@
 				52450F3A278491F8003652D8 /* AppState.swift */,
 				52450F412784943F003652D8 /* HttpRequest.swift */,
 				526A1E722791E03900BA2177 /* Persistence.swift */,
+				52EED71D27C9394D0086A804 /* WXDelegate.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -264,6 +272,7 @@
 				52483FC1277ED6D5003A100E /* AppDelegate.swift */,
 				5292F4F82776BC7900B9A7BB /* PushDeerApp.swift */,
 				5292F4FA2776BC7900B9A7BB /* ContentView.swift */,
+				52BE373227C236DD004AA630 /* PushDeer-Bridging-Header.h */,
 				5292F4FC2776BC7A00B9A7BB /* Assets.xcassets */,
 				5292F4FE2776BC7A00B9A7BB /* Preview Content */,
 			);
@@ -285,6 +294,7 @@
 				52B8CF5E277DE660004CB680 /* AppleSignInButton.swift */,
 				52AC5C2727B7FE1D00EEB185 /* ViewExtension.swift */,
 				52AC5C2A27B8206D00EEB185 /* ListTest.swift */,
+				52FB1FEB27CA9D7300367DE0 /* SafariView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -410,9 +420,11 @@
 				TargetAttributes = {
 					5292F4F42776BC7900B9A7BB = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1320;
 					};
 					52B8CF63277E0B44004CB680 = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1320;
 					};
 				};
 			};
@@ -551,6 +563,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52F0243F277737470071D861 /* LoginView.swift in Sources */,
+				52FB1FEC27CA9D7300367DE0 /* SafariView.swift in Sources */,
 				523150DC2778762B00941EDC /* DeviceItemView.swift in Sources */,
 				523150D9277875FB00941EDC /* DeletableView.swift in Sources */,
 				52163EBB277741AC00594190 /* SettingsView.swift in Sources */,
@@ -571,6 +584,7 @@
 				526A1E7D2792B2A600BA2177 /* MessageModel.swift in Sources */,
 				52483FC2277ED6D5003A100E /* AppDelegate.swift in Sources */,
 				52450F3827848243003652D8 /* PushDeerApi.swift in Sources */,
+				52EED71E27C9394D0086A804 /* WXDelegate.swift in Sources */,
 				52EB90AE2778AFD60048E0ED /* BaseNavigationView.swift in Sources */,
 				524E99E627B3CD0F00292396 /* EndpointView.swift in Sources */,
 				52EB90AC2778ADF80048E0ED /* CardView.swift in Sources */,
@@ -589,6 +603,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52B8CF82277E0C06004CB680 /* AppleSignInButton.swift in Sources */,
+				52FB1FED27CA9D7300367DE0 /* SafariView.swift in Sources */,
 				52B8CF78277E0BF1004CB680 /* MainView.swift in Sources */,
 				52B8CF79277E0BFB004CB680 /* DeviceListView.swift in Sources */,
 				52B8CF84277E0C12004CB680 /* CardView.swift in Sources */,
@@ -609,6 +624,7 @@
 				526A1E7E2792B2A600BA2177 /* MessageModel.swift in Sources */,
 				52483FC3277ED6D5003A100E /* AppDelegate.swift in Sources */,
 				52450F3927848243003652D8 /* PushDeerApi.swift in Sources */,
+				52EED71F27C93B960086A804 /* WXDelegate.swift in Sources */,
 				52B8CF86277E0C12004CB680 /* BaseNavigationView.swift in Sources */,
 				524E99E727B3CD0F00292396 /* EndpointView.swift in Sources */,
 				52FBA09427874879003308C2 /* ContentView.swift in Sources */,
@@ -733,6 +749,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SH";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "PushDeer/PushDeer-SelfHosted.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
@@ -760,6 +777,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PushDeer/PushDeer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -771,6 +790,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SH";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "PushDeerClip/PushDeerClip-SelfHosted.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
@@ -801,6 +821,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.self.ios.Clip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PushDeer/PushDeer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -870,6 +892,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SH";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "PushDeer/PushDeer-SelfHosted.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
@@ -897,6 +920,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PushDeer/PushDeer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -908,6 +932,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SH";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "PushDeerClip/PushDeerClip-SelfHosted.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
@@ -938,6 +963,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.self.ios.Clip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PushDeer/PushDeer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1067,6 +1093,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PushDeer/PushDeer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
@@ -1094,6 +1121,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PushDeer/PushDeer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1105,6 +1134,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PushDeer/PushDeer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
@@ -1132,6 +1162,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PushDeer/PushDeer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1143,6 +1174,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PushDeerClip/PushDeerClip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
@@ -1173,6 +1205,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.app.ios.Clip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PushDeer/PushDeer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1184,6 +1218,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = PushDeerClip/PushDeerClip.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
@@ -1214,6 +1249,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.app.ios.Clip;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "PushDeer/PushDeer-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1262,8 +1298,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.5.2;
+				kind = upToNextMinorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

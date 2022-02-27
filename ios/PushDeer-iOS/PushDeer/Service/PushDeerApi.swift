@@ -11,7 +11,17 @@ import Moya
 enum PushDeerApi {
   
   case fake
+  /// 通过苹果 idToken 登入
   case login(idToken: String)
+  /// 通过微信 oauth code 登入
+  case wechatLogin(code: String)
+  /// 合并用户并将旧用户删除
+  /// | 参数 | 说明 |
+  /// | - | - |
+  /// | token | 认证token |
+  /// | type | 字符串，必须为 apple 或者 wechat |
+  /// | tokenorcode | type 为 apple时此字段为 idToken，否则为 微信code |
+  case mergeUser(token: String, type: String, tokenorcode: String)
   case getUserInfo(token: String)
   
   case regDevice(token: String, name: String, device_id: String, is_clip: Int)
@@ -47,6 +57,10 @@ extension PushDeerApi: TargetType {
       return "/login/fake"
     case .login:
       return "/login/idtoken"
+    case .wechatLogin:
+      return "/login/wecode"
+    case .mergeUser:
+      return "/user/merge"
     case .getUserInfo:
       return "/user/info"
       
@@ -91,6 +105,10 @@ extension PushDeerApi: TargetType {
       return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
     case let .login(idToken):
       return .requestParameters(parameters: ["idToken": idToken], encoding: URLEncoding.queryString)
+    case let .wechatLogin(code):
+      return .requestParameters(parameters: ["code": code], encoding: URLEncoding.queryString)
+    case let .mergeUser(token, type, tokenorcode):
+      return .requestParameters(parameters: ["token": token, "type": type, "tokenorcode": tokenorcode], encoding: URLEncoding.queryString)
     case let .getUserInfo(token):
       return .requestParameters(parameters: ["token": token], encoding: URLEncoding.queryString)
       
