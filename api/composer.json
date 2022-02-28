@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "firebase/php-jwt": "^6.0",
         "fruitcake/laravel-cors": "^2.0",
         "griffinledingham/php-apple-signin": "^1.1",
         "guzzlehttp/guzzle": "^7.4",
