@@ -25,5 +25,7 @@ struct Env {
   static let wxAppid = "wx3ae07931d0555a24"
   /// 微信开发者Universal Link
   static let wxUniversalLink = "https://vip.pushdeer.com/app/"
+  /// PushDeer 官网地址
+  static let officialWebsite = "https://www.pushdeer.com"
   
 }

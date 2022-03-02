@@ -134,6 +134,8 @@
 		526A1E6F2791E00400BA2177 /* PushDeerData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PushDeerData.xcdatamodel; sourceTree = "<group>"; };
 		526A1E722791E03900BA2177 /* Persistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		526A1E7C2792B2A600BA2177 /* MessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageModel.swift; sourceTree = "<group>"; };
+		527872C327CE0EE800AD79AD /* Info-SelfHosted.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-SelfHosted.plist"; sourceTree = "<group>"; };
+		527872C527CE105B00AD79AD /* Info-SelfHosted.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-SelfHosted.plist"; sourceTree = "<group>"; };
 		5287FF58278B3AAE00249A0E /* HToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HToast.swift; sourceTree = "<group>"; };
 		5292F4F52776BC7900B9A7BB /* PushDeer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PushDeer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5292F4F82776BC7900B9A7BB /* PushDeerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeerApp.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				52450F442784A95D003652D8 /* Info.plist */,
+				527872C327CE0EE800AD79AD /* Info-SelfHosted.plist */,
 				52E317DA279305BB000B8BB1 /* Localizable.strings */,
 				52E317D7279305BB000B8BB1 /* InfoPlist.strings */,
 				52450F362784822C003652D8 /* Service */,
@@ -303,6 +306,7 @@
 			isa = PBXGroup;
 			children = (
 				52B8CF6F277E0B46004CB680 /* Info.plist */,
+				527872C527CE105B00AD79AD /* Info-SelfHosted.plist */,
 				52E317DD279305BB000B8BB1 /* InfoPlist.strings */,
 				52B8CF70277E0B46004CB680 /* PushDeerClip.entitlements */,
 				5222E12F27B3F73C000B4223 /* PushDeerClip-SelfHosted.entitlements */,
@@ -758,8 +762,8 @@
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PushDeer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "PushDeer·自架版";
+				INFOPLIST_FILE = "PushDeer/Info-SelfHosted.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeer;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "APP需要访问本地网络以供调试(仅在开发时)";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "APP为您提供保存图片到相册的功能";
@@ -802,8 +806,8 @@
 					"APPCLIP=1",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PushDeerClip/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "PushDeer·自架版";
+				INFOPLIST_FILE = "PushDeerClip/Info-SelfHosted.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeer;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "APP需要访问本地网络以供调试(仅在开发时)";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "APP为您提供保存图片到相册的功能";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -901,8 +905,8 @@
 				"ENABLE_HARDENED_RUNTIME[sdk=macosx*]" = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PushDeer/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "PushDeer·自架版";
+				INFOPLIST_FILE = "PushDeer/Info-SelfHosted.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeer;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "APP需要访问本地网络以供调试(仅在开发时)";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "APP为您提供保存图片到相册的功能";
@@ -944,8 +948,8 @@
 					"APPCLIP=1",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = PushDeerClip/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "PushDeer·自架版";
+				INFOPLIST_FILE = "PushDeerClip/Info-SelfHosted.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeer;
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "APP需要访问本地网络以供调试(仅在开发时)";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "APP为您提供保存图片到相册的功能";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -1299,7 +1303,7 @@
 			repositoryURL = "https://github.com/gonzalezreal/MarkdownUI";
 			requirement = {
 				kind = upToNextMinorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 1.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

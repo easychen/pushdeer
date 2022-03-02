@@ -12,6 +12,7 @@ import AuthenticationServices
 /// 设置界面
 struct SettingsView: View {
   @EnvironmentObject private var store: AppState
+  @State private var showUrl: URL?
   
   var body: some View {
     BaseNavigationView(title: "设置") {
@@ -46,6 +47,15 @@ struct SettingsView: View {
           }
           .padding(EdgeInsets(top: 18, leading: 20, bottom: 0, trailing: 20))
           
+          SettingsItemView(title: NSLocalizedString("PushDeer官网", comment: ""), button: NSLocalizedString("查看", comment: "")) {
+            if store.isUseBuiltInBrowser {
+              showUrl = URL(string: Env.officialWebsite)
+            } else {
+              UIApplication.shared.open(URL(string: Env.officialWebsite)!, options: [:], completionHandler: nil)
+            }
+          }
+          .padding(EdgeInsets(top: 18, leading: 20, bottom: 0, trailing: 20))
+          
 #if !targetEnvironment(macCatalyst)
           CardView {
             HStack{
@@ -74,6 +84,11 @@ struct SettingsView: View {
         store.userInfo = try await HttpRequest.getUserInfo()
       }
     }
+    .fullScreenCover(item: $showUrl) {
+      
+    } content: { url in
+      SafariView(url: url)
+    }    
   }
   
   func userName() -> String {
