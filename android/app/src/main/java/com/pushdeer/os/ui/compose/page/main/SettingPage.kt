@@ -5,15 +5,14 @@ import android.net.Uri
 import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.*
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,11 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.pushdeer.os.R
 import com.pushdeer.os.data.api.data.response.UserInfo
 import com.pushdeer.os.holder.RequestHolder
 import com.pushdeer.os.ui.compose.componment.SettingItem
 import com.pushdeer.os.ui.navigation.Page
+import com.pushdeer.os.ui.theme.MBlue
 import com.pushdeer.os.ui.theme.MainBlue
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -189,6 +190,54 @@ fun SettingPage(requestHolder: RequestHolder) {
                     buttonString = stringResource(id = R.string.main_setting_logdog_open)
                 ) {
                     requestHolder.globalNavController.navigate("logdog")
+                }
+            }
+            item {
+                var useInnerWebView by remember {
+                    mutableStateOf(requestHolder.settingStore.useInnerWebView)
+                }
+
+                val bgc by animateColorAsState(
+                    targetValue = if (useInnerWebView) MaterialTheme.colors.MBlue else Color.Transparent
+                )
+                val bdc by animateColorAsState(targetValue = if (!useInnerWebView) MaterialTheme.colors.MBlue else Color.Transparent)
+                val fgc by animateColorAsState(targetValue = if (useInnerWebView) Color.White else MaterialTheme.colors.MBlue)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .border(1.dp, color = bdc, shape = RoundedCornerShape(10.dp))
+                        .clickable {
+                            useInnerWebView = !useInnerWebView
+                            requestHolder.settingStore.useInnerWebView = useInnerWebView
+                        },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .weight(0.7F)
+                            .height(60.dp)
+                            .background(color = bgc, shape = RoundedCornerShape(10.dp)),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "Use Inner WebView", color = fgc,fontSize = 18.sp)
+                        AnimatedVisibility(visible = useInnerWebView) {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = "",
+                                tint = fgc
+                            )
+                        }
+                    }
+                    AnimatedVisibility(visible = !useInnerWebView) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "",
+                            tint = fgc,
+                            modifier = Modifier.padding(horizontal = 22.dp)
+                        )
+                    }
                 }
             }
         }

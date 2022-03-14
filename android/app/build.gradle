@@ -6,14 +6,23 @@ plugins {
 
 android {
 
+    signingConfigs {
+        debug {
+            storeFile file('/Users/wolf/Documents/com.wh.pushdeer')
+            storePassword 'wh.pushdeer'
+            keyAlias 'whpushdeer'
+            keyPassword 'wh.pushdeer'
+        }
+    }
+
     compileSdk 31
 
     defaultConfig {
         applicationId "com.pushdeer.os"
         minSdk 22
         targetSdk 31
-        versionCode 8
-        versionName "1.0-dev-8"
+        versionCode 15
+        versionName "1.0-alpha-5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -105,9 +114,8 @@ dependencies {
     implementation "io.noties.markwon:ext-tables:$markwon_version"
     implementation "io.noties.markwon:ext-tasklist:$markwon_version"
     implementation "io.noties.markwon:image-coil:$markwon_version"
-    implementation "io.noties.markwon:linkify:$markwon_version"
+//    implementation "io.noties.markwon:linkify:$markwon_version"
     implementation "io.noties.markwon:html:$markwon_version"
-
     implementation "io.coil-kt:coil:1.4.0"
 
     implementation 'com.github.vishalkumarsinghvi:sign-in-with-apple-button-android:0.6'

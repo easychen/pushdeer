@@ -1,1 +1,8 @@
 .DS_Store
+
+android/app_self*
+android/pushdeerclient
+android/app/java/com/pushdeer/os/values/App*
+android/app/build
+android/app/debug
+android/app/release

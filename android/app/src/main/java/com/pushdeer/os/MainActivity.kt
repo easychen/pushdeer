@@ -2,8 +2,8 @@ package com.pushdeer.os
 
 import android.content.*
 import android.os.Bundle
-import android.text.util.Linkify
 import android.util.Log
+import android.view.View
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.viewModels
@@ -42,9 +42,8 @@ import com.pushdeer.os.viewmodel.PushDeerViewModel
 import com.pushdeer.os.viewmodel.UiViewModel
 import com.pushdeer.os.wxapi.WXEntryActivity
 import com.tencent.mm.opensdk.constants.ConstantsAPI
-import io.noties.markwon.Markwon
+import io.noties.markwon.*
 import io.noties.markwon.image.coil.CoilImagesPlugin
-import io.noties.markwon.linkify.LinkifyPlugin
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.util.*
@@ -72,36 +71,48 @@ class MainActivity : AppCompatActivity(), RequestHolder {
             .build()
     }
     override val alert: RequestHolder.AlertRequest by lazy {
-        object : RequestHolder.AlertRequest(resources) {}
+        RequestHolder.AlertRequest(resources)
     }
     override val key: RequestHolder.KeyRequest by lazy {
-        object : RequestHolder.KeyRequest(this) {}
+        RequestHolder.KeyRequest(this)
     }
     override val device: RequestHolder.DeviceRequest by lazy {
-        object : RequestHolder.DeviceRequest(this) {}
+        RequestHolder.DeviceRequest(this)
     }
     override val message: RequestHolder.MessageRequest by lazy {
-        object : RequestHolder.MessageRequest(this) {}
+        RequestHolder.MessageRequest(this)
     }
     override val clip: RequestHolder.ClipRequest by lazy {
-        object : RequestHolder.ClipRequest(
+        RequestHolder.ClipRequest(
             getSystemService(
                 Context.CLIPBOARD_SERVICE
             ) as ClipboardManager
-        ) {}
+        )
     }
     override val weChatLogin: RequestHolder.WeChatLoginRequest by lazy {
-        object : RequestHolder.WeChatLoginRequest((application as App).iwxapi) {}
+        RequestHolder.WeChatLoginRequest((application as App).iwxapi)
     }
 
     override val appleLogin: RequestHolder.AppleLoginRequest by lazy {
-        object : RequestHolder.AppleLoginRequest(supportFragmentManager, this) {}
+        RequestHolder.AppleLoginRequest(supportFragmentManager, this)
     }
 
     override val markdown: Markwon by lazy {
         Markwon.builder(this)
             .usePlugin(CoilImagesPlugin.create(this, coilImageLoader))
-            .usePlugin(LinkifyPlugin.create(Linkify.WEB_URLS))
+            .usePlugin(object : AbstractMarkwonPlugin() {
+                override fun configureConfiguration(builder: MarkwonConfiguration.Builder) {
+                    builder.linkResolver(object : LinkResolverDef() {
+                        override fun resolve(view: View, link: String) {
+                            if (settingStore.useInnerWebView){
+                                WebViewActivity.load(this@MainActivity, link)
+                            }else{
+                                super.resolve(view, link)
+                            }
+                        }
+                    })
+                }
+            })
             .build()
     }
 
@@ -111,7 +122,7 @@ class MainActivity : AppCompatActivity(), RequestHolder {
     override lateinit var qrScanActivityOpener: ActivityResultLauncher<Intent>
     override lateinit var requestPermissionOpener: ActivityResultLauncher<Array<String>>
 
-    val wxRegReceiver: BroadcastReceiver by lazy {
+    private val wxRegReceiver: BroadcastReceiver by lazy {
         object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 intent?.let {
@@ -166,7 +177,8 @@ class MainActivity : AppCompatActivity(), RequestHolder {
             IntentFilter().apply {
                 addAction(ConstantsAPI.ACTION_REFRESH_WXAPP)
                 addAction(WXEntryActivity.ACTION_RETURN_CODE)
-            })
+            }
+        )
 
 
         NotificationUtil.setupChannel(this)
@@ -185,7 +197,7 @@ class MainActivity : AppCompatActivity(), RequestHolder {
                     Color.Transparent,
                     useDarkIcons
                 )
-                else -> systemUiController.setSystemBarsColor(Color.Transparent, !useDarkIcons)
+                else -> systemUiController.setSystemBarsColor(Color.Transparent, useDarkIcons)
             }
             WindowCompat.setDecorFitsSystemWindows(window, true)
             miPushRepository.regId.observe(this) {

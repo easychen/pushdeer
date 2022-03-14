@@ -76,7 +76,7 @@ interface RequestHolder {
         })
     }
 
-    abstract class AppleLoginRequest(
+    class AppleLoginRequest(
         private val fragmentManager: FragmentManager,
         private val requestHolder: RequestHolder
     ) {
@@ -141,7 +141,7 @@ interface RequestHolder {
         }
     }
 
-    abstract class WeChatLoginRequest(val iwxapi: IWXAPI) {
+    class WeChatLoginRequest(val iwxapi: IWXAPI) {
         val login: () -> Unit = {
             val req = SendAuth.Req()
             req.scope = "snsapi_userinfo"
@@ -150,7 +150,7 @@ interface RequestHolder {
         }
     }
 
-    abstract class ClipRequest(private val clipboardManager: ClipboardManager) {
+    class ClipRequest(private val clipboardManager: ClipboardManager) {
         fun copyMessagePlainText(str: String) {
             clipboardManager.setPrimaryClip(ClipData.newPlainText("pushdeer-copy-plain-text", str))
         }
@@ -160,7 +160,7 @@ interface RequestHolder {
         }
     }
 
-    abstract class AlertRequest(private val resources: Resources) {
+    class AlertRequest(private val resources: Resources) {
         val show2BtnDialog: MutableState<Boolean> = mutableStateOf(false)
         val show1BtnDialog: MutableState<Boolean> = mutableStateOf(false)
         var title: String = ""
@@ -253,7 +253,7 @@ interface RequestHolder {
         }
     }
 
-    abstract class KeyRequest(private val requestHolder: RequestHolder) {
+    class KeyRequest(private val requestHolder: RequestHolder) {
         fun gen() {
             requestHolder.coroutineScope.launch {
                 requestHolder.pushDeerViewModel.keyGen()
@@ -284,7 +284,7 @@ interface RequestHolder {
         }
     }
 
-    abstract class DeviceRequest(private val requestHolder: RequestHolder) {
+    class DeviceRequest(private val requestHolder: RequestHolder) {
         fun deviceReg(deviceInfo: DeviceInfo) {
             requestHolder.coroutineScope.launch {
                 requestHolder.pushDeerViewModel.deviceReg(deviceInfo)
@@ -309,7 +309,7 @@ interface RequestHolder {
         }
     }
 
-    abstract class MessageRequest(private val requestHolder: RequestHolder) {
+    class MessageRequest(private val requestHolder: RequestHolder) {
         fun messagePush(text: String, desp: String, type: String, pushkey: String) {
             requestHolder.coroutineScope.launch {
                 requestHolder.pushDeerViewModel.messagePush(text, desp, type, pushkey)

@@ -123,6 +123,8 @@
             </intent-filter>
         </receiver>
 
+        <activity android:name=".WebViewActivity"/>
+
 
     </application>
 
