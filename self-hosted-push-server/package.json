@@ -1,0 +1,23 @@
+{
+  "name": "self-hosted-push-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Wolf Hugo",
+  "license": "ISC",
+  "dependencies": {
+    "@socket.io/admin-ui": "^0.2.0",
+    "axios": "^0.26.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "https": "^1.0.0",
+    "nodemon": "^2.0.14",
+    "socket.io": "^4.3.1"
+  }
+}
