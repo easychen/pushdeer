@@ -20,5 +20,8 @@ RUN chmod +x /data/gorush
 ADD supervisord-ios.conf /opt/docker/etc/supervisor.d/push-ios.conf
 ADD supervisord-clip.conf /opt/docker/etc/supervisor.d/push-clip.conf
 
+ADD larave-cron /etc/cron.d
+RUN chmod +x /etc/cron.d/larave-cron 
+
 EXPOSE 80 
 
