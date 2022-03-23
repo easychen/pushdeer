@@ -1,5 +1,7 @@
 FROM node:16-alpine3.15
 
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+RUN sed -i 's/dl-4.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 RUN apk --no-cache add mosquitto mosquitto-clients
 RUN npm install -g forever
 
