@@ -305,3 +305,21 @@ docker run -e API_KEY=9LKo3 -e MQTT_PORT=1883 -e MQTT_USER=easy -e MQTT_PASSWORD
 |content|推送消息内容|
 |type|格式，选填|文本=text，图片=bg_url，默认为text|
 |topic|推送到主题，选填|会根据type推送到`${topic}_text`或`${topic}_bg_url`通道|
+
+## 用MQTTX进行测试
+
+在调试过程中，你可能需要推送消息进行测试，我们推荐你使用MQTTX来进行。
+
+首先下载并安装[MQTTX](https://mqttx.app/zh)。
+![](image/2022-03-24-22-40-14.png)
+
+启动后创建一个新的连接，填入MQTT相关数据：
+
+![](image/2022-03-24-22-41-19.png)
+
+
+成功连接服务器后，就可以发送消息了。消息格式为纯文本，Topic为 `MQTT_TOPIC` + `_text`时发送文本；Topic为 `MQTT_TOPIC` + `_bg_url`时发送图片URL。
+
+![](image/2022-03-24-22-44-00.png)
+
+
