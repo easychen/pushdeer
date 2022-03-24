@@ -6,7 +6,7 @@ RUN apk --no-cache add mosquitto mosquitto-clients
 RUN npm install -g forever
 
 ADD mosquitto.conf /mosquitto.conf
-RUN /usr/sbin/mosquitto -c /mosquitto.conf -d 
+RUN /usr/sbin/mosquitto -c /mosquitto.conf -v -d 
 
 # 测试时注释掉下一行
 COPY api /api
@@ -14,6 +14,7 @@ COPY api /api
 COPY init.sh /init.sh
 RUN chmod +x /init.sh
 EXPOSE 1883
+EXPOSE 9001
 EXPOSE 80
 
 ENTRYPOINT ["/bin/sh", "/init.sh"]
