@@ -133,6 +133,7 @@ bool file_put_contents(String url, String filename) {
 
     WiFiClient client;
     HTTPClient http;
+    http.setFollowRedirects(HTTPC_STRICT_FOLLOW_REDIRECTS);
     http.begin(client, url);
 
 
