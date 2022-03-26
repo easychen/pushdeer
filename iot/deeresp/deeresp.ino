@@ -1,10 +1,10 @@
-#define MQTT_CLIENT_NAME "DeerEsp-001" // 多个同名设备连接同一台服务器会导致其他下线，所以起一个唯一的名字吧
 #define WIFI_SSID "wifi名称"
 #define WIFI_PASSWORD "wifi密码"
+#define MQTT_CLIENT_NAME "DeerEsp-001" // 多个同名设备连接同一台服务器会导致其他下线，所以起一个唯一的名字吧
+#define MQTT_TOPIC "LB2353" // 这里填PushDeer的Key
 #define MQTT_IP "broker.emqx.io"
 #define MQTT_USER ""
 #define MQTT_PASSWORD ""
-#define MQTT_TOPIC "LB2353" // 这里填PushDeer的Key
 #define MQTT_PORT 1883
 
 

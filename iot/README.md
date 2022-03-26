@@ -173,11 +173,8 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 ```cpp
 #define WIFI_SSID "wifi名称"
 #define WIFI_PASSWORD "wifi密码"
-#define MQTT_IP "pushdeer公网IP"
-#define MQTT_USER "MQTT用户名"
-#define MQTT_PASSWORD "MQTT密码"
-#define MQTT_TOPIC "PushDeer pushkey" // 这里填PushDeer的Key
-#define MQTT_PORT 1883
+#define MQTT_CLIENT_NAME "DeerEsp-001" // 多个同名设备连接同一台服务器会导致其他下线，所以起一个唯一的名字吧
+#define MQTT_TOPIC "LB2353" // 这里填PushDeer的Key
 ```
 
 这里的信息我们现在都有了，把它们替换掉，然后点击上传图标（向右的箭头），就会编译并烧录程序到设备上了。不过别急，有两个问题需要处理。
@@ -306,9 +303,24 @@ docker run -e API_KEY=9LKo3 -e MQTT_PORT=1883 -e MQTT_USER=easy -e MQTT_PASSWORD
 |type|格式，选填|文本=text，图片=bg_url，默认为text|
 |topic|推送到主题，选填|会根据type推送到`${topic}_text`或`${topic}_bg_url`通道|
 
+## 使用MQTT Board进行测试
+
+[MQTT Board](http://mqtt-board-uzhqcnw-1256183612.cos-website.ap-guangzhou.myqcloud.com/) 是专门为`deeresp`开发的测试工具。
+
+如果使用默认的MQTT服务器账号，只需要将 MQTT TOPIC 改为对应的值，即可向设备推送文字和图片。
+
+在网页上可以把剪贴板中的图片粘贴上，然后工具会进行缩放为设备需要的尺寸和格式。点击下载图片，可以获得处理好的图片。
+
+将图片上传到网上，在左侧`发送类型` 选择为 `图片`, `发送内容`粘贴为图片的URL即可推送给设备。
+
+> 注意图片的URL必须为JPG格式、不能有301/302等转向，最好为256*256。
+
+![](image/2022-03-26-17-38-02.png)
+
+
 ## 用MQTTX进行测试
 
-在调试过程中，你可能需要推送消息进行测试，我们推荐你使用MQTTX来进行。
+你也使用MQTTX来测试设备。
 
 首先下载并安装[MQTTX](https://mqttx.app/zh)。
 ![](image/2022-03-24-22-40-14.png)
