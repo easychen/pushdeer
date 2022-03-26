@@ -313,7 +313,7 @@ docker run -e API_KEY=9LKo3 -e MQTT_PORT=1883 -e MQTT_USER=easy -e MQTT_PASSWORD
 
 将图片上传到网上，在左侧`发送类型` 选择为 `图片`, `发送内容`粘贴为图片的URL即可推送给设备。
 
-> 注意图片的URL必须为JPG格式、不能有301/302等转向，最好为256*256。
+> 注意图片的URL必须为HTTP协议、JPG格式、不能有301/302等转向，最好为256*256。
 
 ![](image/2022-03-26-17-38-02.png)
 
