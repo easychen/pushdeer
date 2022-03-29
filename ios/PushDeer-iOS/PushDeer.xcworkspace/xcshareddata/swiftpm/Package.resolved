@@ -1,61 +1,68 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "AttributedText",
-        "repositoryURL": "https://github.com/gonzalezreal/AttributedText",
-        "state": {
-          "branch": null,
-          "revision": "2dc2d7864e0fee4b524a5850d7d7cf9a7eeda0fc",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "combine-schedulers",
-        "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
-        "state": {
-          "branch": null,
-          "revision": "4cf088c29a20f52be0f2ca54992b492c54e0076b",
-          "version": "0.5.3"
-        }
-      },
-      {
-        "package": "MarkdownUI",
-        "repositoryURL": "https://github.com/gonzalezreal/MarkdownUI",
-        "state": {
-          "branch": null,
-          "revision": "4c164300337a35d002188a83a878346819b203c0",
-          "version": "1.1.0"
-        }
-      },
-      {
-        "package": "NetworkImage",
-        "repositoryURL": "https://github.com/gonzalezreal/NetworkImage",
-        "state": {
-          "branch": null,
-          "revision": "f8b8ed0be39d2f4aa00a6e8d3b18a62a94eff8d8",
-          "version": "4.0.0"
-        }
-      },
-      {
-        "package": "SwiftCommonMark",
-        "repositoryURL": "https://github.com/gonzalezreal/SwiftCommonMark",
-        "state": {
-          "branch": null,
-          "revision": "ed252beaddecce28ea6363f800c773d6169011b8",
-          "version": "1.0.0"
-        }
-      },
-      {
-        "package": "xctest-dynamic-overlay",
-        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
-        "state": {
-          "branch": null,
-          "revision": "50a70a9d3583fe228ce672e8923010c8df2deddd",
-          "version": "0.2.1"
-        }
+  "pins" : [
+    {
+      "identity" : "attributedtext",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gonzalezreal/AttributedText",
+      "state" : {
+        "revision" : "2dc2d7864e0fee4b524a5850d7d7cf9a7eeda0fc",
+        "version" : "1.0.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "bettersafariview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stleamist/BetterSafariView.git",
+      "state" : {
+        "revision" : "be7248720af18c57c7a1348b20f6212379b28c6b",
+        "version" : "2.4.0"
+      }
+    },
+    {
+      "identity" : "combine-schedulers",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/combine-schedulers",
+      "state" : {
+        "revision" : "4cf088c29a20f52be0f2ca54992b492c54e0076b",
+        "version" : "0.5.3"
+      }
+    },
+    {
+      "identity" : "markdownui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gonzalezreal/MarkdownUI",
+      "state" : {
+        "revision" : "4c164300337a35d002188a83a878346819b203c0",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "networkimage",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gonzalezreal/NetworkImage",
+      "state" : {
+        "revision" : "f8b8ed0be39d2f4aa00a6e8d3b18a62a94eff8d8",
+        "version" : "4.0.0"
+      }
+    },
+    {
+      "identity" : "swiftcommonmark",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gonzalezreal/SwiftCommonMark",
+      "state" : {
+        "revision" : "ed252beaddecce28ea6363f800c773d6169011b8",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "50a70a9d3583fe228ce672e8923010c8df2deddd",
+        "version" : "0.2.1"
+      }
+    }
+  ],
+  "version" : 2
 }

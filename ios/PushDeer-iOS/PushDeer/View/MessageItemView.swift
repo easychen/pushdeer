@@ -9,6 +9,7 @@ import SwiftUI
 import MarkdownUI
 import SDWebImageSwiftUI
 import Photos
+import BetterSafariView
 
 struct MessageItemView: View {
   let messageItem: MessageModel
@@ -35,7 +36,7 @@ struct MessageItemView: View {
       }
       
       DeletableView(contentView: {
-        MessageContentView(messageItem: messageItem)
+        MessageContentView(messageItem: messageItem, deleteAction: deleteAction)
       }, deleteAction: deleteAction)
         .padding(messageItem.type == "image" ? EdgeInsets.init() : EdgeInsets(top: 10, leading: 26, bottom: 0, trailing: 24))
       
@@ -44,23 +45,30 @@ struct MessageItemView: View {
   }
 }
 
-extension URL: Identifiable {
-  public var id: Self { self }
-}
+//extension URL: Identifiable {
+//  public var id: Self { self }
+//}
 
 struct MessageContentView: View {
   let messageItem: MessageModel
+  /// 删除按钮点击的回调
+  let deleteAction : () -> ()
   @EnvironmentObject private var store: AppState
   @State private var image: PlatformImage? = nil
   @State private var showUrl: URL?
   @State private var showActionSheet = false
+  
+  func getMarkDownBaseURL() -> URL? {
+    let urlStr = store.markDownBaseURL ?? "https://example.com/"
+    return URL(string: urlStr)
+  }
   
   var body: some View {
     switch messageItem.type {
     case "markdown":
       CardView {
         VStack(alignment: .leading, spacing: 5) {
-          Markdown(messageItem.text ?? "")
+          Markdown(messageItem.text ?? "", baseURL: getMarkDownBaseURL())
             .markdownStyle(
               MarkdownStyle(
                 font: .system(size: 14),
@@ -77,7 +85,7 @@ struct MessageContentView: View {
             }
 #endif
           if !(messageItem.desp?.isEmpty ?? true) {
-            Markdown(messageItem.desp ?? "")
+            Markdown(messageItem.desp ?? "", baseURL: getMarkDownBaseURL())
               .markdownStyle(
                 MarkdownStyle(
                   font: .system(size: 14),
@@ -104,6 +112,12 @@ struct MessageContentView: View {
           } label: {
             Label("复制",systemImage: "doc.on.doc")
           }
+#if targetEnvironment(macCatalyst)
+          Divider()
+          Button(action: deleteAction) {
+            Label("删除",systemImage: "trash.slash")
+          }
+#endif
         }
 //#endif
 //#if !targetEnvironment(macCatalyst)
@@ -122,11 +136,14 @@ struct MessageContentView: View {
 //        }
 //#endif
       }
-      .fullScreenCover(item: $showUrl) {
-        
-      } content: { url in
+      .safariView(item: $showUrl, content: { url in
         SafariView(url: url)
-      }
+      })
+//      .fullScreenCover(item: $showUrl) {
+//
+//      } content: { url in
+//        HSafariView(url: url)
+//      }
       
     case "image":
       WebImage(url: URL(string: messageItem.text ?? ""))
@@ -181,6 +198,12 @@ struct MessageContentView: View {
           } label: {
             Label("保存图片",systemImage: "square.and.arrow.down")
           }
+#if targetEnvironment(macCatalyst)
+          Divider()
+          Button(action: deleteAction) {
+            Label("删除",systemImage: "trash.slash")
+          }
+#endif
         }
       
     default:
@@ -206,6 +229,12 @@ struct MessageContentView: View {
           } label: {
             Label("复制",systemImage: "doc.on.doc")
           }
+#if targetEnvironment(macCatalyst)
+          Divider()
+          Button(action: deleteAction) {
+            Label("删除",systemImage: "trash.slash")
+          }
+#endif
         }
       }
     }
