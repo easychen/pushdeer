@@ -22,7 +22,7 @@
 
 # 实现方案
 
-优先采用MQTT协议，因为PushDeer自架版Docker镜像本来就已经支持了MQTT Server（ 可参考[此文档](https://github.com/easychen/pushdeer/tree/main/iot#%E5%BC%80%E5%90%AFmqtt%E6%9C%8D%E5%8A%A1) ）配置，因此只需要在客户端实现即可。
+优先采用MQTT协议，因为PushDeer自架版Docker镜像本来就已经支持了MQTT Server（ 可参考[此文档](https://github.com/easychen/pushdeer/tree/main/iot#%E5%BC%80%E5%90%AFmqtt%E6%9C%8D%E5%8A%A1) 配置），因此只需要在客户端实现即可。
 
 以下是UI原型：
 
