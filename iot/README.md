@@ -165,6 +165,7 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 
 1. text/markdown类型的消息会通过`PDU01234_text`发送
 1. image类型的消息会通过`PDU01234_bg_url`发送
+1. 完整的消息数据会通过`PDU01234_payload`发送，格式为JSON
 
 ## 烧录程序到设备
 
