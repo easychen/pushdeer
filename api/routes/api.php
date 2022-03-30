@@ -63,6 +63,8 @@ Route::middleware('auto.login')->group(function () {
         Route::post('/message/list', 'App\Http\Controllers\PushDeerMessageController@list');
         // 删除消息
         Route::post('/message/remove', 'App\Http\Controllers\PushDeerMessageController@remove');
+        // 删除全部消息
+        Route::post('/message/clean', 'App\Http\Controllers\PushDeerMessageController@clean');
 
 
         Route::post('/user/info', 'App\Http\Controllers\PushDeerUserController@info');

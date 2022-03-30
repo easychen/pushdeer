@@ -145,4 +145,10 @@ class PushDeerMessageController extends Controller
 
         return send_error('消息不存在或已删除', ErrorCode('ARGS'));
     }
+
+    public function clean(Request $request)
+    {
+        PushDeerMessage::where('uid', $_SESSION['uid'])->delete();
+        return http_result(['message'=>'done']);
+    }
 }

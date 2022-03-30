@@ -411,6 +411,14 @@ type 为 image 时，text 中为要发送图片的URL。
 |token|认证token|
 |id|消息ID|
 
+#### 清除全部消息
+
+`POST /message/clean`
+
+|参数|说明|备注|
+|-|-|-|
+|token|认证token|
+
 
 [更详细的请求和返回值可以参考这里](doc/api/PushDeerOS.md)
 
