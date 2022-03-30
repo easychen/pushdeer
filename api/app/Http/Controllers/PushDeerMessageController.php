@@ -98,6 +98,7 @@ class PushDeerMessageController extends Controller
                     $result[] = make_post('http://mqtt/send', [
                         'key' => env('MQTT_API_KEY'),
                         'content' => $the_message['text'],
+                        'payload' => json_encode($the_message),
                         'type' => $validated['type'] == 'image' ? 'bg_url' : 'text',
                         'topic' => $thekey,
                     ], 3);

@@ -1,10 +1,16 @@
+# 自架版当前状态
+
+> 暂停开发，等待新开发者接手
+
+由于之前负责Android版开发的同学忙于其他事情已退出开发，目前Android版需要新的同学参与，欢迎感兴趣的同学申请 easychen[A.T]gmail.com
+
 # 问题
 
-小米推送不再对个人开放，自架系统的推送权限申请很麻烦。公开secret会对官方应用带来安全风险。
+小米推送不再对个人开放，自架系统的推送权限申请很麻烦，而公开secret会对官方应用带来安全风险。
 
 # 解决思路
 
-采用websocket来实现自架版的推送。
+采用websocket/MQTT来实现自架版的推送。
 
 优点：
 
@@ -16,14 +22,10 @@
 
 # 实现方案
 
-## 架构选型
+优先采用MQTT协议，因为PushDeer自架版Docker镜像本来就已经支持了MQTT Server（ 可参考[此文档]配置 (https://github.com/easychen/pushdeer/tree/main/iot#%E5%BC%80%E5%90%AFmqtt%E6%9C%8D%E5%8A%A1) ），因此只需要在客户端实现即可。
 
-1. 暂定使用 socket.io V3 版本作为 websocket 的技术栈。
+以下是UI原型：
 
+![](image/2022-03-30-18-14-05.png)
 
-## 暂定流程
-
-1. 在界面输入API endpoint时，以endpoint MD5值为Key查询本地存储获取之前（可能）存在的 device token，如不存在随机创建一个并写入到本地存储
-1. 在注册设备时，检测是否为自架模式，如是则读取endpoint对应的device token。
-1. 客户端以 device token 为 key 和服务器端的 socket 通信
-1. API在推送Android类型的message时，检测是API endpoint，如果发现是自架host（非*.pushdeer.com），则将信息发送到 socket server 对应的channel上
+Android实现需要将MQTT启动为服务并常驻后台，可在顶栏显示一个常驻图标，点击后进入应用。
