@@ -15,6 +15,7 @@
 		52163EBB277741AC00594190 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EBA277741AC00594190 /* SettingsView.swift */; };
 		523150D9277875FB00941EDC /* DeletableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523150D8277875FB00941EDC /* DeletableView.swift */; };
 		523150DC2778762B00941EDC /* DeviceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523150DB2778762B00941EDC /* DeviceItemView.swift */; };
+		5240023427F371EF00C245CF /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 5240023327F371EF00C245CF /* BetterSafariView */; };
 		5242C872278C8CBB00FDB27E /* EditableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242C871278C8CBB00FDB27E /* EditableText.swift */; };
 		5242C873278C8CBB00FDB27E /* EditableText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5242C871278C8CBB00FDB27E /* EditableText.swift */; };
 		5243372727A6D86200190D00 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243372627A6D86200190D00 /* Env.swift */; };
@@ -69,6 +70,7 @@
 		52B8CF85277E0C12004CB680 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90B22778DA4E0048E0ED /* Line.swift */; };
 		52B8CF86277E0C12004CB680 /* BaseNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AD2778AFD60048E0ED /* BaseNavigationView.swift */; };
 		52B8CF87277E0C5C004CB680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292F4FC2776BC7A00B9A7BB /* Assets.xcassets */; };
+		52B8FB8727F36F9D00C29D13 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 52B8FB8627F36F9D00C29D13 /* BetterSafariView */; };
 		52E317D9279305BB000B8BB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52E317D7279305BB000B8BB1 /* InfoPlist.strings */; };
 		52E317DC279305BB000B8BB1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52E317DA279305BB000B8BB1 /* Localizable.strings */; };
 		52E317DF279305BB000B8BB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52E317DD279305BB000B8BB1 /* InfoPlist.strings */; };
@@ -184,6 +186,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64B0C15E70CCC382B480F76E /* Pods_PushDeer.framework in Frameworks */,
+				52B8FB8727F36F9D00C29D13 /* BetterSafariView in Frameworks */,
 				5287FF52278ADC8C00249A0E /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -193,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4812F19BB0BFEFE089BC253E /* Pods_PushDeerClip.framework in Frameworks */,
+				5240023427F371EF00C245CF /* BetterSafariView in Frameworks */,
 				5287FF54278AEA5B00249A0E /* MarkdownUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +389,7 @@
 			name = PushDeer;
 			packageProductDependencies = (
 				5287FF51278ADC8C00249A0E /* MarkdownUI */,
+				52B8FB8627F36F9D00C29D13 /* BetterSafariView */,
 			);
 			productName = PushDeer;
 			productReference = 5292F4F52776BC7900B9A7BB /* PushDeer.app */;
@@ -407,6 +412,7 @@
 			name = PushDeerClip;
 			packageProductDependencies = (
 				5287FF53278AEA5B00249A0E /* MarkdownUI */,
+				5240023327F371EF00C245CF /* BetterSafariView */,
 			);
 			productName = PushDeerClip;
 			productReference = 52B8CF64277E0B44004CB680 /* PushDeerClip.app */;
@@ -444,6 +450,7 @@
 			mainGroup = 5292F4EC2776BC7900B9A7BB;
 			packageReferences = (
 				5287FF50278ADC8C00249A0E /* XCRemoteSwiftPackageReference "MarkdownUI" */,
+				52B8FB8527F36F9D00C29D13 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 			);
 			productRefGroup = 5292F4F62776BC7900B9A7BB /* Products */;
 			projectDirPath = "";
@@ -1306,9 +1313,22 @@
 				minimumVersion = 1.1.0;
 			};
 		};
+		52B8FB8527F36F9D00C29D13 /* XCRemoteSwiftPackageReference "BetterSafariView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stleamist/BetterSafariView.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.4.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		5240023327F371EF00C245CF /* BetterSafariView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52B8FB8527F36F9D00C29D13 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
+			productName = BetterSafariView;
+		};
 		5287FF51278ADC8C00249A0E /* MarkdownUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5287FF50278ADC8C00249A0E /* XCRemoteSwiftPackageReference "MarkdownUI" */;
@@ -1318,6 +1338,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5287FF50278ADC8C00249A0E /* XCRemoteSwiftPackageReference "MarkdownUI" */;
 			productName = MarkdownUI;
+		};
+		52B8FB8627F36F9D00C29D13 /* BetterSafariView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 52B8FB8527F36F9D00C29D13 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
+			productName = BetterSafariView;
 		};
 /* End XCSwiftPackageProductDependency section */
 

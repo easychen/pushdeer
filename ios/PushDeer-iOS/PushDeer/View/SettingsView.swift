@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AuthenticationServices
+import BetterSafariView
 //import StoreKit
 
 /// 设置界面
@@ -72,6 +73,34 @@ struct SettingsView: View {
           .padding(EdgeInsets(top: 18, leading: 20, bottom: 0, trailing: 20))
 #endif
           
+          CardView {
+            VStack(alignment: .leading, spacing: 5){
+              Text("MarkDown BaseURL: (Image/Link)")
+                .font(.system(size: 18))
+                .foregroundColor(Color("textColor"))
+              EditableText(placeholder: "https://example.com/", value: store.markDownBaseURL ?? "") { value in
+                if value.isEmpty {
+                  store.markDownBaseURL = nil;
+                  HToast.showSuccess(NSLocalizedString("保存成功", comment: ""))
+                  return
+                }
+                if URL(string: value) == nil {
+                  HToast.showError(NSLocalizedString("URL 格式不正确", comment: ""))
+                  return
+                }
+                if !value.lowercased().hasPrefix("http") {
+                  HToast.showError(NSLocalizedString("请输入协议前缀: http:// 或 https://", comment: ""))
+                  return
+                }
+                store.markDownBaseURL = value
+                HToast.showSuccess(NSLocalizedString("保存成功", comment: ""))
+              }
+            }
+            .padding(16)
+            .frame(height: 74)
+          }
+          .padding(EdgeInsets(top: 18, leading: 20, bottom: 0, trailing: 20))
+          
           Spacer()
         }
       }
@@ -84,11 +113,14 @@ struct SettingsView: View {
         store.userInfo = try await HttpRequest.getUserInfo()
       }
     }
-    .fullScreenCover(item: $showUrl) {
-      
-    } content: { url in
+    .safariView(item: $showUrl, content: { url in
       SafariView(url: url)
-    }    
+    })
+//    .fullScreenCover(item: $showUrl) {
+//
+//    } content: { url in
+//      HSafariView(url: url)
+//    }
   }
   
   func userName() -> String {

@@ -8,7 +8,7 @@
 import SwiftUI
 import SafariServices
 
-struct SafariView: UIViewControllerRepresentable {
+struct HSafariView: UIViewControllerRepresentable {
   
   let url: URL
   

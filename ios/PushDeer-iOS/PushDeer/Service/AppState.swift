@@ -43,6 +43,12 @@ class AppState: ObservableObject {
       UserDefaults.standard.set(isUseBuiltInBrowser, forKey: "PushDeer_isUseBuiltInBrowser")
     }
   }
+  /// MarkDown BaseURL
+  @Published var markDownBaseURL: String? {
+    didSet {
+      UserDefaults.standard.set(markDownBaseURL, forKey: "PushDeer_markDownBaseURL")
+    }
+  }
   
   /// API endpoint
   @Published var api_endpoint : String {
@@ -66,11 +72,13 @@ class AppState: ObservableObject {
     let _tabSelectedIndex = UserDefaults.standard.integer(forKey: "PushDeer_tabSelectedIndex")
     let _isShowTestPush = UserDefaults.standard.object(forKey: "PushDeer_isShowTestPush")
     let _isUseBuiltInBrowser = UserDefaults.standard.object(forKey: "PushDeer_isUseBuiltInBrowser")
+    let _markDownBaseURL = UserDefaults.standard.string(forKey: "PushDeer_markDownBaseURL")
     let _api_endpoint = UserDefaults.standard.string(forKey: "PushDeer_api_endpoint")
     token = _token ?? ""
     tabSelectedIndex = _tabSelectedIndex
     isShowTestPush = _isShowTestPush as? Bool ?? true
     isUseBuiltInBrowser = _isUseBuiltInBrowser as? Bool ?? true
+    markDownBaseURL = _markDownBaseURL
     api_endpoint = _api_endpoint ?? ""
   }
   
