@@ -1,29 +1,37 @@
-#define WIFI_SSID ""
-#define WIFI_PASSWORD ""
-#define MQTT_CLIENT_NAME "DeerEsp-001234354x32" // 多个同名设备连接同一台服务器会导致其他下线，所以起一个唯一的名字吧
-#define MQTT_TOPIC "LB2312" // 这里填PushDeer的Key
-#define MQTT_IP "broker.emqx.io"
-#define MQTT_USER ""
-#define MQTT_PASSWORD ""
-#define MQTT_PORT 1883
-
-
-// ====== 以下不用修改 ===============
 #define DOWNLOADED_IMG "/download.jpg"
 #define AA_FONT_CUBIC "Cubic1112"
 
-
+#include <WiFiManager.h>
 #include <EspMQTTClient.h>
 
-EspMQTTClient mclient(
-  WIFI_SSID,
-  WIFI_PASSWORD,
-  MQTT_IP,  
-  MQTT_USER,   
-  MQTT_PASSWORD,  
-  MQTT_CLIENT_NAME, 
-  MQTT_PORT           
-);
+WiFiManager wm;
+
+WiFiManagerParameter mqtt_host_field; 
+WiFiManagerParameter mqtt_port_field; 
+WiFiManagerParameter mqtt_topic_field; 
+WiFiManagerParameter mqtt_client_field;
+WiFiManagerParameter mqtt_user_field;
+WiFiManagerParameter mqtt_password_field;  
+
+String mqtt_host_value = "";
+short mqtt_port_value = 1883;
+String mqtt_client_postfix = "";
+String mqtt_topic_value = "";
+String mqtt_user_value = "";
+String mqtt_client_value = "";
+String mqtt_password_value = "";
+
+
+//EspMQTTClient mclient(
+//  WIFI_SSID,
+//  WIFI_PASSWORD,
+//  MQTT_IP,  
+//  MQTT_USER,   
+//  MQTT_PASSWORD,  
+//  MQTT_CLIENT_NAME, 
+//  MQTT_PORT           
+//);
+EspMQTTClient mclient;
 
 // #include "cubic_12.h"
 // #include "SPI.h"
@@ -69,14 +77,81 @@ void setup() {
 
   Serial.println("TJpgDec init");
 
+  tft.fillScreen( TFT_BLACK );
+  tft.setCursor(0, 0, 1);
+  tft.println("Connect to DeerEspWiFi, go 192.168.4.1");
+
+  WiFi.mode(WIFI_STA);
+  wm.resetSettings();
+
+  // add a custom input field
+  int customFieldLength = 40;
+  
+  new (&mqtt_host_field) WiFiManagerParameter("mqtt_host", "MQTT IP", "broker.emqx.io", customFieldLength,"placeholder=\"MQTT server IP\"");
+  new (&mqtt_port_field) WiFiManagerParameter("mqtt_port", "MQTT Port", "1883", customFieldLength,"placeholder=\"MQTT server port, 1883 as default\"");
+  new (&mqtt_topic_field) WiFiManagerParameter("mqtt_topic", "MQTT Topic", "LB2312", customFieldLength,"placeholder=\"MQTT base topic\"");
+  new (&mqtt_client_field) WiFiManagerParameter("mqtt_client", "MQTT Client ID", "DeerESP0001", customFieldLength,"placeholder=\"MQTT client id, can be empty\"");
+  new (&mqtt_user_field) WiFiManagerParameter("mqtt_user", "MQTT User", "", customFieldLength,"placeholder=\"MQTT user, can be empty\"");
+  new (&mqtt_password_field) WiFiManagerParameter("mqtt_password", "MQTT Password", "", customFieldLength,"placeholder=\"MQTT password, can be empty\"");
+  
+  
+  wm.addParameter(&mqtt_host_field);
+  wm.addParameter(&mqtt_port_field);
+  wm.addParameter(&mqtt_topic_field);
+  wm.addParameter(&mqtt_client_field);
+  wm.addParameter(&mqtt_user_field);
+  wm.addParameter(&mqtt_password_field);
+  
+  wm.setSaveParamsCallback(saveParamCallback);
+  
+  bool res;
+  res = wm.autoConnect("DeerEspWiFi"); // anonymous ap
+
+  if(!res) {
+        Serial.println("Failed to connect");
+        // ESP.restart();
+  } 
+  else {
+        //if you get here you have connected to the WiFi    
+        Serial.println("connected...yeey :)");
+  }
+
+  mclient.enableDebuggingMessages(true);
+  mclient.setMqttClientName(mqtt_client_value.c_str());
+  mclient.setMqttServer(mqtt_host_value.c_str(), mqtt_user_value.c_str(), mqtt_password_value.c_str(), mqtt_port_value);
+
+
+
 }
+
+String getParam(String name){
+  //read parameter from server, for customhmtl input
+  String value;
+  if(wm.server->hasArg(name)) {
+    value = wm.server->arg(name);
+  }
+    return value;
+ }
+
+ void saveParamCallback(){
+    mqtt_host_value = getParam("mqtt_host");
+    mqtt_user_value = getParam("mqtt_user");
+    mqtt_password_value = getParam("mqtt_password");
+    mqtt_topic_value = getParam("mqtt_topic");
+    mqtt_client_value = getParam("mqtt_client");
+    mqtt_port_value = getParam("mqtt_port").toInt();
+    Serial.println(String(mqtt_port_value));
+    if( mqtt_port_value < 1 ) mqtt_port_value = 1883;
+    Serial.println("[CALLBACK] saveParamCallback fired ");
+ }
+
 
 void onConnectionEstablished()
 {
   Serial.println("connected");
-  tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.println("Waiting for messages ...");
+  tft.fillScreen(TFT_BLACK);tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.println("Waiting for messages ...");
   
-  mclient.subscribe(String(MQTT_TOPIC)+"_text", [] (const String &payload)  
+  mclient.subscribe(mqtt_topic_value+"_text", [] (const String &payload)  
   {
     Serial.println(payload);
     
@@ -113,7 +188,7 @@ void onConnectionEstablished()
     
   });
   
-  mclient.subscribe(String(MQTT_TOPIC)+"_bg_url", [] (const String &payload)  
+  mclient.subscribe(mqtt_topic_value+"_bg_url", [] (const String &payload)  
   {
     Serial.println(payload);
     bool ret = file_put_contents(payload, DOWNLOADED_IMG);
