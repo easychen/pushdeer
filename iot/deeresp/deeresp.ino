@@ -23,10 +23,12 @@ EspMQTTClient mclient(
   MQTT_CLIENT_NAME, 
   MQTT_PORT           
 );
+
 #include "cubic_12.h"
-#include "SPI.h"
 #include <TFT_eSPI.h> 
 TFT_eSPI tft = TFT_eSPI(); 
+
+#include <NTPClient.h>
 
 #ifdef ESP8266
   #include <ESP8266HTTPClient.h>
@@ -42,13 +44,17 @@ TFT_eSPI tft = TFT_eSPI();
 
 #include <TJpg_Decoder.h>
 
+#include <WiFiUdp.h>
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP,"ntp1.aliyun.com",60*60*8,60000);
+
 void setup() {
   Serial.begin(115200);
   mclient.enableDebuggingMessages();
   
 
   tft.begin();
-  // tft.setRotation(1); // 屏幕方向
+  // tft.setRotation(2); // 屏幕方向
   tft.fillScreen(TFT_BLACK);
   tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.setTextSize(TXT_SCALE);tft.println("Init ...");
   Serial.println("tft init");
@@ -64,6 +70,7 @@ void setup() {
   TJpgDec.setCallback(tft_output);
 
   Serial.println("TJpgDec init");
+  timeClient.begin();
 
 }
 
@@ -78,6 +85,8 @@ void onConnectionEstablished()
     
     if (SPIFFS.exists(DOWNLOADED_IMG) == true) TJpgDec.drawFsJpg(0, 0, DOWNLOADED_IMG);
     else tft.fillScreen( TFT_BLACK );
+
+    show_time(true);
     
     #ifdef BEEP_PIN
     if(payload.indexOf("♪") >= 0) tone(BEEP_PIN, 1000, 100);
@@ -114,12 +123,42 @@ void onConnectionEstablished()
     bool ret = file_put_contents(payload, DOWNLOADED_IMG);
     if (SPIFFS.exists(DOWNLOADED_IMG) == true) {
       TJpgDec.drawFsJpg(0, 0, DOWNLOADED_IMG);
+      show_time(true);
     }
   });  
 }
 
+String lastTime = "2020";
+String newTime = "";
+
 void loop() {
   mclient.loop();
+  show_time(false);
+}
+
+void show_time(bool force)
+{
+    timeClient.update();
+    newTime = String(timeClient.getHours()) + ':' + String(timeClient.getMinutes()) ;
+    if( lastTime != newTime )
+    {
+      echo_time( newTime );  
+      lastTime = newTime;
+    }
+    else
+    {
+      if( force ) echo_time( newTime );  
+    }
+}
+
+void echo_time( String thetime )
+{
+  tft.setCursor(96, 120, 1);
+  tft.setTextSize(1);
+  tft.setTextColor(TFT_WHITE,TFT_BLACK);
+  tft.println(thetime);
+  
+  tft.setTextSize(TXT_SCALE);
 }
 
 bool file_put_contents(String url, String filename) {
