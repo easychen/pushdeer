@@ -1,8 +1,13 @@
 #define DOWNLOADED_IMG "/download.jpg"
 #define AA_FONT_CUBIC "Cubic1112"
 
+#define BLK_PIN 19
+#define BTN_PIN 0
+
 #include <WiFiManager.h>
 #include <EspMQTTClient.h>
+#include <ArduinoJson.h>
+#include <Effortless_SPIFFS.h>
 
 WiFiManager wm;
 
@@ -21,6 +26,10 @@ String mqtt_user_value = "";
 String mqtt_client_value = "";
 String mqtt_password_value = "";
 
+char* wifi_ssid;
+char* wifi_password;
+
+
 
 //EspMQTTClient mclient(
 //  WIFI_SSID,
@@ -38,6 +47,8 @@ EspMQTTClient mclient;
 #include <TFT_eSPI.h> 
 TFT_eSPI tft = TFT_eSPI(); 
 
+#include <NTPClient.h>
+
 #ifdef ESP8266
   #include <ESP8266HTTPClient.h>
   #define BEEP_PIN D8
@@ -53,13 +64,31 @@ TFT_eSPI tft = TFT_eSPI();
 
 #include <TJpg_Decoder.h>
 
+#include <WiFiUdp.h>
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP,"ntp1.aliyun.com",60*60*8,60000);
+
+//flag for saving data
+bool shouldSaveConfig = false;
+
+//callback notifying us of the need to save config
+void saveConfigCallback () {
+  Serial.println("Should save config");
+  shouldSaveConfig = true;
+}
+
+DynamicJsonDocument jsonDocument(1024);
+
 void setup() {
   Serial.begin(115200);
   mclient.enableDebuggingMessages();
 
   tft.begin();
-  pinMode(19, OUTPUT);
-  digitalWrite(19, HIGH);
+  pinMode(BLK_PIN, OUTPUT);
+  digitalWrite(BLK_PIN, HIGH);
+
+  pinMode(BTN_PIN, INPUT);
+  
   // tft.setRotation(1); // 屏幕方向
   tft.fillScreen(TFT_BLACK);
   tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.setTextSize(TXT_SCALE);tft.println("Init ...");
@@ -71,55 +100,126 @@ void setup() {
   }
   Serial.println("SPIFFS init");
 
+  eSPIFFS fileSystem;
+
+  // Check Flash Size - Always try to incorrperate a check when not debugging to know if you have set the SPIFFS correctly
+  if (!fileSystem.checkFlashConfig()) {
+    Serial.println("Flash size was not correct! Please check your SPIFFS config and try again");
+    delay(100000);
+    ESP.restart();
+  }
+
   TJpgDec.setJpgScale(IMG_SCALE);
   TJpgDec.setSwapBytes(true);
   TJpgDec.setCallback(tft_output);
 
   Serial.println("TJpgDec init");
 
-  tft.fillScreen( TFT_BLACK );
-  tft.setCursor(0, 0, 1);
-  tft.println("Connect to DeerEspWiFi, go 192.168.4.1");
 
-  WiFi.mode(WIFI_STA);
-  wm.resetSettings();
+  // 检测本地配置文件
+  if( SPIFFS.exists( "/config.json" ) )
+  {
+     fileSystem.openFromFile("/config.json", jsonDocument);
+     Serial.print("JSON Document is: ");
+     serializeJson(jsonDocument, Serial);
+     Serial.println();
 
-  // add a custom input field
-  int customFieldLength = 40;
-  
-  new (&mqtt_host_field) WiFiManagerParameter("mqtt_host", "MQTT IP", "broker.emqx.io", customFieldLength,"placeholder=\"MQTT server IP\"");
-  new (&mqtt_port_field) WiFiManagerParameter("mqtt_port", "MQTT Port", "1883", customFieldLength,"placeholder=\"MQTT server port, 1883 as default\"");
-  new (&mqtt_topic_field) WiFiManagerParameter("mqtt_topic", "MQTT Topic", "LB2312", customFieldLength,"placeholder=\"MQTT base topic\"");
-  new (&mqtt_client_field) WiFiManagerParameter("mqtt_client", "MQTT Client ID", "DeerESP0001", customFieldLength,"placeholder=\"MQTT client id, can be empty\"");
-  new (&mqtt_user_field) WiFiManagerParameter("mqtt_user", "MQTT User", "", customFieldLength,"placeholder=\"MQTT user, can be empty\"");
-  new (&mqtt_password_field) WiFiManagerParameter("mqtt_password", "MQTT Password", "", customFieldLength,"placeholder=\"MQTT password, can be empty\"");
-  
-  
-  wm.addParameter(&mqtt_host_field);
-  wm.addParameter(&mqtt_port_field);
-  wm.addParameter(&mqtt_topic_field);
-  wm.addParameter(&mqtt_client_field);
-  wm.addParameter(&mqtt_user_field);
-  wm.addParameter(&mqtt_password_field);
-  
-  wm.setSaveParamsCallback(saveParamCallback);
-  
-  bool res;
-  res = wm.autoConnect("DeerEspWiFi"); // anonymous ap
+     Serial.println(jsonDocument["wifi_ssid"].as<String>());
+     Serial.println(jsonDocument["wifi_password"].as<String>());
+     
+     // 链接wifi
+     WiFi.begin( jsonDocument["wifi_ssid"].as<const char*>(), jsonDocument["wifi_password"].as<const char*>() );
 
-  if(!res) {
-        Serial.println("Failed to connect");
-        // ESP.restart();
-  } 
-  else {
-        //if you get here you have connected to the WiFi    
-        Serial.println("connected...yeey :)");
+     mqtt_host_value = jsonDocument["mqtt_host"].as<String>();
+     mqtt_port_value = jsonDocument["mqtt_port"].as<short>();
+     mqtt_user_value = jsonDocument["mqtt_user"].as<String>();
+     mqtt_password_value = jsonDocument["mqtt_password"].as<String>();
+     mqtt_topic_value = jsonDocument["mqtt_topic"].as<String>();
+     mqtt_client_value = jsonDocument["mqtt_client"].as<String>();
+     
+  }else
+  {
+    tft.fillScreen( TFT_BLACK );
+    tft.setCursor(0, 0, 1);
+    tft.println("Connect to DeerEspWiFi, go 192.168.4.1");
+  
+    WiFi.mode(WIFI_STA);
+    wm.resetSettings();
+  
+    // add a custom input field
+    int customFieldLength = 40;
+    
+    new (&mqtt_host_field) WiFiManagerParameter("mqtt_host", "MQTT IP", "broker.emqx.io", customFieldLength,"placeholder=\"MQTT server IP\"");
+    new (&mqtt_port_field) WiFiManagerParameter("mqtt_port", "MQTT Port", "1883", customFieldLength,"placeholder=\"MQTT server port, 1883 as default\"");
+    new (&mqtt_topic_field) WiFiManagerParameter("mqtt_topic", "MQTT Topic", "LB2312", customFieldLength,"placeholder=\"MQTT base topic\"");
+    new (&mqtt_client_field) WiFiManagerParameter("mqtt_client", "MQTT Client ID", "DeerESP0001", customFieldLength,"placeholder=\"MQTT client id, can be empty\"");
+    new (&mqtt_user_field) WiFiManagerParameter("mqtt_user", "MQTT User", "", customFieldLength,"placeholder=\"MQTT user, can be empty\"");
+    new (&mqtt_password_field) WiFiManagerParameter("mqtt_password", "MQTT Password", "", customFieldLength,"placeholder=\"MQTT password, can be empty\"");
+    
+    
+    wm.addParameter(&mqtt_host_field);
+    wm.addParameter(&mqtt_port_field);
+    wm.addParameter(&mqtt_topic_field);
+    wm.addParameter(&mqtt_client_field);
+    wm.addParameter(&mqtt_user_field);
+    wm.addParameter(&mqtt_password_field);
+    
+    wm.setSaveParamsCallback(saveParamCallback);
+    wm.setSaveConfigCallback(saveConfigCallback);
+    
+    bool res;
+    res = wm.autoConnect("DeerEspWiFi"); // anonymous ap
+  
+    if(!res) {
+          Serial.println("Failed to connect");
+          ESP.restart();
+    } 
+    else {
+          //if you get here you have connected to the WiFi    
+          Serial.println("connected...yeey :)");
+    }
+  
   }
+  
+
+  
 
   mclient.enableDebuggingMessages(true);
   mclient.setMqttClientName(mqtt_client_value.c_str());
   mclient.setMqttServer(mqtt_host_value.c_str(), mqtt_user_value.c_str(), mqtt_password_value.c_str(), mqtt_port_value);
 
+
+  if (shouldSaveConfig)
+  {
+    
+    jsonDocument["mqtt_host"] = mqtt_host_value;
+    jsonDocument["mqtt_port"] = mqtt_port_value;
+    jsonDocument["mqtt_user"] = mqtt_user_value;
+    jsonDocument["mqtt_password"] = mqtt_password_value;
+    jsonDocument["mqtt_topic"] = mqtt_topic_value;
+    jsonDocument["mqtt_client"] = mqtt_client_value;
+    jsonDocument["wifi_ssid"] = WiFi.SSID();
+    jsonDocument["wifi_password"] = WiFi.psk();
+    
+    fileSystem.saveToFile("/config.json", jsonDocument);
+
+    Serial.print("JSON Document is: ");
+    serializeJson(jsonDocument, Serial);
+    Serial.println();
+
+//    File root = SPIFFS.open("/");
+// 
+//    File file = root.openNextFile();
+//   
+//    while(file){
+//   
+//        Serial.print("FILE: ");
+//        Serial.println(file.name());
+//   
+//        file = root.openNextFile();
+//    }
+  
+  }
 
 
 }
@@ -181,6 +281,8 @@ void onConnectionEstablished()
       
     tft.unloadFont();
 
+    show_time(true);
+
     #ifdef BEEP_PIN
     if(payload.indexOf("♪") >= 0) tone(BEEP_PIN, 1000, 100);
     #endif
@@ -194,12 +296,47 @@ void onConnectionEstablished()
     bool ret = file_put_contents(payload, DOWNLOADED_IMG);
     if (SPIFFS.exists(DOWNLOADED_IMG) == true) {
       TJpgDec.drawFsJpg(0, 0, DOWNLOADED_IMG);
+      show_time(true);
     }
   });  
 }
 
+String lastTime = "2020";
+String newTime = "";
+
 void loop() {
   mclient.loop();
+  show_time(false);
+  if(digitalRead(BTN_PIN) == HIGH)
+  {
+    tone(BEEP_PIN, 1000, 100);
+    SPIFFS.remove("/config.json");
+  } 
+}
+
+void show_time(bool force)
+{
+    timeClient.update();
+    newTime = String(timeClient.getHours()) + ':' + String(timeClient.getMinutes()) ;
+    if( lastTime != newTime )
+    {
+      echo_time( newTime );  
+      lastTime = newTime;
+    }
+    else
+    {
+      if( force ) echo_time( newTime );  
+    }
+}
+
+void echo_time( String thetime )
+{
+  tft.setCursor(96, 120, 1);
+  tft.setTextSize(1);
+  tft.setTextColor(TFT_WHITE,TFT_BLACK);
+  tft.println(thetime);
+  
+  tft.setTextSize(TXT_SCALE);
 }
 
 bool file_put_contents(String url, String filename) {
