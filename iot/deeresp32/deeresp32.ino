@@ -1,5 +1,5 @@
 #define DOWNLOADED_IMG "/download.jpg"
-#define AA_FONT_CUBIC "Cubic1112"
+#define FULL_FONT 1
 
 #define BLK_PIN 19
 #define BTN_PIN 0
@@ -42,7 +42,12 @@ char* wifi_password;
 //);
 EspMQTTClient mclient;
 
-// #include "cubic_12.h"
+#ifdef FULL_FONT
+ #define AA_FONT_CUBIC "Cubic1112"
+#else
+ #include "cubic_12.h"
+#endif
+
 // #include "SPI.h"
 #include <TFT_eSPI.h> 
 TFT_eSPI tft = TFT_eSPI(); 
@@ -63,6 +68,8 @@ TFT_eSPI tft = TFT_eSPI();
 #endif
 
 #include <TJpg_Decoder.h>
+#include <EasyButton.h>
+EasyButton clearbtn(BTN_PIN);
 
 #include <WiFiUdp.h>
 WiFiUDP ntpUDP;
@@ -82,14 +89,14 @@ DynamicJsonDocument jsonDocument(1024);
 void setup() {
   Serial.begin(115200);
   mclient.enableDebuggingMessages();
+  clearbtn.begin();
+  clearbtn.onPressed(clear_config);
 
   tft.begin();
   pinMode(BLK_PIN, OUTPUT);
   digitalWrite(BLK_PIN, HIGH);
 
-  pinMode(BTN_PIN, INPUT);
-  
-  // tft.setRotation(1); // 屏幕方向
+  // tft.setRotation(2); // 屏幕方向
   tft.fillScreen(TFT_BLACK);
   tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.setTextSize(TXT_SCALE);tft.println("Init ...");
   Serial.println("tft init");
@@ -258,8 +265,11 @@ void onConnectionEstablished()
     if (SPIFFS.exists(DOWNLOADED_IMG) == true) TJpgDec.drawFsJpg(0, 0, DOWNLOADED_IMG);
     else tft.fillScreen( TFT_BLACK );
     
-    tft.loadFont(AA_FONT_CUBIC);
-    // tft.loadFont(cubic_11);
+    #ifdef FULL_FONT
+      tft.loadFont(AA_FONT_CUBIC);
+    #else
+      tft.loadFont(cubic_11);
+    #endif
     
     
     if( payload.length() > 80 ) tft.setTextSize(TXT_SCALE/2);
@@ -307,11 +317,13 @@ String newTime = "";
 void loop() {
   mclient.loop();
   show_time(false);
-  if(digitalRead(BTN_PIN) == HIGH)
-  {
-    tone(BEEP_PIN, 1000, 100);
+  clearbtn.read();
+}
+
+void clear_config()
+{
     SPIFFS.remove("/config.json");
-  } 
+    tone(BEEP_PIN, 1000, 100);
 }
 
 void show_time(bool force)
