@@ -1,3 +1,4 @@
+#define SCREEN_ROTATION 0
 #define WIFI_SSID "wifi名称"
 #define WIFI_PASSWORD "wifi密码"
 #define MQTT_CLIENT_NAME "DeerEsp-001" // 多个同名设备连接同一台服务器会导致其他下线，所以起一个唯一的名字吧
@@ -54,7 +55,7 @@ void setup() {
   
 
   tft.begin();
-  // tft.setRotation(2); // 屏幕方向
+  tft.setRotation(SCREEN_ROTATION); // 屏幕方向
   tft.fillScreen(TFT_BLACK);
   tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.setTextSize(TXT_SCALE);tft.println("Init ...");
   Serial.println("tft init");

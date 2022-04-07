@@ -26,11 +26,6 @@ String mqtt_user_value = "";
 String mqtt_client_value = "";
 String mqtt_password_value = "";
 
-char* wifi_ssid;
-char* wifi_password;
-
-
-
 //EspMQTTClient mclient(
 //  WIFI_SSID,
 //  WIFI_PASSWORD,
