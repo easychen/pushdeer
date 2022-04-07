@@ -324,7 +324,9 @@ void clear_config()
 void show_time(bool force)
 {
     timeClient.update();
-    newTime = String(timeClient.getHours()) + ':' + String(timeClient.getMinutes()) ;
+    String hourStr = timeClient.getHours() < 10 ? "0" + String(timeClient.getHours()) :  String(timeClient.getHours());
+    String minStr = timeClient.getMinutes() < 10 ? "0" + String(timeClient.getMinutes()) : String(timeClient.getMinutes());
+    newTime = hourStr + ":" + minStr ;
     if( lastTime != newTime )
     {
       echo_time( newTime );  
