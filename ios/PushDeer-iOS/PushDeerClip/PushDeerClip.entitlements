@@ -16,5 +16,9 @@
 	<array>
 		<string>$(AppIdentifierPrefix)com.pushdeer.app.ios</string>
 	</array>
+	<key>com.apple.security.application-groups</key>
+	<array>
+		<string>group.com.pushdeer.app.ios</string>
+	</array>
 </dict>
 </plist>

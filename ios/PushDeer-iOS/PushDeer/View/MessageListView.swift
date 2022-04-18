@@ -15,6 +15,17 @@ struct MessageListView: View {
   @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \MessageModel.created_at, ascending: false)], animation: .default)
   private var messages: FetchedResults<MessageModel>
   
+  @State private var showRemoveAllMessageView: Bool = false
+  @State private var lastDeleteTime: TimeInterval = 0
+  
+  func recordDeleteTime() -> Void {
+    let currentDeleteTime = Date.timeIntervalSinceReferenceDate
+    if currentDeleteTime - lastDeleteTime < 60 {
+      showRemoveAllMessageView = true
+    }
+    lastDeleteTime = currentDeleteTime
+  }
+  
   var body: some View {
     BaseNavigationView(title: "消息") {
       ScrollView {
@@ -28,6 +39,7 @@ struct MessageListView: View {
               viewContext.delete(messageItem)
               try? viewContext.save()
               HToast.showSuccess(NSLocalizedString("已删除", comment: "删除设备/Key/消息时提示"))
+              recordDeleteTime()
               Task {
                 do {
                   _ = try await HttpRequest.rmMessage(id: Int(id))
@@ -40,6 +52,14 @@ struct MessageListView: View {
           Spacer(minLength: 30)
         }
       }
+      .overlay(
+        Group {
+          if (showRemoveAllMessageView) {
+            RemoveAllMessageView{showRemoveAllMessageView = false}
+          }
+        },
+        alignment: .bottom
+      )
       .navigationBarItems(trailing: Button(action: {
         withAnimation(.easeOut) {
           store.isShowTestPush = !store.isShowTestPush
@@ -115,8 +135,51 @@ struct TestPushView: View {
   }
 }
 
+struct RemoveAllMessageView: View {
+  /// 取消按钮点击的回调
+  let closeAction : () -> ()
+  var body: some View {
+    VStack(alignment: .center, spacing: 0) {
+      HLine()
+        .stroke(Color("borderColor"))
+        .frame(height: 1)
+      HStack(spacing: 12) {
+        Button(NSLocalizedString("清除全部消息", comment: "")) {
+          Task {
+            do {
+              try MessageModel.deleteAll()
+              _ = try await HttpRequest.rmAllMessage()
+              HToast.showSuccess(NSLocalizedString("已清空", comment: ""))
+              self.closeAction()
+            } catch {
+              HToast.showError(error.localizedDescription)
+            }
+          }
+        }
+        .font(.system(size: 20))
+        .padding(.horizontal)
+        .frame(  height: 42)
+        .overlay(RoundedRectangle(cornerRadius: 4).stroke())
+        .foregroundColor(Color.accentColor)
+        
+        Button(NSLocalizedString("取消", comment: "")) {
+          self.closeAction()
+        }
+        .font(.system(size: 20))
+        .padding(.horizontal)
+        .frame(  height: 42)
+        .overlay(RoundedRectangle(cornerRadius: 4).stroke())
+        .foregroundColor(Color.accentColor)
+      }
+      .padding()
+    }
+    .background(Color("backgroundColor").opacity(0.9))
+  }
+}
+
 struct MessageView_Previews: PreviewProvider {
   static var previews: some View {
     MessageListView()
+      .environmentObject(AppState.shared)
   }
 }

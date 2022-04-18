@@ -27,5 +27,13 @@ struct Env {
   static let wxUniversalLink = "https://vip.pushdeer.com/app/"
   /// PushDeer 官网地址
   static let officialWebsite = "https://www.pushdeer.com"
+  /// 共享组名, 使用它来访问 App Clip Widget 共享数据
+  static let appGroupId: String = {
+    #if SELFHOSTED
+    return "group.com.pushdeer.self.ios"
+    #else
+    return "group.com.pushdeer.app.ios"
+    #endif
+  }()
   
 }

@@ -135,4 +135,8 @@ struct HttpRequest {
   static func rmMessage(id: Int) async throws -> ActionContent {
     return try await request(.rmMessage(token: AppState.shared.token, id: id), resultType: ActionContent.self)
   }
+  
+  static func rmAllMessage() async throws -> ActionContent {
+    return try await request(.rmAllMessage(token: AppState.shared.token), resultType: ActionContent.self)
+  }
 }

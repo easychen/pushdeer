@@ -28,6 +28,11 @@ target 'PushDeerClip' do
   
 end
 
+target 'PushDeerWidgetExtension' do
+  # Pods for PushDeerWidgetExtension
+  pod 'Moya', '~> 15.0'
+end
+
 # define unsupported pods
 def unsupported_pods
   # macCatalyst 不支持的库

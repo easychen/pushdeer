@@ -21,6 +21,7 @@ struct SettingsView: View {
         VStack {
           SettingsItemView(title: NSLocalizedString("登录为", comment: "") + " " + userName(), button: NSLocalizedString("退出", comment: "退出登录按钮上的文字")) {
             store.token = ""
+            HToast.showText(NSLocalizedString("退出", comment: "退出登录按钮上的文字"))
           }
           .padding(EdgeInsets(top: 18, leading: 20, bottom: 0, trailing: 20))
           

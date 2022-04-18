@@ -7,7 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C63523789DA4965F9F87DB8 /* Pods_PushDeerWidgetExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F8DCAE5BD814D7C0D2F2722 /* Pods_PushDeerWidgetExtension.framework */; };
 		4812F19BB0BFEFE089BC253E /* Pods_PushDeerClip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E03C2088F4CD9F4C0848E1A5 /* Pods_PushDeerClip.framework */; };
+		5206008727CF749E00188431 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5206008627CF749E00188431 /* WidgetKit.framework */; };
+		5206008927CF749E00188431 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5206008827CF749E00188431 /* SwiftUI.framework */; };
+		5206008C27CF749E00188431 /* PushDeerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5206008B27CF749E00188431 /* PushDeerWidget.swift */; };
+		5206008F27CF749F00188431 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5206008E27CF749F00188431 /* Assets.xcassets */; };
+		5206009127CF749F00188431 /* PushDeerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 5206008D27CF749E00188431 /* PushDeerWidget.intentdefinition */; };
+		5206009227CF749F00188431 /* PushDeerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 5206008D27CF749E00188431 /* PushDeerWidget.intentdefinition */; };
+		5206009527CF749F00188431 /* PushDeerWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 5206008527CF749E00188431 /* PushDeerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		5206009D27CF74C100188431 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F412784943F003652D8 /* HttpRequest.swift */; };
+		5206009E27CF76BC00188431 /* PushDeerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F3727848243003652D8 /* PushDeerApi.swift */; };
+		5206009F27CF76C400188431 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F3E2784923D003652D8 /* Result.swift */; };
+		520600A027CF76F900188431 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52450F3A278491F8003652D8 /* AppState.swift */; };
+		520600A127CF770600188431 /* Env.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5243372627A6D86200190D00 /* Env.swift */; };
+		520600A627D0AE2300188431 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90B22778DA4E0048E0ED /* Line.swift */; };
 		52163EB327773F8400594190 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB227773F8400594190 /* MainView.swift */; };
 		52163EB52777413B00594190 /* MessageListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB42777413B00594190 /* MessageListView.swift */; };
 		52163EB72777415F00594190 /* DeviceListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52163EB62777415F00594190 /* DeviceListView.swift */; };
@@ -71,6 +85,8 @@
 		52B8CF86277E0C12004CB680 /* BaseNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90AD2778AFD60048E0ED /* BaseNavigationView.swift */; };
 		52B8CF87277E0C5C004CB680 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5292F4FC2776BC7A00B9A7BB /* Assets.xcassets */; };
 		52B8FB8727F36F9D00C29D13 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = 52B8FB8627F36F9D00C29D13 /* BetterSafariView */; };
+		52C4B434280DC28D009817EA /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C4B433280DC28D009817EA /* NotificationService.swift */; };
+		52C4B438280DC28D009817EA /* Notification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 52C4B431280DC28D009817EA /* Notification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		52E317D9279305BB000B8BB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52E317D7279305BB000B8BB1 /* InfoPlist.strings */; };
 		52E317DC279305BB000B8BB1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52E317DA279305BB000B8BB1 /* Localizable.strings */; };
 		52E317DF279305BB000B8BB1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52E317DD279305BB000B8BB1 /* InfoPlist.strings */; };
@@ -91,6 +107,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5206009327CF749F00188431 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5292F4ED2776BC7900B9A7BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5206008427CF749E00188431;
+			remoteInfo = PushDeerWidgetExtension;
+		};
 		52B8CF71277E0B46004CB680 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5292F4ED2776BC7900B9A7BB /* Project object */;
@@ -98,9 +121,28 @@
 			remoteGlobalIDString = 52B8CF63277E0B44004CB680;
 			remoteInfo = PushDeerClip;
 		};
+		52C4B436280DC28D009817EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5292F4ED2776BC7900B9A7BB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52C4B430280DC28D009817EA;
+			remoteInfo = Notification;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		5206009727CF749F00188431 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5206009527CF749F00188431 /* PushDeerWidgetExtension.appex in Embed App Extensions */,
+				52C4B438280DC28D009817EA /* Notification.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52B8CF77277E0B46004CB680 /* Embed App Clips */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +157,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5206008527CF749E00188431 /* PushDeerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PushDeerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5206008627CF749E00188431 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		5206008827CF749E00188431 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		5206008B27CF749E00188431 /* PushDeerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushDeerWidget.swift; sourceTree = "<group>"; };
+		5206008D27CF749E00188431 /* PushDeerWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = PushDeerWidget.intentdefinition; sourceTree = "<group>"; };
+		5206008E27CF749F00188431 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5206009027CF749F00188431 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		520600A427D085A100188431 /* PushDeerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushDeerWidgetExtension.entitlements; sourceTree = "<group>"; };
+		520600A527D085C200188431 /* PushDeerWidgetExtension-SelfHosted.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "PushDeerWidgetExtension-SelfHosted.entitlements"; sourceTree = "<group>"; };
 		52163EB227773F8400594190 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		52163EB42777413B00594190 /* MessageListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListView.swift; sourceTree = "<group>"; };
 		52163EB62777415F00594190 /* DeviceListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceListView.swift; sourceTree = "<group>"; };
@@ -152,6 +203,10 @@
 		52B8CF6F277E0B46004CB680 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52B8CF70277E0B46004CB680 /* PushDeerClip.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushDeerClip.entitlements; sourceTree = "<group>"; };
 		52BE373227C236DD004AA630 /* PushDeer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushDeer-Bridging-Header.h"; sourceTree = "<group>"; };
+		52C4B431280DC28D009817EA /* Notification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Notification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		52C4B433280DC28D009817EA /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		52C4B435280DC28D009817EA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		52C4B439280DC28D009817EA /* Notification.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Notification.entitlements; sourceTree = "<group>"; };
 		52E317D8279305BB000B8BB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		52E317DB279305BB000B8BB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		52E317DE279305BB000B8BB1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -169,18 +224,33 @@
 		52F40D2E277CA05600766C24 /* MessageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemView.swift; sourceTree = "<group>"; };
 		52FB1FEB27CA9D7300367DE0 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		69F56B2711ED98819D474BE3 /* Pods-PushDeerClip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerClip.debug.xcconfig"; path = "Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip.debug.xcconfig"; sourceTree = "<group>"; };
+		7F8DCAE5BD814D7C0D2F2722 /* Pods_PushDeerWidgetExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushDeerWidgetExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B9D658D778AE868A0E052A8 /* Pods-PushDeer.debug-selfhosted.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeer.debug-selfhosted.xcconfig"; path = "Target Support Files/Pods-PushDeer/Pods-PushDeer.debug-selfhosted.xcconfig"; sourceTree = "<group>"; };
+		8CF87A70A3872FDE613FD228 /* Pods-PushDeerWidgetExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerWidgetExtension.release.xcconfig"; path = "Target Support Files/Pods-PushDeerWidgetExtension/Pods-PushDeerWidgetExtension.release.xcconfig"; sourceTree = "<group>"; };
 		9CC775BE0326BF31C6FACF06 /* Pods-PushDeerClip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerClip.release.xcconfig"; path = "Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip.release.xcconfig"; sourceTree = "<group>"; };
+		B3763489EDE07E6970B0F8E5 /* Pods-PushDeerWidgetExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerWidgetExtension.debug.xcconfig"; path = "Target Support Files/Pods-PushDeerWidgetExtension/Pods-PushDeerWidgetExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		B796E2A583611F7B6DC34726 /* Pods-PushDeerClip.release-selfhosted.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerClip.release-selfhosted.xcconfig"; path = "Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip.release-selfhosted.xcconfig"; sourceTree = "<group>"; };
 		CB57B55699850AD493C774D0 /* Pods-PushDeerClip.debug-selfhosted.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerClip.debug-selfhosted.xcconfig"; path = "Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip.debug-selfhosted.xcconfig"; sourceTree = "<group>"; };
 		CCCE1F6E56B157872E2C755F /* Pods-PushDeer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeer.release.xcconfig"; path = "Target Support Files/Pods-PushDeer/Pods-PushDeer.release.xcconfig"; sourceTree = "<group>"; };
 		CE3005BD875FC9819A92466C /* Pods-PushDeer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeer.debug.xcconfig"; path = "Target Support Files/Pods-PushDeer/Pods-PushDeer.debug.xcconfig"; sourceTree = "<group>"; };
+		D612A216E0469D1A050C3523 /* Pods-PushDeerWidgetExtension.release-selfhosted.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerWidgetExtension.release-selfhosted.xcconfig"; path = "Target Support Files/Pods-PushDeerWidgetExtension/Pods-PushDeerWidgetExtension.release-selfhosted.xcconfig"; sourceTree = "<group>"; };
 		E03C2088F4CD9F4C0848E1A5 /* Pods_PushDeerClip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushDeerClip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E380A18349DE4D26071E913E /* Pods_PushDeer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushDeer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E45C830227D3A7C7E965F94B /* Pods-PushDeerWidgetExtension.debug-selfhosted.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeerWidgetExtension.debug-selfhosted.xcconfig"; path = "Target Support Files/Pods-PushDeerWidgetExtension/Pods-PushDeerWidgetExtension.debug-selfhosted.xcconfig"; sourceTree = "<group>"; };
 		E60A7D4CA1149E1DBC55C672 /* Pods-PushDeer.release-selfhosted.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushDeer.release-selfhosted.xcconfig"; path = "Target Support Files/Pods-PushDeer/Pods-PushDeer.release-selfhosted.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5206008227CF749E00188431 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5206008927CF749E00188431 /* SwiftUI.framework in Frameworks */,
+				5206008727CF749E00188431 /* WidgetKit.framework in Frameworks */,
+				1C63523789DA4965F9F87DB8 /* Pods_PushDeerWidgetExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5292F4F22776BC7900B9A7BB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -201,6 +271,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		52C4B42E280DC28D009817EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -215,8 +292,25 @@
 				E60A7D4CA1149E1DBC55C672 /* Pods-PushDeer.release-selfhosted.xcconfig */,
 				CB57B55699850AD493C774D0 /* Pods-PushDeerClip.debug-selfhosted.xcconfig */,
 				B796E2A583611F7B6DC34726 /* Pods-PushDeerClip.release-selfhosted.xcconfig */,
+				B3763489EDE07E6970B0F8E5 /* Pods-PushDeerWidgetExtension.debug.xcconfig */,
+				E45C830227D3A7C7E965F94B /* Pods-PushDeerWidgetExtension.debug-selfhosted.xcconfig */,
+				8CF87A70A3872FDE613FD228 /* Pods-PushDeerWidgetExtension.release.xcconfig */,
+				D612A216E0469D1A050C3523 /* Pods-PushDeerWidgetExtension.release-selfhosted.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		5206008A27CF749E00188431 /* PushDeerWidget */ = {
+			isa = PBXGroup;
+			children = (
+				5206008B27CF749E00188431 /* PushDeerWidget.swift */,
+				5206008D27CF749E00188431 /* PushDeerWidget.intentdefinition */,
+				5206008E27CF749F00188431 /* Assets.xcassets */,
+				5206009027CF749F00188431 /* Info.plist */,
+				520600A427D085A100188431 /* PushDeerWidgetExtension.entitlements */,
+				520600A527D085C200188431 /* PushDeerWidgetExtension-SelfHosted.entitlements */,
+			);
+			path = PushDeerWidget;
 			sourceTree = "<group>";
 		};
 		52450F362784822C003652D8 /* Service */ = {
@@ -246,6 +340,8 @@
 			children = (
 				5292F4F72776BC7900B9A7BB /* PushDeer */,
 				52B8CF65277E0B44004CB680 /* PushDeerClip */,
+				5206008A27CF749E00188431 /* PushDeerWidget */,
+				52C4B432280DC28D009817EA /* Notification */,
 				5292F4F62776BC7900B9A7BB /* Products */,
 				17D35B157765D96FC4DA6C39 /* Pods */,
 				78FEAD2568FB92808C44E85A /* Frameworks */,
@@ -258,6 +354,8 @@
 			children = (
 				5292F4F52776BC7900B9A7BB /* PushDeer.app */,
 				52B8CF64277E0B44004CB680 /* PushDeerClip.app */,
+				5206008527CF749E00188431 /* PushDeerWidgetExtension.appex */,
+				52C4B431280DC28D009817EA /* Notification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -327,6 +425,16 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		52C4B432280DC28D009817EA /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				52C4B439280DC28D009817EA /* Notification.entitlements */,
+				52C4B433280DC28D009817EA /* NotificationService.swift */,
+				52C4B435280DC28D009817EA /* Info.plist */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		52EB90B12778D9F90048E0ED /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -363,6 +471,9 @@
 			children = (
 				E380A18349DE4D26071E913E /* Pods_PushDeer.framework */,
 				E03C2088F4CD9F4C0848E1A5 /* Pods_PushDeerClip.framework */,
+				5206008627CF749E00188431 /* WidgetKit.framework */,
+				5206008827CF749E00188431 /* SwiftUI.framework */,
+				7F8DCAE5BD814D7C0D2F2722 /* Pods_PushDeerWidgetExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -370,6 +481,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5206008427CF749E00188431 /* PushDeerWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5206009C27CF749F00188431 /* Build configuration list for PBXNativeTarget "PushDeerWidgetExtension" */;
+			buildPhases = (
+				97FE7C51BE9FCE0E275A4CA3 /* [CP] Check Pods Manifest.lock */,
+				5206008127CF749E00188431 /* Sources */,
+				5206008227CF749E00188431 /* Frameworks */,
+				5206008327CF749E00188431 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushDeerWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = PushDeerWidgetExtension;
+			productReference = 5206008527CF749E00188431 /* PushDeerWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		5292F4F42776BC7900B9A7BB /* PushDeer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5292F5032776BC7A00B9A7BB /* Build configuration list for PBXNativeTarget "PushDeer" */;
@@ -380,11 +511,14 @@
 				5292F4F32776BC7900B9A7BB /* Resources */,
 				52B8CF77277E0B46004CB680 /* Embed App Clips */,
 				D5C7FAC44EC37CBCD945E0F2 /* [CP] Embed Pods Frameworks */,
+				5206009727CF749F00188431 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				52B8CF72277E0B46004CB680 /* PBXTargetDependency */,
+				5206009427CF749F00188431 /* PBXTargetDependency */,
+				52C4B437280DC28D009817EA /* PBXTargetDependency */,
 			);
 			name = PushDeer;
 			packageProductDependencies = (
@@ -418,6 +552,23 @@
 			productReference = 52B8CF64277E0B44004CB680 /* PushDeerClip.app */;
 			productType = "com.apple.product-type.application.on-demand-install-capable";
 		};
+		52C4B430280DC28D009817EA /* Notification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 52C4B43E280DC28D009817EA /* Build configuration list for PBXNativeTarget "Notification" */;
+			buildPhases = (
+				52C4B42D280DC28D009817EA /* Sources */,
+				52C4B42E280DC28D009817EA /* Frameworks */,
+				52C4B42F280DC28D009817EA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Notification;
+			productName = Notification;
+			productReference = 52C4B431280DC28D009817EA /* Notification.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -425,9 +576,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1320;
+				LastSwiftUpdateCheck = 1330;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					5206008427CF749E00188431 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					5292F4F42776BC7900B9A7BB = {
 						CreatedOnToolsVersion = 13.2.1;
 						LastSwiftMigration = 1320;
@@ -435,6 +589,9 @@
 					52B8CF63277E0B44004CB680 = {
 						CreatedOnToolsVersion = 13.2.1;
 						LastSwiftMigration = 1320;
+					};
+					52C4B430280DC28D009817EA = {
+						CreatedOnToolsVersion = 13.3.1;
 					};
 				};
 			};
@@ -458,11 +615,21 @@
 			targets = (
 				5292F4F42776BC7900B9A7BB /* PushDeer */,
 				52B8CF63277E0B44004CB680 /* PushDeerClip */,
+				5206008427CF749E00188431 /* PushDeerWidgetExtension */,
+				52C4B430280DC28D009817EA /* Notification */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5206008327CF749E00188431 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5206008F27CF749F00188431 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5292F4F32776BC7900B9A7BB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -482,6 +649,13 @@
 				52B8CF6E277E0B46004CB680 /* Preview Assets.xcassets in Resources */,
 				52E317DF279305BB000B8BB1 /* InfoPlist.strings in Resources */,
 				52B8CF87277E0C5C004CB680 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		52C4B42F280DC28D009817EA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,6 +701,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PushDeerClip/Pods-PushDeerClip-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		97FE7C51BE9FCE0E275A4CA3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PushDeerWidgetExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D5C7FAC44EC37CBCD945E0F2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -569,6 +765,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5206008127CF749E00188431 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5206009127CF749F00188431 /* PushDeerWidget.intentdefinition in Sources */,
+				5206009F27CF76C400188431 /* Result.swift in Sources */,
+				5206008C27CF749E00188431 /* PushDeerWidget.swift in Sources */,
+				520600A027CF76F900188431 /* AppState.swift in Sources */,
+				5206009E27CF76BC00188431 /* PushDeerApi.swift in Sources */,
+				520600A627D0AE2300188431 /* Line.swift in Sources */,
+				5206009D27CF74C100188431 /* HttpRequest.swift in Sources */,
+				520600A127CF770600188431 /* Env.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5292F4F12776BC7900B9A7BB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -577,6 +788,7 @@
 				52FB1FEC27CA9D7300367DE0 /* SafariView.swift in Sources */,
 				523150DC2778762B00941EDC /* DeviceItemView.swift in Sources */,
 				523150D9277875FB00941EDC /* DeletableView.swift in Sources */,
+				5206009227CF749F00188431 /* PushDeerWidget.intentdefinition in Sources */,
 				52163EBB277741AC00594190 /* SettingsView.swift in Sources */,
 				5242C872278C8CBB00FDB27E /* EditableText.swift in Sources */,
 				52163EB327773F8400594190 /* MainView.swift in Sources */,
@@ -649,14 +861,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		52C4B42D280DC28D009817EA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52C4B434280DC28D009817EA /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5206009427CF749F00188431 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5206008427CF749E00188431 /* PushDeerWidgetExtension */;
+			targetProxy = 5206009327CF749F00188431 /* PBXContainerItemProxy */;
+		};
 		52B8CF72277E0B46004CB680 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
 			target = 52B8CF63277E0B44004CB680 /* PushDeerClip */;
 			targetProxy = 52B8CF71277E0B46004CB680 /* PBXContainerItemProxy */;
+		};
+		52C4B437280DC28D009817EA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52C4B430280DC28D009817EA /* Notification */;
+			targetProxy = 52C4B436280DC28D009817EA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -691,6 +921,130 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5206009827CF749F00188431 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3763489EDE07E6970B0F8E5 /* Pods-PushDeerWidgetExtension.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PushDeerWidget/PushDeerWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = HUJ6HAE4VU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PushDeerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.app.ios.PushDeerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5206009927CF749F00188431 /* Debug-SelfHosted */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E45C830227D3A7C7E965F94B /* Pods-PushDeerWidgetExtension.debug-selfhosted.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "PushDeerWidget/PushDeerWidgetExtension-SelfHosted.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = HUJ6HAE4VU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PushDeerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.self.ios.PushDeerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-SelfHosted";
+		};
+		5206009A27CF749F00188431 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CF87A70A3872FDE613FD228 /* Pods-PushDeerWidgetExtension.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PushDeerWidget/PushDeerWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = HUJ6HAE4VU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PushDeerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.app.ios.PushDeerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		5206009B27CF749F00188431 /* Release-SelfHosted */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D612A216E0469D1A050C3523 /* Pods-PushDeerWidgetExtension.release-selfhosted.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = "PushDeerWidget/PushDeerWidgetExtension-SelfHosted.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = HUJ6HAE4VU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PushDeerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PushDeerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.self.ios.PushDeerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release-SelfHosted";
+		};
 		524E99E827B3DDF000292396 /* Debug-SelfHosted */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -758,6 +1112,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8B9D658D778AE868A0E052A8 /* Pods-PushDeer.debug-selfhosted.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SH";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -901,6 +1256,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E60A7D4CA1149E1DBC55C672 /* Pods-PushDeer.release-selfhosted.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-SH";
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -1102,6 +1458,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CE3005BD875FC9819A92466C /* Pods-PushDeer.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -1143,6 +1500,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CCCE1F6E56B157872E2C755F /* Pods-PushDeer.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
@@ -1266,9 +1624,132 @@
 			};
 			name = Release;
 		};
+		52C4B43A280DC28D009817EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Notification/Notification.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = HUJ6HAE4VU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Notification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Notification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.app.ios.Notification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		52C4B43B280DC28D009817EA /* Debug-SelfHosted */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Notification/Notification.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = HUJ6HAE4VU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Notification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Notification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.self.ios.Notification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Debug-SelfHosted";
+		};
+		52C4B43C280DC28D009817EA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Notification/Notification.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = HUJ6HAE4VU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Notification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Notification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.app.ios.Notification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		52C4B43D280DC28D009817EA /* Release-SelfHosted */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Notification/Notification.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = HUJ6HAE4VU;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Notification/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Notification;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushdeer.self.ios.Notification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = "Release-SelfHosted";
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5206009C27CF749F00188431 /* Build configuration list for PBXNativeTarget "PushDeerWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5206009827CF749F00188431 /* Debug */,
+				5206009927CF749F00188431 /* Debug-SelfHosted */,
+				5206009A27CF749F00188431 /* Release */,
+				5206009B27CF749F00188431 /* Release-SelfHosted */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		5292F4F02776BC7900B9A7BB /* Build configuration list for PBXProject "PushDeer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1298,6 +1779,17 @@
 				524E99EA27B3DDF000292396 /* Debug-SelfHosted */,
 				52B8CF76277E0B46004CB680 /* Release */,
 				524E99ED27B3DDFE00292396 /* Release-SelfHosted */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		52C4B43E280DC28D009817EA /* Build configuration list for PBXNativeTarget "Notification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				52C4B43A280DC28D009817EA /* Debug */,
+				52C4B43B280DC28D009817EA /* Debug-SelfHosted */,
+				52C4B43C280DC28D009817EA /* Release */,
+				52C4B43D280DC28D009817EA /* Release-SelfHosted */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
