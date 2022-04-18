@@ -40,6 +40,7 @@ enum PushDeerApi {
   
   case getMessages(token: String, limit: Int)
   case rmMessage(token: String, id: Int)
+  case rmAllMessage(token: String)
   
 }
 
@@ -91,6 +92,8 @@ extension PushDeerApi: TargetType {
       return "/message/list"
     case .rmMessage:
       return "/message/remove"
+    case .rmAllMessage:
+      return "/message/clean"
     }
   }
   var method: Moya.Method {
@@ -139,6 +142,8 @@ extension PushDeerApi: TargetType {
       return .requestParameters(parameters: ["token": token, "limit": limit],encoding: URLEncoding.queryString)
     case let .rmMessage(token, id):
       return .requestParameters(parameters: ["token": token, "id": id],encoding: URLEncoding.queryString)
+    case let .rmAllMessage(token):
+      return .requestParameters(parameters: ["token": token],encoding: URLEncoding.queryString)
       
     }
   }

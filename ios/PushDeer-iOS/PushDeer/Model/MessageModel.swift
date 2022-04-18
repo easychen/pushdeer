@@ -51,6 +51,19 @@ extension MessageModel {
   static let _viewContext = PersistenceController.shared.container.viewContext
   static let _fetchRequest = MessageModel.fetchRequest()
   
+  /// 删除本地持久化的所有消息
+  static func deleteAll() throws -> Void {
+    //    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = MessageModel.fetchRequest()
+    //    let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+    //    try _viewContext.execute(deleteRequest)
+    let fetchRequest = MessageModel.fetchRequest()
+    let models = try _viewContext.fetch(fetchRequest)
+    models.forEach { model in
+      _viewContext.delete(model)
+    }
+    try _viewContext.save()
+  }
+  
   /// 持久化保存和更新
   static func saveAndUpdate(messageItems: [MessageItem]) throws -> Void {
     try messageItems.forEach(saveAndUpdate)

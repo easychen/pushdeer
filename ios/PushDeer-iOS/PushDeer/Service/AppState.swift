@@ -10,9 +10,9 @@ import AuthenticationServices
 
 class AppState: ObservableObject {
   /// 账号 token
-  @Published var token : String {
+  @Published var token : String = "" {
     didSet {
-      UserDefaults.standard.set(token, forKey: "PushDeer_token")
+      getUserDefaults().set(token, forKey: "PushDeer_token")
     }
   }
   /// 设备列表
@@ -22,9 +22,9 @@ class AppState: ObservableObject {
   /// 消息列表
   //  @Published var messages: [MessageItem] = []
   /// 选中的 tab 下标
-  @Published var tabSelectedIndex: Int {
+  @Published var tabSelectedIndex: Int = 2 {
     didSet {
-      UserDefaults.standard.set(tabSelectedIndex, forKey: "PushDeer_tabSelectedIndex")
+      getUserDefaults().set(tabSelectedIndex, forKey: "PushDeer_tabSelectedIndex")
     }
   }
   /// 设备推送 token
@@ -32,28 +32,28 @@ class AppState: ObservableObject {
   /// 用户信息
   @Published var userInfo: UserInfoContent?
   /// 是否显示测试发推送的 UI
-  @Published var isShowTestPush: Bool {
+  @Published var isShowTestPush: Bool = true {
     didSet {
-      UserDefaults.standard.set(isShowTestPush, forKey: "PushDeer_isShowTestPush")
+      getUserDefaults().set(isShowTestPush, forKey: "PushDeer_isShowTestPush")
     }
   }
   /// 是否使用内置浏览器打开链接
-  @Published var isUseBuiltInBrowser: Bool {
+  @Published var isUseBuiltInBrowser: Bool = true {
     didSet {
-      UserDefaults.standard.set(isUseBuiltInBrowser, forKey: "PushDeer_isUseBuiltInBrowser")
+      getUserDefaults().set(isUseBuiltInBrowser, forKey: "PushDeer_isUseBuiltInBrowser")
     }
   }
   /// MarkDown BaseURL
   @Published var markDownBaseURL: String? {
     didSet {
-      UserDefaults.standard.set(markDownBaseURL, forKey: "PushDeer_markDownBaseURL")
+      getUserDefaults().set(markDownBaseURL, forKey: "PushDeer_markDownBaseURL")
     }
   }
   
   /// API endpoint
-  @Published var api_endpoint : String {
+  @Published var api_endpoint : String = "" {
     didSet {
-      UserDefaults.standard.set(api_endpoint, forKey: "PushDeer_api_endpoint")
+      getUserDefaults().set(api_endpoint, forKey: "PushDeer_api_endpoint")
     }
   }
   
@@ -68,18 +68,61 @@ class AppState: ObservableObject {
   
   static let shared = AppState()
   private init() {
-    let _token = UserDefaults.standard.string(forKey: "PushDeer_token")
-    let _tabSelectedIndex = UserDefaults.standard.integer(forKey: "PushDeer_tabSelectedIndex")
-    let _isShowTestPush = UserDefaults.standard.object(forKey: "PushDeer_isShowTestPush")
-    let _isUseBuiltInBrowser = UserDefaults.standard.object(forKey: "PushDeer_isUseBuiltInBrowser")
-    let _markDownBaseURL = UserDefaults.standard.string(forKey: "PushDeer_markDownBaseURL")
-    let _api_endpoint = UserDefaults.standard.string(forKey: "PushDeer_api_endpoint")
+    reloadUserDefaults()
+    moveOldUserDefaults()
+  }
+  
+  func getUserDefaults() -> UserDefaults {
+    let ud = UserDefaults(suiteName: Env.appGroupId)
+    if let ud = ud {
+      return ud
+    } else {
+      return UserDefaults.standard
+    }
+  }
+  
+  func reloadUserDefaults() -> Void {
+    let _token = getUserDefaults().string(forKey: "PushDeer_token")
+    let _tabSelectedIndex = getUserDefaults().integer(forKey: "PushDeer_tabSelectedIndex")
+    let _isShowTestPush = getUserDefaults().object(forKey: "PushDeer_isShowTestPush")
+    let _isUseBuiltInBrowser = getUserDefaults().object(forKey: "PushDeer_isUseBuiltInBrowser")
+    let _markDownBaseURL = getUserDefaults().string(forKey: "PushDeer_markDownBaseURL")
+    let _api_endpoint = getUserDefaults().string(forKey: "PushDeer_api_endpoint")
     token = _token ?? ""
     tabSelectedIndex = _tabSelectedIndex
     isShowTestPush = _isShowTestPush as? Bool ?? true
     isUseBuiltInBrowser = _isUseBuiltInBrowser as? Bool ?? true
     markDownBaseURL = _markDownBaseURL
     api_endpoint = _api_endpoint ?? ""
+  }
+  
+  /// 迁移老版本数据, 老版本不是存在共享组中, 需要迁移到共享组
+  func moveOldUserDefaults() -> Void {
+    let oldUserDefaults = UserDefaults.standard
+    if let _token = oldUserDefaults.string(forKey: "PushDeer_token") {
+      oldUserDefaults.removeObject(forKey: "PushDeer_token")
+      token = _token
+    }
+    if let _tabSelectedIndex = oldUserDefaults.object(forKey: "PushDeer_tabSelectedIndex") as? Int {
+      oldUserDefaults.removeObject(forKey: "PushDeer_tabSelectedIndex")
+      tabSelectedIndex = _tabSelectedIndex
+    }
+    if let _isShowTestPush = oldUserDefaults.object(forKey: "PushDeer_isShowTestPush") as? Bool {
+      oldUserDefaults.removeObject(forKey: "PushDeer_isShowTestPush")
+      isShowTestPush = _isShowTestPush
+    }
+    if let _isUseBuiltInBrowser = oldUserDefaults.object(forKey: "PushDeer_isUseBuiltInBrowser") as? Bool {
+      oldUserDefaults.removeObject(forKey: "PushDeer_isUseBuiltInBrowser")
+      isUseBuiltInBrowser = _isUseBuiltInBrowser
+    }
+    if let _markDownBaseURL = oldUserDefaults.string(forKey: "PushDeer_markDownBaseURL") {
+      oldUserDefaults.removeObject(forKey: "PushDeer_markDownBaseURL")
+      markDownBaseURL = _markDownBaseURL
+    }
+    if let _api_endpoint = oldUserDefaults.string(forKey: "PushDeer_api_endpoint") {
+      oldUserDefaults.removeObject(forKey: "PushDeer_api_endpoint")
+      api_endpoint = _api_endpoint
+    }
   }
   
   func appleIdLogin(_ result: Result<ASAuthorization, Error>) async throws -> TokenContent {

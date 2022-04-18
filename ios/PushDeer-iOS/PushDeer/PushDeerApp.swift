@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import WidgetKit
 
 @main
 struct PushDeerApp: App {
@@ -39,6 +40,10 @@ struct PushDeerApp: App {
             }
           }
         }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification), perform: { _ in
+          // APP将要进入非活跃状态时, 刷新小部件
+          WidgetCenter.shared.reloadAllTimelines()
+        })
         .environmentObject(store)
         .environment(\.managedObjectContext, persistenceController.container.viewContext)
     }
