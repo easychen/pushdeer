@@ -17,15 +17,16 @@ class NotificationService: UNNotificationServiceExtension {
     self.contentHandler = contentHandler
     bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
     
+    NSLog("push-userInfo: %@", bestAttemptContent?.userInfo ?? "")
+    // 刷新所有桌面小部件
+    WidgetCenter.shared.reloadAllTimelines()
+    
     if let bestAttemptContent = bestAttemptContent {
       // Modify the notification content here...
       // bestAttemptContent.title = "\(bestAttemptContent.title) [modified]"
       
       contentHandler(bestAttemptContent)
     }
-    
-    // 刷新所有桌面小部件
-    WidgetCenter.shared.reloadAllTimelines()
   }
   
   override func serviceExtensionTimeWillExpire() {
