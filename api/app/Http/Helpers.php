@@ -115,7 +115,8 @@ function ios_send($is_clip, $device_token, $text, $desp = '', $dev = true)
     $topic = intval($is_clip) == 1 ? config('services.go_push.ios_clip_topic') : config('services.go_push.ios_topic');
     $notification->topic = $topic;
     $notification->sound = ['volume'=>2.0];
-    $notification->mutable_content = 1;
+    $notification->mutable_content = true;
+    $notification->alert= ['title'=>$text,'subtitle'=>'from PushDeer','body'=>$desp];
 
     $json = ['notifications'=>[$notification]];
     $client = new GuzzleHttp\Client();
