@@ -56,7 +56,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
   }
   
   func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
-    print("willPresent:", notification.request.content.userInfo)
+    NSLog("willPresent: %@", notification.request.content.userInfo)
     Task {
       // 收到推送后, 刷新本地消息列表
       let messageItems = try await HttpRequest.getMessages().messages
@@ -66,7 +66,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
   }
   
   func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
-    print("didReceive:", response.notification.request.content.userInfo)
+    NSLog("didReceive: %@", response.notification.request.content.userInfo)
   }
   
 }
