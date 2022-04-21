@@ -279,7 +279,7 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 
 ![](image/2022-02-16-23-44-07.png)
 
-注释掉默认驱动
+注释或删除掉默认驱动及其他内容
 
 ```cpp
 //#define ILI9341_DRIVER
