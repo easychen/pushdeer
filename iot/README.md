@@ -1,20 +1,68 @@
 > PushDeer可以将消息推送到各种支持MQTT协议的智能设备。
 
-DeerESP 是 PushDeer 在 IOT 方向的扩展项目，它是一个基于 ESP8266 的消息设备方案。
+DeerESP 是 PushDeer 在 IOT 方向的扩展项目，它是一个基于 ESP8266/ESP32 芯片的消息设备方案。
 
-目前已经可以通过开发板自行组装使用。
+目前你可以通过以下方式获得这个终端：
 
-本文将以 `NodeMCU` 1.0开发板和 1.44寸的 Arduino Black TFT屏幕为例，讲解如何组建一个成本35元人民币左右的硬件设备，并通过PushDeer将消息推送给它。
+- 方案1：直接购买为 PushDeer 设计的、组装好的、带3D打印外壳的硬件（价格为60左右）
+- 方案2：购买为 PushDeer 设计的、带3D打印外壳的、未焊接和组装的散件（价格为50左右）
+- 方案3：通过开源的硬件方案自行印制电路板、购买元件并焊接（十件均价25左右，屏幕10元左右）
+- 方案4：直接购买8266开发板、屏幕和蜂鸣器，连线使用（35元左右）
 
-最终效果如下图：
+其中方案1和方案4无需焊接，主要区别在集成度和外壳；方案2和方案3需要较强的动手能力，适合会焊接的同学。
+
+## 方案1/方案2效果：
+
+![](image/20220422002608.png)  
+
+128*128 1.44寸屏幕效果
+
+![](image/20220422003820.png)  
+
+240*240 1.3寸屏幕效果
+
+![](image/20220422004159.png) 
+
+另有白色外壳版本。
+
+## 方案3效果：
+
+![](image/20220422005313.png)  
+
+![](image/20220422005232.png)  
+
+## 方案4效果：
+
+![](image/20220422005744.png) 
 
 ![](image/deeresp.gif)
 
 [📼 点此查看视频版本，可以听到提示音♪](https://weibo.com/1088413295/LfUwivPoh)
 
-PS：如果你有硬件量产的经验并有兴趣参与，可以在[微博](https://weibo.com/easy)私信或者评论@Easy。
+
+以下我们将针对上述方案提供对应的教程。
+
 
 ## 硬件的购买
+
+### 方案1/2
+
+在[淘宝店铺](https://item.taobao.com/item.htm?ft=t&id=673259250981)进行购买：
+![](image/20220422010516.png)  
+
+> 感谢店长`nickchen`贡献[开源硬件方案](https://gitee.com/nickchenss/deepesp-v2/tree/master/DEEP%20V2)，硬件的品质将由店家自行负责。
+
+### 方案3 
+
+在[硬创社](https://x.jlc.com/platform/detail/1a987c9a4d4347efaef4f425f3a408d0) 一键下单，通过嘉立创在线制作。
+
+![](image/20220422011115.png)  
+
+相关资料也可以在[Gitee](https://gitee.com/nickchenss/deepesp-v2/tree/master/DEEP%20V2)上获得。
+
+可参考：[B站嘉立创免费打样教程](https://www.bilibili.com/video/BV1eh41147ka?spm_id_from=333.337.search-card.all.click)
+
+### 方案4
 
 ![](image/2022-02-17-00-43-58.png)
 
@@ -25,6 +73,20 @@ PS：如果你有硬件量产的经验并有兴趣参与，可以在[微博](htt
 前边两个加上USB线，[淘宝33.30](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.2c042e8dlNdY3E&id=531755241333&_u=gog6id51b2)，无源蜂鸣器：[淘宝3.3](https://detail.tmall.com/item.htm?id=41251333522&spm=a1z09.2.0.0.2c042e8dlNdY3E&_u=gog6id9820&skuId=4323951807546)。不认识店家，就随便搜了就买了。
 
 ## 硬件的连接
+
+### 方案1 
+
+无需连接
+
+### 方案2
+
+店家会提供焊接和组装教学视频，请询问店家。
+
+### 方案3 
+
+请参考开源硬件资料中的原理图进行连接。
+
+### 方案4
 
 首先把屏幕和开发板连起来，按下图操作：
 
@@ -169,13 +231,27 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 
 ## 烧录程序到设备
 
-回到我们的设备这边来。首先用 `arduino IDE` 打开 `deeresp/deeresp.ino`，修改最上边的几行：
+### 选择要烧录的版本
+
+因为8266的内存多为4M，难以同时放下配网和中文字库，我们提供了两个版本的源代码：
+
+- deeresp/deeresp.ino：2000字中文字库，手动填写wifi和mqtt信息
+- deeresp32/deeresp32.ino：支持配网和保存配置文件、可选BG2312中文字库，建议8M以上设备使用
+
+以上版本都包含了图片、文字推送，支持提示鸣音以及联网时钟功能。
+
+### 具体操作
+
+回到我们的设备这边来。首先用 `arduino IDE` 打开 `deeresp/deeresp.ino`，按提示修改最上边的几行：
 
 ```cpp
+#define SCREEN_WIDTH 128 // 如果是 240*240 的屏幕，请调整这两行
+#define SCREEN_HEIGHT 128
+#define SCREEN_ROTATION 0 // 这个是屏幕方向
 #define WIFI_SSID "wifi名称"
 #define WIFI_PASSWORD "wifi密码"
 #define MQTT_CLIENT_NAME "DeerEsp-001" // 多个同名设备连接同一台服务器会导致其他下线，所以起一个唯一的名字吧
-#define MQTT_TOPIC "LB2353" // 这里填PushDeer的Key
+#define MQTT_TOPIC "LB2312" // 这里填PushDeer的Key
 ```
 
 这里的信息我们现在都有了，把它们替换掉，然后点击上传图标（向右的箭头），就会编译并烧录程序到设备上了。不过别急，有两个问题需要处理。
@@ -209,7 +285,60 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 //#define ILI9341_DRIVER
 ```
 
-将以下行之前的注释去掉：
+然后根据不同的方案添加以下内容：
+
+#### 方案1/2/3：deeresp + 1.44寸128*128 ST7735屏幕
+
+```cpp
+#define ST7735_DRIVER
+#define TFT_RGB_ORDER TFT_BGR
+#define TFT_WIDTH  128
+#define TFT_HEIGHT 128
+#define ST7735_GREENTAB3 
+#define TFT_MOSI PIN_D7
+#define TFT_SCLK PIN_D5
+#define TFT_CS   PIN_D1
+#define TFT_DC   PIN_D3
+#define TFT_RST  PIN_D2
+#define LOAD_GLCD   
+#define LOAD_FONT2  
+#define LOAD_FONT4  
+#define LOAD_FONT6  
+#define LOAD_FONT7  
+#define LOAD_FONT8  
+#define LOAD_GFXFF
+#define SMOOTH_FONT
+#define SPI_FREQUENCY  27000000
+#define SPI_READ_FREQUENCY  20000000
+#define SPI_TOUCH_FREQUENCY  2500000
+```
+#### 方案1/2/3：deeresp + 1.3寸240*240 ST7789屏幕
+
+```cpp
+#define CGRAM_OFFSET 
+#define ST7789_DRIVER 
+#define TFT_RGB_ORDER TFT_BGR 
+#define TFT_WIDTH  240 
+#define TFT_HEIGHT 240
+#define TFT_MOSI PIN_D7
+#define TFT_SCLK PIN_D5
+#define TFT_CS   PIN_D1
+#define TFT_DC   PIN_D3
+#define TFT_RST  PIN_D2
+#define LOAD_GLCD   
+#define LOAD_FONT2  
+#define LOAD_FONT4  
+#define LOAD_FONT6  
+#define LOAD_FONT7  
+#define LOAD_FONT8  
+#define LOAD_GFXFF
+#define SMOOTH_FONT
+#define SPI_FREQUENCY  27000000
+#define SPI_READ_FREQUENCY  20000000
+#define SPI_TOUCH_FREQUENCY  2500000
+```
+
+####  方案4：NodeMCU + 1.44寸128*128 ST7735屏幕
 
 ```cpp
 #define ST7735_DRIVER  
@@ -217,17 +346,16 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 #define TFT_WIDTH  128
 #define TFT_HEIGHT 128
 #define ST7735_GREENTAB3
-#define TFT_CS   PIN_D1  // Chip select control pin D8
-#define TFT_DC   PIN_D3  // Data Command control pin
-#define TFT_RST  PIN_D2  // Reset pin (could connect to NodeMCU RST, see next line)
-#define LOAD_GLCD   // Font 1. Original Adafruit 8 pixel font needs ~1820 bytes in FLASH
-#define LOAD_FONT2  // Font 2. Small 16 pixel high font, needs ~3534 bytes in FLASH, 96 characters
-#define LOAD_FONT4  // Font 4. Medium 26 pixel high font, needs ~5848 bytes in FLASH, 96 characters
-#define LOAD_FONT6  // Font 6. Large 48 pixel font, needs ~2666 bytes in FLASH, only characters 1234567890:-.apm
-#define LOAD_FONT7  // Font 7. 7 segment 48 pixel font, needs ~2438 bytes in FLASH, only characters 1234567890:-.
-#define LOAD_FONT8  // Font 8. Large 75 pixel font needs ~3256 bytes in FLASH, only characters 1234567890:-.
-//#define LOAD_FONT8N // Font 8. Alternative to Font 8 above, slightly narrower, so 3 digits fit a 160 pixel TFT
-#define LOAD_GFXFF  // FreeFonts. Include access to the 48 Adafruit_GFX free fonts FF1 to FF48 and custom fonts
+#define TFT_CS   PIN_D1  
+#define TFT_DC   PIN_D3  
+#define TFT_RST  PIN_D2  
+#define LOAD_GLCD   
+#define LOAD_FONT2  
+#define LOAD_FONT4  
+#define LOAD_FONT6  
+#define LOAD_FONT7  
+#define LOAD_FONT8  
+#define LOAD_GFXFF  
 #define SMOOTH_FONT
 #define SPI_FREQUENCY  27000000
 #define SPI_READ_FREQUENCY  20000000
@@ -310,13 +438,13 @@ docker run -e API_KEY=9LKo3 -e MQTT_PORT=1883 -e MQTT_USER=easy -e MQTT_PASSWORD
 
 如果使用默认的MQTT服务器账号，只需要将 MQTT TOPIC 改为对应的值，即可向设备推送文字和图片。
 
-在网页上可以把剪贴板中的图片粘贴上，然后工具会进行缩放为设备需要的尺寸和格式。点击下载图片，可以获得处理好的图片。
+在网页上可以把剪贴板中的图片粘贴上，然后工具会进行缩放为设备需要的尺寸和格式。点击发送，会生成一个一分钟有效的临时图片链接，并自动推送到设备。
 
-将图片上传到网上，在左侧`发送类型` 选择为 `图片`, `发送内容`粘贴为图片的URL即可推送给设备。
+也可点击下载，将处理好的图片上传到网上，在左侧`发送类型` 选择为 `图片`, `发送内容`粘贴为图片的URL即可推送给设备。
 
-> 注意图片的URL必须为HTTP协议、JPG格式、不能有301/302等转向，最好为256*256。
+> 注意图片的URL必须为HTTP协议、JPG格式、不能有301/302等转向，最好为屏幕分辨率的两倍（256\*256、480*480）。
 
-![](image/2022-03-26-17-38-02.png)
+![](image/20220422014021.png)  
 
 
 ## 用MQTTX进行测试

@@ -37,11 +37,15 @@ String mqtt_password_value = "";
 //);
 EspMQTTClient mclient;
 
-#ifdef FULL_FONT
- #define AA_FONT_CUBIC "Cubic1112"
-#else
- #include "cubic_12.h"
-#endif
+if(FULL_FONT==1)
+{
+  #define AA_FONT_CUBIC "Cubic1112"
+
+}
+else
+{
+  #include "cubic_12.h"
+}
 
 // #include "SPI.h"
 #include <TFT_eSPI.h> 

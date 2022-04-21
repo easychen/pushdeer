@@ -1,8 +1,11 @@
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 128
 #define SCREEN_ROTATION 0
 #define WIFI_SSID "wifi名称"
 #define WIFI_PASSWORD "wifi密码"
 #define MQTT_CLIENT_NAME "DeerEsp-001" // 多个同名设备连接同一台服务器会导致其他下线，所以起一个唯一的名字吧
-#define MQTT_TOPIC "LB2353" // 这里填PushDeer的Key
+#define MQTT_TOPIC "LB2312" // 这里填PushDeer的Key
+
 #define MQTT_IP "broker.emqx.io"
 #define MQTT_USER ""
 #define MQTT_PASSWORD ""
@@ -11,6 +14,9 @@
 
 // ====== 以下不用修改 ===============
 #define DOWNLOADED_IMG "/download.jpg"
+
+#define IMG_SCALE 2
+#define TXT_SCALE 2
 
 
 #include <EspMQTTClient.h>
@@ -34,12 +40,8 @@ TFT_eSPI tft = TFT_eSPI();
 #ifdef ESP8266
   #include <ESP8266HTTPClient.h>
   #define BEEP_PIN D8
-  #define IMG_SCALE 2
-  #define TXT_SCALE 2
 #else
   #include "SPIFFS.h" // Required for ESP32 only
-  #define IMG_SCALE 1
-  #define TXT_SCALE 4
   #include <HTTPClient.h>
 #endif
 
@@ -156,10 +158,23 @@ void show_time(bool force)
 
 void echo_time( String thetime )
 {
-  tft.setCursor(96, 120, 1);
-  tft.setTextSize(1);
+  if( SCREEN_WIDTH == 128 )
+  {
+    tft.setCursor(96, 120, 1);
+    tft.setTextSize(1);
+  
+  }
+  if( SCREEN_WIDTH == 240 )
+  {
+    tft.setCursor(180, 210, 1);
+    tft.setTextSize(2);
+  
+  } 
+  
+  
   tft.setTextColor(TFT_WHITE,TFT_BLACK);
   tft.println(thetime);
+  
   
   tft.setTextSize(TXT_SCALE);
 }
