@@ -1,5 +1,9 @@
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 128
+#define SCREEN_ROTATION 0
 #define DOWNLOADED_IMG "/download.jpg"
-#define FULL_FONT 1
+// #define FULL_FONT 1
+// #define CHINESE_FONT 1
 
 #define BLK_PIN 19
 #define BTN_PIN 0
@@ -37,15 +41,14 @@ String mqtt_password_value = "";
 //);
 EspMQTTClient mclient;
 
-if(FULL_FONT==1)
-{
-  #define AA_FONT_CUBIC "Cubic1112"
+#ifdef CHINESE_FONT
+  #ifdef FULL_FONT
+    #define AA_FONT_CUBIC "Cubic1112"
+  #else
+    #include "cubic_12.h"
+  #endif
+#endif
 
-}
-else
-{
-  #include "cubic_12.h"
-}
 
 // #include "SPI.h"
 #include <TFT_eSPI.h> 
@@ -125,6 +128,7 @@ void setup() {
   // 检测本地配置文件
   if( SPIFFS.exists( "/config.json" ) )
   {
+     Serial.println("config.json exist");
      fileSystem.openFromFile("/config.json", jsonDocument);
      Serial.print("JSON Document is: ");
      serializeJson(jsonDocument, Serial);
@@ -145,6 +149,7 @@ void setup() {
      
   }else
   {
+    Serial.println("config.json not exist");
     tft.fillScreen( TFT_BLACK );
     tft.setCursor(0, 0, 1);
     tft.println("Connect to DeerEspWiFi, go 192.168.4.1");
@@ -213,7 +218,12 @@ void setup() {
     serializeJson(jsonDocument, Serial);
     Serial.println();
 
-//    File root = SPIFFS.open("/");
+    if(SPIFFS.exists("/config.json")) Serial.print("config.json exists ");
+    else Serial.print("config.json not exists ");
+
+    
+
+//    File root = SPIFFS.open("/","r");
 // 
 //    File file = root.openNextFile();
 //   
@@ -255,7 +265,7 @@ String getParam(String name){
 void onConnectionEstablished()
 {
   Serial.println("connected");
-  tft.fillScreen(TFT_BLACK);tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.println("Waiting for messages ...");
+  tft.fillScreen(TFT_BLACK);tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.println("Waiting for messages at "+mqtt_topic_value+"...");
   
   mclient.subscribe(mqtt_topic_value+"_text", [] (const String &payload)  
   {
@@ -264,10 +274,12 @@ void onConnectionEstablished()
     if (SPIFFS.exists(DOWNLOADED_IMG) == true) TJpgDec.drawFsJpg(0, 0, DOWNLOADED_IMG);
     else tft.fillScreen( TFT_BLACK );
     
-    #ifdef FULL_FONT
-      tft.loadFont(AA_FONT_CUBIC);
-    #else
-      tft.loadFont(cubic_11);
+    #ifdef CHINESE_FONT
+      #ifdef FULL_FONT
+        tft.loadFont(AA_FONT_CUBIC);
+      #else
+        tft.loadFont(cubic_11);
+      #endif
     #endif
     
     
@@ -288,7 +300,10 @@ void onConnectionEstablished()
 
     }
       
-    tft.unloadFont();
+    #ifdef CHINESE_FONT
+      tft.unloadFont();
+    #endif
+    
 
     show_time(true);
 
@@ -344,8 +359,18 @@ void show_time(bool force)
 
 void echo_time( String thetime )
 {
-  tft.setCursor(96, 120, 1);
-  tft.setTextSize(1);
+  if( SCREEN_WIDTH == 128 )
+  {
+    tft.setCursor(96, 120, 1);
+    tft.setTextSize(1);
+  
+  }
+  if( SCREEN_WIDTH == 240 )
+  {
+    tft.setCursor(180, 210, 1);
+    tft.setTextSize(2);
+  
+  } 
   tft.setTextColor(TFT_WHITE,TFT_BLACK);
   tft.println(thetime);
   
