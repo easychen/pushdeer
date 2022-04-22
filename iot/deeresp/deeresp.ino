@@ -4,7 +4,7 @@
 #define WIFI_SSID "wifi名称"
 #define WIFI_PASSWORD "wifi密码"
 #define MQTT_CLIENT_NAME "DeerEsp-001" // 多个同名设备连接同一台服务器会导致其他下线，所以起一个唯一的名字吧
-#define MQTT_TOPIC "LB2312" // 这里填PushDeer的Key
+#define MQTT_TOPIC "LB2353" // 这里填PushDeer的Key
 
 #define MQTT_IP "broker.emqx.io"
 #define MQTT_USER ""
@@ -16,7 +16,7 @@
 #define DOWNLOADED_IMG "/download.jpg"
 
 #define IMG_SCALE 2
-#define TXT_SCALE 2
+#define TXT_SCALE 1
 
 
 #include <EspMQTTClient.h>
@@ -39,7 +39,7 @@ TFT_eSPI tft = TFT_eSPI();
 
 #ifdef ESP8266
   #include <ESP8266HTTPClient.h>
-  #define BEEP_PIN D8
+  #define BEEP_PIN PIN_D8
 #else
   #include "SPIFFS.h" // Required for ESP32 only
   #include <HTTPClient.h>
@@ -80,7 +80,7 @@ void setup() {
 void onConnectionEstablished()
 {
   Serial.println("connected");
-  tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.println("Waiting for messages ...");
+  tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.println("Waiting for messages at "+String(MQTT_TOPIC)+"...");
   
   mclient.subscribe(String(MQTT_TOPIC)+"_text", [] (const String &payload)  
   {
