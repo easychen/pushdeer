@@ -3,8 +3,6 @@
 #define SCREEN_WIDTH 240
 
 
-#define BEEP_BTN PIN_D0
-#define IMG_BTN PIN_D6
 
 #define BEEP_PIN PIN_D8 // 蜂鸣器
 
@@ -14,24 +12,29 @@ TFT_eSPI tft = TFT_eSPI();
 
 #include <TJpg_Decoder.h>
 #include <EasyButton.h>
-EasyButton beep_btn(BEEP_BTN);
-EasyButton image_btn(IMG_BTN);
+EasyButton d0_btn(PIN_D0);
+EasyButton d3_btn(PIN_D3);
+EasyButton d6_btn(PIN_D6);
 
 void setup() {
   Serial.begin(115200);
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   
-  beep_btn.begin();
-  beep_btn.onPressed(beep);
+  d0_btn.begin();
+  d0_btn.onPressed(d0_pressed);
 
-  image_btn.begin();
-  image_btn.onPressed(show_image);
+  d3_btn.begin();
+  d3_btn.onPressed(d3_pressed);
+
+  d6_btn.begin();
+  d6_btn.onPressed(d6_pressed);
+
 
   tft.begin();
   
   tft.fillScreen(TFT_BLACK);
-  tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.setTextSize(1);tft.println("Init ...");
+  tft.setTextColor(0xFFFF,0x0000);tft.setCursor(0, 0, 1);tft.setTextSize(2);tft.println("Init ...");
   Serial.println("tft init");
 
   if (!SPIFFS.begin()) {
@@ -63,37 +66,60 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  beep_btn.read();
-  image_btn.read();
+  d0_btn.read();
+  d3_btn.read();
+  d6_btn.read();
 }
 
-void beep()
+int i = 0;
+
+void d0_pressed()
+{
+  btn_pressed("D0 button pressed");
+}
+
+void d3_pressed()
+{
+  btn_pressed("D3 button pressed");
+}
+
+void d6_pressed()
+{
+  btn_pressed("D6 button pressed");
+}
+
+void btn_pressed(String name)
 {
     tone(BEEP_PIN, 1000, 100);
-    if (SPIFFS.exists("/cover.jpeg") == true) {
-      TJpgDec.drawFsJpg(0, 0, "/cover.jpeg");
-    }else
-    {
-      tft.fillScreen(TFT_BLACK);
-    }
+    
+    i++;
+    short color = TFT_BLACK;
+    if( i % 3 == 0 ){ color = TFT_RED; }
+    if( i % 3 == 1 ){ color = TFT_YELLOW; }
+    if( i % 3 == 2 ){ color = TFT_BLUE; }
+    
+    tft.fillScreen(color);
+    tft.setTextColor(0xFFFF,color);
     tft.setCursor(0, 0, 1);
-    tft.println("beep button Pressed ...");
+    
+    tft.setCursor(0, 0, 1);
+    tft.println(name + " button Pressed ...");
     if( WiFi.status() == WL_CONNECTED )
       tft.println("Wifi connected ...");
 
 }
 
-void show_image()
-{
-    if (SPIFFS.exists("/cover.jpeg") == true) {
-      TJpgDec.drawFsJpg(0, 0, "/cover.jpeg");
-    }
-    tft.setCursor(0, 0, 1);
-    tft.println( "image button Pressed ...");
-    if( WiFi.status() == WL_CONNECTED )
-      tft.println("Wifi connected ...");
-
-}
+//void show_image()
+//{
+//    if (SPIFFS.exists("/cover.jpeg") == true) {
+//      TJpgDec.drawFsJpg(0, 0, "/cover.jpeg");
+//    }
+//    tft.setCursor(0, 0, 1);
+//    tft.println( "image button Pressed ...");
+//    if( WiFi.status() == WL_CONNECTED )
+//      tft.println("Wifi connected ...");
+//
+//}
 
 bool tft_output(int16_t x, int16_t y, uint16_t w, uint16_t h, uint16_t* bitmap)
 {
