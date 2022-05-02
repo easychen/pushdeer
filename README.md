@@ -530,4 +530,5 @@ PushDeer主要面向以下三类用户
 - [Java SDK](https://gitee.com/mrbread/pushdeer-java-sdk) by [MrBread](https://gitee.com/mrbread)
 - [Python SDK](https://github.com/gaoliang/pypushdeer) by [Gao Liang](https://github.com/gaoliang)
 - [API的Go实现](https://github.com/iepngs/pushdeer-backend-go) by [iepngs](https://github.com/iepngs)
+- [API的Node实现](https://github.com/xkrfer/pushdeer-node) by [DouDou](https://github.com/xkrfer)
 
