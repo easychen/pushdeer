@@ -23,5 +23,9 @@ ADD supervisord-clip.conf /opt/docker/etc/supervisor.d/push-clip.conf
 ADD larave-cron /etc/cron.d
 RUN chmod +x /etc/cron.d/larave-cron 
 
+# 配置 https
+# 在本目录下创建ssl目录，放入证书（server.crt，server.key），然后去掉下一行的注释
+# ADD ssl /app/ssl
+
 EXPOSE 80 
 
