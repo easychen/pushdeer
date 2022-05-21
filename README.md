@@ -188,7 +188,7 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 docker run -e DB_DATABASE=* -e DB_HOST=* -e DB_PORT=*28740* -e DB_USERNAME=* -e DB_PASSWORD=* -e DB_TIMEZONE=+08:00  -e WEB_PHP_SOCKET=127.0.0.1:8000 -p 9000:9000 ccr.ccs.tencentyun.com/ftqq/pushdeercore
 ```
 
-请将上诉命令中的`*`替换为对应的数据库信息。
+请将上述命令中的`*`替换为对应的数据库信息。
 
 ### 使用自架版客户端
 
