@@ -116,7 +116,8 @@ function ios_send($is_clip, $device_token, $text, $desp = '', $dev = true)
     $notification->topic = $topic;
     $notification->sound = ['volume'=>2.0];
     $notification->mutable_content = true;
-    $notification->alert= ['title'=>$text,'subtitle'=>'from PushDeer','body'=>$desp];
+    $notification->alert= ['title'=>$text, 'body'=>$desp];
+    // 'subtitle'=>'from PushDeer',
 
     $json = ['notifications'=>[$notification]];
     $client = new GuzzleHttp\Client();
