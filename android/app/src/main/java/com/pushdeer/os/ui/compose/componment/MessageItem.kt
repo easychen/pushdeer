@@ -137,12 +137,17 @@ fun ImageMessageItem(message: MessageEntity, requestHolder: RequestHolder) {
             )
         }
         Card(modifier = Modifier.fillMaxWidth()) {
-            AndroidView(factory = {
-                ImageView(it).apply {
-                    scaleType = ImageView.ScaleType.FIT_CENTER
-                    load(message.text, requestHolder.coilImageLoader)
-                }
-            }, modifier = Modifier.fillMaxWidth())
+            AndroidView(
+                factory = {
+                    ImageView(it).apply {
+                        scaleType = ImageView.ScaleType.FIT_CENTER
+                    }
+                },
+                update = { view ->
+                    view.load(message.text, requestHolder.coilImageLoader)
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
