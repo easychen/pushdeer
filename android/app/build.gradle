@@ -4,14 +4,19 @@ plugins {
     id 'kotlin-kapt'
 }
 
-android {
+def debugKeyProps = new Properties()
+def debugKeyPropsFile = rootProject.file('key_debug.properties')
+if (debugKeyPropsFile.exists()) {
+    debugKeyProps.load(new FileInputStream(debugKeyPropsFile))
+}
 
+android {
     signingConfigs {
         debug {
-            storeFile file('/Users/wolf/Documents/com.wh.pushdeer')
-            storePassword 'wh.pushdeer'
-            keyAlias 'whpushdeer'
-            keyPassword 'wh.pushdeer'
+            storeFile file(debugKeyProps['storeFile'])
+            storePassword debugKeyProps['storePassword']
+            keyAlias debugKeyProps['keyAlias']
+            keyPassword debugKeyProps['keyPassword']
         }
     }
 

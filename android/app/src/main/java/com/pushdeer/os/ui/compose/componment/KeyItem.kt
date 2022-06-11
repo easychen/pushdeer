@@ -136,15 +136,16 @@ fun KeyItem(key: PushKey, requestHolder: RequestHolder) {
                             ) {
                                 AndroidView(
                                     factory = {
-                                        ImageView(it).apply {
-                                            this.setImageBitmap(
-                                                QRCodeGenerator(
-                                                    key.key,
-                                                    400.dp.value.toInt(),
-                                                    400.dp.value.toInt()
-                                                ).qrCode
-                                            )
-                                        }
+                                        ImageView(it)
+                                    },
+                                    update = { view ->
+                                        view.setImageBitmap(
+                                            QRCodeGenerator(
+                                                key.key,
+                                                400.dp.value.toInt(),
+                                                400.dp.value.toInt()
+                                            ).qrCode
+                                        )
                                     },
                                     modifier = Modifier.align(alignment = Alignment.Center)
                                 )

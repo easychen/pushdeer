@@ -137,12 +137,17 @@ fun ImageMessageItem(message: MessageEntity, requestHolder: RequestHolder) {
             )
         }
         Card(modifier = Modifier.fillMaxWidth()) {
-            AndroidView(factory = {
-                ImageView(it).apply {
-                    scaleType = ImageView.ScaleType.FIT_CENTER
-                    load(message.text, requestHolder.coilImageLoader)
-                }
-            }, modifier = Modifier.fillMaxWidth())
+            AndroidView(
+                factory = {
+                    ImageView(it).apply {
+                        scaleType = ImageView.ScaleType.FIT_CENTER
+                    }
+                },
+                update = { view ->
+                    view.load(message.text, requestHolder.coilImageLoader)
+                },
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }
@@ -411,7 +416,10 @@ fun MarkdownMessageItem(message: MessageEntity, requestHolder: RequestHolder) {
         CardItemWithContent {
             AndroidView(
                 factory = { ctx ->
-                    android.widget.TextView(ctx).apply {
+                    android.widget.TextView(ctx)
+                },
+                update = { view ->
+                    view.apply {
                         this.post {
                             requestHolder.markdown.setMarkdown(
                                 this,
@@ -419,7 +427,8 @@ fun MarkdownMessageItem(message: MessageEntity, requestHolder: RequestHolder) {
                             )
                         }
                     }
-                }, modifier = Modifier
+                },
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
             )
