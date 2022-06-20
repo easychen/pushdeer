@@ -531,4 +531,5 @@ PushDeer主要面向以下三类用户
 - [Python SDK](https://github.com/gaoliang/pypushdeer) by [Gao Liang](https://github.com/gaoliang)
 - [API的Go实现](https://github.com/iepngs/pushdeer-backend-go) by [iepngs](https://github.com/iepngs)
 - [API的Node实现](https://github.com/xkrfer/pushdeer-node) by [DouDou](https://github.com/xkrfer)
+- [浏览器插件](https://github.com/xkrfer/pushdeer-crx) by [DouDou](https://github.com/xkrfer)
 
