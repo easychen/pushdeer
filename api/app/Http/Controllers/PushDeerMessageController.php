@@ -71,7 +71,10 @@ class PushDeerMessageController extends Controller
 
         foreach ($keys as $thekey) {
             $key = PushDeerKey::where('key', $thekey)->get()->first();
-
+            $user = PushDeerUser::where('id', $key->uid)->get()->first();
+            if ($user->level < 1) {
+                return send_error('此账号已被停用', ErrorCode('ARGS'));
+            }
 
             if ($key) {
                 $readkey = Str::random(32);
