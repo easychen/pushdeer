@@ -419,6 +419,38 @@ type 为 image 时，text 中为要发送图片的URL。
 |-|-|-|
 |token|认证token|
 
+#### Simple token
+> 为了方便客户端永久保持登入状态，我们提供了一个永不失效的Token，即 Simple token
+
+##### 获取 Simple token
+通过 上文中的「获得当前用户的基本信息」接口(`POST /user/info`) 得到
+
+##### 通过 Simple token 登入
+
+`POST /login/simple_token`
+
+|参数|说明|备注|
+|-|-|-|
+|stoken|Simple token|
+
+登入成功返回认证token。
+
+##### 重置 Simple token 
+
+`POST /simple_token/regen`
+
+|参数|说明|备注|
+|-|-|-|
+|token|认证token|
+
+##### 清空 Simple token 
+
+`POST /simple_token/remove`
+
+|参数|说明|备注|
+|-|-|-|
+|token|认证token|
+
 
 [更详细的请求和返回值可以参考这里](doc/api/PushDeerOS.md)
 

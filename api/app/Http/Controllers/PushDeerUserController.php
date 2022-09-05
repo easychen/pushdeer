@@ -39,6 +39,8 @@ class PushDeerUserController extends Controller
                 $the_user['level'] = 1;
 
                 $pd_user = PushDeerUser::create($the_user);
+                $pd_user['simple_token'] = 'SP'.$pd_user['id'].'P'.md5(uniqid(rand(), true));
+                $pd_user->save();
             }
 
             // 将数据写到session
@@ -47,6 +49,7 @@ class PushDeerUserController extends Controller
             $_SESSION['name'] = $pd_user['name'];
             $_SESSION['email'] = $pd_user['email'];
             $_SESSION['level'] = $pd_user['level'];
+            $_SESSION['simple_token'] = $pd_user['simple_token'];
 
             session_regenerate_id(true);
             $token = session_id();
@@ -54,6 +57,56 @@ class PushDeerUserController extends Controller
         }
 
         return send_error('id_token解析错误', ErrorCode('ARGS'));
+    }
+
+    public function loginBySimpleToken(Request $request)
+    {
+        $validated = $request->validate(
+            [
+                'stoken' => 'required|string',
+            ]
+        );
+
+        if (!$pd_user = PushDeerUser::where('simple_token', $validated['stoken'])->get()->first()) {
+            return send_error('stoken无效', ErrorCode('ARGS'));
+        }
+
+        if ($pd_user['level']<1) {
+            return send_error('账号已被禁用', ErrorCode('ARGS'));
+        }
+
+        // 将数据写到session
+        session_start();
+        $_SESSION['uid'] = $pd_user['id'];
+        $_SESSION['name'] = $pd_user['name'];
+        $_SESSION['email'] = $pd_user['email'];
+        $_SESSION['level'] = $pd_user['level'];
+
+        session_regenerate_id(true);
+        $token = session_id();
+        return http_result(['token'=>$token]);
+    }
+
+    public function simpleTokenRegen(Request $request)
+    {
+        // get user by session
+        if (!$pd_user = PushDeerUser::where('id', $_SESSION['uid'])->get()->first()) {
+            return send_error('用户不存在', ErrorCode('ARGS'));
+        }
+        $pd_user['simple_token'] = 'SP'.$pd_user['id'].'P'.md5(uniqid(rand(), true));
+        $pd_user->save();
+        return http_result(['stoken'=>$pd_user['simple_token']]);
+    }
+
+    public function simpleTokenRemove(Request $request)
+    {
+        // get user by session
+        if (!$pd_user = PushDeerUser::where('id', $_SESSION['uid'])->get()->first()) {
+            return send_error('用户不存在', ErrorCode('ARGS'));
+        }
+        $pd_user['simple_token'] = '';
+        $pd_user->save();
+        return http_result(['stoken'=>$pd_user['simple_token']]);
     }
 
     public function wecode2unionid(Request $request)
@@ -133,6 +186,8 @@ class PushDeerUserController extends Controller
                 $the_user['level'] = 1;
 
                 $pd_user = PushDeerUser::create($the_user);
+                $pd_user['simple_token'] = 'SP'.$pd_user['id'].'P'.md5(uniqid(rand(), true));
+                $pd_user->save();
             }
 
             // 将数据写到session
@@ -141,6 +196,7 @@ class PushDeerUserController extends Controller
             $_SESSION['name'] = $pd_user['name'];
             $_SESSION['email'] = $pd_user['email'];
             $_SESSION['level'] = $pd_user['level'];
+            $_SESSION['simple_token'] = $pd_user['simple_token'];
 
             session_regenerate_id(true);
             $token = session_id();
@@ -175,6 +231,8 @@ class PushDeerUserController extends Controller
                     $the_user['level'] = 1;
 
                     $pd_user = PushDeerUser::create($the_user);
+                    $pd_user['simple_token'] = 'SP'.$pd_user['id'].'P'.md5(uniqid(rand(), true));
+                    $pd_user->save();
                 }
 
                 // 将数据写到session
@@ -183,6 +241,7 @@ class PushDeerUserController extends Controller
                 $_SESSION['name'] = $pd_user['name'];
                 $_SESSION['email'] = $pd_user['email'];
                 $_SESSION['level'] = $pd_user['level'];
+                $_SESSION['simple_token'] = $pd_user['simple_token'];
 
                 session_regenerate_id(true);
                 $token = session_id();

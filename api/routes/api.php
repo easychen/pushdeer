@@ -23,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 // 假登入，用于测试使用
 Route::any('/login/fake', 'App\Http\Controllers\PushDeerUserController@fakeLogin');
 
+// 通过 simple_token 登入
+Route::any('/login/simple_token', 'App\Http\Controllers\PushDeerUserController@loginBySimpleToken');
+
 // 通过 apple 返回的 idtoken 登入
 Route::post('/login/idtoken', 'App\Http\Controllers\PushDeerUserController@login');
 
@@ -58,6 +61,11 @@ Route::middleware('auto.login')->group(function () {
         Route::post('/key/rename', 'App\Http\Controllers\PushDeerKeyController@rename');
         // 删除一个key
         Route::post('/key/remove', 'App\Http\Controllers\PushDeerKeyController@remove');
+
+        // simple_token
+        Route::post('/simple_token/regen', 'App\Http\Controllers\PushDeerUserController@simpleTokenRegen');
+
+        Route::post('/simple_token/remove', 'App\Http\Controllers\PushDeerUserController@simpleTokenRemove');
 
         // 消息列表
         Route::post('/message/list', 'App\Http\Controllers\PushDeerMessageController@list');
