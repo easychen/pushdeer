@@ -125,6 +125,35 @@ class AppState: ObservableObject {
     }
   }
   
+  func loginAfter() {
+    Task {
+      // 查询 UserInfo
+      self.userInfo = try await HttpRequest.getUserInfo()
+      var stoken = self.userInfo?.simple_token
+      if isEmpty(stoken) {
+        // UserInfo 中的 stoken 为空, 就重新生成一个
+        stoken = try await HttpRequest.stokenRegen().stoken
+      }
+      if isNotEmpty(stoken) {
+        // 最后 stoken 不为空, 就保存到本地
+        self.saveSTokenToLocal(stoken: stoken)
+      }
+    }
+  }
+  
+  func saveSTokenToLocal(stoken: String?) -> Void {
+    let key = "stoken_\(self.api_endpoint)"
+    getUserDefaults().set(stoken, forKey: key)
+  }
+  func getLocalSToken() -> String? {
+    let key = "stoken_\(self.api_endpoint)"
+    return getUserDefaults().string(forKey: key)
+  }
+  func deleteLocalSToken() -> Void {
+    let key = "stoken_\(self.api_endpoint)"
+    getUserDefaults().removeObject(forKey: key)
+  }
+  
   func appleIdLogin(_ result: Result<ASAuthorization, Error>) async throws -> TokenContent {
     switch result {
     case let .success(authorization):
