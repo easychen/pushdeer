@@ -97,6 +97,9 @@
 		52EB90B32778DA4E0048E0ED /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EB90B22778DA4E0048E0ED /* Line.swift */; };
 		52EED71E27C9394D0086A804 /* WXDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EED71D27C9394D0086A804 /* WXDelegate.swift */; };
 		52EED71F27C93B960086A804 /* WXDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EED71D27C9394D0086A804 /* WXDelegate.swift */; };
+		52EF0AFC28CE081A00C99E4F /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF0AFB28CE081A00C99E4F /* CommonUtils.swift */; };
+		52EF0AFD28CE081A00C99E4F /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF0AFB28CE081A00C99E4F /* CommonUtils.swift */; };
+		52EF0AFE28CE08EC00C99E4F /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52EF0AFB28CE081A00C99E4F /* CommonUtils.swift */; };
 		52F0243F277737470071D861 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F0243E277737470071D861 /* LoginView.swift */; };
 		52F2C223277961D7006F08DC /* SettingsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2C222277961D7006F08DC /* SettingsItemView.swift */; };
 		52F40D2F277CA05600766C24 /* MessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F40D2E277CA05600766C24 /* MessageItemView.swift */; };
@@ -218,6 +221,7 @@
 		52EB90AF2778D67F0048E0ED /* KeyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyItemView.swift; sourceTree = "<group>"; };
 		52EB90B22778DA4E0048E0ED /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		52EED71D27C9394D0086A804 /* WXDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WXDelegate.swift; sourceTree = "<group>"; };
+		52EF0AFB28CE081A00C99E4F /* CommonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
 		52F0243C277733CE0071D861 /* PushDeer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushDeer.entitlements; sourceTree = "<group>"; };
 		52F0243E277737470071D861 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		52F2C222277961D7006F08DC /* SettingsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsItemView.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 				527872C327CE0EE800AD79AD /* Info-SelfHosted.plist */,
 				52E317DA279305BB000B8BB1 /* Localizable.strings */,
 				52E317D7279305BB000B8BB1 /* InfoPlist.strings */,
+				52EF0AFA28CE07A600C99E4F /* Tool */,
 				52450F362784822C003652D8 /* Service */,
 				52B8CF5D277DE5FF004CB680 /* Common */,
 				52450F3D27849228003652D8 /* Model */,
@@ -445,6 +450,14 @@
 				5242C871278C8CBB00FDB27E /* EditableText.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		52EF0AFA28CE07A600C99E4F /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				52EF0AFB28CE081A00C99E4F /* CommonUtils.swift */,
+			);
+			path = Tool;
 			sourceTree = "<group>";
 		};
 		52F0243D2777370F0071D861 /* View */ = {
@@ -776,6 +789,7 @@
 				5206009E27CF76BC00188431 /* PushDeerApi.swift in Sources */,
 				520600A627D0AE2300188431 /* Line.swift in Sources */,
 				5206009D27CF74C100188431 /* HttpRequest.swift in Sources */,
+				52EF0AFE28CE08EC00C99E4F /* CommonUtils.swift in Sources */,
 				520600A127CF770600188431 /* Env.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -810,6 +824,7 @@
 				52EED71E27C9394D0086A804 /* WXDelegate.swift in Sources */,
 				52EB90AE2778AFD60048E0ED /* BaseNavigationView.swift in Sources */,
 				524E99E627B3CD0F00292396 /* EndpointView.swift in Sources */,
+				52EF0AFC28CE081A00C99E4F /* CommonUtils.swift in Sources */,
 				52EB90AC2778ADF80048E0ED /* CardView.swift in Sources */,
 				52EB90B02778D67F0048E0ED /* KeyItemView.swift in Sources */,
 				52AC5C2827B7FE1D00EEB185 /* ViewExtension.swift in Sources */,
@@ -853,6 +868,7 @@
 				52FBA09427874879003308C2 /* ContentView.swift in Sources */,
 				52B8CF85277E0C12004CB680 /* Line.swift in Sources */,
 				52AC5C2927B7FE1D00EEB185 /* ViewExtension.swift in Sources */,
+				52EF0AFD28CE081A00C99E4F /* CommonUtils.swift in Sources */,
 				52450F402784923D003652D8 /* Result.swift in Sources */,
 				526A1E712791E00400BA2177 /* PushDeerData.xcdatamodeld in Sources */,
 				52450F432784943F003652D8 /* HttpRequest.swift in Sources */,

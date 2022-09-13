@@ -41,6 +41,8 @@ struct LoginView: View {
               showLoading = true
               store.token = try await store.appleIdLogin(result).token
               // 获取成功去主页
+              // 登录成功后的处理
+              store.loginAfter()
             } catch {
               showLoading = false
               if (error as NSError).code == 1001 {

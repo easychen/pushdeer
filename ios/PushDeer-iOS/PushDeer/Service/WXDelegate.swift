@@ -30,6 +30,9 @@ class WXDelegate: NSObject, WXApiDelegate {
               if state == "login" {
                 AppState.shared.token = try await HttpRequest.wechatLogin(code: code).token
                 // 给 AppState 的 token 赋值后, SwiftUI 写的 ContentView 页面会监听到并自动进入主页
+                // 登录成功后的处理
+                AppState.shared.loginAfter()
+                
               } else if state == "bind" {
                 _ = try await HttpRequest.mergeUser(type: "wechat", tokenorcode: code)
                 // 合并成功, 更新数据

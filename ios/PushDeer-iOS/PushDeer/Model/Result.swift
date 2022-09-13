@@ -29,6 +29,7 @@ struct UserInfoContent: Codable{
   let level: Int
   let created_at: String
   let updated_at: String
+  let simple_token: String?
 }
 
 struct DeviceItem: Codable, Identifiable{
@@ -77,6 +78,12 @@ struct ActionContent: Codable{
 struct ResultContent: Codable{
   let result: Array<String>
 }
+
+
+struct STokenContent: Codable{
+  let stoken: String?
+}
+
 
 let dateFormatter = DateFormatter()
 
