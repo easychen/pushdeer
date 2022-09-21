@@ -11,8 +11,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=theVeryp@ssw0rd
       - MYSQL_DATABASE=pushdeer
-    ports:
-      - '3306:3306' 
+#     ports:
+#       - '3306:3306' 
   redis: 
     image: 'bitnami/redis:6.0.16'
     healthcheck:
