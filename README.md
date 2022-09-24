@@ -1,8 +1,8 @@
+> ⚠️ 目前，官方架设的Android版本因接口权限停止无法使用，[详情请点击](https://github.com/easychen/pushdeer/issues/150)
+
 PushDeer是一个可以自行架设的无APP推送服务，同时也为因为某些原因无法使用无APP推送方案的同学提供有APP/自制设备方案。
 
 [🐙🐱 GitHub仓库](https://github.com/easychen/pushdeer) [🔮 中国大陆镜像仓库@Gitee](https://gitee.com/easychen/pushdeer)
-
-> [🤖 Android自架版求开发者参与](doc/Android%E7%89%88self-hosted%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E5%AE%9E%E7%8E%B0.md)
 
 本项目已经实现的方案/端包括：
 
