@@ -97,6 +97,7 @@ https://api2.pushdeer.com/message/push?pushkey=<key>&text=标题&desp=<markdown>
 
 - [Python SDK](https://github.com/gaoliang/pypushdeer) by [Gao Liang](https://github.com/gaoliang)
 - [Go SDK](https://github.com/Luoxin/go-pushdeer-sdk) by [Luoxin](https://github.com/Luoxin)
+- [Rust SDK](https://github.com/abgelehnt/rupushdeer) by [Chi](https://github.com/abgelehnt)
 
 PHP函数：
 
@@ -564,4 +565,4 @@ PushDeer主要面向以下三类用户
 - [API的Go实现](https://github.com/iepngs/pushdeer-backend-go) by [iepngs](https://github.com/iepngs)
 - [API的Node实现](https://github.com/xkrfer/pushdeer-node) by [DouDou](https://github.com/xkrfer)
 - [浏览器插件](https://github.com/xkrfer/pushdeer-crx) by [DouDou](https://github.com/xkrfer)
-
+- [Rust SDK](https://github.com/abgelehnt/rupushdeer) by [Chi](https://github.com/abgelehnt)
