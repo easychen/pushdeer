@@ -1,19 +1,20 @@
-version: '2'
-services:
-  app:
-    image: 'ccr.ccs.tencentyun.com/ftqq/pushdeercore'
-    ports:
-      - '9000:9000'
-    environment:
-      - DB_HOST=host.docker.internal
-      - DB_PORT=3306
-      - DB_USERNAME=root
-      - DB_DATABASE=pushdeer_local
-      - DB_PASSWORD=
-      - DB_TIMEZONE=+08:00
-      - GO_PUSH_IOS_TOPIC=com.pushdeer.self.ios
-      - GO_PUSH_IOS_CLIP_TOPIC=com.pushdeer.self.ios.Clip
-      - APP_DEBUG=false
-      - WEB_PHP_SOCKET=127.0.0.1:8000
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+# 已废弃
+# version: '2'
+# services:
+#   app:
+#     image: 'ccr.ccs.tencentyun.com/ftqq/pushdeercore'
+#     ports:
+#       - '9000:9000'
+#     environment:
+#       - DB_HOST=host.docker.internal
+#       - DB_PORT=3306
+#       - DB_USERNAME=root
+#       - DB_DATABASE=pushdeer_local
+#       - DB_PASSWORD=
+#       - DB_TIMEZONE=+08:00
+#       - GO_PUSH_IOS_TOPIC=com.pushdeer.self.ios
+#       - GO_PUSH_IOS_CLIP_TOPIC=com.pushdeer.self.ios.Clip
+#       - APP_DEBUG=false
+#       - WEB_PHP_SOCKET=127.0.0.1:8000
+#     extra_hosts:
+#       - "host.docker.internal:host-gateway"
