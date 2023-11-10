@@ -183,6 +183,7 @@ docker-compose -f docker-compose.self-hosted.yml up --build -d
 
 如果您在部署中遇到问题，可按[调试文档](/doc/调试文档.md)定位并发现错误信息。
 
+<!--
 #### 单一容器部署方案
 
 对于很多不能运行docker-compose的容器环境，可以直接使用 pushdeer 镜像。该镜像中已经包含了 redis 服务，但需要通过环境变量指定数据库等信息：
@@ -192,6 +193,7 @@ docker run -e DB_DATABASE=* -e DB_HOST=* -e DB_PORT=*28740* -e DB_USERNAME=* -e 
 ```
 
 请将上述命令中的`*`替换为对应的数据库信息。
+-->
 
 ### 使用自架版客户端
 
