@@ -167,7 +167,7 @@ cd pushdeer
 docker-compose -f docker-compose.self-hosted.yml up --build -d
 ```
 
-如何你的服务器连接GitHub有困难，可以使用Gitee的代码，但需要核对是否为最新版本（有可能没同步）
+如果你的服务器连接GitHub有困难，可以使用Gitee的代码，但需要核对是否为最新版本（有可能没同步）
 ```
 git clone https://gitee.com/easychen/pushdeer.git
 cd pushdeer
