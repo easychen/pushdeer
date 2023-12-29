@@ -161,18 +161,17 @@ function pushdeer_send($text, $desp = '', $type='text', $key = '[PUSHKEY]')
 
 然后运行以下代码：
 
-（大陆服务器使用）
-```
-git clone https://gitee.com/easychen/pushdeer.git
-cd pushdeer
-docker-compose -f docker-compose.self-hosted.yml up --build -d 
-```
-
-（海外服务器使用）
 ```
 git clone https://github.com/easychen/pushdeer.git
 cd pushdeer
 docker-compose -f docker-compose.self-hosted.yml up --build -d
+```
+
+如何你的服务器连接GitHub有困难，可以使用Gitee的代码，但需要核对是否为最新版本（有可能没同步）
+```
+git clone https://gitee.com/easychen/pushdeer.git
+cd pushdeer
+docker-compose -f docker-compose.self-hosted.yml up --build -d 
 ```
 
 > 如提示docker服务未安装/找不到/未启动，可在 docker-compose 前加 sudo 再试
