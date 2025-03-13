@@ -1,4 +1,4 @@
-> ⚠️ 目前，官方架设的Android版本因接口权限停止无法使用，[详情请点击](https://github.com/easychen/pushdeer/issues/150)
+> ⚠️ 官方架设的Android版本[因接口权限停止无法使用](https://github.com/easychen/pushdeer/issues/150)，建议改用[Server酱³](https://sc3.ft07.com/)
 
 > ⚠️ 自架版服务器端需每年更新推送证书，如果之前架设的服务突然无法收到推送，请尝试拉取部署最新代码，或者[手动更新证书](https://github.com/easychen/pushdeer/tree/main/push)
 
