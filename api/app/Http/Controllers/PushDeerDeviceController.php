@@ -12,9 +12,9 @@ class PushDeerDeviceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function list(Request $request)
     {
-        $pd_devices = PushDeerDevice::where('uid', $_SESSION['uid'])->get(['id', 'uid', 'name', 'type', 'device_id', 'is_clip']);
+        $pd_devices = PushDeerDevice::where('uid', $request->session()->get('uid'))->get(['id', 'uid', 'name', 'type', 'device_id', 'is_clip']);
         return http_result(['devices' => $pd_devices]);
     }
 
@@ -29,7 +29,7 @@ class PushDeerDeviceController extends Controller
             ]
         );
 
-        $uid = $_SESSION['uid'];
+        $uid = $request->session()->get('uid');
         if (strlen($uid) < 1) {
             return send_error('uid错误', ErrorCode('ARGS'));
         }
@@ -61,7 +61,7 @@ class PushDeerDeviceController extends Controller
         );
 
         if ($pd_device = PushDeerDevice::where('id', $validated['id'])->get(['id', 'uid', 'name', 'type', 'device_id', 'is_clip'])->first()) {
-            if ($pd_device->uid == $_SESSION['uid']) {
+            if ($pd_device->uid == $request->session()->get('uid')) {
                 $pd_device->name = $validated['name'];
                 $pd_device->save();
                 return http_result(['message'=>'done']);
@@ -80,7 +80,7 @@ class PushDeerDeviceController extends Controller
         );
 
         if ($pd_device = PushDeerDevice::where('id', $validated['id'])->get(['id', 'uid', 'name', 'type', 'device_id', 'is_clip'])->first()) {
-            if ($pd_device->uid == $_SESSION['uid']) {
+            if ($pd_device->uid == $request->session()->get('uid')) {
                 $pd_device->delete();
                 return http_result(['message'=>'done']);
             }

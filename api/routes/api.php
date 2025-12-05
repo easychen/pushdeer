@@ -40,10 +40,9 @@ Route::middleware('json.request')->any('/message/push', 'App\Http\Controllers\Pu
 
 
 // 自动登入，适用于通过 token 进行操作的接口
-Route::middleware('auto.login')->group(function () {
-    Route::middleware('auth.member')->group(function () {
-        // 设备列表
-        Route::post('/device/list', 'App\Http\Controllers\PushDeerDeviceController@list');
+Route::middleware('auth.member')->group(function () {
+    // 设备列表
+    Route::post('/device/list', 'App\Http\Controllers\PushDeerDeviceController@list');
         // 注册设备
         Route::post('/device/reg', 'App\Http\Controllers\PushDeerDeviceController@reg');
         // 重命名设备

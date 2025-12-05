@@ -12,8 +12,7 @@ class PushDeerUserController extends Controller
 {
     public function info(Request $request)
     {
-        //return $_SESSION;
-        return http_result(PushDeerUser::where('id', $_SESSION['uid'])->get()->first());
+        return http_result(PushDeerUser::where('id', $request->session()->get('uid'))->get()->first());
     }
 
     public function fakeLogin(Request $request)
@@ -44,15 +43,14 @@ class PushDeerUserController extends Controller
             }
 
             // 将数据写到session
-            session_start();
-            $_SESSION['uid'] = $pd_user['id'];
-            $_SESSION['name'] = $pd_user['name'];
-            $_SESSION['email'] = $pd_user['email'];
-            $_SESSION['level'] = $pd_user['level'];
-            $_SESSION['simple_token'] = $pd_user['simple_token'];
+            $request->session()->put('uid', $pd_user['id']);
+            $request->session()->put('name', $pd_user['name']);
+            $request->session()->put('email', $pd_user['email']);
+            $request->session()->put('level', $pd_user['level']);
+            $request->session()->put('simple_token', $pd_user['simple_token']);
 
-            session_regenerate_id(true);
-            $token = session_id();
+            $request->session()->regenerate(true);
+            $token = $request->session()->getId();
             return http_result(['token'=>$token]);
         }
 
@@ -76,21 +74,20 @@ class PushDeerUserController extends Controller
         }
 
         // 将数据写到session
-        session_start();
-        $_SESSION['uid'] = $pd_user['id'];
-        $_SESSION['name'] = $pd_user['name'];
-        $_SESSION['email'] = $pd_user['email'];
-        $_SESSION['level'] = $pd_user['level'];
+        $request->session()->put('uid', $pd_user['id']);
+        $request->session()->put('name', $pd_user['name']);
+        $request->session()->put('email', $pd_user['email']);
+        $request->session()->put('level', $pd_user['level']);
 
-        session_regenerate_id(true);
-        $token = session_id();
+        $request->session()->regenerate(true);
+        $token = $request->session()->getId();
         return http_result(['token'=>$token]);
     }
 
     public function simpleTokenRegen(Request $request)
     {
         // get user by session
-        if (!$pd_user = PushDeerUser::where('id', $_SESSION['uid'])->get()->first()) {
+        if (!$pd_user = PushDeerUser::where('id', $request->session()->get('uid'))->get()->first()) {
             return send_error('用户不存在', ErrorCode('ARGS'));
         }
         $pd_user['simple_token'] = 'SP'.$pd_user['id'].'P'.md5(uniqid(rand(), true));
@@ -101,7 +98,7 @@ class PushDeerUserController extends Controller
     public function simpleTokenRemove(Request $request)
     {
         // get user by session
-        if (!$pd_user = PushDeerUser::where('id', $_SESSION['uid'])->get()->first()) {
+        if (!$pd_user = PushDeerUser::where('id', $request->session()->get('uid'))->get()->first()) {
             return send_error('用户不存在', ErrorCode('ARGS'));
         }
         $pd_user['simple_token'] = '';
@@ -191,15 +188,14 @@ class PushDeerUserController extends Controller
             }
 
             // 将数据写到session
-            session_start();
-            $_SESSION['uid'] = $pd_user['id'];
-            $_SESSION['name'] = $pd_user['name'];
-            $_SESSION['email'] = $pd_user['email'];
-            $_SESSION['level'] = $pd_user['level'];
-            $_SESSION['simple_token'] = $pd_user['simple_token'];
+            $request->session()->put('uid', $pd_user['id']);
+            $request->session()->put('name', $pd_user['name']);
+            $request->session()->put('email', $pd_user['email']);
+            $request->session()->put('level', $pd_user['level']);
+            $request->session()->put('simple_token', $pd_user['simple_token']);
 
-            session_regenerate_id(true);
-            $token = session_id();
+            $request->session()->regenerate(true);
+            $token = $request->session()->getId();
             return http_result(['token'=>$token]);
         }
 
@@ -236,15 +232,14 @@ class PushDeerUserController extends Controller
                 }
 
                 // 将数据写到session
-                session_start();
-                $_SESSION['uid'] = $pd_user['id'];
-                $_SESSION['name'] = $pd_user['name'];
-                $_SESSION['email'] = $pd_user['email'];
-                $_SESSION['level'] = $pd_user['level'];
-                $_SESSION['simple_token'] = $pd_user['simple_token'];
+                $request->session()->put('uid', $pd_user['id']);
+                $request->session()->put('name', $pd_user['name']);
+                $request->session()->put('email', $pd_user['email']);
+                $request->session()->put('level', $pd_user['level']);
+                $request->session()->put('simple_token', $pd_user['simple_token']);
 
-                session_regenerate_id(true);
-                $token = session_id();
+                $request->session()->regenerate(true);
+                $token = $request->session()->getId();
                 return http_result(['token'=>$token]);
             }
         }

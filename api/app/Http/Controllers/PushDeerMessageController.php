@@ -28,9 +28,9 @@ class PushDeerMessageController extends Controller
         }
 
         if (isset($validated['since_id']) && intval($validated['since_id']) > 0) {
-            $pd_sql = Message::where('uid', $_SESSION['uid'])->where('id', '>', intval($validated['since_id']));
+            $pd_sql = Message::where('uid', $request->session()->get('uid'))->where('id', '>', intval($validated['since_id']));
         } else {
-            $pd_sql = Message::where('uid', $_SESSION['uid']);
+            $pd_sql = Message::where('uid', $request->session()->get('uid'));
         }
 
         $pd_messages = $pd_sql->orderBy('id', 'DESC')->offset(0)->limit($limit)->get(['id', 'uid', 'text', 'desp', 'type','pushkey_name','created_at']);
@@ -140,7 +140,7 @@ class PushDeerMessageController extends Controller
         );
 
         if ($pd_message = PushDeerMessage::where('id', $validated['id'])->get(['id', 'uid', 'text', 'desp', 'type','created_at'])->first()) {
-            if ($pd_message->uid == $_SESSION['uid']) {
+            if ($pd_message->uid == $request->session()->get('uid')) {
                 $pd_message->delete();
                 return http_result(['message'=>'done']);
             }
@@ -151,7 +151,7 @@ class PushDeerMessageController extends Controller
 
     public function clean(Request $request)
     {
-        PushDeerMessage::where('uid', $_SESSION['uid'])->delete();
+        PushDeerMessage::where('uid', $request->session()->get('uid'))->delete();
         return http_result(['message'=>'done']);
     }
 }

@@ -13,15 +13,15 @@ class PushDeerKeyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function list()
+    public function list(Request $request)
     {
-        $pd_keys = PushDeerKey::where('uid', $_SESSION['uid'])->get(['id','name', 'uid', 'key','created_at']);
+        $pd_keys = PushDeerKey::where('uid', $request->session()->get('uid'))->get(['id','name', 'uid', 'key','created_at']);
         return http_result(['keys' => $pd_keys]);
     }
 
     public function gen(Request $request)
     {
-        $uid = $_SESSION['uid'];
+        $uid = $request->session()->get('uid');
         if (strlen($uid) < 1) {
             return send_error('uid错误', ErrorCode('ARGS'));
         }
@@ -46,7 +46,7 @@ class PushDeerKeyController extends Controller
         );
 
         if ($pd_key = PushDeerKey::where('id', $validated['id'])->get(['id', 'name','uid', 'key','created_at'])->first()) {
-            if ($pd_key->uid == $_SESSION['uid']) {
+            if ($pd_key->uid == $request->session()->get('uid')) {
                 $pd_key->name = $validated['name'];
                 $pd_key->save();
                 return http_result(['message'=>'done']);
@@ -65,7 +65,7 @@ class PushDeerKeyController extends Controller
         );
 
         if ($pd_key = PushDeerKey::where('id', $validated['id'])->get(['id', 'name','uid', 'key','created_at'])->first()) {
-            if ($pd_key->uid == $_SESSION['uid']) {
+            if ($pd_key->uid == $request->session()->get('uid')) {
                 $pd_key->key = 'PDU'.$pd_key->uid.'T'.Str::random(32);
                 $pd_key->save();
                 return http_result(['message'=>'done']);
@@ -84,7 +84,7 @@ class PushDeerKeyController extends Controller
         );
 
         if ($pd_key = PushDeerKey::where('id', $validated['id'])->get(['id','name', 'uid', 'key','created_at'])->first()) {
-            if ($pd_key->uid == $_SESSION['uid']) {
+            if ($pd_key->uid == $request->session()->get('uid')) {
                 $pd_key->delete();
                 return http_result(['message'=>'done']);
             }
