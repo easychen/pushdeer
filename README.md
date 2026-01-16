@@ -1,4 +1,4 @@
-> ⚠️ 官方架设的Android版本[因接口权限停止无法使用](https://github.com/easychen/pushdeer/issues/150)，部分早期开发者退出，社区也不活跃，因此暂时归档本项目。官方 api 服务器继续服务，但客户端和 api 均不再更新新功能。建议改用持续维护的 [Server酱³服务](https://sc3.ft07.com/)
+> ⚠️ 官方架设的Android版本[因接口权限停止无法使用](https://github.com/easychen/pushdeer/issues/150)，部分早期开发者退出，社区也不活跃，本项目已不在维护。官方 api 服务器继续服务，但客户端和 api 均不再更新新功能。建议改用持续维护的 [Server酱³服务](https://sc3.ft07.com/)
 
 > ⚠️ 自架版服务器端需每年更新推送证书，如果之前架设的服务突然无法收到推送，请尝试拉取部署最新代码，或者[手动更新证书](https://github.com/easychen/pushdeer/tree/main/push)
 
