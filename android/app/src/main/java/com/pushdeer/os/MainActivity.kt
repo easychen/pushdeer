@@ -1,5 +1,6 @@
 package com.pushdeer.os
 
+import android.app.ActivityManager
 import android.content.*
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,7 @@ import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.pushdeer.os.holder.RequestHolder
+import com.pushdeer.os.service.PollingService
 import com.pushdeer.os.store.SettingStore
 import com.pushdeer.os.ui.compose.componment.MyAlertDialog
 import com.pushdeer.os.ui.compose.page.LogDogPage
@@ -151,6 +153,7 @@ class MainActivity : AppCompatActivity(), RequestHolder {
                                     // if not, plain login
                                     coroutineScope.launch {
                                         pushDeerViewModel.loginWithWeiXin(code) {
+                                            PollingService.start(this@MainActivity)
                                             globalNavController.navigate("main") {
                                                 globalNavController.popBackStack()
                                             }
@@ -187,6 +190,9 @@ class MainActivity : AppCompatActivity(), RequestHolder {
         qrScanActivityOpener = ActivityOpener.forResult(this)
         requestPermissionOpener = ActivityOpener.forPermission(this)
 
+        // 保活增强开启时：创建 Activity 即应用"最近任务隐藏"（参考 gkd 方案）
+        applyExcludeFromRecents(settingStore.hideFromRecents)
+
         setContent {
             globalNavController = rememberNavController()
             coroutineScope = rememberCoroutineScope()
@@ -207,6 +213,7 @@ class MainActivity : AppCompatActivity(), RequestHolder {
             SideEffect {
                 coroutineScope.launch {
                     pushDeerViewModel.loginWithApple(onReturn = {
+                        PollingService.start(this@MainActivity)
                         globalNavController.navigate("main") {
                             globalNavController.popBackStack()
                         }
@@ -239,8 +246,37 @@ class MainActivity : AppCompatActivity(), RequestHolder {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // 登录态被清除（如失效自检触发）时，回到登录页
+        try {
+            if (settingStore.userToken.isEmpty() &&
+                globalNavController.currentDestination?.route == "main"
+            ) {
+                globalNavController.navigate("login") {
+                    globalNavController.popBackStack()
+                }
+            }
+        } catch (e: Exception) {
+            Log.d("WH_", "onResume login check: ")
+        }
+    }
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(wxRegReceiver)
+    }
+
+    /**
+     * 参考 gkd-kit/gkd 的隐藏方案：
+     * 在 Activity 创建时（而非退出时）对本应用所有任务应用"最近任务隐藏"，
+     * 避免退出时隐藏导致从桌面图标打开白屏。
+     */
+    fun applyExcludeFromRecents(exclude: Boolean) {
+        try {
+            val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            am.appTasks.forEach { task -> task.setExcludeFromRecents(exclude) }
+        } catch (e: Exception) {
+            Log.d("WH_", "applyExcludeFromRecents: ${e.localizedMessage}")
+        }
     }
 }

@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pushdeer.os.R
+import com.pushdeer.os.MainActivity
 import com.pushdeer.os.data.api.data.response.UserInfo
 import com.pushdeer.os.holder.RequestHolder
 import com.pushdeer.os.ui.compose.componment.SettingItem
@@ -73,6 +74,7 @@ fun SettingPage(requestHolder: RequestHolder) {
                                 .filter { it.device_id == requestHolder.settingStore.thisDeviceId }
                                 .forEach { requestHolder.device.deviceRemove(it) }
                             requestHolder.settingStore.userToken = ""
+                            requestHolder.pushDeerViewModel.token = ""  // 同时清空内存登录态，否则重新登录会被旧token短路
                             requestHolder.globalNavController.navigate("login") {
                                 requestHolder.globalNavController.popBackStack()
                                 requestHolder.pushDeerViewModel.userInfo = UserInfo()
@@ -240,7 +242,174 @@ fun SettingPage(requestHolder: RequestHolder) {
                     }
                 }
             }
-        }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            item {
+                var keepAliveEnabled by remember {
+                    mutableStateOf(requestHolder.settingStore.keepAliveEnabled)
+                }
+
+                val kBg by animateColorAsState(
+                    targetValue = if (keepAliveEnabled) MaterialTheme.colors.MBlue else Color.Transparent
+                )
+                val kBd by animateColorAsState(targetValue = if (!keepAliveEnabled) MaterialTheme.colors.MBlue else Color.Transparent)
+                val kFg by animateColorAsState(targetValue = if (keepAliveEnabled) Color.White else MaterialTheme.colors.MBlue)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .border(1.dp, color = kBd, shape = RoundedCornerShape(10.dp))
+                        .clickable {
+                            keepAliveEnabled = !keepAliveEnabled
+                            requestHolder.settingStore.keepAliveEnabled = keepAliveEnabled
+                        },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .weight(0.7F)
+                            .height(60.dp)
+                            .background(color = kBg, shape = RoundedCornerShape(10.dp)),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "保活增强", color = kFg, fontSize = 18.sp)
+                        AnimatedVisibility(visible = keepAliveEnabled) {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = "",
+                                tint = kFg
+                            )
+                        }
+                    }
+                    AnimatedVisibility(visible = !keepAliveEnabled) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "",
+                            tint = kFg,
+                            modifier = Modifier.padding(horizontal = 22.dp)
+                        )
+                    }
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            item {
+                var hideFromRecents by remember {
+                    mutableStateOf(requestHolder.settingStore.hideFromRecents)
+                }
+
+                val hBg by animateColorAsState(
+                    targetValue = if (hideFromRecents) MaterialTheme.colors.MBlue else Color.Transparent
+                )
+                val hBd by animateColorAsState(targetValue = if (!hideFromRecents) MaterialTheme.colors.MBlue else Color.Transparent)
+                val hFg by animateColorAsState(targetValue = if (hideFromRecents) Color.White else MaterialTheme.colors.MBlue)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .border(1.dp, color = hBd, shape = RoundedCornerShape(10.dp))
+                        .clickable {
+                            hideFromRecents = !hideFromRecents
+                            requestHolder.settingStore.hideFromRecents = hideFromRecents
+                            // 即时应用最近任务隐藏（参考 gkd 方案）
+                            (requestHolder.myActivity as? MainActivity)
+                                ?.applyExcludeFromRecents(hideFromRecents)
+                        },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        modifier = Modifier
+                            .weight(0.7F)
+                            .height(60.dp)
+                            .background(color = hBg, shape = RoundedCornerShape(10.dp)),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Text(text = "隐藏最近任务", color = hFg, fontSize = 18.sp)
+                        AnimatedVisibility(visible = hideFromRecents) {
+                            Icon(
+                                imageVector = Icons.Default.Check,
+                                contentDescription = "",
+                                tint = hFg
+                            )
+                        }
+                    }
+                    AnimatedVisibility(visible = !hideFromRecents) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "",
+                            tint = hFg,
+                            modifier = Modifier.padding(horizontal = 22.dp)
+                        )
+                    }
+                }
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            item {
+                var intervalSec by remember {
+                    mutableStateOf(requestHolder.settingStore.pollIntervalSeconds)
+                }
+                var showIntervalDialog by remember { mutableStateOf(false) }
+                val intervalOptions = listOf(
+                    30 to "30秒", 60 to "1分钟", 180 to "3分钟", 300 to "5分钟",
+                    600 to "10分钟", 1800 to "30分钟", 3600 to "1小时",
+                    10800 to "3小时", 21600 to "6小时"
+                )
+                val currentLabel = intervalOptions
+                    .firstOrNull { it.first == intervalSec }?.second ?: "${intervalSec}秒"
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .border(1.dp, color = MaterialTheme.colors.MBlue, shape = RoundedCornerShape(10.dp))
+                        .clickable { showIntervalDialog = true },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "轮询间隔：$currentLabel",
+                        color = MaterialTheme.colors.MBlue,
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                }
+                if (showIntervalDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showIntervalDialog = false },
+                        title = { Text("轮询间隔") },
+                        text = {
+                            Column {
+                                intervalOptions.forEach { (sec, label) ->
+                                    Text(
+                                        text = if (sec == intervalSec) "$label ✓" else label,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .clickable {
+                                                intervalSec = sec
+                                                requestHolder.settingStore.pollIntervalSeconds = sec
+                                                showIntervalDialog = false
+                                            }
+                                            .padding(vertical = 12.dp)
+                                    )
+                                }
+                            }
+                        },
+                        confirmButton = {},
+                        dismissButton = {
+                            TextButton(onClick = { showIntervalDialog = false }) {
+                                Text("取消", color = Color(0xFF3B4789))
+                            }
+                        }
+                    )
+                }
+            }        }
     }
 }
 
