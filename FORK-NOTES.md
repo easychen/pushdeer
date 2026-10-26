@@ -71,6 +71,27 @@ $p = ".\build.ps1"; [IO.File]::WriteAllText($p, [IO.File]::ReadAllText($p, [Text
 
 上游 LICENSE 只有一行：**禁止商用**（包括搭建后挂广告或售卖会员、打包后上架商店销售等），非商业用途采用 GPLv2。这个 fork 沿用同一许可，自用可以，别打包上架商店。
 
+## 发布到自己的仓库
+
+当前这份是**浅克隆**（`--depth 1`），直接 push 会被拒（`shallow update not allowed`），先补全历史：
+
+```powershell
+git fetch --unshallow origin                                    # 1) 补成完整历史
+git remote rename origin upstream                               # 2) 原上游改名 upstream
+git remote add origin https://gitee.com/<你的名字>/pushdeer.git  # 3) origin 指向自己的仓库
+git push -u origin main                                         # 4) 推上去
+git tag -a v1.1-alpha-11 -m "polling + local notification"      # 5) 可选打标签
+git push origin v1.1-alpha-11
+```
+
+如果 `--unshallow` 因为网络失败，用仓库旁的补丁在新克隆里重放：
+
+```powershell
+git clone https://gitee.com/<你的名字>/pushdeer.git
+cd pushdeer
+git am ..\pushdeer-fork-patches\*.patch
+```
+
 ## 同步上游
 
 ```powershell
