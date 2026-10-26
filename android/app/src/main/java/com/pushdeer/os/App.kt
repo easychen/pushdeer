@@ -6,7 +6,7 @@ import com.pushdeer.os.data.database.AppDatabase
 import com.pushdeer.os.factory.ViewModelFactory
 import com.pushdeer.os.keeper.RepositoryKeeper
 import com.pushdeer.os.keeper.StoreKeeper
-import com.pushdeer.os.util.MiPushUtils
+import com.pushdeer.os.service.PollingService
 import com.pushdeer.os.values.AppKeys
 import com.tencent.mm.opensdk.openapi.IWXAPI
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
@@ -27,6 +27,7 @@ class App : Application() {
             .build()
             .create(PushDeerApi::class.java)
     }
+    val apiService: PushDeerApi get() = pushDeerService
     val viewModelFactory by lazy {
         ViewModelFactory(
             repositoryKeeper,
@@ -39,8 +40,10 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        //初始化push推送服务
-        MiPushUtils.autoInit(this,repositoryKeeper)
+        // 已登录则启动后台轮询服务（替代废弃的小米推送）
+        if (storeKeeper.settingStore.userToken.isNotEmpty()) {
+            PollingService.start(this)
+        }
     }
 
 
