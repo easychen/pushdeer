@@ -58,7 +58,7 @@ $p = ".\build.ps1"; [IO.File]::WriteAllText($p, [IO.File]::ReadAllText($p, [Text
 
 ## 版本号约定
 
-- `versionName` 在 `android/app/build.gradle`，当前 `1.2-alpha-12`。
+- `versionName` 在 `android/app/build.gradle`，当前 `2.0-alpha-12`。
 - `versionCode` 保持 15：既方便覆盖安装，也方便回退到旧包（versionCode 一旦提高，旧包就装不回去了）。
 - 发布文件名按 `PushDeer-轮询通知版-<versionName>.apk`，历史包放 `发布\旧版本\`。
 
@@ -81,8 +81,8 @@ git fetch --unshallow origin                                    # 1) 补成完�
 git remote rename origin upstream                               # 2) 原上游改名 upstream
 git remote add origin https://gitee.com/<你的名字>/pushdeer.git  # 3) origin 指向自己的仓库
 git push -u origin main                                         # 4) 推上去
-git tag -a v1.2-alpha-12 -m "failure reminder"      # 5) 可选打标签
-git push origin v1.2-alpha-12
+git tag -a v2.0-alpha-12 -m "failure reminder"      # 5) 可选打标签
+git push origin v2.0-alpha-12
 ```
 
 如果 `--unshallow` 因为网络失败，用仓库旁的补丁在新克隆里重放：
