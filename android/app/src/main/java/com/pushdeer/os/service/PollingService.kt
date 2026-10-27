@@ -35,7 +35,15 @@ class PollingService : Service() {
         private const val TAG = "PollingService"
         private const val SERVICE_NOTIFICATION_ID = 1001
         private const val MESSAGE_NOTIFICATION_ID = 1002
+        private const val FAILURE_REMIND_NOTIFICATION_ID = 1003
         private const val SERVICE_CHANNEL_ID = "polling_service"
+
+        // 失败提醒的检查节拍（60 秒一次，与轮询间隔无关，保证提醒按小时准点）
+        private const val FAILURE_CHECK_INTERVAL_MS = 60_000L
+
+        // 关键字：命中失败词进入失败状态；命中成功词退出
+        private val FAILURE_KEYWORDS = listOf("失败", "失效")
+        private const val SUCCESS_KEYWORD = "成功"
 
         fun start(context: Context) {
             val intent = Intent(context, PollingService::class.java)
@@ -85,6 +93,18 @@ class PollingService : Service() {
                 }
             }
         }
+
+        // 失败提醒：独立节拍检查，不受轮询间隔影响（轮询可能设成 6 小时）
+        scope.launch {
+            while (isActive) {
+                delay(FAILURE_CHECK_INTERVAL_MS)
+                try {
+                    checkFailureReminder()
+                } catch (e: Exception) {
+                    // 忽略，下一拍再试
+                }
+            }
+        }
     }
 
     private suspend fun poll() {
@@ -112,9 +132,94 @@ class PollingService : Service() {
         val news = messages.filter { it.id > lastMaxId }.sortedBy { it.id }
         for (m in news) {
             showNotification(m)
+            updateFailureState(m)
             messageRepository.insert(m)
         }
         lastMaxId = newMax
+    }
+
+    /**
+     * 关键字驱动的失败提醒状态机：
+     * - 命中「失败」「失效」→ 进入（或刷新）失败状态，从此刻开始计时
+     * - 命中「成功」→ 退出失败状态，停止后续提醒
+     * 状态存进 SettingStore，进程被杀重启后仍然有效。
+     */
+    private fun updateFailureState(message: Message) {
+        val raw = listOfNotNull(message.text, message.desp)
+            .joinToString(" ")
+            .trim()
+        if (raw.isEmpty()) return
+
+        if (raw.contains(SUCCESS_KEYWORD)) {
+            clearFailureState()
+            return
+        }
+        if (FAILURE_KEYWORDS.none { raw.contains(it) }) return
+
+        val now = System.currentTimeMillis()
+        settingStore.failureSince = now
+        // 触发的那条推送本身已经弹过通知，所以提醒计时从此刻开始
+        settingStore.failureLastNotifyAt = now
+        settingStore.failureMessage = raw.take(80)
+    }
+
+    private fun clearFailureState() {
+        settingStore.failureSince = 0L
+        settingStore.failureLastNotifyAt = 0L
+        settingStore.failureMessage = ""
+    }
+
+    /**
+     * 如果处于失败状态且距上次提醒已超过设定间隔，就再提醒一次。
+     * 间隔在设置页可选 1/3/6 小时，0 表示关闭。
+     */
+    private fun checkFailureReminder() {
+        val hours = settingStore.failureRemindHours
+        if (hours <= 0) return
+        val since = settingStore.failureSince
+        if (since <= 0L) return
+
+        val now = System.currentTimeMillis()
+        val intervalMs = hours * 60L * 60L * 1000L
+        if (now - settingStore.failureLastNotifyAt < intervalMs) return
+
+        settingStore.failureLastNotifyAt = now
+        showFailureReminderNotification(hours, since, now)
+    }
+
+    private fun showFailureReminderNotification(hours: Int, since: Long, now: Long) {
+        val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val elapsedMin = (now - since) / 60_000L
+        val elapsed = when {
+            elapsedMin < 60 -> "$elapsedMin 分钟"
+            elapsedMin < 24 * 60 -> "${elapsedMin / 60} 小时"
+            else -> "${elapsedMin / (24 * 60)} 天"
+        }
+        val reason = settingStore.failureMessage
+        val text = if (reason.isEmpty()) {
+            "已持续 $elapsed，每 $hours 小时提醒一次；收到含「成功」的推送后停止"
+        } else {
+            "已持续 $elapsed · 触发消息：$reason"
+        }
+
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        val pi = PendingIntent.getActivity(
+            this,
+            9002,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+        val notification = Notification.Builder(this, NotificationUtil.HIGH_CHANNEL_ID)
+            .setContentTitle("推送提示：仍处于失败状态")
+            .setContentText(text)
+            .setStyle(Notification.BigTextStyle().bigText(text))
+            .setSmallIcon(android.R.drawable.stat_sys_warning)
+            .setAutoCancel(true)
+            .setContentIntent(pi)
+            .build()
+        nm.notify(FAILURE_REMIND_NOTIFICATION_ID, notification)
     }
 
     /**

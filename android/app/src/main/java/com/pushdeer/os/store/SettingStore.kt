@@ -35,4 +35,17 @@ class SettingStore(context: Context) {
 
     // 轮询间隔（秒）：30/60/180/300/600/1800/3600/10800/21600，默认300（5分钟）
     var pollIntervalSeconds by store.int("poll-interval-seconds", 300)
+
+    // 失败提醒间隔（小时）：0=关闭，1/3/6 可选，默认 3
+    // 收到含"失败"或"失效"的推送后进入失败状态，按此间隔重复提醒；收到含"成功"的推送则停止
+    var failureRemindHours by store.int("failure-remind-hours", 3)
+
+    // 失败状态起始时间（毫秒）；0 表示当前没有失败状态
+    var failureSince by store.long("failure-since", 0L)
+
+    // 最近一次失败提醒通知的时间（毫秒）
+    var failureLastNotifyAt by store.long("failure-last-notify-at", 0L)
+
+    // 触发失败状态的那条消息摘要（用于提醒通知正文）
+    var failureMessage by store.string("failure-message", "")
 }

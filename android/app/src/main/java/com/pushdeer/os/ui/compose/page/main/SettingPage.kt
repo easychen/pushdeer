@@ -409,6 +409,73 @@ fun SettingPage(requestHolder: RequestHolder) {
                         }
                     )
                 }
+            }
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            item {
+                var remindHours by remember {
+                    mutableStateOf(requestHolder.settingStore.failureRemindHours)
+                }
+                var showRemindDialog by remember { mutableStateOf(false) }
+                val remindOptions = listOf(
+                    0 to "关闭", 1 to "1小时", 3 to "3小时", 6 to "6小时"
+                )
+                val remindLabel = remindOptions
+                    .firstOrNull { it.first == remindHours }?.second ?: "${remindHours}小时"
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(60.dp)
+                        .border(1.dp, color = MaterialTheme.colors.MBlue, shape = RoundedCornerShape(10.dp))
+                        .clickable { showRemindDialog = true },
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "失败提醒：$remindLabel",
+                        color = MaterialTheme.colors.MBlue,
+                        fontSize = 18.sp,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                }
+                if (showRemindDialog) {
+                    AlertDialog(
+                        onDismissRequest = { showRemindDialog = false },
+                        title = { Text("失败提醒") },
+                        text = {
+                            Column {
+                                remindOptions.forEach { (hours, label) ->
+                                    Text(
+                                        text = if (hours == remindHours) "$label ✓" else label,
+                                        fontSize = 18.sp,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .clickable {
+                                                remindHours = hours
+                                                requestHolder.settingStore.failureRemindHours = hours
+                                                showRemindDialog = false
+                                            }
+                                            .padding(vertical = 12.dp)
+                                    )
+                                }
+                            }
+                        },
+                        confirmButton = {},
+                        dismissButton = {
+                            TextButton(onClick = { showRemindDialog = false }) {
+                                Text("取消", color = Color(0xFF3B4789))
+                            }
+                        }
+                    )
+                }
+            }
+            item {
+                Text(
+                    text = "收到含「失败」「失效」的推送后，按上面的间隔重复提醒；收到含「成功」的推送自动停止。",
+                    fontSize = 14.sp,
+                    color = Color(0xFF888888),
+                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)
+                )
             }        }
     }
 }
