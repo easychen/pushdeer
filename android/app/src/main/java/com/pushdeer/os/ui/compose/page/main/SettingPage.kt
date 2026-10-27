@@ -43,6 +43,10 @@ fun SettingPage(requestHolder: RequestHolder) {
             mutableStateOf(false)
         }
 
+        // 两个分组的展开状态提到最外层：列表滚动时 item 会被回收，放在 item 里会莫名收起
+        var keepAliveExpanded by remember { mutableStateOf(false) }
+        var otherExpanded by remember { mutableStateOf(false) }
+
         LaunchedEffect(Unit) {
             requestHolder.coroutineScope.launch {
                 delay(300)
@@ -159,41 +163,8 @@ fun SettingPage(requestHolder: RequestHolder) {
                     }
                 }
             }
-//            item {
-//                SettingItem(
-//                    text = "Customize Server",
-//                    buttonString = "Scan QR"
-//                ) {
-//                    requestHolder.startQrScanActivity()
-//                }
-//            }
-            item {
-                SettingItem(
-                    text = stringResource(id = R.string.main_setting_douyoulike),
-                    buttonString = stringResource(id = R.string.main_setting_btn_like)
-                ) {
-                    val uri = Uri.parse("market://details?id=com.pushdeer.os")
-                    Intent(Intent.ACTION_VIEW, uri).apply {
-                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    }.let {
-                        try {
-                            requestHolder.myActivity.startActivity(it)
-                        } catch (e: Exception) {
-                            Log.d("WH_", "SettingPage: ${e.localizedMessage}")
-//                            requestHolder.logDogViewModel
-                        }
-                    }
-                }
-            }
 
-            item {
-                SettingItem(
-                    text = stringResource(id = R.string.main_setting_logdog),
-                    buttonString = stringResource(id = R.string.main_setting_logdog_open)
-                ) {
-                    requestHolder.globalNavController.navigate("logdog")
-                }
-            }
+            // 原版自带的 Use Inner WebView 开关，保持原位置（重度用户偶尔要用）
             item {
                 var useInnerWebView by remember {
                     mutableStateOf(requestHolder.settingStore.useInnerWebView)
@@ -223,7 +194,7 @@ fun SettingPage(requestHolder: RequestHolder) {
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        Text(text = "Use Inner WebView", color = fgc,fontSize = 18.sp)
+                        Text(text = "Use Inner WebView", color = fgc, fontSize = 18.sp)
                         AnimatedVisibility(visible = useInnerWebView) {
                             Icon(
                                 imageVector = Icons.Default.Check,
@@ -242,241 +213,313 @@ fun SettingPage(requestHolder: RequestHolder) {
                     }
                 }
             }
+
             item {
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
+            // ===== 分组一：保活增强（内含「开机自启/网络自愈」与「隐藏最近任务」） =====
             item {
-                var keepAliveEnabled by remember {
-                    mutableStateOf(requestHolder.settingStore.keepAliveEnabled)
-                }
-
-                val kBg by animateColorAsState(
-                    targetValue = if (keepAliveEnabled) MaterialTheme.colors.MBlue else Color.Transparent
-                )
-                val kBd by animateColorAsState(targetValue = if (!keepAliveEnabled) MaterialTheme.colors.MBlue else Color.Transparent)
-                val kFg by animateColorAsState(targetValue = if (keepAliveEnabled) Color.White else MaterialTheme.colors.MBlue)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .border(1.dp, color = kBd, shape = RoundedCornerShape(10.dp))
-                        .clickable {
-                            keepAliveEnabled = !keepAliveEnabled
-                            requestHolder.settingStore.keepAliveEnabled = keepAliveEnabled
-                        },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .weight(0.7F)
-                            .height(60.dp)
-                            .background(color = kBg, shape = RoundedCornerShape(10.dp)),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
+                Column {
+                    SettingGroupHeader(
+                        title = "保活增强",
+                        expanded = keepAliveExpanded,
+                        onToggle = { keepAliveExpanded = !keepAliveExpanded }
+                    )
+                    AnimatedVisibility(
+                        visible = keepAliveExpanded,
+                        enter = fadeIn() + expandVertically(),
+                        exit = fadeOut() + shrinkVertically()
                     ) {
-                        Text(text = "保活增强", color = kFg, fontSize = 18.sp)
-                        AnimatedVisibility(visible = keepAliveEnabled) {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = "",
-                                tint = kFg
+                        Column {
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            var keepAliveEnabled by remember {
+                                mutableStateOf(requestHolder.settingStore.keepAliveEnabled)
+                            }
+                            SettingToggleRow(
+                                label = "开机自启 / 网络自愈",
+                                checked = keepAliveEnabled,
+                                onChange = { enabled ->
+                                    keepAliveEnabled = enabled
+                                    requestHolder.settingStore.keepAliveEnabled = enabled
+                                }
+                            )
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            var hideFromRecents by remember {
+                                mutableStateOf(requestHolder.settingStore.hideFromRecents)
+                            }
+                            SettingToggleRow(
+                                label = "隐藏最近任务",
+                                checked = hideFromRecents,
+                                onChange = { enabled ->
+                                    hideFromRecents = enabled
+                                    requestHolder.settingStore.hideFromRecents = enabled
+                                    // 即时应用最近任务隐藏（参考 gkd 方案）
+                                    (requestHolder.myActivity as? MainActivity)
+                                        ?.applyExcludeFromRecents(enabled)
+                                }
                             )
                         }
                     }
-                    AnimatedVisibility(visible = !keepAliveEnabled) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "",
-                            tint = kFg,
-                            modifier = Modifier.padding(horizontal = 22.dp)
-                        )
-                    }
                 }
             }
+
             item {
                 Spacer(modifier = Modifier.height(16.dp))
             }
 
+            // ===== 分组二：其他设置（内含「轮询间隔」与「失败提醒」） =====
             item {
-                var hideFromRecents by remember {
-                    mutableStateOf(requestHolder.settingStore.hideFromRecents)
-                }
-
-                val hBg by animateColorAsState(
-                    targetValue = if (hideFromRecents) MaterialTheme.colors.MBlue else Color.Transparent
-                )
-                val hBd by animateColorAsState(targetValue = if (!hideFromRecents) MaterialTheme.colors.MBlue else Color.Transparent)
-                val hFg by animateColorAsState(targetValue = if (hideFromRecents) Color.White else MaterialTheme.colors.MBlue)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .border(1.dp, color = hBd, shape = RoundedCornerShape(10.dp))
-                        .clickable {
-                            hideFromRecents = !hideFromRecents
-                            requestHolder.settingStore.hideFromRecents = hideFromRecents
-                            // 即时应用最近任务隐藏（参考 gkd 方案）
-                            (requestHolder.myActivity as? MainActivity)
-                                ?.applyExcludeFromRecents(hideFromRecents)
-                        },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .weight(0.7F)
-                            .height(60.dp)
-                            .background(color = hBg, shape = RoundedCornerShape(10.dp)),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
+                Column {
+                    SettingGroupHeader(
+                        title = "其他设置",
+                        expanded = otherExpanded,
+                        onToggle = { otherExpanded = !otherExpanded }
+                    )
+                    AnimatedVisibility(
+                        visible = otherExpanded,
+                        enter = fadeIn() + expandVertically(),
+                        exit = fadeOut() + shrinkVertically()
                     ) {
-                        Text(text = "隐藏最近任务", color = hFg, fontSize = 18.sp)
-                        AnimatedVisibility(visible = hideFromRecents) {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = "",
-                                tint = hFg
+                        Column {
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            // 轮询间隔
+                            var intervalSec by remember {
+                                mutableStateOf(requestHolder.settingStore.pollIntervalSeconds)
+                            }
+                            var showIntervalDialog by remember { mutableStateOf(false) }
+                            val intervalOptions = listOf(
+                                30 to "30秒", 60 to "1分钟", 180 to "3分钟", 300 to "5分钟",
+                                600 to "10分钟", 1800 to "30分钟", 3600 to "1小时",
+                                10800 to "3小时", 21600 to "6小时"
+                            )
+                            val currentLabel = intervalOptions
+                                .firstOrNull { it.first == intervalSec }?.second ?: "${intervalSec}秒"
+                            SettingChoiceRow(text = "轮询间隔：$currentLabel") {
+                                showIntervalDialog = true
+                            }
+                            if (showIntervalDialog) {
+                                AlertDialog(
+                                    onDismissRequest = { showIntervalDialog = false },
+                                    title = { Text("轮询间隔") },
+                                    text = {
+                                        Column {
+                                            intervalOptions.forEach { (sec, label) ->
+                                                Text(
+                                                    text = if (sec == intervalSec) "$label ✓" else label,
+                                                    fontSize = 18.sp,
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .clickable {
+                                                            intervalSec = sec
+                                                            requestHolder.settingStore.pollIntervalSeconds = sec
+                                                            showIntervalDialog = false
+                                                        }
+                                                        .padding(vertical = 12.dp)
+                                                )
+                                            }
+                                        }
+                                    },
+                                    confirmButton = {},
+                                    dismissButton = {
+                                        TextButton(onClick = { showIntervalDialog = false }) {
+                                            Text("取消", color = Color(0xFF3B4789))
+                                        }
+                                    }
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            // 失败提醒
+                            var remindHours by remember {
+                                mutableStateOf(requestHolder.settingStore.failureRemindHours)
+                            }
+                            var showRemindDialog by remember { mutableStateOf(false) }
+                            val remindOptions = listOf(
+                                0 to "关闭", 1 to "1小时", 3 to "3小时", 6 to "6小时"
+                            )
+                            val remindLabel = remindOptions
+                                .firstOrNull { it.first == remindHours }?.second ?: "${remindHours}小时"
+                            SettingChoiceRow(text = "失败提醒：$remindLabel") {
+                                showRemindDialog = true
+                            }
+                            if (showRemindDialog) {
+                                AlertDialog(
+                                    onDismissRequest = { showRemindDialog = false },
+                                    title = { Text("失败提醒") },
+                                    text = {
+                                        Column {
+                                            remindOptions.forEach { (hours, label) ->
+                                                Text(
+                                                    text = if (hours == remindHours) "$label ✓" else label,
+                                                    fontSize = 18.sp,
+                                                    modifier = Modifier
+                                                        .fillMaxWidth()
+                                                        .clickable {
+                                                            remindHours = hours
+                                                            requestHolder.settingStore.failureRemindHours = hours
+                                                            showRemindDialog = false
+                                                        }
+                                                        .padding(vertical = 12.dp)
+                                                )
+                                            }
+                                        }
+                                    },
+                                    confirmButton = {},
+                                    dismissButton = {
+                                        TextButton(onClick = { showRemindDialog = false }) {
+                                            Text("取消", color = Color(0xFF3B4789))
+                                        }
+                                    }
+                                )
+                            }
+
+                            Text(
+                                text = "收到含「失败」「失效」的推送后，按上面的间隔重复提醒；收到含「成功」的推送自动停止。",
+                                fontSize = 14.sp,
+                                color = Color(0xFF888888),
+                                modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)
                             )
                         }
                     }
-                    AnimatedVisibility(visible = !hideFromRecents) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "",
-                            tint = hFg,
-                            modifier = Modifier.padding(horizontal = 22.dp)
-                        )
+                }
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+
+            // ===== 原版条目：喜欢 PushDeer 吗 / LogDog 移到底部 =====
+            item {
+                SettingItem(
+                    text = stringResource(id = R.string.main_setting_douyoulike),
+                    buttonString = stringResource(id = R.string.main_setting_btn_like)
+                ) {
+                    val uri = Uri.parse("market://details?id=com.pushdeer.os")
+                    Intent(Intent.ACTION_VIEW, uri).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    }.let {
+                        try {
+                            requestHolder.myActivity.startActivity(it)
+                        } catch (e: Exception) {
+                            Log.d("WH_", "SettingPage: ${e.localizedMessage}")
+                        }
                     }
                 }
             }
+
             item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            item {
-                var intervalSec by remember {
-                    mutableStateOf(requestHolder.settingStore.pollIntervalSeconds)
-                }
-                var showIntervalDialog by remember { mutableStateOf(false) }
-                val intervalOptions = listOf(
-                    30 to "30秒", 60 to "1分钟", 180 to "3分钟", 300 to "5分钟",
-                    600 to "10分钟", 1800 to "30分钟", 3600 to "1小时",
-                    10800 to "3小时", 21600 to "6小时"
-                )
-                val currentLabel = intervalOptions
-                    .firstOrNull { it.first == intervalSec }?.second ?: "${intervalSec}秒"
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .border(1.dp, color = MaterialTheme.colors.MBlue, shape = RoundedCornerShape(10.dp))
-                        .clickable { showIntervalDialog = true },
-                    verticalAlignment = Alignment.CenterVertically
+                SettingItem(
+                    text = stringResource(id = R.string.main_setting_logdog),
+                    buttonString = stringResource(id = R.string.main_setting_logdog_open)
                 ) {
-                    Text(
-                        text = "轮询间隔：$currentLabel",
-                        color = MaterialTheme.colors.MBlue,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-                }
-                if (showIntervalDialog) {
-                    AlertDialog(
-                        onDismissRequest = { showIntervalDialog = false },
-                        title = { Text("轮询间隔") },
-                        text = {
-                            Column {
-                                intervalOptions.forEach { (sec, label) ->
-                                    Text(
-                                        text = if (sec == intervalSec) "$label ✓" else label,
-                                        fontSize = 18.sp,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .clickable {
-                                                intervalSec = sec
-                                                requestHolder.settingStore.pollIntervalSeconds = sec
-                                                showIntervalDialog = false
-                                            }
-                                            .padding(vertical = 12.dp)
-                                    )
-                                }
-                            }
-                        },
-                        confirmButton = {},
-                        dismissButton = {
-                            TextButton(onClick = { showIntervalDialog = false }) {
-                                Text("取消", color = Color(0xFF3B4789))
-                            }
-                        }
-                    )
+                    requestHolder.globalNavController.navigate("logdog")
                 }
             }
-            item {
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-            item {
-                var remindHours by remember {
-                    mutableStateOf(requestHolder.settingStore.failureRemindHours)
-                }
-                var showRemindDialog by remember { mutableStateOf(false) }
-                val remindOptions = listOf(
-                    0 to "关闭", 1 to "1小时", 3 to "3小时", 6 to "6小时"
+        }
+    }
+}
+
+/**
+ * 分组标题行：点一下展开 / 收起下面的内容。
+ */
+@Composable
+private fun SettingGroupHeader(title: String, expanded: Boolean, onToggle: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .border(1.dp, color = MaterialTheme.colors.MBlue, shape = RoundedCornerShape(10.dp))
+            .clickable { onToggle() },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = title,
+            color = MaterialTheme.colors.MBlue,
+            fontSize = 18.sp,
+            modifier = Modifier
+                .weight(1f)
+                .padding(horizontal = 16.dp)
+        )
+        Text(
+            text = if (expanded) "收起 ▲" else "展开 ▼",
+            color = MaterialTheme.colors.MBlue,
+            fontSize = 14.sp,
+            modifier = Modifier.padding(end = 16.dp)
+        )
+    }
+}
+
+/**
+ * 开关行：沿用 App 原有的样式（蓝底 + 对勾 / 空框 + 叉号）。
+ */
+@Composable
+private fun SettingToggleRow(label: String, checked: Boolean, onChange: (Boolean) -> Unit) {
+    val bg by animateColorAsState(
+        targetValue = if (checked) MaterialTheme.colors.MBlue else Color.Transparent
+    )
+    val bd by animateColorAsState(targetValue = if (!checked) MaterialTheme.colors.MBlue else Color.Transparent)
+    val fg by animateColorAsState(targetValue = if (checked) Color.White else MaterialTheme.colors.MBlue)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .border(1.dp, color = bd, shape = RoundedCornerShape(10.dp))
+            .clickable { onChange(!checked) },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Row(
+            modifier = Modifier
+                .weight(0.7F)
+                .height(60.dp)
+                .background(color = bg, shape = RoundedCornerShape(10.dp)),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(text = label, color = fg, fontSize = 18.sp)
+            AnimatedVisibility(visible = checked) {
+                Icon(
+                    imageVector = Icons.Default.Check,
+                    contentDescription = "",
+                    tint = fg
                 )
-                val remindLabel = remindOptions
-                    .firstOrNull { it.first == remindHours }?.second ?: "${remindHours}小时"
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .border(1.dp, color = MaterialTheme.colors.MBlue, shape = RoundedCornerShape(10.dp))
-                        .clickable { showRemindDialog = true },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = "失败提醒：$remindLabel",
-                        color = MaterialTheme.colors.MBlue,
-                        fontSize = 18.sp,
-                        modifier = Modifier.padding(horizontal = 16.dp)
-                    )
-                }
-                if (showRemindDialog) {
-                    AlertDialog(
-                        onDismissRequest = { showRemindDialog = false },
-                        title = { Text("失败提醒") },
-                        text = {
-                            Column {
-                                remindOptions.forEach { (hours, label) ->
-                                    Text(
-                                        text = if (hours == remindHours) "$label ✓" else label,
-                                        fontSize = 18.sp,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .clickable {
-                                                remindHours = hours
-                                                requestHolder.settingStore.failureRemindHours = hours
-                                                showRemindDialog = false
-                                            }
-                                            .padding(vertical = 12.dp)
-                                    )
-                                }
-                            }
-                        },
-                        confirmButton = {},
-                        dismissButton = {
-                            TextButton(onClick = { showRemindDialog = false }) {
-                                Text("取消", color = Color(0xFF3B4789))
-                            }
-                        }
-                    )
-                }
             }
-            item {
-                Text(
-                    text = "收到含「失败」「失效」的推送后，按上面的间隔重复提醒；收到含「成功」的推送自动停止。",
-                    fontSize = 14.sp,
-                    color = Color(0xFF888888),
-                    modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp)
-                )
-            }        }
+        }
+        AnimatedVisibility(visible = !checked) {
+            Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = "",
+                tint = fg,
+                modifier = Modifier.padding(horizontal = 22.dp)
+            )
+        }
+    }
+}
+
+/**
+ * 选择行：右侧值由调用方拼进 label，点一下弹选择框。
+ */
+@Composable
+private fun SettingChoiceRow(text: String, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(60.dp)
+            .border(1.dp, color = MaterialTheme.colors.MBlue, shape = RoundedCornerShape(10.dp))
+            .clickable { onClick() },
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = text,
+            color = MaterialTheme.colors.MBlue,
+            fontSize = 18.sp,
+            modifier = Modifier.padding(horizontal = 16.dp)
+        )
     }
 }
 

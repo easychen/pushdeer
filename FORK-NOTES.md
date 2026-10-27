@@ -1,4 +1,4 @@
-# PushDeer Android · 自维护 Fork 说明
+﻿# PushDeer Android · 自维护 Fork 说明
 
 > 这不是官方仓库。上游是 [easychen/pushdeer](https://gitee.com/easychen/pushdeer)（GitHub 镜像：[easychen/pushdeer](https://github.com/easychen/pushdeer)）。
 > 这个 fork 只做一件事：**让 Android 端重新能收到通知**。
@@ -17,7 +17,7 @@ PushDeer 官方 Android 客户端依赖小米推送，而小米在 2022 年 6 �
 | 保活 | `service/PollingServiceStarter.kt`、`AndroidManifest.xml` | 开机自启、网络恢复重启；最近任务隐藏参考 [gkd-kit/gkd](https://github.com/gkd-kit/gkd) 的做法（`setExcludeFromRecents` 在 `onCreate` 应用），规避 ColorOS 上"退出后隐藏、再从图标启动白屏"的问题 |
 | 登录失效自检 | `service/PollingService.kt`、`MainActivity.kt` | 轮询连续 3 次接口异常判定会话过期：清登录态、弹通知、打开 App 回登录页 |
 | 失败提醒 | `service/PollingService.kt`、`store/SettingStore.kt`、`ui/compose/page/main/SettingPage.kt` | 收到含「失败」「失效」的推送后进入失败状态，按 1/3/6 小时（可关闭，默认 3 小时）重复提醒；收到含「成功」的推送自动退出。状态与时间戳存在 SettingStore，进程重启后仍然有效；提醒检查走独立的 60 秒节拍，不受轮询间隔影响 |
-| 设置页 | `ui/compose/page/main/SettingPage.kt`、`store/SettingStore.kt` | 新增「保活增强」「隐藏最近任务」两个开关，以及「轮询间隔」「失败提醒」两个选择项，沿用 App 自带的样式；顺带修掉"退出登录只清存储不清内存"导致的假登录 |
+| 设置页 | `ui/compose/page/main/SettingPage.kt`、`store/SettingStore.kt` | 设置页改成两个可折叠分组：「保活增强」（内含「开机自启 / 网络自愈」「隐藏最近任务」）和「其他设置」（内含「轮询间隔」「失败提醒」），原版的「喜欢 PushDeer 吗」「LogDog」移到底部；沿用 App 自带开关样式；顺带修掉"退出登录只清存储不清内存"导致的假登录 |
 | 构建 | `gradle.properties`、`gradle/wrapper/gradle-wrapper.properties` | Gradle 7.0.2 → 7.3.3（兼容 JDK 17 环境）、kapt 在 Java 9+ 需要 `--add-exports` |
 
 未改动：服务端、iOS 端、快应用端、MI push 相关代码（保留原逻辑，只是不再依赖它）。
@@ -58,7 +58,7 @@ $p = ".\build.ps1"; [IO.File]::WriteAllText($p, [IO.File]::ReadAllText($p, [Text
 
 ## 版本号约定
 
-- `versionName` 在 `android/app/build.gradle`，当前 `2.0-alpha-12`。
+- `versionName` 在 `android/app/build.gradle`，当前 `2.1-alpha-13`。
 - `versionCode` 保持 15：既方便覆盖安装，也方便回退到旧包（versionCode 一旦提高，旧包就装不回去了）。
 - 发布文件名按 `PushDeer-轮询通知版-<versionName>.apk`，历史包放 `发布\旧版本\`。
 
@@ -81,8 +81,8 @@ git fetch --unshallow origin                                    # 1) 补成完�
 git remote rename origin upstream                               # 2) 原上游改名 upstream
 git remote add origin https://gitee.com/<你的名字>/pushdeer.git  # 3) origin 指向自己的仓库
 git push -u origin main                                         # 4) 推上去
-git tag -a v2.0-alpha-12 -m "failure reminder"      # 5) 可选打标签
-git push origin v2.0-alpha-12
+git tag -a v2.1-alpha-13 -m "settings groups"      # 5) 可选打标签
+git push origin v2.1-alpha-13
 ```
 
 如果 `--unshallow` 因为网络失败，用仓库旁的补丁在新克隆里重放：
