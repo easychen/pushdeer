@@ -1,4 +1,4 @@
-# PushDeer · 自维护 Android 版
+# PushDeer · 自用 Android 版
 
 > ⚠️ 这不是官方版本。原版 Android 端推送自 2022 年小米推送协议变更后已失效
 > （官方说明：只能等待 MQTT 版本），此 fork 改为「前台服务轮询 + 本地通知」，
