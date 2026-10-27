@@ -430,25 +430,36 @@ fun SettingPage(requestHolder: RequestHolder) {
  */
 @Composable
 private fun SettingGroupHeader(title: String, expanded: Boolean, onToggle: () -> Unit) {
+    // 展开时整行变成"开关打开"的深色样式（蓝底白字），收起时是蓝框空心
+    val bg by animateColorAsState(
+        targetValue = if (expanded) MaterialTheme.colors.MBlue else Color.Transparent
+    )
+    val bd by animateColorAsState(
+        targetValue = if (!expanded) MaterialTheme.colors.MBlue else Color.Transparent
+    )
+    val fg by animateColorAsState(
+        targetValue = if (expanded) Color.White else MaterialTheme.colors.MBlue
+    )
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(60.dp)
-            .border(1.dp, color = MaterialTheme.colors.MBlue, shape = RoundedCornerShape(10.dp))
+            .background(color = bg, shape = RoundedCornerShape(10.dp))
+            .border(1.dp, color = bd, shape = RoundedCornerShape(10.dp))
             .clickable { onToggle() },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = title,
-            color = MaterialTheme.colors.MBlue,
+            color = fg,
             fontSize = 18.sp,
             modifier = Modifier
                 .weight(1f)
                 .padding(horizontal = 16.dp)
         )
         Text(
-            text = if (expanded) "收起 ▲" else "展开 ▼",
-            color = MaterialTheme.colors.MBlue,
+            text = if (expanded) "▲" else "▼",
+            color = fg,
             fontSize = 14.sp,
             modifier = Modifier.padding(end = 16.dp)
         )
