@@ -171,23 +171,25 @@ class PollingService : Service() {
 
     /**
      * 如果处于失败状态且距上次提醒已超过设定间隔，就再提醒一次。
-     * 间隔在设置页可选 1/3/6 小时，0 表示关闭。
+     * 间隔在设置页可选：1分钟（测试用）/ 1小时 / 3小时 / 6小时，0 表示关闭。
+     * 存储用 -1 表示"1 分钟测试模式"，避免为测试再引入一个字段。
      */
     private fun checkFailureReminder() {
         val hours = settingStore.failureRemindHours
-        if (hours <= 0) return
+        if (hours == 0) return
         val since = settingStore.failureSince
         if (since <= 0L) return
 
         val now = System.currentTimeMillis()
-        val intervalMs = hours * 60L * 60L * 1000L
+        val intervalMs = if (hours < 0) 60_000L else hours * 60L * 60L * 1000L
         if (now - settingStore.failureLastNotifyAt < intervalMs) return
 
         settingStore.failureLastNotifyAt = now
-        showFailureReminderNotification(hours, since, now)
+        val intervalLabel = if (hours < 0) "1 分钟（测试）" else "$hours 小时"
+        showFailureReminderNotification(intervalLabel, since, now)
     }
 
-    private fun showFailureReminderNotification(hours: Int, since: Long, now: Long) {
+    private fun showFailureReminderNotification(intervalLabel: String, since: Long, now: Long) {
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val elapsedMin = (now - since) / 60_000L
         val elapsed = when {
@@ -197,7 +199,7 @@ class PollingService : Service() {
         }
         val reason = settingStore.failureMessage
         val text = if (reason.isEmpty()) {
-            "已持续 $elapsed，每 $hours 小时提醒一次；收到含「成功」的推送后停止"
+            "已持续 $elapsed，每 $intervalLabel 提醒一次；收到含「成功」的推送后停止"
         } else {
             "已持续 $elapsed · 触发消息：$reason"
         }

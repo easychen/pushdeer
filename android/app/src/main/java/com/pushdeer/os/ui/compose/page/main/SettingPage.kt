@@ -341,7 +341,9 @@ fun SettingPage(requestHolder: RequestHolder) {
                             }
                             var showRemindDialog by remember { mutableStateOf(false) }
                             val remindOptions = listOf(
-                                0 to "关闭", 1 to "1小时", 3 to "3小时", 6 to "6小时"
+                                0 to "关闭",
+                                -1 to "1分钟（测试用 费电）",
+                                1 to "1小时", 3 to "3小时", 6 to "6小时"
                             )
                             val remindLabel = remindOptions
                                 .firstOrNull { it.first == remindHours }?.second ?: "${remindHours}小时"
@@ -432,37 +434,43 @@ fun SettingPage(requestHolder: RequestHolder) {
 private fun SettingGroupHeader(title: String, expanded: Boolean, onToggle: () -> Unit) {
     // 展开时整行变成"开关打开"的深色样式（蓝底白字），收起时是蓝框空心
     val bg by animateColorAsState(
-        targetValue = if (expanded) MaterialTheme.colors.MBlue else Color.Transparent
+        targetValue = if (expanded) MaterialTheme.colors.MBlue else MaterialTheme.colors.surface
     )
     val bd by animateColorAsState(
-        targetValue = if (!expanded) MaterialTheme.colors.MBlue else Color.Transparent
+        targetValue = if (!expanded) MainBlue else Color.Transparent
     )
     val fg by animateColorAsState(
         targetValue = if (expanded) Color.White else MaterialTheme.colors.MBlue
     )
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .background(color = bg, shape = RoundedCornerShape(10.dp))
-            .border(1.dp, color = bd, shape = RoundedCornerShape(10.dp))
-            .clickable { onToggle() },
-        verticalAlignment = Alignment.CenterVertically
+    // 用 Card 包一层，和原版 SettingItem 一样有 5dp 投影（elevation）
+    Card(
+        elevation = 5.dp,
+        shape = RoundedCornerShape(8.dp),
+        backgroundColor = bg,
+        border = BorderStroke(1.dp, bd)
     ) {
-        Text(
-            text = title,
-            color = fg,
-            fontSize = 18.sp,
+        Row(
             modifier = Modifier
-                .weight(1f)
-                .padding(horizontal = 16.dp)
-        )
-        Text(
-            text = if (expanded) "▲" else "▼",
-            color = fg,
-            fontSize = 14.sp,
-            modifier = Modifier.padding(end = 16.dp)
-        )
+                .fillMaxWidth()
+                .height(60.dp)
+                .clickable { onToggle() },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = title,
+                color = fg,
+                fontSize = 18.sp,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 16.dp)
+            )
+            Text(
+                text = if (expanded) "▲" else "▼",
+                color = fg,
+                fontSize = 14.sp,
+                modifier = Modifier.padding(end = 16.dp)
+            )
+        }
     }
 }
 
@@ -474,40 +482,46 @@ private fun SettingToggleRow(label: String, checked: Boolean, onChange: (Boolean
     val bg by animateColorAsState(
         targetValue = if (checked) MaterialTheme.colors.MBlue else Color.Transparent
     )
-    val bd by animateColorAsState(targetValue = if (!checked) MaterialTheme.colors.MBlue else Color.Transparent)
+    val bd by animateColorAsState(targetValue = if (!checked) MainBlue else Color.Transparent)
     val fg by animateColorAsState(targetValue = if (checked) Color.White else MaterialTheme.colors.MBlue)
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .border(1.dp, color = bd, shape = RoundedCornerShape(10.dp))
-            .clickable { onChange(!checked) },
-        verticalAlignment = Alignment.CenterVertically
+    Card(
+        elevation = 5.dp,
+        shape = RoundedCornerShape(8.dp),
+        backgroundColor = MaterialTheme.colors.surface,
+        border = BorderStroke(1.dp, bd)
     ) {
         Row(
             modifier = Modifier
-                .weight(0.7F)
+                .fillMaxWidth()
                 .height(60.dp)
-                .background(color = bg, shape = RoundedCornerShape(10.dp)),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
+                .clickable { onChange(!checked) },
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(text = label, color = fg, fontSize = 18.sp)
-            AnimatedVisibility(visible = checked) {
+            Row(
+                modifier = Modifier
+                    .weight(0.7F)
+                    .height(60.dp)
+                    .background(color = bg, shape = RoundedCornerShape(8.dp)),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(text = label, color = fg, fontSize = 18.sp)
+                AnimatedVisibility(visible = checked) {
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = "",
+                        tint = fg
+                    )
+                }
+            }
+            AnimatedVisibility(visible = !checked) {
                 Icon(
-                    imageVector = Icons.Default.Check,
+                    imageVector = Icons.Default.Close,
                     contentDescription = "",
-                    tint = fg
+                    tint = fg,
+                    modifier = Modifier.padding(horizontal = 22.dp)
                 )
             }
-        }
-        AnimatedVisibility(visible = !checked) {
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = "",
-                tint = fg,
-                modifier = Modifier.padding(horizontal = 22.dp)
-            )
         }
     }
 }
@@ -517,20 +531,26 @@ private fun SettingToggleRow(label: String, checked: Boolean, onChange: (Boolean
  */
 @Composable
 private fun SettingChoiceRow(text: String, onClick: () -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp)
-            .border(1.dp, color = MaterialTheme.colors.MBlue, shape = RoundedCornerShape(10.dp))
-            .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically
+    Card(
+        elevation = 5.dp,
+        shape = RoundedCornerShape(8.dp),
+        backgroundColor = MaterialTheme.colors.surface,
+        border = BorderStroke(1.dp, MainBlue)
     ) {
-        Text(
-            text = text,
-            color = MaterialTheme.colors.MBlue,
-            fontSize = 18.sp,
-            modifier = Modifier.padding(horizontal = 16.dp)
-        )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .clickable { onClick() },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = text,
+                color = MaterialTheme.colors.MBlue,
+                fontSize = 18.sp,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
     }
 }
 
