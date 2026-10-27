@@ -164,56 +164,6 @@ fun SettingPage(requestHolder: RequestHolder) {
                 }
             }
 
-            // 原版自带的 Use Inner WebView 开关，保持原位置（重度用户偶尔要用）
-            item {
-                var useInnerWebView by remember {
-                    mutableStateOf(requestHolder.settingStore.useInnerWebView)
-                }
-
-                val bgc by animateColorAsState(
-                    targetValue = if (useInnerWebView) MaterialTheme.colors.MBlue else Color.Transparent
-                )
-                val bdc by animateColorAsState(targetValue = if (!useInnerWebView) MaterialTheme.colors.MBlue else Color.Transparent)
-                val fgc by animateColorAsState(targetValue = if (useInnerWebView) Color.White else MaterialTheme.colors.MBlue)
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(60.dp)
-                        .border(1.dp, color = bdc, shape = RoundedCornerShape(10.dp))
-                        .clickable {
-                            useInnerWebView = !useInnerWebView
-                            requestHolder.settingStore.useInnerWebView = useInnerWebView
-                        },
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .weight(0.7F)
-                            .height(60.dp)
-                            .background(color = bgc, shape = RoundedCornerShape(10.dp)),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-                        Text(text = "Use Inner WebView", color = fgc, fontSize = 18.sp)
-                        AnimatedVisibility(visible = useInnerWebView) {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = "",
-                                tint = fgc
-                            )
-                        }
-                    }
-                    AnimatedVisibility(visible = !useInnerWebView) {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "",
-                            tint = fgc,
-                            modifier = Modifier.padding(horizontal = 22.dp)
-                        )
-                    }
-                }
-            }
-
             item {
                 Spacer(modifier = Modifier.height(16.dp))
             }
@@ -285,6 +235,21 @@ fun SettingPage(requestHolder: RequestHolder) {
                         exit = fadeOut() + shrinkVertically()
                     ) {
                         Column {
+                            Spacer(modifier = Modifier.height(8.dp))
+
+                            // 原版自带的开关，挪进「其他设置」
+                            var useInnerWebView by remember {
+                                mutableStateOf(requestHolder.settingStore.useInnerWebView)
+                            }
+                            SettingToggleRow(
+                                label = "Use Inner WebView",
+                                checked = useInnerWebView,
+                                onChange = { enabled ->
+                                    useInnerWebView = enabled
+                                    requestHolder.settingStore.useInnerWebView = enabled
+                                }
+                            )
+
                             Spacer(modifier = Modifier.height(8.dp))
 
                             // 轮询间隔
