@@ -1,4 +1,7 @@
-FROM webdevops/php-apache:8.0
+# 基础镜像：默认是公开的 webdevops/php-apache:8.0（PHP 8.0.30，未打 CVE-2026-109618/109619 补丁）。
+# 生产环境请先按 docker/base-php80-cve/README.md 构建补丁镜像，再用 --build-arg BASE_IMAGE=<补丁镜像> 构建本镜像。
+ARG BASE_IMAGE=webdevops/php-apache:8.0
+FROM ${BASE_IMAGE}
 
 # 首先配置 vhost
 COPY vhost.conf /opt/docker/etc/httpd/vhost.conf

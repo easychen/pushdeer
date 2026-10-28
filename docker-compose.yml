@@ -14,7 +14,7 @@ services:
     ports:
       - '3306:3306' 
   redis: 
-    image: 'bitnami/redis:6.0.16'
+    image: 'bitnamilegacy/redis:6.0.16'
     healthcheck:
       test: ["CMD", "redis-cli","ping"]
     environment:
